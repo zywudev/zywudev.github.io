@@ -1,0 +1,886 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="贾小昆">
+  <meta name="keywords" content="">
+  <title>贾小昆</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/01/15/retrofit-analysis/">Retrofit 源码分析</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/01/15/retrofit-analysis/">
+          
+          
+            
+          
+          前面的文章我们分析了 OkHttp 的核心源码，而 Retrofit 与 OkHttp 的结合使用，也是目前主流的方式，这篇文章主要分析下目前 Android 最优秀的网络封装框架 Retrofit。
+在分析 Retrofit 源码之前，先看下 Retrofit 的简单使用。
+基本使用一般情况，Retrofit 的使用流程按照以下三步：
+1、将 HTTP API 定义成接口形式
+public in
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-01-15 10:08" pubdate>
+              2020-01-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android/">Android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">源码分析</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/01/07/my-2019/">我的 2019 年个人总结</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/01/07/my-2019/">
+          
+          
+            
+          
+          虽然 2020 年已经过去一周时间，但还是想记录一下我的 2019 年个人总结，复盘一下自己过去一年的工作、学习和生活状况。
+工作方面。
+年初面了几家心仪的公司，但没有得到想要的结果，认识到自身实力一般，而且外界的环境也不是很好，也就还在现在的公司继续干着。
+2018 年部门效益很差，那年年底还裁掉了一些同事。为了生存下来，2019 年整个团队像是在打一场战役，这一年大家都挺忙的，忙碌的时候加班比
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-01-07 09:37" pubdate>
+              2020-01-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2019/12/15/weekly-issue-6/">每周分享第 6 期</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/12/15/weekly-issue-6/">
+          
+          
+            
+          
+          这里记录过去一周，我看到的值得分享的内容。
+本周刊开源（GitHub: zywudev/weekly），欢迎投稿，或者推荐好玩的东西。
+
+(题图：Payson Wick)
+资源1、Python最佳实践指南
+《Python 开发最佳实践指南》，中文版开源电子书，翻译自英语原版。 
+2、微软 REST API 设计指南
+微软官方出品的 REST API 指导规范。
+3、Web 开发者 2020 年学习
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-12-15 14:44" pubdate>
+              2019-12-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2019/12/08/weekly-issue-5/">每周分享第 5 期</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/12/08/weekly-issue-5/">
+          
+          
+            
+          
+          这里记录过去一周，我看到的值得分享的内容。
+
+（题图：Duy Hoang）
+文章1、兽爷丨大象踩了他一脚
+大公司欺负员工真的是轻而易举，就像大象踩蚂蚁一样。
+2、华为做过的恶
+收集华为作过的恶，记录这些不应该被遗忘的历史。
+工具1、Snipaste 
+Snipaste 是一个简单但强大的截图工具，也可以让你将截图贴回到屏幕上！下载并打开 Snipaste，按下 F1 来开始截图，再按 F3，截图就
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-12-08 11:27" pubdate>
+              2019-12-08
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2019/12/02/android-interview-8-abstract-class-and-interface/">Android 面试题（8）：抽象类和接口的区别？</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/12/02/android-interview-8-abstract-class-and-interface/">
+          
+          
+            
+          
+          抽象类和接口的区别1、抽象类可以提供成员方法的实现细节，而接口中只能存在 public 抽象方法；
+接口在 Java 长达 20 多年的时间中，都只能拥有抽象方法，直到 JDK1.8 才能拥有实现的方法（还必须用default关键字修饰）
+2、抽象类中的成员变量可以是各种类型的，而接口中的成员变量只能是 public static final 类型的；
+3、接口中不能含有构造器、静态代码块以及静态
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-12-02 14:51" pubdate>
+              2019-12-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android%E9%9D%A2%E8%AF%95%E9%A2%98/">Android面试题</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Java-%E5%9F%BA%E7%A1%80/">Java 基础</a>
+            
+              <a href="/tags/Android%E9%9D%A2%E8%AF%95%E9%A2%98/">Android面试题</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2019/11/30/weekly-issue-4/">每周分享第 4 期</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/11/30/weekly-issue-4/">
+          
+          
+            
+          
+           这里记录过去一周，我看到的值得分享的内容。 
+
+（题图： Martin Schmidli ） 
+文章1、和死神赛跑：趁父亲还在世，我想用人工智能留住他
+《连线》杂志的一篇文章《我用 AI 机器人留住去世的父亲》，作者在得知父亲肺癌晚期后，录下了自己与父亲的对话。后来利用这些对话资料，建造了一个人工智能对话机器人。父亲去世以后，跟机器人对话，机器人说出父亲会说的话。
+有网友把这篇文章翻译成了中文，
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-11-30 21:14" pubdate>
+              2019-11-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2019/11/27/sourcetrail/">开源免费的源码阅读神器 Sourcetrail</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/11/27/sourcetrail/">
+          
+          
+            
+          
+          阅读源码的工具很多，今天给大家推荐一款别具一格的源码阅读神器。
+它就是 Sourcetrail，一个免费开源、跨平台的可视化源码探索项目。
+
+直接看效果图：
+
+上面是我阅读 okhttp 源码的一个界面，不同于其他代码编辑器的导航栏，左侧使用图形直观地表示了调用上游和下游，类成员列表等等细节，使得理解源代码的结构变得很容易。
+目前支持 C、C++、Python 和 Java 语言，同时提供了相关 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-11-27 11:33" pubdate>
+              2019-11-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">源码分析</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2019/11/25/android-interview-7-singleton/">Android 面试题（7）：你对单例模式了解多少？</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/11/25/android-interview-7-singleton/">
+          
+          
+            
+          
+          不管是在开发还是面试过程中，单例模式出现的频率都非常的高。但很多人对单例模式一知半解，单例模式的写法非常多，不同写法的区别很大，这篇文章的目的是带你深入学习一下单例模式。
+什么是单例模式单例模式是一种对象创建型模式，用来编写一个类，在整个应用系统中只能有该类的一个实例对象。  
+UML 结构图：
+
+单例模式的三要点：
+1、某个类只能有一个实例
+2、必须自行创建这个实例
+3、必须自行向整个系统提供这
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-11-25 15:26" pubdate>
+              2019-11-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android%E9%9D%A2%E8%AF%95%E9%A2%98/">Android面试题</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Android%E9%9D%A2%E8%AF%95%E9%A2%98/">Android面试题</a>
+            
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2019/11/23/weekly-issue-3/">每周分享第 3 期</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/11/23/weekly-issue-3/">
+          
+          
+            
+          
+           这里记录过去一周，我看到的值得分享的内容。 
+
+（题图：合肥翡翠湖）
+文章1、我以前在阿里巴巴的流量方法论
+流量为王，可能对你有所启发。
+2、吕先生的三个贵人
+中华灵芝宝、双灵固本散、绿谷灵芝宝，你耳熟能详的东西，但可能并不真正了解真相。
+3、为什么我从 Mac 换到了 Linux 
+
+它激发了我重新潜入的乐趣，我享受这段旅途的乐趣。 
+
+资源1、9 大技术领域，1500+道面试题出炉！（资源版
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-11-23 18:39" pubdate>
+              2019-11-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2019/11/19/android-interview-6-anr/">Android 面试题（6）：谈谈你对 ANR 的了解？</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/11/19/android-interview-6-anr/">
+          
+          
+            
+          
+          什么是 ANRANR(Application Not responding)，即应用程序无响应，简单来说，就是用户界面突然卡住，无法响应用户的操作（比如触摸事件）。
+Android 系统对于一些事件需要在一定的时间范围内完成，如果超过预定时间能未能得到有效响应或者响应时间过长，都会造成 ANR。一般情况下，ANR 后会弹出一个提示框，告知用户当前应用无响应，用户可选择继续等待或者关闭应用。
+
+出现
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-11-19 15:36" pubdate>
+              2019-11-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android%E9%9D%A2%E8%AF%95%E9%A2%98/">Android面试题</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Android%E9%9D%A2%E8%AF%95%E9%A2%98/">Android面试题</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "万物之中 希望至美&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,642 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="贾小昆">
+  <meta name="keywords" content="">
+  <title>Java 类加载器 - 贾小昆</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-02-25 22:12" pubdate>
+      2019年2月25日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      28
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Java 类加载器</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h2 id="类的生命周期"><a href="#类的生命周期" class="headerlink" title="类的生命周期"></a>类的生命周期</h2><p><img src="/2019/02/25/java-classloader/classloader_lifecycle.png" srcset="/img/loading.gif" alt="classloader_lifecycle"><br>包含七个阶段：</p>
+<p>加载、验证、准备、解析、初始化、使用、卸载。</p>
+<ul>
+<li><p>验证、准备、解析三个阶段统称为连接。</p>
+</li>
+<li><p>加载、验证、准备、初始化和卸载的顺序是确定的，解析和初始化的前后顺序不一定，主要是为了实现动态绑定。</p>
+</li>
+</ul>
+<h2 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h2><p>类加载过程主要包含加载、验证、准备、解析和初始化这 5 个阶段。</p>
+<h3 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h3><p>加载是类加载的第一个阶段，注意不要混淆。</p>
+<p>加载过程要完成的三件事情：</p>
+<ul>
+<li>通过一个类的全限定名来获取定义此类的二进制字节流。</li>
+<li>将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构。</li>
+<li>在内存中生成一个代表这个类的 java.lang.Class 对象，作为方法区这个类的各种数据的访问入口。</li>
+</ul>
+<p>其中二进制字节流可以从以下方式获取：</p>
+<ul>
+<li>从 ZIP 包读取，称为 JAR、EAR、WAR 格式的基础。</li>
+<li>从网络获取，最典型的应用是 Applet。</li>
+<li>运行时计算，例如动态代理技术，在 java.lang.reflect.Proxy 使用 ProxyGenerator.generateProxyClass 的代理类的二进制字节流。</li>
+<li>由其他文件生成，典型场景是JSP应用，即由JSP文件生成对应的 Class 类。</li>
+</ul>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>验证的目的是为了确保 Class 文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机自身的安全。</p>
+<p>验证阶段主要完成四个阶段的校验动作：</p>
+<ul>
+<li>文件格式验证。验证字节流是否符合 Class 文件格式的规范，并且能被当前版本的虚拟机处理。</li>
+<li>元数据验证。对字节码描述的信息进行语义分析，以保证其描述的信息符合 Java 语言规范的要求。</li>
+<li>字节码验证。通过数据流和控制流分析，确定程序语义是合法的、符合逻辑的。</li>
+<li>符号引用验证。主要是对类自身以外的信息（常量池中的各种符号引用）进行匹配性的校验。确保解析动作能正常执行。</li>
+</ul>
+<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>为类变量分配内存并设置类变量初始值的阶段。类变量是指被 <code>static</code> 修饰的变量。</p>
+<p> 这里的初始值一般是数据类型的零值。比如：</p>
+ <pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> value = <span class="hljs-number">123</span>;</code></pre>
+<p>变量 value 在准备阶段的初始值是 0 而不是 123。</p>
+<p>如果类变量是常量，初始值是所定义的值而不是零值。例如下面的常量 value 被初始化为 123 而不是 0。</p>
+ <pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> value = <span class="hljs-number">123</span>;</code></pre>
+<h3 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h3><p>将常量池的符号引用替换为直接引用的过程。</p>
+<p>其中解析过程在某些情况下可以在初始化阶段之后再开始，这是为了支持 Java 的动态绑定。</p>
+<ul>
+<li>符号引用：符号引用就是字符串，这个字符串包含足量的信息，以供实际使用时可以找到相应的位置。</li>
+<li>直接引用：直接引用就是偏移量，通过便宜量虚拟机可以直接在该类的内存区域中找到方法字节码的起始位置。</li>
+</ul>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>初始化是类加载过程中的最后一步，这个阶段才真正开始执行类中定义的 Java 程序代码。</p>
+<p>初始化阶段是虚拟机执行类构造器 <code>&lt;clinit&gt;() </code>方法的过程。</p>
+<p>在准备阶段，已经为类变量分配了系统所需的初始值，并且在初始化阶段，根据程序员通过程序进行的主观计划来初始化类变量和其他资源。<code>&lt;clinit&gt;()</code> 是由编译器自动收集类中所有类变量的赋值动作和静态语句块中的语句合并产生的，编译器收集的顺序由语句在源文件中出现的顺序决定。特别注意的是，静态语句块只能访问到定义在它之前的类变量，定义在它之后的类变量只能赋值，不能访问。例如以下代码：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;
+    <span class="hljs-keyword">static</span> &#123;
+        i = <span class="hljs-number">0</span>;                <span class="hljs-comment">// 给变量赋值可以正常编译通过</span>
+        System.out.print(i);  <span class="hljs-comment">// 这句编译器会提示“非法向前引用”</span>
+    &#125;
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;
+&#125;</code></pre>
+<p>由于父类的 <code>&lt;clinit&gt;()</code> 方法先执行，也就意味着父类中定义的静态语句块的执行要优先于子类。例如以下代码：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> </span>&#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> A = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">static</span> &#123;
+        A = <span class="hljs-number">2</span>;
+    &#125;
+&#125;
+
+<span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sub</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Parent</span> </span>&#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> B = A;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+     System.out.println(Sub.B);  <span class="hljs-comment">// 2</span>
+&#125;</code></pre>
+<p>接口中不可以使用静态语句块，但仍然有类变量初始化的赋值操作，因此接口与类一样都会生成 <code>&lt;clinit&gt;()</code> 方法。但接口与类不同的是，执行接口的 <code>&lt;clinit&gt;()</code> 方法不需要先执行父接口的 <code>&lt;clinit&gt;()</code> 方法。只有当父接口中定义的变量使用时，父接口才会初始化。另外，接口的实现类在初始化时也一样不会执行接口的 <code>&lt;clinit&gt;()</code> 方法。</p>
+<p>虚拟机会保证一个类的 <code>&lt;clinit&gt;()</code> 方法在多线程环境下被正确的加锁和同步，如果多个线程同时初始化一个类，只会有一个线程执行这个类的 <code>&lt;clinit&gt;()</code> 方法，其它线程都会阻塞等待，直到活动线程执行 <code>&lt;clinit&gt;()</code> 方法完毕。如果在一个类的 <code>&lt;clinit&gt;()</code> 方法中有耗时的操作，就可能造成多个线程阻塞，在实际过程中此种阻塞很隐蔽。</p>
+<h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><p>两个类相等，需要类本身相等，并且使用同一个类加载器进行加载。这是因为每一个类加载器都拥有一个独立的类名称空间。</p>
+<p>这里的相等，包括类的 Class 对象的 <code>equals()</code> 方法、<code>isAssignableFrom()</code> 方法、<code>isInstance()</code> 方法的返回结果为 true，也包括使用 <code>instanceof</code> 关键字做对象所属关系判定结果为 true。</p>
+<h3 id="类加载器分类"><a href="#类加载器分类" class="headerlink" title="类加载器分类"></a>类加载器分类</h3><p>从 Java 虚拟角度，只存在两种不同的类加载器：</p>
+<ul>
+<li>启动型类加载器（Bootstrap ClassLoader），C++ 语言实现，是虚拟机自身的一部分。</li>
+<li>其他的类加载器：Java 语言实现，独立于虚拟机外部，全部继承自抽象类 java.lang.ClassLoader。</li>
+</ul>
+<p>从 Java 开发人员的角度，类加载器大致分为以下三类：</p>
+<ul>
+<li><p>启动类加载器：Bootstrap ClassLoader，跟上面相同。它负责加载存放在 JDK\jre\lib 下，或被 -Xbootclasspath 参数指定的路径中的，并且能被虚拟机识别的类库（如rt.jar，所有的 java.* 开头的类均被 Bootstrap ClassLoader 加载）。启动类加载器是无法被 Java 程序直接引用的。</p>
+</li>
+<li><p>扩展类加载器：Extension ClassLoader，该加载器由 sun.misc.Launcher$ExtClassLoader 实现，它负责加载 JDK\jre\lib\ext 目录中，或者由 java.ext.dirs 系统变量指定的路径中的所有类库（如 javax.* 开头的类），开发者可以直接使用扩展类加载器。</p>
+</li>
+<li><p>应用程序类加载器：Application ClassLoader，该类加载器由 sun.misc.Launcher$AppClassLoader 来实现，它负责加载用户类路径（ClassPath）所指定的类，开发者可以直接使用该类加载器，如果应用程序中没有自定义过自己的类加载器，一般情况下这个就是程序中默认的类加载器。</p>
+</li>
+</ul>
+<h3 id="双亲委托模型"><a href="#双亲委托模型" class="headerlink" title="双亲委托模型"></a>双亲委托模型</h3><p>应用程序是由三种类加载器互相配合从而实现类加载，除此之外还可以加入自己定义的类加载器。</p>
+<p>下图展示了类加载器之间的层次关系，称为双亲委派模型（Parents Delegation Model）。该模型要求除了顶层的启动类加载器外，其它的类加载器都要有自己的父类加载器。类加载器之间的父子关系一般通过组合关系（Composition）来实现，而不是继承关系（Inheritance）。<br><img src="/2019/02/25/java-classloader/parents_delegation.png" srcset="/img/loading.gif" alt="parents_delegation"></p>
+<h4 id="工作过程"><a href="#工作过程" class="headerlink" title="工作过程"></a>工作过程</h4><p>一个类加载器首先将类加载请求转发到父类加载器，只有当父类加载器无法完成时才尝试自己加载。</p>
+<h4 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h4><p>使得 Java 类随着它的类加载器一起具有一种带有优先级的层次关系，从而使得基础类得到统一。</p>
+<p>例如 java.lang.Object 存放在 rt.jar 中，如果编写另外一个 java.lang.Object 并放到 ClassPath 中，程序可以编译通过。由于双亲委派模型的存在，所以在 rt.jar 中的 Object 比在 ClassPath 中的 Object 优先级更高，这是因为 rt.jar 中的 Object 使用的是启动类加载器，而 ClassPath 中的 Object 使用的是应用程序类加载器。rt.jar 中的 Object 优先级更高，那么程序中所有的 Object 都是这个 Object。</p>
+<h4 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h4><p>实现双亲委派的代码都集中在java.lang.ClassLoader的 <code>loadClass()</code> 方法之中。</p>
+<p>先检查是否已经被加载过，若没有加载则调用父加载器的 <code>loadClass()</code> 方法，若父加载器为空则默认使用启动类加载器作为父加载器。如果父类加载失败，抛出ClassNotFoundException异常后，再调用自己的 <code>findClass()</code> 方法进行加载。</p>
+<h3 id="自定义-ClassLoader"><a href="#自定义-ClassLoader" class="headerlink" title="自定义 ClassLoader"></a>自定义 ClassLoader</h3><p>继承 java.lang.ClassLoader 类，重写 <code>findClass</code> 方法。比如：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FileSystemClassLoader</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ClassLoader</span> </span>&#123;
+
+    <span class="hljs-keyword">private</span> String rootDir;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">FileSystemClassLoader</span><span class="hljs-params">(String rootDir)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.rootDir = rootDir;
+    &#125;
+
+    <span class="hljs-keyword">protected</span> Class&lt;?&gt; findClass(String name) <span class="hljs-keyword">throws</span> ClassNotFoundException &#123;
+        <span class="hljs-keyword">byte</span>[] classData = getClassData(name);
+        <span class="hljs-keyword">if</span> (classData == <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ClassNotFoundException();
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-keyword">return</span> defineClass(name, classData, <span class="hljs-number">0</span>, classData.length);
+        &#125;
+    &#125;
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">byte</span>[] getClassData(String className) &#123;
+        String path = classNameToPath(className);
+        <span class="hljs-keyword">try</span> &#123;
+            InputStream ins = <span class="hljs-keyword">new</span> FileInputStream(path);
+            ByteArrayOutputStream baos = <span class="hljs-keyword">new</span> ByteArrayOutputStream();
+            <span class="hljs-keyword">int</span> bufferSize = <span class="hljs-number">4096</span>;
+            <span class="hljs-keyword">byte</span>[] buffer = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[bufferSize];
+            <span class="hljs-keyword">int</span> bytesNumRead;
+            <span class="hljs-keyword">while</span> ((bytesNumRead = ins.read(buffer)) != -<span class="hljs-number">1</span>) &#123;
+                baos.write(buffer, <span class="hljs-number">0</span>, bytesNumRead);
+            &#125;
+            <span class="hljs-keyword">return</span> baos.toByteArray();
+        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;
+            e.printStackTrace();
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">classNameToPath</span><span class="hljs-params">(String className)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> rootDir + File.separatorChar
+                + className.replace(<span class="hljs-string">&#x27;.&#x27;</span>, File.separatorChar) + <span class="hljs-string">&quot;.class&quot;</span>;
+    &#125;
+&#125;</code></pre>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://book.douban.com/subject/24722612/">深入理解Java虚拟机:JVM高级特性与最佳实践(第2版)</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/Java%20%E8%99%9A%E6%8B%9F%E6%9C%BA.md#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%AE%9E%E7%8E%B0">Java 虚拟机</a></p>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JVM/">JVM</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/02/27/java-innerclass/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java 内部类总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/02/19/threadlocal/">
+                        <span class="hidden-mobile">理解 ThreadLocal</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Java 类加载器&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

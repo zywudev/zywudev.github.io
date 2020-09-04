@@ -1,0 +1,755 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="贾小昆">
+  <meta name="keywords" content="">
+  <title>Java 内部类总结 - 贾小昆</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-02-27 10:31" pubdate>
+      2019年2月27日 上午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      29
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Java 内部类总结</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>Java 中，可以将一个类定义在另一个类或者一个方法里面，这样的类称为内部类。</p>
+<p>一般包含四种内部类：成员内部类、匿名内部类、局部内部类和静态内部类。</p>
+<h2 id="成员内部类"><a href="#成员内部类" class="headerlink" title="成员内部类"></a>成员内部类</h2><p>成员内部类的定义位于另一个类的内部，形式如下：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Outer</span> </span>&#123;
+
+    <span class="hljs-keyword">private</span> String name;
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Inner</span> </span>&#123;
+        Inner()&#123;
+            name = <span class="hljs-string">&quot;wuzy&quot;</span>;
+        &#125;
+
+        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">displayName</span><span class="hljs-params">()</span> </span>&#123;
+            System.out.println(name);
+        &#125;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+        Outer outer = <span class="hljs-keyword">new</span> Outer();
+        Outer.Inner inner = outer.<span class="hljs-function">new <span class="hljs-title">Inner</span><span class="hljs-params">()</span></span>;
+        inner.displayName();  <span class="hljs-comment">// wuzy</span>
+    &#125;
+&#125;</code></pre>
+
+<p>成员内部类可以无条件访问外部类的所有成员属性和成员方法（包括 private 成员和静态成员）。具体是如何实现的呢？通过反编译字节码看个究竟。</p>
+<p>先对 Outer 类进行编译 <code>javac Outer.java</code>  ，编译器在编译的时候，会将成员内部类 Inner 单独编译成一个字节码文件 <code>Outer$Inner.class</code> 。</p>
+<p>反编译 <code>Outer$Inner.class</code>  文件得到下面的信息：</p>
+<pre><code class="hljs java">E:\project\JavaExample\src\innerclassexample&gt;javap -c Outer$Inner.class
+Compiled from <span class="hljs-string">&quot;Outer.java&quot;</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">innerclassexample</span>.<span class="hljs-title">Outer</span>$<span class="hljs-title">Inner</span> </span>&#123;
+  <span class="hljs-keyword">final</span> innerclassexample.Outer <span class="hljs-keyword">this</span>$<span class="hljs-number">0</span>;
+
+  innerclassexample.Outer$Inner(innerclassexample.Outer);
+    Code:
+       <span class="hljs-number">0</span>: aload_0
+       <span class="hljs-number">1</span>: aload_1
+       2: putfield      #2                  // Field this$0:Linnerclassexample/Outer;
+       <span class="hljs-number">5</span>: aload_0
+       6: invokespecial #3                  // Method java/lang/Object.&quot;&lt;init&gt;&quot;:()V
+       <span class="hljs-number">9</span>: aload_1
+      10: ldc           #4                  // String wuzy
+      12: invokestatic  #5                  // Method innerclassexample/Outer.access$002:(Linnerclassexample/Outer;Ljava/lang/String;)Ljava/lang/String;
+      <span class="hljs-number">15</span>: pop
+      <span class="hljs-number">16</span>: <span class="hljs-keyword">return</span>
+
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> access$<span class="hljs-number">100</span>(innerclassexample.Outer$Inner);
+    Code:
+       <span class="hljs-number">0</span>: aload_0
+       1: invokespecial #1                  // Method displayName:()V
+       <span class="hljs-number">4</span>: <span class="hljs-keyword">return</span>
+&#125;</code></pre>
+
+<p>可以看到这两行关键信息</p>
+<pre><code class="hljs java"><span class="hljs-keyword">final</span> innerclassexample.Outer <span class="hljs-keyword">this</span>$<span class="hljs-number">0</span>;
+
+innerclassexample.Outer$Inner(innerclassexample.Outer);</code></pre>
+
+<p>这就很明显了，编译器会默认为成员内部类添加了一个指向外部类对象的引用，这个引用的赋值默认是在构造函数中进行。因此可以在成员内部类中任意的访问外部类的成员。</p>
+<p>此外也说明了成员内部类是依赖于外部类的，如果没有创建外部类，则无法对 <code>Outer this$0</code> 引用赋值，也就无法创建内部类的对象了。</p>
+<h2 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h2><p>匿名内部类也就是没有名字的内部类，通常用来简化代码。</p>
+<p>使用匿名内部类的前提条件：必须继承一个父类或者实现一个接口。形式如下：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Outer</span> </span>&#123;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">(<span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> b)</span> </span>&#123;
+        <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">new</span> Thread() &#123;
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
+                <span class="hljs-keyword">super</span>.run();
+                System.out.println(a);  
+                System.out.println(b);
+            &#125;
+        &#125;.start();
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+        Outer outer = <span class="hljs-keyword">new</span> Outer();
+        outer.test(<span class="hljs-number">2</span>);
+    &#125;
+&#125;</code></pre>
+
+<p>在 jdk 1.8 之前，匿名内部类访问方法局部变量或方法形参时，局部变量和形参必须以 <code>final</code> 修饰。</p>
+<p>为什么？</p>
+<p>以下是分析过程。</p>
+<p>当 外部类的 <code>test</code> 方法执行完毕，局部变量 a 和 形参 b 的都会出栈，生命周期也就结束了，但此时 Thread 对象的生命周未必就结束了，那么 <code>run</code> 方法中访问 a 或者 b 就不可能了，但是又要实现这种效果，Java 采取了 <strong>复制</strong> 的手段解决了这个问题。</p>
+<p>对以上代码进行编译，编译器会将匿名内部类编译成 <code>Outer$1.class</code> 文件，再对这个字节码文件进行反编译。</p>
+<pre><code class="hljs java">E:\project\JavaExample\src\innerclassexample&gt;javap -c Outer$<span class="hljs-number">1.</span>class
+Compiled from <span class="hljs-string">&quot;Outer.java&quot;</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">innerclassexample</span>.<span class="hljs-title">Outer</span>$1 <span class="hljs-keyword">extends</span> <span class="hljs-title">java</span>.<span class="hljs-title">lang</span>.<span class="hljs-title">Thread</span> </span>&#123;
+  <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> val$b;
+
+  <span class="hljs-keyword">final</span> innerclassexample.Outer <span class="hljs-keyword">this</span>$<span class="hljs-number">0</span>;
+
+  innerclassexample.Outer$<span class="hljs-number">1</span>(innerclassexample.Outer, <span class="hljs-keyword">int</span>);
+    Code:
+       <span class="hljs-number">0</span>: aload_0
+       <span class="hljs-number">1</span>: aload_1
+       2: putfield      #1                  // Field this$0:Linnerclassexample/Outer;
+       <span class="hljs-number">5</span>: aload_0
+       <span class="hljs-number">6</span>: iload_2
+       7: putfield      #2                  // Field val$b:I
+      <span class="hljs-number">10</span>: aload_0
+      11: invokespecial #3                  // Method java/lang/Thread.&quot;&lt;init&gt;&quot;:()V
+      <span class="hljs-number">14</span>: <span class="hljs-keyword">return</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span>;
+    Code:
+       <span class="hljs-number">0</span>: aload_0
+       1: invokespecial #4                  // Method java/lang/Thread.run:()V
+       4: getstatic     #5                  // Field java/lang/System.out:Ljava/io/PrintStream;
+       <span class="hljs-number">7</span>: iconst_1
+       8: invokevirtual #6                  // Method java/io/PrintStream.println:(I)V
+      11: getstatic     #5                  // Field java/lang/System.out:Ljava/io/PrintStream;
+      <span class="hljs-number">14</span>: aload_0
+      15: getfield      #2                  // Field val$b:I
+      18: invokevirtual #6                  // Method java/io/PrintStream.println:(I)V
+      <span class="hljs-number">21</span>: <span class="hljs-keyword">return</span>
+&#125;</code></pre>
+
+<p>在 <code>run</code> 方法中有一条指令：</p>
+<pre><code class="hljs java">iconst_1</code></pre>
+
+<p>这条指令表示将操作数 1 压入栈中（当 int 取值-1~5 时，JVM 采用 <code>iconst</code> 指令将常量压入栈中），表示使用的是一个本地局部变量。</p>
+<p>还有这三行信息：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> val$b;
+
+<span class="hljs-keyword">final</span> innerclassexample.Outer <span class="hljs-keyword">this</span>$<span class="hljs-number">0</span>;
+
+innerclassexample.Outer$<span class="hljs-number">1</span>(innerclassexample.Outer, <span class="hljs-keyword">int</span>);</code></pre>
+
+<p><code>this$0</code> 是指向外部类的引用，<code>val$b</code> 是形参 b 的拷贝，都是由编译器在构造函数中赋值初始化的。</p>
+<p>从上面可以看出，如果局部变量的值在编译期间就可以确定，则直接在匿名类内部里面创建一个拷贝，如果局部变量的值无法在编译期间确定，则通过构造器传参的方式来对拷贝进行初始化赋值。</p>
+<p><strong>这就导致了一个新的问题，数据不一致</strong>。<code>run</code> 方法访问的 a 压根不是 <code>test</code> 方法的局部变量 a，当在 <code>run</code> 方法改变变量 a 时候，<code>test</code> 方法的局部变量 a 并没有改变。</p>
+<p>为了解决这个问题，Java 采取了粗暴的方式，限定必须将变量 a 限制为 final 变量，不允许对变量 a 进行更改（对于引用类型的变量，是不允许指向新的对象），这样数据不一致性的问题就得以解决了。</p>
+<p>这也就解释了为什么匿名内部类只能访问局部 final 变量了。</p>
+<p>在 JDK 1.8 以后，匿名内部类可以访问到非 final 变量了。以下这种写法完全没问题。</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Outer</span> </span>&#123;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">(<span class="hljs-keyword">int</span> b)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">new</span> Thread() &#123;
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
+                <span class="hljs-keyword">super</span>.run();
+                System.out.println(a);
+                System.out.println(b);
+            &#125;
+        &#125;.start();
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+        Outer outer = <span class="hljs-keyword">new</span> Outer();
+        outer.test(<span class="hljs-number">2</span>);
+    &#125;
+&#125;
+</code></pre>
+
+<p>对其反编译下：</p>
+<pre><code class="hljs java">
+E:\project\JavaExample\src\innerclassexample&gt;javap -c Outer$<span class="hljs-number">1.</span>class
+Compiled from <span class="hljs-string">&quot;Outer.java&quot;</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">innerclassexample</span>.<span class="hljs-title">Outer</span>$1 <span class="hljs-keyword">extends</span> <span class="hljs-title">java</span>.<span class="hljs-title">lang</span>.<span class="hljs-title">Thread</span> </span>&#123;
+  <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> val$a;
+
+  <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> val$b;
+
+  <span class="hljs-keyword">final</span> innerclassexample.Outer <span class="hljs-keyword">this</span>$<span class="hljs-number">0</span>;
+
+  innerclassexample.Outer$<span class="hljs-number">1</span>(innerclassexample.Outer, <span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>);
+    Code:
+       <span class="hljs-number">0</span>: aload_0
+       <span class="hljs-number">1</span>: aload_1
+       2: putfield      #1                  // Field this$0:Linnerclassexample/Outer;
+       <span class="hljs-number">5</span>: aload_0
+       <span class="hljs-number">6</span>: iload_2
+       7: putfield      #2                  // Field val$a:I
+      <span class="hljs-number">10</span>: aload_0
+      <span class="hljs-number">11</span>: iload_3
+      12: putfield      #3                  // Field val$b:I
+      <span class="hljs-number">15</span>: aload_0
+      16: invokespecial #4                  // Method java/lang/Thread.&quot;&lt;init&gt;&quot;:()V
+      <span class="hljs-number">19</span>: <span class="hljs-keyword">return</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span>;
+    Code:
+       <span class="hljs-number">0</span>: aload_0
+       1: invokespecial #5                  // Method java/lang/Thread.run:()V
+       4: getstatic     #6                  // Field java/lang/System.out:Ljava/io/PrintStream;
+       <span class="hljs-number">7</span>: aload_0
+       8: getfield      #2                  // Field val$a:I
+      11: invokevirtual #7                  // Method java/io/PrintStream.println:(I)V
+      14: getstatic     #6                  // Field java/lang/System.out:Ljava/io/PrintStream;
+      <span class="hljs-number">17</span>: aload_0
+      18: getfield      #3                  // Field val$b:I
+      21: invokevirtual #7                  // Method java/io/PrintStream.println:(I)V
+      <span class="hljs-number">24</span>: <span class="hljs-keyword">return</span>
+&#125;</code></pre>
+
+<p>可以看到这四行</p>
+<pre><code class="hljs java"><span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> val$a;
+
+<span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> val$b;
+
+<span class="hljs-keyword">final</span> innerclassexample.Outer <span class="hljs-keyword">this</span>$<span class="hljs-number">0</span>;
+
+innerclassexample.Outer$<span class="hljs-number">1</span>(innerclassexample.Outer, <span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>);</code></pre>
+
+<p>JVM 编译器会在匿名内部类的构造函数中对局部变量 a 和 形参 b 进行拷贝赋值。而且， <code>run</code> 方法是无法修改变量 a 和 形参 b 的值的。</p>
+<h2 id="局部内部类"><a href="#局部内部类" class="headerlink" title="局部内部类"></a>局部内部类</h2><p>定义在方法体或者代码块里的类称为局部内部类。形式如下：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Outer</span> </span>&#123;
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> num1 = <span class="hljs-number">1</span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Inner</span> </span>&#123;
+            <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> num2 = <span class="hljs-number">2</span>;
+            <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span> </span>&#123;
+                System.out.println(num1);
+                System.out.println(num2);
+            &#125;
+        &#125;
+        Inner inner = <span class="hljs-keyword">new</span> Inner();
+        inner.display();
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+        Outer outer = <span class="hljs-keyword">new</span> Outer();
+        outer.test();
+    &#125;
+&#125;</code></pre>
+
+<p>注意，局部内部类就像是方法里面的一个局部变量一样，是不能有public、protected、private以及static修饰符的。</p>
+<h2 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h2><p>静态内部类与成员内部类的定义方式类似，也是定义在另一个类的内部，只不过在类的前面多了一个 <code>static</code> 关键字。形式如下：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Outer</span> </span>&#123;
+
+    <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Inner</span> </span>&#123;
+    &#125;
+&#125;</code></pre>
+
+<p>静态内部类与类的静态属性类似，不依赖于对象，无法访问外部类的非静态成员，因为外部类的非静态成员依附于具体的对象。从下面的反编译结果也能看出，静态内部类是不持有外部类对象的引用的。</p>
+<pre><code class="hljs jav">E:\project\JavaExample\src\innerclassexample&gt;javap -c Outer$Inner.class
+Compiled from &quot;Outer.java&quot;
+class innerclassexample.Outer$Inner &#123;
+  innerclassexample.Outer$Inner();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  &#x2F;&#x2F; Method java&#x2F;lang&#x2F;Object.&quot;&lt;init&gt;&quot;:()V
+       4: return
+&#125;</code></pre>
+
+<h2 id="内部类的使用场景和好处"><a href="#内部类的使用场景和好处" class="headerlink" title="内部类的使用场景和好处"></a>内部类的使用场景和好处</h2><p>1、内部类使得多继承的解决方案变得完整。内部类(除去用 static 修饰的 )可以直接使用其外部类的成员变量以及成员函数，达到一个继承的效果，再加上自身继承基类来达到一个多重继承的效果。</p>
+<p>2、方便将存在一定逻辑关系的类组织在一起，又可以对外界隐藏。</p>
+<p>3、方便编写事件驱动程序。比如 Android 里面的事件监听。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/dolphin0520/p/3811445.html">https://www.cnblogs.com/dolphin0520/p/3811445.html</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Java-%E5%9F%BA%E7%A1%80/">Java 基础</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/03/11/ok-analysis-1/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">OkHttp 源码分析（一）：请求流程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/02/25/java-classloader/">
+                        <span class="hidden-mobile">Java 类加载器</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Java 内部类总结&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

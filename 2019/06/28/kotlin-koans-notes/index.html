@@ -1,0 +1,1154 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="贾小昆">
+  <meta name="keywords" content="">
+  <title>Kotlin Koans 学习笔记 - 贾小昆</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-06-28 17:07" pubdate>
+      2019年6月28日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      72
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Kotlin Koans 学习笔记</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/Kotlin/kotlin-koans">Kotlin Koans</a> 是 Kotlin 官方推出的一系列 Kotlin 语法练习。</p>
+<p>一共分为 6 个模块，每个模块若干任务，每个任务都有一系列单元测试，目标就是编码通过单元测试。</p>
+<p>本文是在学习 Kotlin Koans 过程中将相关语法点做一个简单的记录。</p>
+</blockquote>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello_World"></a>Hello_World</h2><p>和大多数语言一样，第一个任务的名称就是 Hello World。这个任务很简单，就是要求 task0 函数返回一个字符串<code>ok</code>。</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">task0</span><span class="hljs-params">()</span></span>: String &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;OK&quot;</span>
+&#125;</code></pre>
+
+<p>Kotlin 中函数使用关键字<code>fun</code>声明，返回类型在函数名称的后面，中间以<code>:</code>分开。</p>
+<h2 id="Java-to-Kotlin-Convert"><a href="#Java-to-Kotlin-Convert" class="headerlink" title="Java to Kotlin Convert"></a>Java to Kotlin Convert</h2><p>将 Java 代码转化为 Kotlin 代码。</p>
+<pre><code class="hljs kotlin"><span class="hljs-comment">// java</span>
+<span class="hljs-keyword">public</span> String task1(Collection&lt;Integer&gt; collection) &#123;
+    StringBuilder sb = new StringBuilder();
+    sb.append(<span class="hljs-string">&quot;&#123;&quot;</span>);
+    Iterator&lt;Integer&gt; iterator = collection.iterator();
+    <span class="hljs-keyword">while</span> (iterator.hasNext()) &#123;
+        Integer element = iterator.next();
+        sb.append(element);
+        <span class="hljs-keyword">if</span> (iterator.hasNext()) &#123;
+            sb.append(<span class="hljs-string">&quot;, &quot;</span>);
+        &#125;
+    &#125;
+    sb.append(<span class="hljs-string">&quot;&#125;&quot;</span>);
+    <span class="hljs-keyword">return</span> sb.toString();
+&#125;
+
+<span class="hljs-comment">//kotlin</span>
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">task1</span><span class="hljs-params">(collection: <span class="hljs-type">Collection</span>&lt;<span class="hljs-type">Int</span>&gt;)</span></span>: String &#123;
+    <span class="hljs-keyword">val</span> sb = StringBuilder()
+    sb.append(<span class="hljs-string">&quot;&#123;&quot;</span>)
+    <span class="hljs-keyword">val</span> iterator = collection.iterator()
+    <span class="hljs-keyword">while</span> (iterator.hasNext()) &#123;
+        <span class="hljs-keyword">val</span> element = iterator.next()
+        sb.append(element)
+        <span class="hljs-keyword">if</span> (iterator.hasNext()) &#123;
+            sb.append(<span class="hljs-string">&quot;, &quot;</span>)
+        &#125;
+    &#125;
+    sb.append(<span class="hljs-string">&quot;&#125;&quot;</span>)
+    <span class="hljs-keyword">return</span> sb.toString()
+&#125;</code></pre>
+
+<h2 id="Named-Arguments"><a href="#Named-Arguments" class="headerlink" title="Named Arguments"></a>Named Arguments</h2><p>使用 kotlin 提供的 <code>joinToString()</code> 完成任务1，只指定 <code>joinToString()</code> 的参数。</p>
+<p>kotlin 中函数参数可以有默认值，当省略相应的参数时使用默认值。与其他语言相比，这可以减少重载数量：</p>
+<p>默认值通过类型后面的<code>=</code>及给出的值定义。</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">read</span><span class="hljs-params">(b: <span class="hljs-type">Array</span>&lt;<span class="hljs-type">Byte</span>&gt;, off: <span class="hljs-type">Int</span> = <span class="hljs-number">0</span>, len: <span class="hljs-type">Int</span> = b.size)</span></span> &#123; …… &#125;</code></pre>
+
+<p>重写一个有默认参数的函数时，我们不允许重新指定默认参数的值。</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">open</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>&#123;
+    <span class="hljs-keyword">open</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">foo</span><span class="hljs-params">(i: <span class="hljs-type">Int</span> = <span class="hljs-number">10</span>)</span></span> &#123; …… &#125;
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> : <span class="hljs-type">A</span></span>() &#123;
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">foo</span><span class="hljs-params">(i: <span class="hljs-type">Int</span>)</span></span> &#123; …… &#125;  <span class="hljs-comment">// 不能有默认值</span>
+&#125;</code></pre>
+
+<p>可以在调用函数时使用命名的函数参数。当一个函数有大量的参数或默认参数时这会非常方便。</p>
+<p>回到任务本身，先看一下函数 <code>joinToString</code>：</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;T&gt;</span> Iterable<span class="hljs-type">&lt;T&gt;</span>.<span class="hljs-title">joinToString</span><span class="hljs-params">(separator: <span class="hljs-type">CharSequence</span> = <span class="hljs-string">&quot;, &quot;</span>, prefix: <span class="hljs-type">CharSequence</span> = <span class="hljs-string">&quot;&quot;</span>, postfix: <span class="hljs-type">CharSequence</span> = <span class="hljs-string">&quot;&quot;</span>, limit: <span class="hljs-type">Int</span> = <span class="hljs-number">-1</span>, truncated: <span class="hljs-type">CharSequence</span> = <span class="hljs-string">&quot;...&quot;</span>, transform: ((<span class="hljs-type">T</span>) -&gt; <span class="hljs-type">CharSequence</span>)? = <span class="hljs-literal">null</span>)</span></span>: String &#123;
+    <span class="hljs-keyword">return</span> joinTo(StringBuilder(), separator, prefix, postfix, limit, truncated, transform).toString()
+&#125;</code></pre>
+
+<p>该函数对分隔符，前缀，后缀等其他参数都指定了默认值，我们只需要重新指定前缀、后缀两个参数。</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">task2</span><span class="hljs-params">(collection: <span class="hljs-type">Collection</span>&lt;<span class="hljs-type">Int</span>&gt;)</span></span>: String &#123;
+    <span class="hljs-keyword">return</span> collection.joinToString(postfix = <span class="hljs-string">&quot;&#125;&quot;</span>,prefix = <span class="hljs-string">&quot;&#123;&quot;</span>)
+&#125;</code></pre>
+
+<h2 id="Default-Arguments"><a href="#Default-Arguments" class="headerlink" title="Default Arguments"></a>Default Arguments</h2><p>使用参数默认值，修改<code>foo</code>函数，实现 Java 中需要重载才能实现的功能。</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">foo</span><span class="hljs-params">(name: <span class="hljs-type">String</span>, number: <span class="hljs-type">Number</span> = <span class="hljs-number">42</span>, toUpperCase: <span class="hljs-type">Boolean</span> = <span class="hljs-literal">false</span>)</span></span>: String &#123;
+    <span class="hljs-keyword">return</span> (<span class="hljs-keyword">if</span> (toUpperCase) name.toUpperCase() <span class="hljs-keyword">else</span> name) + number
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">task3</span><span class="hljs-params">()</span></span>: String &#123;
+
+    <span class="hljs-keyword">return</span> (foo(<span class="hljs-string">&quot;a&quot;</span>) +
+            foo(<span class="hljs-string">&quot;b&quot;</span>, number = <span class="hljs-number">1</span>) +
+            foo(<span class="hljs-string">&quot;c&quot;</span>, toUpperCase = <span class="hljs-literal">true</span>) +
+            foo(name = <span class="hljs-string">&quot;d&quot;</span>, number = <span class="hljs-number">2</span>, toUpperCase = <span class="hljs-literal">true</span>))
+&#125;</code></pre>
+
+<p>非常简洁。这里还可以看出 <code>if</code> 是一个表达式，即它会返回一个值。 因此就不需要三元运算符（条件 ? 然后 : 否则）</p>
+<h2 id="Lambdas"><a href="#Lambdas" class="headerlink" title="Lambdas"></a>Lambdas</h2><p>使用 Lambda 重写 Java 代码：</p>
+<pre><code class="hljs kotlin"><span class="hljs-comment">// java</span>
+<span class="hljs-keyword">public</span> boolean task4(Collection&lt;Integer&gt; collection) &#123;
+     <span class="hljs-keyword">return</span> Iterables.any(collection, new Predicate&lt;Integer&gt;() &#123;
+         <span class="hljs-meta">@Override</span>
+         <span class="hljs-keyword">public</span> boolean apply(Integer element) &#123;
+             <span class="hljs-keyword">return</span> element % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>;
+         &#125;
+     &#125;);
+ &#125;
+
+<span class="hljs-comment">// kotlin</span>
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">task4</span><span class="hljs-params">(collection: <span class="hljs-type">Collection</span>&lt;<span class="hljs-type">Int</span>&gt;)</span></span>: <span class="hljs-built_in">Boolean</span> = collection.any &#123; x -&gt; x % <span class="hljs-number">2</span> == <span class="hljs-number">0</span> &#125;</code></pre>
+
+<p>Lambda 表达式的特征：</p>
+<ul>
+<li>Lambdas 表达式是花括号括起来的代码块。</li>
+<li>如果一个 lambda 表达式有参数，前面是参数，后跟<code>-&gt;</code> 。</li>
+<li>函数体写在<code>-&gt;</code>符号后面。</li>
+</ul>
+<h2 id="String-Templates"><a href="#String-Templates" class="headerlink" title="String Templates"></a>String Templates</h2><p>生成一个正则表达式，可以匹配<code>13 JUN 1992</code> 这样格式的字符串。</p>
+<p>kotlin 中支持两种字符串格式：</p>
+<p>一种是一对<code>&quot;</code>包起来的字符串，支持转义字符。</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> s = <span class="hljs-string">&quot;Hello, world!\n&quot;</span></code></pre>
+
+<p>一种是一对<code> &quot;&quot;&quot;</code>包起来的字符串，不需要用<code>\</code>来转义，可以直接使用各种符号，包括换行符。</p>
+<pre><code class="hljs pony"><span class="hljs-meta">val</span> text = <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    for (c in &quot;foo&quot;)</span>
+<span class="hljs-string">        print(c)</span>
+<span class="hljs-string">&quot;&quot;&quot;</span></code></pre>
+
+<p>字符串字面值可以包含<em>模板表达式</em> ，即一些小段代码，会求值并把结果合并到字符串中。 模板表达式以美元符（<code>$</code>）开头，由一个简单的名字构成:</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> i = <span class="hljs-number">10</span>
+println(<span class="hljs-string">&quot;i = <span class="hljs-variable">$i</span>&quot;</span>) <span class="hljs-comment">// 输出“i = 10”</span></code></pre>
+
+<p>回到任务，修改模板字符串，使其可以匹配测试中的日期格式。</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> month = <span class="hljs-string">&quot;(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)&quot;</span>
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">task5</span><span class="hljs-params">()</span></span>: String = <span class="hljs-string">&quot;&quot;&quot;\d&#123;2&#125;\ <span class="hljs-variable">$month</span>\ \d&#123;4&#125;&quot;&quot;&quot;</span></code></pre>
+
+<h2 id="Data-Classes"><a href="#Data-Classes" class="headerlink" title="Data Classes"></a>Data Classes</h2><p>将 Java 中的数据实体类转化成 Kotlin。</p>
+<pre><code class="hljs kotlin"><span class="hljs-comment">// java</span>
+<span class="hljs-keyword">public</span> static <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>&#123;
+     <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String name;
+     <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> int age;
+
+     <span class="hljs-keyword">public</span> Person(String name, int age) &#123;
+         <span class="hljs-keyword">this</span>.name = name;
+         <span class="hljs-keyword">this</span>.age = age;
+     &#125;
+
+     <span class="hljs-keyword">public</span> String getName() &#123;
+         <span class="hljs-keyword">return</span> name;
+     &#125;
+
+     <span class="hljs-keyword">public</span> int getAge() &#123;
+         <span class="hljs-keyword">return</span> age;
+     &#125;
+ &#125;
+
+<span class="hljs-comment">// kotlin</span>
+<span class="hljs-keyword">data</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span></span>(<span class="hljs-keyword">val</span> name: String, <span class="hljs-keyword">val</span> age: <span class="hljs-built_in">Int</span>)</code></pre>
+
+<p>kotlin 中使用<code>data</code>标记的类，编译器会自动根据主构造函数中定义的属性生成下面这些成员函数：</p>
+<ul>
+<li><code>equals()</code>/<code>hashCode()</code> 对；</li>
+<li><code>toString()</code> 格式是 <code>&quot;Person(name=John, age=42)&quot;</code>；</li>
+<li><code>componentN()</code>按声明顺序对应于所有属性；</li>
+<li><code>copy()</code> 函数。</li>
+</ul>
+<h2 id="Nullable-Type"><a href="#Nullable-Type" class="headerlink" title="Nullable Type"></a>Nullable Type</h2><p>将 Java 版本的 <code>sendMessageToClient</code> 方法使用 kotlin 改写，只能使用 <code>if</code> 表达式。</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sendMessageToClient</span><span class="hljs-params">(<span class="hljs-meta">@Nullable</span> Client client, <span class="hljs-meta">@Nullable</span> String message, <span class="hljs-meta">@NotNull</span> Mailer mailer)</span> </span>&#123;
+    <span class="hljs-keyword">if</span> (client == <span class="hljs-keyword">null</span> || message == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span>;
+
+    PersonalInfo personalInfo = client.getPersonalInfo();
+    <span class="hljs-keyword">if</span> (personalInfo == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span>;
+
+    String email = personalInfo.getEmail();
+    <span class="hljs-keyword">if</span> (email == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span>;
+
+    mailer.sendMessage(email, message);
+&#125;</code></pre>
+
+<p>kotlin 中，如果一个变量可能为空，在定义的时候需要在类型后面加上 <code>?</code> </p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> a: <span class="hljs-built_in">Int</span>? = <span class="hljs-literal">null</span></code></pre>
+
+<p>对于可能为空的变量，如果必须在其值不为 null 时才进行后续操作，可以使用 <code>?.</code>操作符进行保护。</p>
+<pre><code class="hljs kotlin">a?.toLong()</code></pre>
+
+<p>如果变量为空，想要提供一个替代值，可以使用 <code>?:</code>：</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> b = a?.toLong() ?: <span class="hljs-number">0L</span></code></pre>
+
+<p>回到任务本身。</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">sendMessageToClient</span><span class="hljs-params">(</span></span>
+<span class="hljs-function"><span class="hljs-params">        client: <span class="hljs-type">Client</span>?, message: <span class="hljs-type">String</span>?, mailer: <span class="hljs-type">Mailer</span></span></span>
+<span class="hljs-function"><span class="hljs-params">)</span></span> &#123;
+    <span class="hljs-keyword">val</span> email = client?.personalInfo?.email
+    <span class="hljs-keyword">if</span> (email != <span class="hljs-literal">null</span> &amp;&amp; message != <span class="hljs-literal">null</span>) &#123;
+        mailer.sendMessage(email,message)
+    &#125;
+&#125;</code></pre>
+
+<h2 id="Smart-Casts"><a href="#Smart-Casts" class="headerlink" title="Smart Casts"></a>Smart Casts</h2><p>使用 kotlin 中 的Smart Cast 和 when表达式重新实现 Java 代码中的 <code>eval()</code> 函数。</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">eval</span><span class="hljs-params">(Expr expr)</span> </span>&#123;
+    <span class="hljs-keyword">if</span> (expr <span class="hljs-keyword">instanceof</span> Num) &#123;
+        <span class="hljs-keyword">return</span> ((Num) expr).getValue();
+    &#125;
+    <span class="hljs-keyword">if</span> (expr <span class="hljs-keyword">instanceof</span> Sum) &#123;
+        Sum sum = (Sum) expr;
+        <span class="hljs-keyword">return</span> eval(sum.getLeft()) + eval(sum.getRight());
+    &#125;
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalArgumentException(<span class="hljs-string">&quot;Unknown expression&quot;</span>);
+&#125;</code></pre>
+
+<p>kotlin 中使用<code>when</code>代替了<code>switch</code>，功能更强大。</p>
+<p>在 <code>when</code> 中，我们使用 <code>-&gt;</code> 表示执行某一分支后的操作，<code>-&gt;</code> 之前是条件，可以是任何表达式。</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">when</span> (x) &#123;
+    <span class="hljs-number">0</span>, <span class="hljs-number">1</span> -&gt; print(<span class="hljs-string">&quot;x == 0 or x == 1&quot;</span>)
+    <span class="hljs-keyword">else</span> -&gt; print(<span class="hljs-string">&quot;otherwise&quot;</span>)
+&#125;
+
+<span class="hljs-keyword">when</span> (x) &#123;
+    <span class="hljs-keyword">in</span> <span class="hljs-number">1</span>..<span class="hljs-number">10</span> -&gt; print(<span class="hljs-string">&quot;x is in the range&quot;</span>)
+    <span class="hljs-keyword">in</span> validNumbers -&gt; print(<span class="hljs-string">&quot;x is valid&quot;</span>)
+    !<span class="hljs-keyword">in</span> <span class="hljs-number">10</span>..<span class="hljs-number">20</span> -&gt; print(<span class="hljs-string">&quot;x is outside the range&quot;</span>)
+    <span class="hljs-keyword">else</span> -&gt; print(<span class="hljs-string">&quot;none of the above&quot;</span>)
+&#125;</code></pre>
+
+<p>回到任务本身。</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">eval</span><span class="hljs-params">(e: <span class="hljs-type">Expr</span>)</span></span>: <span class="hljs-built_in">Int</span> =
+    <span class="hljs-keyword">when</span> (e) &#123;
+        <span class="hljs-keyword">is</span> Num -&gt; e.value
+        <span class="hljs-keyword">is</span> Sum -&gt; eval(e.left) + eval(e.right)
+        <span class="hljs-keyword">else</span> -&gt; <span class="hljs-keyword">throw</span> IllegalArgumentException(<span class="hljs-string">&quot;Unknown expression&quot;</span>)
+    &#125;</code></pre>
+
+<h2 id="Extension-Functions"><a href="#Extension-Functions" class="headerlink" title="Extension Functions"></a>Extension Functions</h2><p>kotlin 支持为已经存在的类编写扩展方法，而且不需要对原有类进行任何改动，只需要使用<code>className.extensionFun</code>的形式就可以了</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> String.<span class="hljs-title">lastChar</span><span class="hljs-params">()</span></span> = <span class="hljs-keyword">this</span>.<span class="hljs-keyword">get</span>(<span class="hljs-keyword">this</span>.length - <span class="hljs-number">1</span>)</code></pre>
+
+<p>任务要求为<code>Int</code>和<code>Pair&lt;Int, Int&gt;</code>分别实现一个扩展函数<code>r()</code>。<code>r()</code>函数的功能就是创建一个有理数。</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">data</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RationalNumber</span></span>(<span class="hljs-keyword">val</span> numerator: <span class="hljs-built_in">Int</span>, <span class="hljs-keyword">val</span> denominator: <span class="hljs-built_in">Int</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-built_in">Int</span>.<span class="hljs-title">r</span><span class="hljs-params">()</span></span>: RationalNumber = RationalNumber(<span class="hljs-keyword">this</span>, <span class="hljs-number">1</span>)
+<span class="hljs-function"><span class="hljs-keyword">fun</span> Pair<span class="hljs-type">&lt;Int, Int&gt;</span>.<span class="hljs-title">r</span><span class="hljs-params">()</span></span>: RationalNumber = RationalNumber(<span class="hljs-keyword">this</span>.first, <span class="hljs-keyword">this</span>.second)</code></pre>
+
+<h2 id="Object-Expression"><a href="#Object-Expression" class="headerlink" title="Object Expression"></a>Object Expression</h2><p>任务的要求是创建一个比较器（comparator），提供给 Collection 类对 list 按照降序排序。</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">task10</span><span class="hljs-params">()</span></span>: List&lt;<span class="hljs-built_in">Int</span>&gt; &#123;
+    <span class="hljs-keyword">val</span> arrayList = arrayListOf(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">2</span>)
+    Collections.sort(arrayList, <span class="hljs-keyword">object</span> : Comparator&lt;<span class="hljs-built_in">Int</span>&gt; &#123;
+        <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">compare</span><span class="hljs-params">(o1: <span class="hljs-type">Int</span>, o2: <span class="hljs-type">Int</span>)</span></span>: <span class="hljs-built_in">Int</span> &#123;
+            <span class="hljs-keyword">return</span> o2 - o1
+        &#125;
+    &#125;)
+    <span class="hljs-keyword">return</span> arrayList
+&#125;</code></pre>
+
+<h2 id="SAM-Conversions"><a href="#SAM-Conversions" class="headerlink" title="SAM Conversions"></a>SAM Conversions</h2><p>SAM conversions 就是如果一个 object 实现了一个 SAM（Single Abstract Method）接口时，可以直接传递一个 lambda 表达式。</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">task11</span><span class="hljs-params">()</span></span>: List&lt;<span class="hljs-built_in">Int</span>&gt; &#123;
+    <span class="hljs-keyword">val</span> arrayList = arrayListOf(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">2</span>)
+    arrayList.sortWith(Comparator &#123; x, y -&gt; y - x &#125;)
+    <span class="hljs-keyword">return</span> arrayList
+&#125;</code></pre>
+
+<h2 id="Extensions-On-Collections"><a href="#Extensions-On-Collections" class="headerlink" title="Extensions On Collections"></a>Extensions On Collections</h2><p>使用扩展函数<code>sortedDescending</code>重写上一个任务中的代码：</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">task12</span><span class="hljs-params">()</span></span>: List&lt;<span class="hljs-built_in">Int</span>&gt; &#123;
+    <span class="hljs-keyword">return</span> arrayListOf(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">2</span>).sortedDescending()
+&#125;</code></pre>
+
+<h1 id="Collections"><a href="#Collections" class="headerlink" title="Collections"></a>Collections</h1><p>这一模块主要是集合的一些任务，所有任务都是围绕一个商店（Shop）展开，商店有一个客户（Customer）列表。</p>
+<p>客户具有姓名、城市和订单（Order）列表三个属性。</p>
+<p>订单具有商品（Product）列表和是否已经发货两个属性。</p>
+<p>商品具有名称和价格两个属性。</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">data</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Shop</span></span>(<span class="hljs-keyword">val</span> name: String, <span class="hljs-keyword">val</span> customers: List&lt;Customer&gt;)
+
+<span class="hljs-keyword">data</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Customer</span></span>(<span class="hljs-keyword">val</span> name: String, <span class="hljs-keyword">val</span> city: City, <span class="hljs-keyword">val</span> orders: List&lt;Order&gt;) &#123;
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">toString</span><span class="hljs-params">()</span></span> = <span class="hljs-string">&quot;<span class="hljs-variable">$name</span> from <span class="hljs-subst">$&#123;city.name&#125;</span>&quot;</span>
+&#125;
+
+<span class="hljs-keyword">data</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Order</span></span>(<span class="hljs-keyword">val</span> products: List&lt;Product&gt;, <span class="hljs-keyword">val</span> isDelivered: <span class="hljs-built_in">Boolean</span>)
+
+<span class="hljs-keyword">data</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Product</span></span>(<span class="hljs-keyword">val</span> name: String, <span class="hljs-keyword">val</span> price: <span class="hljs-built_in">Double</span>) &#123;
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">toString</span><span class="hljs-params">()</span></span> = <span class="hljs-string">&quot;&#x27;<span class="hljs-variable">$name</span>&#x27; for <span class="hljs-variable">$price</span>&quot;</span>
+&#125;
+
+<span class="hljs-keyword">data</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">City</span></span>(<span class="hljs-keyword">val</span> name: String) &#123;
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">toString</span><span class="hljs-params">()</span></span> = name
+&#125;</code></pre>
+
+<h2 id="Introduction-1"><a href="#Introduction-1" class="headerlink" title="Introduction"></a>Introduction</h2><p>要求返回一个 <code>Set</code>，包含商店中所有的客户：</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> Shop.<span class="hljs-title">getSetOfCustomers</span><span class="hljs-params">()</span></span>: Set&lt;Customer&gt; &#123;
+    <span class="hljs-comment">// Return a set containing all the customers of this shop</span>
+    <span class="hljs-keyword">return</span> customers.toSet()
+<span class="hljs-comment">//    return this.customers</span>
+&#125;</code></pre>
+
+<h2 id="Filter-Map"><a href="#Filter-Map" class="headerlink" title="Filter Map"></a>Filter Map</h2><p><code>filter</code> 方法返回一个包含所有满足指定条件元素的列表。</p>
+<p>任务第一个要求返回指定城市所有客户的列表。</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> Shop.<span class="hljs-title">getCustomersFrom</span><span class="hljs-params">(city: <span class="hljs-type">City</span>)</span></span>: List&lt;Customer&gt; &#123;
+    <span class="hljs-comment">// Return a list of the customers who live in the given city</span>
+    <span class="hljs-keyword">return</span> customers.filter &#123; it.city == city &#125;
+&#125;</code></pre>
+
+<p><code>map</code> 方法将指定的转换函数运用到原始集合的每一个元素，并返回一个转换后的集合。</p>
+<p>任务第二个要求返回所有客户所在城市的 Set。</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> Shop.<span class="hljs-title">getCitiesCustomersAreFrom</span><span class="hljs-params">()</span></span>: Set&lt;City&gt; &#123;
+    <span class="hljs-comment">// Return the set of cities the customers are from</span>
+    <span class="hljs-keyword">return</span> customers.map &#123; it.city &#125;.toSet()
+&#125;</code></pre>
+
+<h2 id="All-Any-and-others-Predicates"><a href="#All-Any-and-others-Predicates" class="headerlink" title="All Any and others Predicates"></a>All Any and others Predicates</h2><p><code>all</code>：如果所有的元素都满足指定的条件返回 true。</p>
+<p><code>any</code>：如果至少有一个元素满足指定的条件返回 ture。</p>
+<p><code>count</code>：返回满足指定条件的元素数量。</p>
+<p><code>firstOrAll</code>：返回第一个满足指定条件的元素，如果没有就返回 null。</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> Customer.<span class="hljs-title">isFrom</span><span class="hljs-params">(city: <span class="hljs-type">City</span>)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;
+    <span class="hljs-comment">// Return true if the customer is from the given city</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.city == city
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">fun</span> Shop.<span class="hljs-title">checkAllCustomersAreFrom</span><span class="hljs-params">(city: <span class="hljs-type">City</span>)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;
+    <span class="hljs-comment">// Return true if all customers are from the given city</span>
+    <span class="hljs-keyword">return</span> customers.all &#123; it.isFrom(city) &#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">fun</span> Shop.<span class="hljs-title">hasCustomerFrom</span><span class="hljs-params">(city: <span class="hljs-type">City</span>)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;
+    <span class="hljs-comment">// Return true if there is at least one customer from the given city</span>
+    <span class="hljs-keyword">return</span> customers.any &#123; it.isFrom(city) &#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">fun</span> Shop.<span class="hljs-title">countCustomersFrom</span><span class="hljs-params">(city: <span class="hljs-type">City</span>)</span></span>: <span class="hljs-built_in">Int</span> &#123;
+    <span class="hljs-comment">// Return the number of customers from the given city</span>
+    <span class="hljs-keyword">return</span> customers.count &#123; it.isFrom(city) &#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">fun</span> Shop.<span class="hljs-title">findFirstCustomerFrom</span><span class="hljs-params">(city: <span class="hljs-type">City</span>)</span></span>: Customer? &#123;
+    <span class="hljs-comment">// Return the first customer who lives in the given city, or null if there is none</span>
+    <span class="hljs-keyword">return</span> customers.firstOrNull &#123; it.isFrom(city) &#125;
+&#125;</code></pre>
+
+<h2 id="FlatMap"><a href="#FlatMap" class="headerlink" title="FlatMap"></a>FlatMap</h2><p><code>flatmap</code>：针对列表中的每一项根据指定的方法生成一个列表，最后将所有的列表拼接成一个列表返回。</p>
+<pre><code class="hljs kotlin"><span class="hljs-comment">// 返回一个客户所有已订购的产品</span>
+<span class="hljs-keyword">val</span> Customer.orderedProducts: Set&lt;Product&gt;
+    <span class="hljs-keyword">get</span>() &#123;
+        <span class="hljs-comment">// Return all products this customer has ordered</span>
+        <span class="hljs-keyword">return</span> orders.flatMap &#123; it.products &#125;.toSet()
+    &#125;
+<span class="hljs-comment">// 返回所有至少被一个客户订购过的商品集合</span>
+<span class="hljs-keyword">val</span> Shop.allOrderedProducts: Set&lt;Product&gt;
+    <span class="hljs-keyword">get</span>() &#123;
+        <span class="hljs-comment">// Return all products that were ordered by at least one customer</span>
+        <span class="hljs-keyword">return</span> customers.flatMap &#123; it.orderedProducts &#125;.toSet()
+    &#125;</code></pre>
+
+<h2 id="Max-Min"><a href="#Max-Min" class="headerlink" title="Max Min"></a>Max Min</h2><p><code>max</code>：返回集合中最大的元素。如果没有元素则返回 null。</p>
+<p><code>maxby</code>：使用函数参数计算的值作为比较对象。返回最大的元素中的值。</p>
+<pre><code class="hljs kotlin"><span class="hljs-comment">// 返回商店中订单数目最多的一个客户。</span>
+<span class="hljs-function"><span class="hljs-keyword">fun</span> Shop.<span class="hljs-title">getCustomerWithMaximumNumberOfOrders</span><span class="hljs-params">()</span></span>: Customer? &#123;
+    <span class="hljs-comment">// Return a customer whose order count is the highest among all customers</span>
+    <span class="hljs-keyword">return</span> customers.maxBy &#123; it.orders.size &#125;
+&#125;
+
+<span class="hljs-comment">// 返回一个客户所订购商品中价格最高的一个商品</span>
+<span class="hljs-function"><span class="hljs-keyword">fun</span> Customer.<span class="hljs-title">getMostExpensiveOrderedProduct</span><span class="hljs-params">()</span></span>: Product? &#123;
+    <span class="hljs-comment">// Return the most expensive product which has been ordered</span>
+    <span class="hljs-keyword">return</span> orders.flatMap &#123; it.products &#125;.maxBy &#123; it.price &#125;
+&#125;</code></pre>
+
+<h2 id="Sort"><a href="#Sort" class="headerlink" title="Sort"></a>Sort</h2><p>kotlin 中可以通过 <code>sortby</code>指定排序的标准。</p>
+<p>任务要求返回一个客户列表，客户的顺序是根据订单的数量由低到高。</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> Shop.<span class="hljs-title">getCustomersSortedByNumberOfOrders</span><span class="hljs-params">()</span></span>: List&lt;Customer&gt; &#123;
+    <span class="hljs-comment">// Return a list of customers, sorted by the ascending number of orders they made</span>
+    <span class="hljs-keyword">return</span> customers.sortedBy &#123; it.orders.size &#125;
+&#125;</code></pre>
+
+<h2 id="Sum"><a href="#Sum" class="headerlink" title="Sum"></a>Sum</h2><p><code>sumby</code>：将集合中所有元素按照指定的函数变换以后的结果累加。</p>
+<p>任务要求计算一个客户所有已订购商品的价格总和。</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> Customer.<span class="hljs-title">getTotalOrderPrice</span><span class="hljs-params">()</span></span>: <span class="hljs-built_in">Double</span> &#123;
+    <span class="hljs-comment">// Return the sum of prices of all products that a customer has ordered.</span>
+    <span class="hljs-comment">// Note: a customer may order the same product several times.</span>
+    <span class="hljs-keyword">return</span> orders.flatMap &#123; it.products &#125;.sumByDouble &#123; it.price &#125;
+&#125;</code></pre>
+
+<h2 id="GroupBy"><a href="#GroupBy" class="headerlink" title="GroupBy"></a>GroupBy</h2><p><code>groupBy</code>方法返回一个根据指定条件分组好的 map。</p>
+<p>任务要求返回来自每一个城市的客户的 map：</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> Shop.<span class="hljs-title">groupCustomersByCity</span><span class="hljs-params">()</span></span>: Map&lt;City, List&lt;Customer&gt;&gt; &#123;
+    <span class="hljs-comment">// Return a map of the customers living in each city</span>
+    <span class="hljs-keyword">return</span> customers.groupBy &#123; it.city &#125;
+&#125;</code></pre>
+
+<h2 id="Partition"><a href="#Partition" class="headerlink" title="Partition"></a>Partition</h2><p><code>partition</code>：将原始的集合分为一对集合，这一对集合中第一个是满足指定条件的元素集合，第二个是不满足指定条件的集合。</p>
+<p>任务要求返回所有未发货订单数目多于已发货订单的用户。</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> Shop.<span class="hljs-title">getCustomersWithMoreUndeliveredOrdersThanDelivered</span><span class="hljs-params">()</span></span>: Set&lt;Customer&gt; &#123;
+    <span class="hljs-comment">// Return customers who have more undelivered orders than delivered</span>
+    <span class="hljs-keyword">return</span> customers.filter &#123;
+        <span class="hljs-keyword">val</span> (delivered, undelivered) = it.orders.partition &#123; it.isDelivered &#125;
+        delivered.size &lt; undelivered.size
+    &#125;.toSet()
+&#125;</code></pre>
+
+<h2 id="Fold"><a href="#Fold" class="headerlink" title="Fold"></a>Fold</h2><p><code>fold</code>：给定一个初始值，然后通过迭代对集合中的每一个元素执行指定的操作并将操作的结果累加。</p>
+<p>任务要求返回所有客户都订购过的商品。</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> Shop.<span class="hljs-title">getSetOfProductsOrderedByEachCustomer</span><span class="hljs-params">()</span></span>: Set&lt;Product&gt; &#123;
+    <span class="hljs-comment">// Return the set of products that were ordered by each of the customers</span>
+    <span class="hljs-keyword">return</span> customers.fold(allOrderedProducts, &#123; orderedByAll, customer -&gt;
+        orderedByAll.intersect(customer.orderedProducts)
+    &#125;)</code></pre>
+
+<h2 id="CompoundTasks"><a href="#CompoundTasks" class="headerlink" title="CompoundTasks"></a>CompoundTasks</h2><p>上述方法的混合使用。</p>
+<pre><code class="hljs kotlin">
+<span class="hljs-function"><span class="hljs-keyword">fun</span> Customer.<span class="hljs-title">hasOrderedProduct</span><span class="hljs-params">(product: <span class="hljs-type">Product</span>)</span></span> = orders.any &#123; it.products.contains(product) &#125;
+
+<span class="hljs-comment">// 所有购买了指定商品的客户列表</span>
+<span class="hljs-function"><span class="hljs-keyword">fun</span> Shop.<span class="hljs-title">getCustomersWhoOrderedProduct</span><span class="hljs-params">(product: <span class="hljs-type">Product</span>)</span></span>: Set&lt;Customer&gt; &#123;
+    <span class="hljs-comment">// Return the set of customers who ordered the specified product</span>
+    <span class="hljs-keyword">return</span> customers.filter &#123; it.hasOrderedProduct(product) &#125;.toSet()
+&#125;
+
+<span class="hljs-comment">// 查找某个用户所有已发货的商品中最昂贵的商品</span>
+<span class="hljs-function"><span class="hljs-keyword">fun</span> Customer.<span class="hljs-title">getMostExpensiveDeliveredProduct</span><span class="hljs-params">()</span></span>: Product? &#123;
+    <span class="hljs-comment">// Return the most expensive product among all delivered products</span>
+    <span class="hljs-comment">// (use the Order.isDelivered flag)</span>
+    <span class="hljs-keyword">return</span> orders.filter &#123; it.isDelivered &#125;.flatMap &#123; it.products &#125;.maxBy &#123; it.price &#125;
+&#125;
+
+<span class="hljs-comment">// 查找指定商品被购买的次数</span>
+<span class="hljs-function"><span class="hljs-keyword">fun</span> Shop.<span class="hljs-title">getNumberOfTimesProductWasOrdered</span><span class="hljs-params">(product: <span class="hljs-type">Product</span>)</span></span>: <span class="hljs-built_in">Int</span> &#123;
+    <span class="hljs-comment">// Return the number of times the given product was ordered.</span>
+    <span class="hljs-comment">// Note: a customer may order the same product for several times.</span>
+    <span class="hljs-keyword">return</span> customers.flatMap &#123; it.orders.flatMap &#123; it.products &#125; &#125;.count &#123; it == product &#125;
+&#125;</code></pre>
+
+<h2 id="Extensions-On-Collections-1"><a href="#Extensions-On-Collections-1" class="headerlink" title="Extensions On Collections"></a>Extensions On Collections</h2><p>重写 Java 代码</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> Collection&lt;String&gt; <span class="hljs-title">doSomethingStrangeWithCollection</span><span class="hljs-params">(Collection&lt;String&gt; collection)</span> </span>&#123;
+    Map&lt;Integer, List&lt;String&gt;&gt; groupsByLength = Maps.newHashMap();
+    <span class="hljs-keyword">for</span> (String s : collection) &#123;
+        List&lt;String&gt; strings = groupsByLength.get(s.length());
+        <span class="hljs-keyword">if</span> (strings == <span class="hljs-keyword">null</span>) &#123;
+            strings = Lists.newArrayList();
+            groupsByLength.put(s.length(), strings);
+        &#125;
+        strings.add(s);
+    &#125;
+
+    <span class="hljs-keyword">int</span> maximumSizeOfGroup = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (List&lt;String&gt; group : groupsByLength.values()) &#123;
+        <span class="hljs-keyword">if</span> (group.size() &gt; maximumSizeOfGroup) &#123;
+            maximumSizeOfGroup = group.size();
+        &#125;
+    &#125;
+
+    <span class="hljs-keyword">for</span> (List&lt;String&gt; group : groupsByLength.values()) &#123;
+        <span class="hljs-keyword">if</span> (group.size() == maximumSizeOfGroup) &#123;
+            <span class="hljs-keyword">return</span> group;
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+&#125;</code></pre>
+
+<p>方法的目的是：</p>
+<ul>
+<li>将一个字符串集合按照长度分组，放入一个 map 中</li>
+<li>求出 map 中所有元素 (String List) 的最大长度</li>
+<li>根据步骤2的结果，返回 map 中字符串数目最多的那一组</li>
+</ul>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">doSomethingStrangeWithCollection</span><span class="hljs-params">(collection: <span class="hljs-type">Collection</span>&lt;<span class="hljs-type">String</span>&gt;)</span></span>: Collection&lt;String&gt;? &#123;
+    <span class="hljs-keyword">val</span> groupsByLength = collection.groupBy &#123; s -&gt; s.length &#125;
+    <span class="hljs-keyword">return</span> groupsByLength.values.maxBy &#123; group -&gt; group.size &#125;
+&#125;</code></pre>
+
+<h1 id="Conventions"><a href="#Conventions" class="headerlink" title="Conventions"></a>Conventions</h1><h2 id="Comparsion"><a href="#Comparsion" class="headerlink" title="Comparsion"></a>Comparsion</h2><p>实现日期对象大小的比较</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">task25</span><span class="hljs-params">(date1: <span class="hljs-type">MyDate</span>, date2: <span class="hljs-type">MyDate</span>)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;
+    <span class="hljs-keyword">return</span> date1 &lt; date2
+&#125;</code></pre>
+
+<p>其中类 <code>MyDate</code>需要实现 <code>Comparable</code>接口。</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">data</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyDate</span></span>(<span class="hljs-keyword">val</span> year: <span class="hljs-built_in">Int</span>, <span class="hljs-keyword">val</span> month: <span class="hljs-built_in">Int</span>, <span class="hljs-keyword">val</span> dayOfMonth: <span class="hljs-built_in">Int</span>) : Comparable&lt;MyDate&gt; &#123;
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">compareTo</span><span class="hljs-params">(other: <span class="hljs-type">MyDate</span>)</span></span> =
+            <span class="hljs-keyword">when</span> &#123;
+                other.year != year -&gt; year - other.year
+                other.month != month -&gt; month - other.month
+                <span class="hljs-keyword">else</span> -&gt; dayOfMonth - other.dayOfMonth
+            &#125;
+
+&#125;</code></pre>
+
+<h2 id="InRange"><a href="#InRange" class="headerlink" title="InRange"></a>InRange</h2><p>实现检查指定的日期是不是在某一个日期范围内。</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">checkInRange</span><span class="hljs-params">(date: <span class="hljs-type">MyDate</span>, first: <span class="hljs-type">MyDate</span>, last: <span class="hljs-type">MyDate</span>)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;
+    <span class="hljs-keyword">return</span> date <span class="hljs-keyword">in</span> DateRange(first, last)
+&#125;</code></pre>
+
+<p>DateRange 类已经定义好，需要添加 <code>contains</code>函数。</p>
+<pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DateRange</span></span>(<span class="hljs-keyword">val</span> start: MyDate, <span class="hljs-keyword">val</span> endInclusive: MyDate) &#123;
+    <span class="hljs-keyword">operator</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">contains</span><span class="hljs-params">(value: <span class="hljs-type">MyDate</span>)</span></span>: <span class="hljs-built_in">Boolean</span> = start &lt;= value &amp;&amp; value &lt;= endInclusive
+&#125;</code></pre>
+
+<h2 id="RangeTo"><a href="#RangeTo" class="headerlink" title="RangeTo"></a>RangeTo</h2><p>这一个任务是要求实现<code>MyDate</code>类的<code>..</code>运算符。<code>..</code>运算符最终会翻译成<code>rangeTo()</code>函数，所以本任务就是实现<code>MyDate.rangeTo()</code>。</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">operator</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> MyDate.<span class="hljs-title">rangeTo</span><span class="hljs-params">(other: <span class="hljs-type">MyDate</span>)</span></span>: DateRange = DateRange(<span class="hljs-keyword">this</span>, other)
+
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">checkInRange2</span><span class="hljs-params">(date: <span class="hljs-type">MyDate</span>, first: <span class="hljs-type">MyDate</span>, last: <span class="hljs-type">MyDate</span>)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;
+    <span class="hljs-comment">//todoTask27()</span>
+    <span class="hljs-keyword">return</span> date <span class="hljs-keyword">in</span> first..last
+&#125;</code></pre>
+
+<h2 id="ForLoop"><a href="#ForLoop" class="headerlink" title="ForLoop"></a>ForLoop</h2><p>任务要求对 DateRange 内的 MyDate 执行 for 循环，因此 DateRange 需要实现 Iterable 接口。</p>
+<pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DateRange</span></span>(<span class="hljs-keyword">val</span> start: MyDate, <span class="hljs-keyword">val</span> endInclusive: MyDate) : Iterable&lt;MyDate&gt; &#123;
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">iterator</span><span class="hljs-params">()</span></span>: Iterator&lt;MyDate&gt; = DateIterator(<span class="hljs-keyword">this</span>)
+
+    <span class="hljs-keyword">operator</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">contains</span><span class="hljs-params">(value: <span class="hljs-type">MyDate</span>)</span></span>: <span class="hljs-built_in">Boolean</span> = start &lt;= value &amp;&amp; value &lt;= endInclusive
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DateIterator</span></span>(<span class="hljs-keyword">val</span> dateRange: DateRange) : Iterator&lt;MyDate&gt; &#123;
+    <span class="hljs-keyword">var</span> current: MyDate = dateRange.start
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">hasNext</span><span class="hljs-params">()</span></span>: <span class="hljs-built_in">Boolean</span> = current &lt;= dateRange.endInclusive
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">next</span><span class="hljs-params">()</span></span>: MyDate &#123;
+        <span class="hljs-keyword">val</span> result = current
+        current = current.nextDay()
+        <span class="hljs-keyword">return</span> result
+    &#125;
+&#125;</code></pre>
+
+<h2 id="OperatorOverloading"><a href="#OperatorOverloading" class="headerlink" title="OperatorOverloading"></a>OperatorOverloading</h2><p>重载 <code>+</code>运算符：</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">operator</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> MyDate.<span class="hljs-title">plus</span><span class="hljs-params">(timeInterval: <span class="hljs-type">TimeInterval</span>)</span></span> = addTimeIntervals(timeInterval, <span class="hljs-number">1</span>)</code></pre>
+
+<p>重载<code>*</code>运算符：</p>
+<pre><code class="hljs kotlin"><span class="hljs-comment">// 将TimeInterval的乘法结果定义成RepeatedTimeInterval</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RepeatedTimeInterval</span></span>(<span class="hljs-keyword">val</span> timeInterval: TimeInterval, <span class="hljs-keyword">val</span> number: <span class="hljs-built_in">Int</span>)
+<span class="hljs-keyword">operator</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> TimeInterval.<span class="hljs-title">times</span><span class="hljs-params">(number: <span class="hljs-type">Int</span>)</span></span> = RepeatedTimeInterval(<span class="hljs-keyword">this</span>, number)
+
+<span class="hljs-keyword">operator</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> MyDate.<span class="hljs-title">plus</span><span class="hljs-params">(timeIntervals: <span class="hljs-type">RepeatedTimeInterval</span>)</span></span> = addTimeIntervals(timeIntervals.timeInterval, timeIntervals.number)
+</code></pre>
+
+<h2 id="Destructuring-Declaration"><a href="#Destructuring-Declaration" class="headerlink" title="Destructuring Declaration"></a>Destructuring Declaration</h2><p>kotlin 可以将一个对象的所有属性一次赋值给一堆变量</p>
+<p>任务要求判断一个日期是否是闰年。</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">data</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyDate</span></span>(<span class="hljs-keyword">val</span> year: <span class="hljs-built_in">Int</span>, <span class="hljs-keyword">val</span> month: <span class="hljs-built_in">Int</span>, <span class="hljs-keyword">val</span> dayOfMonth: <span class="hljs-built_in">Int</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">isLeapDay</span><span class="hljs-params">(date: <span class="hljs-type">MyDate</span>)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;
+    <span class="hljs-keyword">val</span> (year, month, dayOfMonth) = date
+
+    <span class="hljs-comment">// 29 February of a leap year</span>
+    <span class="hljs-keyword">return</span> isLeapYear(year) &amp;&amp; month == <span class="hljs-number">1</span> &amp;&amp; dayOfMonth == <span class="hljs-number">29</span>
+&#125;
+
+<span class="hljs-comment">// Years which are multiples of four (with the exception of years divisible by 100 but not by 400)</span>
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">isLeapYear</span><span class="hljs-params">(year: <span class="hljs-type">Int</span>)</span></span>: <span class="hljs-built_in">Boolean</span> = year % <span class="hljs-number">4</span> == <span class="hljs-number">0</span> &amp;&amp; (year % <span class="hljs-number">100</span> != <span class="hljs-number">0</span> || year % <span class="hljs-number">400</span> == <span class="hljs-number">0</span>)</code></pre>
+
+<h2 id="Invoke"><a href="#Invoke" class="headerlink" title="Invoke"></a>Invoke</h2><p>如果一个类实现了<code>invoke</code>函数，那么该类的实体对象在调用这个函数时可以省略函数名，<code>invoke</code>函数需要有<code>operator</code>修饰符。</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">task31</span><span class="hljs-params">(invokable: <span class="hljs-type">Invokable</span>)</span></span>: <span class="hljs-built_in">Int</span> &#123;
+    <span class="hljs-keyword">return</span> invokable()()()().numberOfInvocations
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Invokable</span> </span>&#123;
+    <span class="hljs-keyword">var</span> numberOfInvocations: <span class="hljs-built_in">Int</span> = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">operator</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">invoke</span><span class="hljs-params">()</span></span>: Invokable &#123;
+        numberOfInvocations++
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>
+    &#125;
+&#125;</code></pre>
+
+<h1 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h1><h2 id="Properties-1"><a href="#Properties-1" class="headerlink" title="Properties"></a>Properties</h2><p>kotlin 中可以为属性自定义 setter，格式如下：</p>
+<pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PropertyExample</span></span>() &#123;
+    <span class="hljs-keyword">var</span> counter = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">var</span> propertyWithCounter: <span class="hljs-built_in">Int</span>? = <span class="hljs-literal">null</span>
+        <span class="hljs-keyword">set</span>(value) &#123;
+            field = value
+            counter++
+        &#125;
+&#125;</code></pre>
+
+<p>每次为 <code>propertyWithCounter</code> 赋值时，都会调用 <code>set</code>，kotlin 中不能直接声明字段，然而，当一个属性需要一个幕后字段时，Kotlin 会自动提供。这个幕后字段可以使用<code>field</code>标识符在访问器中引用。</p>
+<h2 id="LazyProperty"><a href="#LazyProperty" class="headerlink" title="LazyProperty"></a>LazyProperty</h2><p><code>initializer</code>是一个<code>lambda </code>表达式，这个表达式会在<code>lazy</code>属性第一次被访问的时候执行，且仅执行一次</p>
+<pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LazyProperty</span></span>(<span class="hljs-keyword">val</span> initializer: () -&gt; <span class="hljs-built_in">Int</span>) &#123;
+    <span class="hljs-keyword">var</span> value: <span class="hljs-built_in">Int</span>? = <span class="hljs-literal">null</span>
+    <span class="hljs-keyword">val</span> lazy: <span class="hljs-built_in">Int</span>
+    <span class="hljs-keyword">get</span>() &#123;
+        <span class="hljs-keyword">if</span> (value == <span class="hljs-literal">null</span>) &#123;
+            value = initializer()
+        &#125;
+        <span class="hljs-keyword">return</span> value!!
+    &#125;
+&#125;</code></pre>
+
+<h2 id="DelegatesExamples"><a href="#DelegatesExamples" class="headerlink" title="DelegatesExamples"></a>DelegatesExamples</h2><p>用委托实现懒加载</p>
+<pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LazyPropertyUsingDelegates</span></span>(<span class="hljs-keyword">val</span> initializer: () -&gt; <span class="hljs-built_in">Int</span>) &#123;
+    <span class="hljs-keyword">val</span> lazyValue: <span class="hljs-built_in">Int</span> <span class="hljs-keyword">by</span> lazy(initializer)
+&#125;</code></pre>
+
+<h2 id="HowDelegatesWork"><a href="#HowDelegatesWork" class="headerlink" title="HowDelegatesWork"></a>HowDelegatesWork</h2><pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EffectiveDate</span>&lt;<span class="hljs-type">R</span>&gt; : <span class="hljs-type">ReadWriteProperty</span>&lt;<span class="hljs-type">R, MyDate</span>&gt; </span>&#123;
+    <span class="hljs-keyword">var</span> timeInMillis: <span class="hljs-built_in">Long</span>? = <span class="hljs-literal">null</span>
+
+    <span class="hljs-keyword">operator</span> <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getValue</span><span class="hljs-params">(thisRef: <span class="hljs-type">R</span>, property: <span class="hljs-type">KProperty</span>&lt;*&gt;)</span></span>: MyDate = timeInMillis!!.toDate()
+    <span class="hljs-keyword">operator</span> <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">setValue</span><span class="hljs-params">(thisRef: <span class="hljs-type">R</span>, property: <span class="hljs-type">KProperty</span>&lt;*&gt;, value: <span class="hljs-type">MyDate</span>)</span></span> &#123; timeInMillis = value.toMillis() &#125;
+&#125;</code></pre>
+
+<h1 id="Builders"><a href="#Builders" class="headerlink" title="Builders"></a>Builders</h1><h2 id="ExtensionFunctionLiterals"><a href="#ExtensionFunctionLiterals" class="headerlink" title="ExtensionFunctionLiterals"></a>ExtensionFunctionLiterals</h2><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">task36</span><span class="hljs-params">()</span></span>: List&lt;<span class="hljs-built_in">Boolean</span>&gt; &#123;
+    <span class="hljs-keyword">val</span> isEven: <span class="hljs-built_in">Int</span>.() -&gt; <span class="hljs-built_in">Boolean</span> = &#123; <span class="hljs-keyword">this</span> % <span class="hljs-number">2</span> == <span class="hljs-number">0</span> &#125;
+    <span class="hljs-keyword">val</span> isOdd: <span class="hljs-built_in">Int</span>.() -&gt; <span class="hljs-built_in">Boolean</span> = &#123; <span class="hljs-keyword">this</span> % <span class="hljs-number">2</span> != <span class="hljs-number">0</span> &#125;
+
+    <span class="hljs-keyword">return</span> listOf(<span class="hljs-number">42</span>.isOdd(), <span class="hljs-number">239</span>.isOdd(), <span class="hljs-number">294823098</span>.isEven())
+&#125;</code></pre>
+
+<h2 id="StringAndMapBuilders"><a href="#StringAndMapBuilders" class="headerlink" title="StringAndMapBuilders"></a>StringAndMapBuilders</h2><p>类型扩展函数，仿照<code>buildString</code>实现<code>buildMap</code></p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;K, V&gt;</span> <span class="hljs-title">buildMap</span><span class="hljs-params">(build: <span class="hljs-type">MutableMap</span>&lt;<span class="hljs-type">K</span>, V&gt;.()</span></span> -&gt; <span class="hljs-built_in">Unit</span>): Map&lt;K, V&gt; &#123;
+    <span class="hljs-keyword">val</span> map = HashMap&lt;K, V&gt;()
+    map.build()
+    <span class="hljs-keyword">return</span> map
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">task37</span><span class="hljs-params">()</span></span>: Map&lt;<span class="hljs-built_in">Int</span>, String&gt; &#123;
+    <span class="hljs-keyword">return</span> buildMap &#123;
+        put(<span class="hljs-number">0</span>, <span class="hljs-string">&quot;0&quot;</span>)
+        <span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> <span class="hljs-number">1</span>..<span class="hljs-number">10</span>) &#123;
+            put(i, <span class="hljs-string">&quot;<span class="hljs-variable">$i</span>&quot;</span>)
+        &#125;
+    &#125;
+&#125;</code></pre>
+
+<h2 id="TheFunctionApply"><a href="#TheFunctionApply" class="headerlink" title="TheFunctionApply"></a>TheFunctionApply</h2><p>使用<code>apply</code>重写上一练习中的功能</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;T&gt;</span> T.<span class="hljs-title">myApply</span><span class="hljs-params">(f: <span class="hljs-type">T</span>.() -&gt; <span class="hljs-type">Unit</span>)</span></span>: T &#123;
+    f()
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>
+&#125;</code></pre>
+
+<h2 id="HtmlBuilders"><a href="#HtmlBuilders" class="headerlink" title="HtmlBuilders"></a>HtmlBuilders</h2><p>把<code>products</code>填充进表格，并设置好背景色，运行<code>htmlDemo.kt</code>可以预览内容</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">renderProductTable</span><span class="hljs-params">()</span></span>: String &#123;
+    <span class="hljs-keyword">return</span> html &#123;
+        table &#123;
+            tr &#123;
+                td &#123;
+                    text(<span class="hljs-string">&quot;Product&quot;</span>)
+                &#125;
+                td &#123;
+                    text(<span class="hljs-string">&quot;Price&quot;</span>)
+                &#125;
+                td &#123;
+                    text(<span class="hljs-string">&quot;Popularity&quot;</span>)
+                &#125;
+            &#125;
+            <span class="hljs-keyword">val</span> products = getProducts()
+            <span class="hljs-keyword">for</span> ((index, product) <span class="hljs-keyword">in</span> products.withIndex()) &#123;
+                tr &#123;
+                    td (color = getCellColor(index, <span class="hljs-number">0</span>)) &#123;
+                        text(product.description)
+                    &#125;
+                    td (color = getCellColor(index, <span class="hljs-number">1</span>)) &#123;
+                        text(product.price)
+                    &#125;
+                    td (color = getCellColor(index, <span class="hljs-number">2</span>)) &#123;
+                        text(product.popularity)
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+    &#125;.toString()
+&#125;
+</code></pre>
+
+<h2 id="BuildersHowItWorks"><a href="#BuildersHowItWorks" class="headerlink" title="BuildersHowItWorks"></a>BuildersHowItWorks</h2><p>1：c，<code>td</code>是一个方法，这里的<code>td</code>显然是在调用<br>2：b，<code>color</code>是参数名，这里使用了命名参数<br>3：b，这里是个<code>lambda</code>表达式<br>4：c，<code>this</code>指向调用者</p>
+<h1 id="Generics"><a href="#Generics" class="headerlink" title="Generics"></a>Generics</h1><h2 id="GenericsFunctions"><a href="#GenericsFunctions" class="headerlink" title="GenericsFunctions"></a>GenericsFunctions</h2><p>根据条件将一个集合分为两个集合。</p>
+<pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;T, C: MutableCollection&lt;T&gt;</span>&gt; Collection<span class="hljs-type">&lt;T&gt;</span>.<span class="hljs-title">partitionTo</span><span class="hljs-params">(first: <span class="hljs-type">C</span>, second: <span class="hljs-type">C</span>, predicate: (<span class="hljs-type">T</span>) -&gt; <span class="hljs-type">Boolean</span>)</span></span>: Pair&lt;C, C&gt; &#123;
+    <span class="hljs-keyword">for</span> (element <span class="hljs-keyword">in</span> <span class="hljs-keyword">this</span>) &#123;
+        <span class="hljs-keyword">if</span> (predicate(element)) &#123;
+            first.add(element)
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            second.add(element)
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> Pair(first, second)
+&#125;</code></pre>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Kotlin/">Kotlin</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Android/">Android</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Kotlin/">Kotlin</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/07/28/yuv-format-explaination/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">YUV 格式详解</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/05/07/Android-PhotoViewEx/">
+                        <span class="hidden-mobile">Android 图片预览库封装</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Kotlin Koans 学习笔记&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

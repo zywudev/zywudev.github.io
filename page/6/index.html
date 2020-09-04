@@ -1,0 +1,867 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="贾小昆">
+  <meta name="keywords" content="">
+  <title>贾小昆</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2019/01/10/JVM-memory-structure/">JVM内存结构</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/01/10/JVM-memory-structure/">
+          
+          
+            
+          
+          Java 虚拟机在执行 Java 程序的过程中会把它管理的内存划分为若干个不同的数据区域。
+
+这些区域中，一些是线程私有的，一些是线程共享的。
+线程私有的：程序计数器、虚拟机栈、本地方法栈
+线程共享的：堆、方法区、直接内存
+程序计数器一块较小的内存空间，用于标记当前线程所执行字节码的行号。
+Java 虚拟机的多线程是通过线程轮流切换并分配处理器执行时间的方式实现，所以确定的时刻一个处理器只会执行一
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-01-10 14:59" pubdate>
+              2019-01-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Java/">Java</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/JVM/">JVM</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2019/01/06/byte-range/">为什么 byte 的范围是 -128 ~ 127?</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/01/06/byte-range/">
+          
+          
+            
+          
+          这是一个很基础的问题。但是在昨天之前，我都是只知其然，不知其所以然。
+于是我搜索了大量网络资料。说实话，看完大部分文章，我还是没有弄明白为什么。直到我看到了知乎上面的一个回答：
+在8位二进制中，-128 没有原码、反码形式，那么它的补码是怎么计算出来的？还是约定的？ ，醍醐灌顶。
+这里尝试自己阐述一遍，如果你没有看懂，那是我的问题，还是直接看参考链接。
+首先，忘记原码、补码、反码的概念。
+从 「模
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-01-06 21:06" pubdate>
+              2019-01-06
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Java/">Java</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Java-%E5%9F%BA%E7%A1%80/">Java 基础</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2018/12/31/my-2018/">2018 年过去了，我很怀念它</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2018/12/31/my-2018/">
+          
+          
+            
+          
+          
+每到年底，大家都会总结过去的一年里的得与失，收获与不足，也会为新的一年立下新的 Flag。
+
+有时候在想为什么要有新年的感念，也许就是希望吧。每个人都需要一个时间周期去不断给自己寄予新的希望，而这个周期不能太长，以便可以安慰自己的平庸，这个周期不能太短，至少可以笃定的注视前方。
+回望这一年，也是有几件值得纪念的事情。
+1、3 月 8 日，老鲍回国，大学兄弟们聚得最齐的一次。
+2、5 月 20 日
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-12-31 13:35" pubdate>
+              2018-12-31
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2018/12/12/android-media-learn-resource/">Android 音视频学习资源汇总</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2018/12/12/android-media-learn-resource/">
+          
+          
+            
+          
+          1、Android 音视频开发入门指南 ：音视频学习思路，一系列学习任务。
+2、Android 音视频开发学习思路：音视频学习路径，教程。
+3、《雷霄骅的专栏》：http://blog.csdn.net/leixiaohua1020
+4、《Jhuster的专栏》：http://blog.51cto.com/ticktick
+5、《FFMPEG Tips》：http://ticktick.blog.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-12-12 21:34" pubdate>
+              2018-12-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android/">Android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/">Android 音视频</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2018/12/05/d-k-effect/">达克效应</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2018/12/05/d-k-effect/">
+          
+          
+            
+          
+          
+达克效应（英语：D-K effect），全称为邓宁-克鲁格效应（英语：Dunning–Kruger effect），是一种认知偏差，能力欠缺的人有一种虚幻的自我优越感，错误地认为自己比真实情况更加优秀。简言之即：庸人容易因欠缺自知之明而自我膨胀。
+Kruger和Dunning将其归咎于元认知上的缺陷，能力欠缺的人无法认识到自身的无能，不能准确评估自身的能力。他们的研究还表明，反之，非常能干的人会
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-12-05 20:26" pubdate>
+              2018-12-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2018/11/28/2018-lunar-10-21/">二零一八年农历十月二十一</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2018/11/28/2018-lunar-10-21/">
+          
+          
+            
+          
+          昨天同事喊我去参加面试，公司的其他部门技术岗。想来很久没面试了，于是就去试下水。
+有几点感受。
+首先，发现原来自己真的还差得远呢。随便一个 Http 的知识点就难倒我了。工作中只知道使用，压根没深入学习原理。这也提醒了我多去钻研技术，不要只停留在表面。
+其次，技术面试官的更关注的是学历、职级、绩效，这是我很诧异的。因为我发现有时候学历、职级、绩效真得不见得和个人能力成正比，如果是 HR 问这些还情
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-11-28 20:41" pubdate>
+              2018-11-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2018/11/27/android-keep-alive/">Android 8.0 应用保活实践</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2018/11/27/android-keep-alive/">
+          
+          
+            
+          
+          虽然我也觉得强行保活应用挺不厚道的，但是没办法，为了完成需求。
+一开始尝试的方案是 Android 5.0 后系统提供的 JobScheduler，能够预先设置条件，达到条件时自动启动 JobService，在 Android 8.0 以下都能很愉快的使用。但是在华为的 Android 8.0 上，当应用被杀后，JobService 就不能被系统调用了。
+于是采取了双进程服务绑定方式，实现了应用保
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-11-27 22:17" pubdate>
+              2018-11-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android/">Android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Android-%E4%BF%9D%E6%B4%BB/">Android 保活</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2018/11/14/Android-media-foundation/">Android 音视频基础知识</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2018/11/14/Android-media-foundation/">
+          
+          
+            
+          
+          视频编码通过特定的压缩技术，将某个视频格式文件转换成另一种视频格式文件的方式。编解码标准有国际电联的 H.261、H.263、H.264，运动静止图像专家组的 M-JPEG 和国际标准化组织运动图像专家组的 MPEG 系列标准，此外，互联网上还有 Real-Networks 的 RealVideo，微软公司的 WMV 以及 Apple 公司的 QuickTime 等。
+
+MPEG：主要有 MPEG
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-11-14 21:13" pubdate>
+              2018-11-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android/">Android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/">Android 音视频</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2018/10/24/android-junit-test/">Android 单元测试 Junit</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2018/10/24/android-junit-test/">
+          
+          
+            
+          
+          
+示例代码：https://github.com/zywudev/AndroidUnitTest
+
+Anroid Studio 在新建项目中自动将 Junit 框架集成，无需额外导入依赖。
+Junit AssertAssert 就是断言，判断假设与实际是否一致，一致则测试通过。
+常用断言：
+
+assertTrue                                  假设为真
+asse
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-10-24 15:15" pubdate>
+              2018-10-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android/">Android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Junit/">Junit</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2018/10/16/how-the-economic-machine-works/">经济机器是怎样运行的？</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2018/10/16/how-the-economic-machine-works/">
+          
+          
+            
+          
+          最近看到的一个视频，是大师级人物瑞达利欧自己的宏观经济框架，三十分钟解释了经济机器是怎样运行的，通俗易懂。
+视频地址：https://www.youtube.com/watch?v=rFV7wdEX-Mo
+以下是个人总结的要点，结合视频看，效果更佳。
+经济是由几个简单的零部件和无数次重复的简单交易组成，这些交易首先由人的天性所驱动，因而形成了三股主要的经济动力。
+1、生产率的提高
+2、短期债务周期
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-10-16 23:11" pubdate>
+              2018-10-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6/">经济学</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/page/5/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "万物之中 希望至美&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

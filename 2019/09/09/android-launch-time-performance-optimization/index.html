@@ -1,0 +1,841 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="贾小昆">
+  <meta name="keywords" content="">
+  <title>Android 应用启动速度优化 - 贾小昆</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-09-09 10:55" pubdate>
+      2019年9月9日 上午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      37
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Android 应用启动速度优化</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>应用启动时间的长短，影响到用户体验。对研发人员来说，启动速度是我们的“门面”。</p>
+<p>本文主要记录 Android 应用启动速度优化学习笔记。</p>
+<h2 id="应用启动类型"><a href="#应用启动类型" class="headerlink" title="应用启动类型"></a>应用启动类型</h2><p>应用的启动流程即从点击图标到用户可操作的全部过程。启动分为三种类型：</p>
+<ul>
+<li><p><strong>冷启动</strong>：当启动应用时，后台没有该应用的进程，这时系统会首先会创建一个新的进程分配给该应用。</p>
+</li>
+<li><p><strong>热启动</strong>：当启动应用时，后台已有该应用的进程，比如按下 home 键。</p>
+</li>
+<li><p><strong>温启动</strong>：当启动应用时，后台已有该应用的进程，但是启动的入口 Activity 被干掉了，比如按了 back 键，应用虽然退出了，但是该应用的进程是依然会保留在后台。</p>
+</li>
+</ul>
+<p>其中启动最慢的就是冷启动，系统和应用本身的工作都是从零开始。</p>
+<p>冷启动开始时，系统有三个任务：</p>
+<ul>
+<li><p>启动 App</p>
+</li>
+<li><p>App 启动后显示一个空白的 Window</p>
+</li>
+<li><p>创建 App 的进程</p>
+</li>
+</ul>
+<p>在此之后，应用进程马上会执行以下任务：</p>
+<ul>
+<li><p>创建 App 对象</p>
+</li>
+<li><p>启动 main thread</p>
+</li>
+<li><p>创建要启动的 Activity</p>
+</li>
+<li><p>加载 View</p>
+</li>
+<li><p>布置页面</p>
+</li>
+<li><p>进行第一次绘制</p>
+</li>
+</ul>
+<h2 id="测量时间方式"><a href="#测量时间方式" class="headerlink" title="测量时间方式"></a>测量时间方式</h2><h3 id="adb-命令"><a href="#adb-命令" class="headerlink" title="adb 命令"></a>adb 命令</h3><p>使用 adb shell 获取应用启动时间：</p>
+<pre><code class="hljs shell">adb shell am start -W [packageName]/[packageName.AppstartActivity]</code></pre>
+
+<p>输出的结果类似于：</p>
+<pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> adb shell am start -W com.speed.test/com.speed.test.HomeActivity</span>
+Starting: Intent &#123; act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.speed.test/.HomeActivity &#125;
+Status: ok
+Activity: com.speed.test/.HomeActivity
+ThisTime: 496    
+TotalTime: 496
+WaitTime: 503
+Complete</code></pre>
+
+<ul>
+<li>ThisTime： 代表一连串启动 Activity 的最后一个 Activity 的启动耗时。</li>
+<li>TotalTime 表示新应用启动的耗时，包括新进程的启动和 Activity 的启动，但不包括前一个应用 Activity <code>pause</code> 的耗时。</li>
+<li>WaitTime 返回从 <code>startActivity</code> 到应用第一帧完全显示这段时间。 就是总的耗时，包括前一个应用 Activity <code>pause</code> 的时间和新应用启动的时间。</li>
+</ul>
+<p>一般只需关注 TotalTime，即应用自身真正的启动耗时。</p>
+<p>缺点：adb 命令无法精确查看方法具体耗费的时间，局限性比较大。</p>
+<h3 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h3><blockquote>
+<p>AOP : Aspect Oriented Programming的缩写，意为：面向切面编程</p>
+</blockquote>
+<p>优点：</p>
+<ol>
+<li>针对同一问题的统一处理</li>
+<li>无侵入添加代码</li>
+</ol>
+<p>Android 中使用 AspecJ 实现 AOP。详细内容看这篇文章：<a href="https://wuzhangyang.com/2020/06/03/aspectj/">Android AspectJ 学习笔记</a></p>
+<p>项目根目录的 build.gradle 添加</p>
+<pre><code class="hljs gradle"><span class="hljs-keyword">buildscript</span> &#123;
+    ...
+    <span class="hljs-keyword">dependencies</span> &#123;
+        ...
+        <span class="hljs-keyword">classpath</span> <span class="hljs-string">&#x27;com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.0&#x27;</span>
+    &#125;
+&#125;</code></pre>
+
+<p>app 项目的 build.gradle 新建的 module的 build.gradle 里添加</p>
+<pre><code class="hljs gradle">apply plugin: <span class="hljs-string">&#x27;android-aspectjx&#x27;</span>
+
+<span class="hljs-keyword">dependencies</span> &#123;
+    ...
+    api <span class="hljs-string">&#x27;org.aspectj:aspectjrt:1.9.5&#x27;</span>
+&#125;</code></pre>
+
+<p>MyApplication 代码</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyApplication</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Application</span> </span>&#123;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">super</span>.onCreate();
+
+        initBugly();
+        initBaiduMap();
+        initJPushInterface();
+        initShareSDK();
+
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">initBugly</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">try</span> &#123;
+            Thread.sleep(<span class="hljs-number">1000</span>); <span class="hljs-comment">// 模拟耗费的时间</span>
+        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">initBaiduMap</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">try</span> &#123;
+            Thread.sleep(<span class="hljs-number">2000</span>); <span class="hljs-comment">// 模拟耗费的时间</span>
+        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">initJPushInterface</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">try</span> &#123;
+            Thread.sleep(<span class="hljs-number">3000</span>); <span class="hljs-comment">// 模拟耗费的时间</span>
+        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">initShareSDK</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">try</span> &#123;
+            Thread.sleep(<span class="hljs-number">500</span>); <span class="hljs-comment">// 模拟耗费的时间</span>
+        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+&#125;</code></pre>
+
+<p>创建切面</p>
+<pre><code class="hljs java"><span class="hljs-meta">@Aspect</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PerformanceAspect</span> </span>&#123;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String TAG = <span class="hljs-string">&quot;PerformanceAspect&quot;</span>;
+
+    <span class="hljs-meta">@Around(&quot;call(* com.wuzy.aspectjdemo.MyApplication.**(..))&quot;)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">getTime</span><span class="hljs-params">(ProceedingJoinPoint joinPoint)</span> </span>&#123;
+        <span class="hljs-keyword">long</span> startTime = System.currentTimeMillis();
+        String methodName = joinPoint.getSignature().getName();
+        <span class="hljs-keyword">try</span> &#123;
+            joinPoint.proceed();
+        &#125; <span class="hljs-keyword">catch</span> (Throwable throwable) &#123;
+            throwable.printStackTrace();
+        &#125;
+        Log.e(TAG, methodName + <span class="hljs-string">&quot;方法耗时：&quot;</span> + (System.currentTimeMillis() - startTim
+                                          e));
+    &#125;
+&#125;</code></pre>
+
+<p>无需修改任何工程代码，就可以获取运行时长了</p>
+<p><img src="/2019/09/09/android-launch-time-performance-optimization/performaceaspect.png" srcset="/img/loading.gif" alt="performaceaspect"></p>
+<h3 id="TraceView"><a href="#TraceView" class="headerlink" title="TraceView"></a>TraceView</h3><p><a target="_blank" rel="noopener" href="https://developer.android.google.cn/studio/profile/generate-trace-logs">TraceView</a> 是 Android SDK 内置的一个工具，它可以加载 trace 文件，用图形的形式展示代码的执行时间、次数及调用栈。</p>
+<p>使用方式</p>
+<pre><code class="hljs java">Debug.startMethodTracing(<span class="hljs-string">&quot;文件名&quot;</span>);
+
+Debug.stopMethodTracing();</code></pre>
+
+<p>代码运行后，会在</p>
+<pre><code class="hljs java">mnt/sdcard/Android/data/包名/files</code></pre>
+
+<p>生成一个<code>.trace</code>后缀的文件，然后可以用 Android Studio 的 Profiler 添加打开它。</p>
+<p><img src="/2019/09/09/android-launch-time-performance-optimization/traceview1.png" srcset="/img/loading.gif" alt="traceview1"></p>
+<p><strong>Wall Clock Time</strong>：表示实际经过的时间。包含线程在阻塞和等待的时间。</p>
+<p><strong>Thread Time</strong>：表示实际经过的时间减去线程没有占用 CPU 资源的那部分时间。</p>
+<p><strong>Flame Chart</strong>：火焰图。y 轴表示调用栈，每一层都是一个函数。调用栈越深，火焰就越高，顶部就是正在执行的函数，下方都是它的父函数。 x 轴表示抽样数，如果一个函数在 x 轴占据的宽度越宽，就表示它被抽到的次数多，即执行的时间长。注意，x 轴不代表时间，而是所有的调用栈合并后，按字母顺序排列的。</p>
+<blockquote>
+<p>火焰图就是看顶层的哪个函数占据的宽度最大。只要有”平顶”（plateaus），就表示该函数可能存在性能问题。</p>
+</blockquote>
+<p><strong>Top Down</strong>：显示一个函数调用列表，在该列表中展开函数节点会显示函数的被调用方。</p>
+<p><strong>Bottom Up</strong>：显示一个函数调用列表，在该列表中展开函数节点将显示函数的调用方。</p>
+<p><img src="/2019/09/09/android-launch-time-performance-optimization/top_down_and_bottom_down.png" srcset="/img/loading.gif" alt="top_down_and_bottom_down"></p>
+<p><strong>缺点</strong>：traceView 的原理就是抓取所有线程的所有函数里的信息，所以会导致程序变慢，工具本身带来的性能开销过大，有时无法反映真实的情况。比如一个函数本身的耗时是 1 秒，开启 TraceView 后可能会变成 5 秒。</p>
+<h3 id="Systrace-函数插桩"><a href="#Systrace-函数插桩" class="headerlink" title="Systrace + 函数插桩"></a>Systrace + 函数插桩</h3><p>Systrace 原理：在系统的一些关键链路（如SystemServcie、虚拟机、Binder驱动）插入一些信息（Label），<br>通过 Label 的开始和结束来确定某个核心过程的执行时间，然后把这些Label信息收集起来得到系统关键路径的运行时间信息，最后得到整个系统的运行性能信息。Android Framework 里面一些重要的模块都插入了 label 信息(Java 层通过 android.os.Trace 类完成，native层通过 ATrace 宏完成），用户 App 中可以添加自定义的 Lable，这样就组成了一个完成的性能分析系统。</p>
+<p>具体使用教程可以看这篇文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/27331842">手把手教你使用Systrace（一）</a></p>
+<p>Systrace 的优点：</p>
+<ul>
+<li>可以看大整个流程系统和应用程序的调用流程。包括系统关键线程的函数调用，渲染耗时、线程锁、GC 耗时等。</li>
+<li>性能损耗可以接受。</li>
+</ul>
+<h2 id="异步优化"><a href="#异步优化" class="headerlink" title="异步优化"></a>异步优化</h2><p>异步优化的核心思想：子线程来分担主线程的任务，并减少运行时间。</p>
+<h3 id="FixThreadPool"><a href="#FixThreadPool" class="headerlink" title="FixThreadPool"></a>FixThreadPool</h3><p>线程池核心个数</p>
+<pre><code class="hljs java"><span class="hljs-comment">// 获得当前CPU的核心数</span>
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> CPU_COUNT = Runtime.getRuntime().availableProcessors();
+
+<span class="hljs-comment">// 设置线程池的核心线程数2-4之间,但是取决于CPU核数</span>
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> CORE_POOL_SIZE = Math.max(<span class="hljs-number">2</span>, Math.min(CPU_COUNT - <span class="hljs-number">1</span>, <span class="hljs-number">4</span>));</code></pre>
+
+<p>创建线程池</p>
+<pre><code class="hljs java"><span class="hljs-comment">// 创建线程池</span>
+ExecutorService executorService = Executors.newFixedThreadPool(CORE_POOL_SIZE);</code></pre>
+
+<p>将耗时方法放在线程池中，不影响主线程页面加载。对于必须要先执行完毕才能进入页面的情况，使用 CountDownLatch 处理。</p>
+<p>MyApplication#onCreate：</p>
+<pre><code class="hljs java"> <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">super</span>.onCreate();
+<span class="hljs-comment">//        Debug.startMethodTracing();</span>
+
+        <span class="hljs-keyword">final</span> CountDownLatch latch = <span class="hljs-keyword">new</span> CountDownLatch(<span class="hljs-number">1</span>);
+        ExecutorService executorService = Executors.newFixedThreadPool(CORE_POOL_SIZE);
+
+        executorService.submit(<span class="hljs-keyword">new</span> Runnable() &#123;
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
+                initBugly();
+                latch.countDown();
+            &#125;
+        &#125;);
+        executorService.submit(<span class="hljs-keyword">new</span> Runnable() &#123;
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
+                initBaiduMap();
+            &#125;
+        &#125;);
+        executorService.submit(<span class="hljs-keyword">new</span> Runnable() &#123;
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
+                initJPushInterface();
+            &#125;
+        &#125;);
+        executorService.submit(<span class="hljs-keyword">new</span> Runnable() &#123;
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
+                initShareSDK();
+            &#125;
+        &#125;);
+
+        <span class="hljs-keyword">try</span> &#123;
+            latch.await();
+        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;
+            e.printStackTrace();
+        &#125;
+
+<span class="hljs-comment">//        Debug.stopMethodTracing();</span>
+    &#125;</code></pre>
+
+<p>上面代码中：只有在 <code>initBugly</code> 执行完毕后才能跳转页面，而  <code>initBugly</code>  是可以在子线程执行，所以可以采用线程池 + CountDownLatch 实现。</p>
+<p>但是，对于多个耗时任务存在依赖关联，比如必须先执行完A，根据A的返回值，再执行B，然后根据B的返回再执行C，任务串联的情况，使用线程池 + CountDownLatch  就比较麻烦。</p>
+<h3 id="启动器"><a href="#启动器" class="headerlink" title="启动器"></a>启动器</h3><p>先将任务分类：</p>
+<p>![task_classification ](android-launch-time-performance-optimization/task_classification .jpg)</p>
+<ul>
+<li><p>head task : 我们会把一些必须先启动的task放到这里</p>
+</li>
+<li><p>主线程：将必须要在主线程中初始化的task放入这里</p>
+</li>
+<li><p>并发：将非必须在主线程中初始化的task放入这里</p>
+</li>
+<li><p>tail task: 一些在所有任务执行完毕之后才去初始化的放入这里，比如一些log打印等</p>
+</li>
+<li><p>ilde task: 通过字面就知道了将一些可以有空再初始化的task放入这里</p>
+</li>
+</ul>
+<p>启动器的目的就是保证并发任务的执行顺序的正确性。任务执行顺序的排序采用：<strong>有向无环图的<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b59db381561a">拓扑排序</a></strong></p>
+<p><strong>拓扑排序（Topological Sorting</strong>）是一个有向无环图（DAG, Directed Acyclic Graph）的所有顶点的线性序列。</p>
+<p>且该序列必须满足下面两个条件：</p>
+<ul>
+<li><p>每个顶点出现且只出现一次。</p>
+</li>
+<li><p>若存在一条从顶点 A 到顶点 B 的路径，那么在序列中顶点 A 出现在顶点 B 的前面。</p>
+</li>
+</ul>
+<p><strong>拓扑排序的写法思路：</strong></p>
+<p>1、从 DAG 图中选择一个 没有前驱（即入度为0）的顶点并输出。</p>
+<p>2、从图中删除该顶点和所有以它为起点的有向边。</p>
+<p>3、重复 1 和 2 直到当前的 DAG 图为空或当前图中不存在无前驱的顶点为止。后一种情况说明有向图中必然存在环。</p>
+<p><img src="/2019/09/09/android-launch-time-performance-optimization/DAG.png" srcset="/img/loading.gif" alt="DAG"></p>
+<p>于是，得到拓扑排序后的结果是 { 1, 2, 4, 3, 5 }。</p>
+<p>启动器外部调用：</p>
+<pre><code class="hljs java">TaskDispatcher instance = TaskDispatcher.createInstance();
+       instance.addTask(<span class="hljs-keyword">new</span> InitBuglyTask()) <span class="hljs-comment">// 默认添加，并发处理</span>
+               .addTask(<span class="hljs-keyword">new</span> InitBaiduMapTask())  <span class="hljs-comment">// 在这里需要先处理了另外一个耗时任务initShareSDK，才能再处理它</span>
+               .addTask(<span class="hljs-keyword">new</span> InitJPushTask())  <span class="hljs-comment">// 等待主线程处理完毕，再进行执行</span>
+               .start();
+       instance.await();</code></pre>
+
+<p>启动器主要流程：</p>
+<p><img src="/2019/09/09/android-launch-time-performance-optimization/starter_flow.jpg" srcset="/img/loading.gif" alt="starter_flow"></p>
+<p>具体代码：<a target="_blank" rel="noopener" href="https://github.com/zywudev/PerformanceDemo">PerformanceDemo</a></p>
+<h2 id="启动窗口优化"><a href="#启动窗口优化" class="headerlink" title="启动窗口优化"></a>启动窗口优化</h2><p>使用 Activity 的 windowBackground 属性为启动的 Activity 提供一个闪屏预览界面（layer-list），这样点击应用图标会立马显示闪屏界面。具体操作方法：</p>
+<p>Layout XML：</p>
+<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">layer-list</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span> <span class="hljs-attr">android:opacity</span>=<span class="hljs-string">&quot;opaque&quot;</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- 背景颜色 --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">android:drawable</span>=<span class="hljs-string">&quot;@android:color/white&quot;</span>/&gt;</span>
+  <span class="hljs-comment">&lt;!-- 闪屏页图片 --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">item</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">bitmap</span></span>
+<span class="hljs-tag">      <span class="hljs-attr">android:src</span>=<span class="hljs-string">&quot;@drawable/product_logo_144dp&quot;</span></span>
+<span class="hljs-tag">      <span class="hljs-attr">android:gravity</span>=<span class="hljs-string">&quot;center&quot;</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">layer-list</span>&gt;</span></code></pre>
+
+<p>style：</p>
+<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;AppTheme.Launcher&quot;</span>&gt;</span>
+<span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;android:windowFullscreen&quot;</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span>
+<span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;android:windowBackground&quot;</span>&gt;</span>@mipmap/layer-list<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+
+<p>Manifest：</p>
+<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">activity</span> <span class="hljs-attr">...</span></span>
+<span class="hljs-tag"><span class="hljs-attr">android:theme</span>=<span class="hljs-string">&quot;@style/AppTheme.Launcher&quot;</span> /&gt;</span></code></pre>
+
+<p>Activity：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyMainActivity</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AppCompatActivity</span> </span>&#123;
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(Bundle savedInstanceState)</span> </span>&#123;
+    <span class="hljs-comment">// 替换回原来的主题，注意在 super.onCreate 之前调用</span>
+    setTheme(R.style.Theme_MyApp);
+    <span class="hljs-keyword">super</span>.onCreate(savedInstanceState);
+    <span class="hljs-comment">// ...</span>
+  &#125;
+&#125;</code></pre>
+
+<p>这种方案在通过交互体验优化了展示效果，但并没有真正的加速启动。</p>
+<p>对于中低端机，总的闪屏时间会更长，建议在 Android 6.0 或者 Android 7.0 以上才启用“闪屏优化” 方案。</p>
+<h2 id="延迟初始化"><a href="#延迟初始化" class="headerlink" title="延迟初始化"></a>延迟初始化</h2><p>首页渲染完成后，再初始化数据，也就是延迟初始化，目的就是让界面先显示出来，保证 UI 绘制的流畅性。</p>
+<p>核心方法是在 Activity 的 <code>onCreate</code> 函数中加入下面的方法 ：</p>
+<pre><code class="hljs java">getWindow().getDecorView().post(<span class="hljs-keyword">new</span> Runnable() &#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
+        myHandler.post(mLoadingRunnable);
+    &#125;
+&#125;);</code></pre>
+
+<p>这里的 <code>run</code> 方法是在 Activity 的 <code>onResume</code> 之后执行的。</p>
+<p>关于这种方案的机制参见 ：<a target="_blank" rel="noopener" href="https://www.androidperformance.com/2015/11/18/Android-app-lunch-optimize-delay-load/">Android 应用启动优化:一种 DelayLoad 的实现和原理(上篇)</a></p>
+<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2><p>1、减少布局层级，建议使用约束布局 ConstraintLayout。</p>
+<p>2、去掉无用代码、重复逻辑。</p>
+<p>3、避免 Application 中创建线程池，尽量延迟操作。</p>
+<p>4、避免启动过多工作线程。</p>
+<p>5、尽量减少 GC 的次数，避免造成主线程长时间的卡顿。</p>
+<p>6、一句话准则：可以异步的都异步，不可以异步的尽量延迟。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.androidperformance.com/2015/11/18/Android-app-lunch-optimize-delay-load/">https://www.androidperformance.com/2015/11/18/Android-app-lunch-optimize-delay-load/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f5514b1a826c">https://www.jianshu.com/p/f5514b1a826c</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.androidperformance.com/2015/11/18/Android-app-lunch-optimize-delay-load/">https://www.androidperformance.com/2015/11/18/Android-app-lunch-optimize-delay-load/</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.android.google.cn/topic/performance/launch-time.html">https://developer.android.google.cn/topic/performance/launch-time.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/27331842">https://zhuanlan.zhihu.com/p/27331842</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/user/5d618e106fb9a06b084d0073/posts">https://juejin.im/user/5d618e106fb9a06b084d0073/posts</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Android%E8%AE%B0%E5%BD%95/">Android记录</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a>
+                    
+                      <a class="hover-with-bg" href="/tags/TraceView/">TraceView</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Systrace/">Systrace</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/10/08/jiucai/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">读《韭菜的自我修养》</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/09/04/android-traceview/">
+                        <span class="hidden-mobile">Android 性能分析工具 TraceView</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Android 应用启动速度优化&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

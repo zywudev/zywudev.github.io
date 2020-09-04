@@ -1,0 +1,920 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="贾小昆">
+  <meta name="keywords" content="">
+  <title>Android 音视频学习：使用 Camera API 采集视频数据 - 贾小昆</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-04-30 16:06" pubdate>
+      2020年4月30日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      25
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Android 音视频学习：使用 Camera API 采集视频数据</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>这篇文章的主要学习内容是：使用 Camera API 采集视频数据并保存到文件，分别使用 SurfaceView、TextureView 来预览 Camera 数据，取到 NV21 的数据回调。</p>
+<p>Android 中预览相机画面主要用 SurfaceView 和 TextureView。</p>
+<p>SurfaceView：SurfaceView 是一个有自己 Surface 的 View。界面渲染可以放在单独线程而不是主线程中。它更像是一个 Window，自身不能做变形和动画。</p>
+<p>TextureView：TextureView 同样也有自己的 Surface。但是它只能在拥有硬件加速层的 Window 中绘制，它更像是一个普通 View，可以做变形和动画。</p>
+<p>更多关于 SurfaceView 和 TextureView 的知识可以看这篇文章 <a target="_blank" rel="noopener" href="https://blog.csdn.net/jinzhuojun/article/details/44062175">Android 5.0(Lollipop)中的SurfaceTexture，TextureView, SurfaceView和GLSurfaceView</a>。</p>
+<p>Android 5.0 之前系统提供了 Camera API ，5.0 之后提供了 Camera2 API。</p>
+<p>不同手机厂商对 Camera2 的支持程度各不相同，即便是 Android 5.0 以上的手机，也存在对 Camera2 支持非常差的情况，这个时候就要降级使用 Camera。</p>
+<p>官方的开源库 <a target="_blank" rel="noopener" href="https://github.com/google/cameraview">cameraview </a>给出的方案：</p>
+<table>
+<thead>
+<tr>
+<th>API Level</th>
+<th>Camera API</th>
+<th>Preview View</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>9-13</td>
+<td>Camera1</td>
+<td>SurfaceView</td>
+</tr>
+<tr>
+<td>14-20</td>
+<td>Camera1</td>
+<td>TextureView</td>
+</tr>
+<tr>
+<td>21-23</td>
+<td>Camera2</td>
+<td>TextureView</td>
+</tr>
+<tr>
+<td>24</td>
+<td>Camera2</td>
+<td>SurfaceView</td>
+</tr>
+</tbody></table>
+<p>接下来，我们使用 SurfaceView 和 TextureView 实现相机预览的功能。</p>
+<h2 id="Camera"><a href="#Camera" class="headerlink" title="Camera"></a>Camera</h2><h3 id="使用-SurfaceView"><a href="#使用-SurfaceView" class="headerlink" title="使用 SurfaceView"></a>使用 SurfaceView</h3><p>SurfaceView 用于展示相机画面，SurfaceView 持有 SurfaceHolder，我们通过 SurfaceHolder 中的回调可以知道 Surface 的状态（创建、变化、销毁）。</p>
+<p>继承 SurfaceView，实现 SurfaceHolder.CallBack 接口。在 <code>surfaceCreated</code> 方法中打开相机预览，在 <code>surfaceDestroyed</code> 方法中关闭相机预览就可以了。Camera 的 <code>open</code> 方法有些耗时，为了避免阻塞 UI 线程，可以创建子线程打开相机。</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CameraSurfaceView</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">SurfaceView</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">SurfaceHolder</span>.<span class="hljs-title">Callback</span> </span>&#123;
+
+    <span class="hljs-keyword">private</span> Camera mCamera;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CameraSurfaceView</span><span class="hljs-params">(Context context)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>(context, <span class="hljs-keyword">null</span>);
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CameraSurfaceView</span><span class="hljs-params">(Context context, AttributeSet attrs)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>(context, attrs, <span class="hljs-number">0</span>);
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CameraSurfaceView</span><span class="hljs-params">(Context context, AttributeSet attrs, <span class="hljs-keyword">int</span> defStyleAttr)</span> </span>&#123;
+        <span class="hljs-keyword">super</span>(context, attrs, defStyleAttr);
+        getHolder().addCallback(<span class="hljs-keyword">this</span>);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">surfaceCreated</span><span class="hljs-params">(<span class="hljs-keyword">final</span> SurfaceHolder holder)</span> </span>&#123;
+
+        ThreadHelper.getInstance().runOnHandlerThread(<span class="hljs-keyword">new</span> Runnable() &#123;
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
+                openCamera();
+                startPreview(holder);
+            &#125;
+        &#125;);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">surfaceChanged</span><span class="hljs-params">(SurfaceHolder holder, <span class="hljs-keyword">int</span> format, <span class="hljs-keyword">int</span> width, <span class="hljs-keyword">int</span> height)</span> </span>&#123;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">surfaceDestroyed</span><span class="hljs-params">(SurfaceHolder holder)</span> </span>&#123;
+        ThreadHelper.getInstance().runOnHandlerThread(<span class="hljs-keyword">new</span> Runnable() &#123;
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
+                releaseCamera();
+            &#125;
+        &#125;);
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 打开相机</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">openCamera</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">int</span> number = Camera.getNumberOfCameras();
+        Camera.CameraInfo cameraInfo = <span class="hljs-keyword">new</span> Camera.CameraInfo();
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; number; ++i) &#123;
+            Camera.getCameraInfo(i, cameraInfo);
+            <span class="hljs-keyword">if</span> (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) &#123;
+                <span class="hljs-comment">// 打开后置摄像头</span>
+                mCamera = Camera.open(i);
+                mCamera.setDisplayOrientation(<span class="hljs-number">90</span>);
+            &#125;
+        &#125;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 开始预览</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> holder</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">startPreview</span><span class="hljs-params">(SurfaceHolder holder)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (mCamera != <span class="hljs-keyword">null</span>) &#123;
+            mCamera.setPreviewCallback(<span class="hljs-keyword">new</span> Camera.PreviewCallback() &#123;
+                <span class="hljs-meta">@Override</span>
+                <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onPreviewFrame</span><span class="hljs-params">(<span class="hljs-keyword">byte</span>[] data, Camera camera)</span> </span>&#123;
+                    <span class="hljs-comment">// 取得 NV21 数据，进一步处理</span>
+                &#125;
+            &#125;);
+            <span class="hljs-keyword">try</span> &#123;
+                mCamera.setPreviewDisplay(holder);
+                mCamera.startPreview();
+            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;
+                e.printStackTrace();
+            &#125;
+        &#125;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 关闭相机</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">releaseCamera</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (mCamera != <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">try</span> &#123;
+                mCamera.stopPreview();
+                mCamera.setPreviewDisplay(<span class="hljs-keyword">null</span>);
+                mCamera.release();
+            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;
+                e.printStackTrace();
+            &#125;
+            mCamera = <span class="hljs-keyword">null</span>;
+        &#125;
+    &#125;</code></pre>
+
+<h3 id="使用-TextureView"><a href="#使用-TextureView" class="headerlink" title="使用 TextureView"></a>使用 TextureView</h3><p>继承 TextureView，实现<code>TextureView.SurfaceTextureListener </code>。在 <code>onSurfaceTextureAvailable</code> 方法中打开相机预览，在<code>onSurfaceTextureDestroyed</code> 中关闭预览。</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CameraTextureView</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TextureView</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">TextureView</span>.<span class="hljs-title">SurfaceTextureListener</span> </span>&#123;
+
+    <span class="hljs-keyword">private</span> Camera mCamera;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CameraTextureView</span><span class="hljs-params">(Context context)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>(context, <span class="hljs-keyword">null</span>);
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CameraTextureView</span><span class="hljs-params">(Context context, AttributeSet attrs)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>(context, attrs, <span class="hljs-number">0</span>);
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CameraTextureView</span><span class="hljs-params">(Context context, AttributeSet attrs, <span class="hljs-keyword">int</span> defStyleAttr)</span> </span>&#123;
+        <span class="hljs-keyword">super</span>(context, attrs, defStyleAttr);
+        setSurfaceTextureListener(<span class="hljs-keyword">this</span>);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onSurfaceTextureAvailable</span><span class="hljs-params">(<span class="hljs-keyword">final</span> SurfaceTexture surface, <span class="hljs-keyword">int</span> width, <span class="hljs-keyword">int</span> height)</span> </span>&#123;
+        ThreadHelper.getInstance().runOnHandlerThread(<span class="hljs-keyword">new</span> Runnable() &#123;
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
+                openCamera();
+                startPreview(surface);
+            &#125;
+        &#125;);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onSurfaceTextureSizeChanged</span><span class="hljs-params">(SurfaceTexture surface, <span class="hljs-keyword">int</span> width, <span class="hljs-keyword">int</span> height)</span> </span>&#123;
+
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">onSurfaceTextureDestroyed</span><span class="hljs-params">(SurfaceTexture surface)</span> </span>&#123;
+        ThreadHelper.getInstance().runOnHandlerThread(<span class="hljs-keyword">new</span> Runnable() &#123;
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
+                releaseCamera();
+            &#125;
+        &#125;);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onSurfaceTextureUpdated</span><span class="hljs-params">(SurfaceTexture surface)</span> </span>&#123;
+
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 打开相机</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">openCamera</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">int</span> number = Camera.getNumberOfCameras();
+        Camera.CameraInfo cameraInfo = <span class="hljs-keyword">new</span> Camera.CameraInfo();
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; number; ++i) &#123;
+            Camera.getCameraInfo(i, cameraInfo);
+            <span class="hljs-keyword">if</span> (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) &#123;
+                <span class="hljs-comment">// 打开后置摄像头</span>
+                mCamera = Camera.open(i);
+                mCamera.setDisplayOrientation(<span class="hljs-number">90</span>);
+            &#125;
+        &#125;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 开始预览</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> texture</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">startPreview</span><span class="hljs-params">(SurfaceTexture texture)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (mCamera != <span class="hljs-keyword">null</span>) &#123;
+            mCamera.setPreviewCallback(<span class="hljs-keyword">new</span> Camera.PreviewCallback() &#123;
+                <span class="hljs-meta">@Override</span>
+                <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onPreviewFrame</span><span class="hljs-params">(<span class="hljs-keyword">byte</span>[] data, Camera camera)</span> </span>&#123;
+                    <span class="hljs-comment">// 取得 NV21 数据，进一步处理</span>
+                &#125;
+            &#125;);
+            <span class="hljs-keyword">try</span> &#123;
+                mCamera.setPreviewTexture(texture);
+                mCamera.startPreview();
+            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;
+                e.printStackTrace();
+            &#125;
+        &#125;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 关闭相机</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">releaseCamera</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (mCamera != <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">try</span> &#123;
+                mCamera.stopPreview();
+                mCamera.setPreviewDisplay(<span class="hljs-keyword">null</span>);
+                mCamera.release();
+            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;
+                e.printStackTrace();
+            &#125;
+            mCamera = <span class="hljs-keyword">null</span>;
+        &#125;
+    &#125;</code></pre>
+
+<h2 id="Camera2"><a href="#Camera2" class="headerlink" title="Camera2"></a>Camera2</h2><h3 id="使用-SurfaceView-1"><a href="#使用-SurfaceView-1" class="headerlink" title="使用 SurfaceView"></a>使用 SurfaceView</h3><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Camera2SurfaceView</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">SurfaceView</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">SurfaceHolder</span>.<span class="hljs-title">Callback</span> </span>&#123;
+
+    <span class="hljs-keyword">private</span> Context mContext;
+    <span class="hljs-keyword">private</span> SurfaceHolder mSurfaceHolder;
+    <span class="hljs-keyword">private</span> Handler mWorkHandler;
+    <span class="hljs-keyword">private</span> String mCameraId;
+    <span class="hljs-keyword">private</span> CameraDevice mCameraDevice;
+    <span class="hljs-keyword">private</span> ImageReader mImageReader;
+    <span class="hljs-keyword">private</span> CameraCaptureSession mCameraCaptureSession;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Camera2SurfaceView</span><span class="hljs-params">(Context context)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>(context, <span class="hljs-keyword">null</span>);
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Camera2SurfaceView</span><span class="hljs-params">(Context context, AttributeSet attrs)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>(context, attrs, <span class="hljs-number">0</span>);
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Camera2SurfaceView</span><span class="hljs-params">(Context context, AttributeSet attrs, <span class="hljs-keyword">int</span> defStyleAttr)</span> </span>&#123;
+        <span class="hljs-keyword">super</span>(context, attrs, defStyleAttr);
+        init();
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span> </span>&#123;
+        mContext = getContext();
+        mSurfaceHolder = getHolder();
+        mSurfaceHolder.addCallback(<span class="hljs-keyword">this</span>);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">surfaceCreated</span><span class="hljs-params">(SurfaceHolder holder)</span> </span>&#123;
+        HandlerThread handlerThread = <span class="hljs-keyword">new</span> HandlerThread(<span class="hljs-string">&quot;camera2&quot;</span>);
+        handlerThread.start();
+        mWorkHandler = <span class="hljs-keyword">new</span> Handler(handlerThread.getLooper());
+        checkCamera();
+        openCamera();
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 检测相机</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">checkCamera</span><span class="hljs-params">()</span> </span>&#123;
+        CameraManager cameraManager = (CameraManager) mContext.getSystemService(Context.CAMERA_SERVICE);
+        <span class="hljs-keyword">try</span> &#123;
+            String[] cameraIdList = cameraManager.getCameraIdList();
+            <span class="hljs-keyword">for</span> (String s : cameraIdList) &#123;
+                CameraCharacteristics characteristics = cameraManager.getCameraCharacteristics(s);
+                Integer lensFacing = characteristics.get(CameraCharacteristics.LENS_FACING);
+                Integer sensorOrientation = characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION);
+                Integer supportedHardwareLevel = characteristics.get(CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL);
+                <span class="hljs-keyword">if</span> (lensFacing != <span class="hljs-keyword">null</span> &amp;&amp; lensFacing == CameraCharacteristics.LENS_FACING_BACK) &#123;
+                    mCameraId = s;
+                    <span class="hljs-keyword">break</span>;
+                &#125;
+            &#125;
+        &#125; <span class="hljs-keyword">catch</span> (CameraAccessException e) &#123;
+            e.printStackTrace();
+        &#125;
+
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 打开相机</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">openCamera</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) &#123;
+            <span class="hljs-keyword">return</span>;
+        &#125;
+
+        <span class="hljs-keyword">if</span> (mCameraId == <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">return</span>;
+        &#125;
+
+        CameraManager cameraManager = (CameraManager) mContext.getSystemService(Context.CAMERA_SERVICE);
+        <span class="hljs-keyword">try</span> &#123;
+            cameraManager.openCamera(mCameraId, <span class="hljs-keyword">new</span> CameraDevice.StateCallback() &#123;
+                <span class="hljs-meta">@Override</span>
+                <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onOpened</span><span class="hljs-params">(CameraDevice camera)</span> </span>&#123;
+                    mCameraDevice = camera;
+                    mImageReader = ImageReader.newInstance(getWidth(), getHeight(), ImageFormat.YUV_420_888, <span class="hljs-number">8</span>);
+                    mImageReader.setOnImageAvailableListener(<span class="hljs-keyword">new</span> ImageReader.OnImageAvailableListener() &#123;
+                        <span class="hljs-meta">@Override</span>
+                        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onImageAvailable</span><span class="hljs-params">(ImageReader reader)</span> </span>&#123;
+                            Image image = reader.acquireLatestImage();
+                            <span class="hljs-comment">//我们可以将这帧数据转成字节数组，类似于Camera1的PreviewCallback回调的预览帧数据</span>
+                            <span class="hljs-comment">//ByteBuffer buffer = image.getPlanes()[0].getBuffer();</span>
+                            <span class="hljs-comment">//byte[] data = new byte[buffer.remaining()];</span>
+                            <span class="hljs-comment">//buffer.get(data);</span>
+                            image.close();
+                        &#125;
+                    &#125;, mWorkHandler);
+
+                    createCameraPreview();
+                &#125;
+
+                <span class="hljs-meta">@Override</span>
+                <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onDisconnected</span><span class="hljs-params">(CameraDevice camera)</span> </span>&#123;
+                    camera.close();
+                    mCameraDevice = <span class="hljs-keyword">null</span>;
+                &#125;
+
+                <span class="hljs-meta">@Override</span>
+                <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onClosed</span><span class="hljs-params">(CameraDevice camera)</span> </span>&#123;
+                    <span class="hljs-keyword">super</span>.onClosed(camera);
+                &#125;
+
+                <span class="hljs-meta">@Override</span>
+                <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onError</span><span class="hljs-params">(CameraDevice camera, <span class="hljs-keyword">int</span> error)</span> </span>&#123;
+                    camera.close();
+                    mCameraDevice = <span class="hljs-keyword">null</span>;
+                &#125;
+            &#125;, mWorkHandler);
+        &#125; <span class="hljs-keyword">catch</span> (CameraAccessException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 相机预览</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">createCameraPreview</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">try</span> &#123;
+            <span class="hljs-keyword">final</span> CaptureRequest.Builder captureRequestBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
+            Surface surface = mSurfaceHolder.getSurface();
+            captureRequestBuilder.addTarget(surface);
+            Surface imageReaderSurface = mImageReader.getSurface();
+            captureRequestBuilder.addTarget(imageReaderSurface);
+            captureRequestBuilder.set(CaptureRequest.CONTROL_MODE, CaptureRequest.CONTROL_MODE_AUTO);
+            mCameraDevice.createCaptureSession(Arrays.asList(surface, imageReaderSurface), <span class="hljs-keyword">new</span> CameraCaptureSession.StateCallback() &#123;
+                <span class="hljs-meta">@Override</span>
+                <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onConfigured</span><span class="hljs-params">(<span class="hljs-meta">@NonNull</span> CameraCaptureSession session)</span> </span>&#123;
+                    mCameraCaptureSession = session;
+                    CaptureRequest captureRequest = captureRequestBuilder.build();
+                    <span class="hljs-keyword">try</span> &#123;
+                        session.setRepeatingRequest(captureRequest, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>);
+                    &#125; <span class="hljs-keyword">catch</span> (CameraAccessException e) &#123;
+                    &#125;
+                &#125;
+
+                <span class="hljs-meta">@Override</span>
+                <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onConfigureFailed</span><span class="hljs-params">(<span class="hljs-meta">@NonNull</span> CameraCaptureSession session)</span> </span>&#123;
+                &#125;
+            &#125;, mWorkHandler);
+        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;
+        &#125;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">surfaceChanged</span><span class="hljs-params">(SurfaceHolder holder, <span class="hljs-keyword">int</span> format, <span class="hljs-keyword">int</span> width, <span class="hljs-keyword">int</span> height)</span> </span>&#123;
+
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">surfaceDestroyed</span><span class="hljs-params">(SurfaceHolder holder)</span> </span>&#123;
+        closeCameraPreview();
+        <span class="hljs-keyword">if</span> (mCameraDevice != <span class="hljs-keyword">null</span>) &#123;
+            mCameraDevice.close();
+        &#125;
+        <span class="hljs-keyword">if</span> (mImageReader != <span class="hljs-keyword">null</span>) &#123;
+            mImageReader.close();
+        &#125;
+        mWorkHandler.getLooper().quitSafely();
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">closeCameraPreview</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (mCameraCaptureSession != <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">try</span> &#123;
+                mCameraCaptureSession.stopRepeating();
+                mCameraCaptureSession.abortCaptures();
+                mCameraCaptureSession.close();
+            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;
+            &#125;
+            mCameraCaptureSession = <span class="hljs-keyword">null</span>;
+        &#125;
+    &#125;</code></pre>
+
+<h3 id="使用-TextureView-1"><a href="#使用-TextureView-1" class="headerlink" title="使用 TextureView"></a>使用 TextureView</h3><p>TextureView 与 SurfaceView 类似，这里就不贴代码了。</p>
+<p>具体源码放在 GitHub 上：<a target="_blank" rel="noopener" href="https://github.com/zywudev/AndroidMultiMediaLearning">AndroidMultiMediaLearning</a></p>
+<p>以上只是 Camera 和 Camera2 的简单使用，更多细节可以查看官方 API。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.im/post/5a33a5106fb9a04525782db5">Android平台Camera开发实践指南</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/">Android 音视频</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/">Android 音视频</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/05/08/weekly-issue-7/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">每周分享第 7 期</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/04/28/android-audiorecord-and-audiotrack/">
+                        <span class="hidden-mobile">Android 音视频学习：使用 AudioRecord 和 AudioTrack API 完成音频 PCM 数据的采集和播放，并实现 PCM 保存为 WAV 文件</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Android 音视频学习：使用 Camera API 采集视频数据&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

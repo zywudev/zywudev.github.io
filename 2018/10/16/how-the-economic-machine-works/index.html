@@ -1,0 +1,550 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="贾小昆">
+  <meta name="keywords" content="">
+  <title>经济机器是怎样运行的？ - 贾小昆</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2018-10-16 23:11" pubdate>
+      2018年10月16日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">经济机器是怎样运行的？</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>最近看到的一个视频，是大师级人物瑞达利欧自己的宏观经济框架，三十分钟解释了经济机器是怎样运行的，通俗易懂。</p>
+<p>视频地址：<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=rFV7wdEX-Mo">https://www.youtube.com/watch?v=rFV7wdEX-Mo</a></p>
+<p>以下是个人总结的要点，结合视频看，效果更佳。</p>
+<p>经济是由几个简单的零部件和无数次重复的简单交易组成，这些交易首先由人的天性所驱动，因而形成了三股主要的经济动力。</p>
+<p>1、生产率的提高</p>
+<p>2、短期债务周期</p>
+<p>3、长期债务周期</p>
+<p>把三股动力结合在起来，就是一个简单有效的宏观经济分析模型。</p>
+<p><img src="/2018/10/16/how-the-economic-machine-works/image_1.png" srcset="/img/loading.gif" alt="image_1"></p>
+<h2 id="交易"><a href="#交易" class="headerlink" title="交易"></a>交易</h2><p>交易时刻在发生，你每次买东西都是进行一笔交易。</p>
+<p><img src="/2018/10/16/how-the-economic-machine-works/image_2.png" srcset="/img/loading.gif" alt="image_2"></p>
+<p>在一次交易中，买方可以使用「货币、信用」向卖方交换「商品、服务、金融资产」。</p>
+<p>信用在使用时和货币是一样的，经济社会中同时存在着货币和信用，把两者相加，就是支出总额—这是经济的驱动力。 </p>
+<p>支出之所以是经济的驱动力，是因为一个人的支出是另一个人的收入。</p>
+<p>在经济体中，有四种交易主体：个人、企业、银行和政府。</p>
+<p><img src="/2018/10/16/how-the-economic-machine-works/image_3.png" srcset="/img/loading.gif" alt="image_3"></p>
+<p>其中政府是最大的买方和卖方。政府包括中央政府和中央银行。</p>
+<p>中央银行控制经济中的货币和信贷数量，主要通过利率和发行货币来控制。</p>
+<p><img src="/2018/10/16/how-the-economic-machine-works/image_4.png" srcset="/img/loading.gif" alt="image_4"></p>
+<h2 id="信贷"><a href="#信贷" class="headerlink" title="信贷"></a>信贷</h2><p>人们在交易过程中除了使用货币还会使用「信用」。</p>
+<p>一旦使用信用，则会同时产生「信贷」和「债务」，债务是贷款人的资产，是借款人的负债，借款人一旦获得信贷，便可以增加自己的支出，而一个人的支出是另一个人的收入，这就导致借贷在不断增加循环。这一驱动模式导致经济增长，也就形成了长短债务周期。</p>
+<p><img src="/2018/10/16/how-the-economic-machine-works/image_5.png" srcset="/img/loading.gif" alt="image_5"></p>
+<h2 id="经济周期"><a href="#经济周期" class="headerlink" title="经济周期"></a>经济周期</h2><p>生产率的提高是经济发展的根本动力，如果抛开其它动力的影响，生产率提高会使得经济长期缓慢线性发展。</p>
+<p>但信贷是导致经济周期的根本原因。为什么呢？</p>
+<p>因为债务本质上是向未来的自己借钱，提前消费。你给自己设定了一个未来的时间，到那个时候你的支出必须少于收入，以便偿还债务，这样马上就产生了一个短期债务周期。</p>
+<p><img src="/2018/10/16/how-the-economic-machine-works/image_6.png" srcset="/img/loading.gif" alt="image_6"></p>
+<h3 id="短期债务周期"><a href="#短期债务周期" class="headerlink" title="短期债务周期"></a>短期债务周期</h3><p>如果支出和收入的增长速度超过所售商品的生产速度，价格就会上涨，我们把价格的上涨称为通货膨胀。</p>
+<p>央行会通过利率调节债务成本，从而把短期负债控制在合理范围内。</p>
+<p>通货膨胀－&gt; 价格上涨 －&gt; 提高利率－&gt;  借贷人减少、现有债务成本上升－&gt; 支出资金减少－&gt; 收入下降－&gt; 商品价格下跌－&gt; 经济衰退 －&gt; 降低利率 －&gt; 经济增长</p>
+<p>短期债务周期通常持续5-8年，在几十年里不断重复。</p>
+<p>但是请注意在每个周期的低谷和高峰后，经济增长和债务都超过前一个周期。为什么会这样，这是人促成的，人具有借更多钱和花更多钱的倾向，而不喜欢偿还债务。这是人的天性，因此在长期内债务增加的速度超过收入，从而形成长期债务周期。</p>
+<h3 id="长期债务周期"><a href="#长期债务周期" class="headerlink" title="长期债务周期"></a>长期债务周期</h3><p>长期债务周期通常持续大约75-100年。</p>
+<p>当债务负担过大，亦或者短期债务周期使得某个时间段内收入过少，长期债务的压力可能就会快速释放，从而形成经济危机，政府随之开始去杠杆。</p>
+<h2 id="去杠杆化"><a href="#去杠杆化" class="headerlink" title="去杠杆化"></a>去杠杆化</h2><p><img src="/2018/10/16/how-the-economic-machine-works/image_7.png" srcset="/img/loading.gif" alt="image_7"></p>
+<p>主要通过四种办法：</p>
+<p>1、个人、企业和政府削减支出</p>
+<p>2、通过债务违约和重组来减少债务</p>
+<p>3、财富再分配将从富人转给穷人</p>
+<p>4、最后央行发行更多货币</p>
+<h3 id="削减支出"><a href="#削减支出" class="headerlink" title="削减支出"></a>削减支出</h3><p>削减支出会导致支出减少，而一个人的支出是另一个人收入，这就导致收入减少。收入下降速度超过还债速度，债务负担会更为严重。企业不得不削减成本，意味着工作机会减少，失业率上升。</p>
+<h3 id="债务重组"><a href="#债务重组" class="headerlink" title="债务重组"></a>债务重组</h3><p>如果借款人不偿还债务，出现违约，存款人纷纷取出存款，这种严重的经济收缩就是萧条。</p>
+<p>债务重组让债务消失，但它导致收入和资产价值消失，和削减支出一样会导致通货紧缩。这些会对中央政府产生影响，因为收入降低和就业减少意味着税收减少，失业率上升，政府需要增加支出。如果政府的支出超过税收，就会导致财政赤字。</p>
+<h3 id="财务再分配"><a href="#财务再分配" class="headerlink" title="财务再分配"></a>财务再分配</h3><p>由于政府需要更多的钱，而大量财富集中在少数人手中，政府自然而然地增加对富人的征税，将财富从富人那里转给穷人。但是这会导致穷人富人相互怨恨，容易造成社会动荡。</p>
+<h3 id="发行货币"><a href="#发行货币" class="headerlink" title="发行货币"></a>发行货币</h3><p>当利率接近零的水平，央行就不得不发行更多货币，发行货币与前三种方式不同，会引起通货膨胀和刺激经济。</p>
+<p>央行一方面通过货币购买金融资产，帮助推升资产价格从而提高人们的信用，但这仅仅有助于那些有金融资产的人。另一方面，央行通过购买政府债券，其实就是把钱借给政府使其能够运行赤字预算，并通过刺激计划和失业救济金来增加购买商品和服务的支出，这就增加了人们的收入。</p>
+<h2 id="和谐的去杠杆化"><a href="#和谐的去杠杆化" class="headerlink" title="和谐的去杠杆化"></a>和谐的去杠杆化</h2><p>如果决策层取得适当的平衡，推动收入比债务增长得快，债务负担下降，这就是和谐的去杠杆化。</p>
+<h2 id="三条经验法则"><a href="#三条经验法则" class="headerlink" title="三条经验法则"></a>三条经验法则</h2><p>1、不要让债务的增长速度超过收入。因为债务负担最终将把你压垮。</p>
+<p>2、不要让收入的增长速度超过生产率。因为这最终将使你失去竞争力。 </p>
+<p>3、尽一切努力提高生产率。因为生产率在长期内起着最关键的作用。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6/">经济学</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/10/24/android-junit-test/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Android 单元测试 Junit</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/10/16/the-drawing-process-of-android-view/">
+                        <span class="hidden-mobile">Android View 的绘制过程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "经济机器是怎样运行的？&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

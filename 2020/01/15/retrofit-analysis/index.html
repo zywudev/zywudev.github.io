@@ -1,0 +1,1132 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="贾小昆">
+  <meta name="keywords" content="">
+  <title>Retrofit 源码分析 - 贾小昆</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-01-15 10:08" pubdate>
+      2020年1月15日 上午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      68
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Retrofit 源码分析</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>前面的文章我们分析了 OkHttp 的核心源码，而 Retrofit 与 OkHttp 的结合使用，也是目前主流的方式，这篇文章主要分析下目前 Android 最优秀的网络封装框架 Retrofit。</p>
+<p>在分析 Retrofit 源码之前，先看下 Retrofit 的简单使用。</p>
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p>一般情况，Retrofit 的使用流程按照以下三步：</p>
+<p>1、将 HTTP API 定义成接口形式</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">GitHubService</span> </span>&#123;
+  <span class="hljs-meta">@GET(&quot;users/&#123;user&#125;/repos&quot;)</span>
+  Call&lt;List&lt;Repo&gt;&gt; listRepos(<span class="hljs-meta">@Path(&quot;user&quot;)</span> String user);
+&#125;</code></pre>
+
+<p>2、构建 Retrofit 实例，生成 GitHubService 接口的实现。</p>
+<pre><code class="hljs java"><span class="hljs-comment">// Retrofit 构建过程</span>
+Retrofit retrofit = <span class="hljs-keyword">new</span> Retrofit.Builder()
+    .baseUrl(<span class="hljs-string">&quot;https://api.github.com/&quot;</span>)
+    .build();
+
+GitHubService service = retrofit.create(GitHubService.class);</code></pre>
+
+<p>3、发起网络请求，可以做同步或异步请求。</p>
+<pre><code class="hljs java">Call&lt;List&lt;Repo&gt;&gt; repos = service.listRepos(<span class="hljs-string">&quot;octocat&quot;</span>);
+
+call.execute() 或者 call.enqueue()</code></pre>
+
+<p>这里，Retrofit 用注解标识不同的网络请求类型，极大的简化了 OkHttp 的使用方式。</p>
+<p>这篇文章主要关注的几个问题：</p>
+<ul>
+<li><p>Retrofit 实例是如何创建的，它初始化了哪些东西？</p>
+</li>
+<li><p>GitHubService 实例是如何创建的，这些注解是如何映射到每种网络请求的 ？</p>
+</li>
+<li><p>网络请求的流程是怎样的？</p>
+</li>
+</ul>
+<h2 id="Retrofit-创建过程"><a href="#Retrofit-创建过程" class="headerlink" title="Retrofit 创建过程"></a>Retrofit 创建过程</h2><pre><code class="hljs java">Retrofit retrofit = <span class="hljs-keyword">new</span> Retrofit.Builder()
+    .baseUrl(<span class="hljs-string">&quot;https://api.github.com/&quot;</span>)
+    .build();</code></pre>
+
+<p>这里可以看出，Retrofit 实例是使用建造者模式通过 Builder 类进行创建。</p>
+<blockquote>
+<p>建造者模式简言之：将一个复杂对象的构建与表示分离，使得用户在不知道对象的创建细节情况下可以直接创建复杂的对象。</p>
+</blockquote>
+<h3 id="Retrofit"><a href="#Retrofit" class="headerlink" title="Retrofit"></a>Retrofit</h3><p>Retrofit 包含 7 个成员变量：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Retrofit</span> </span>&#123;
+  <span class="hljs-comment">// 网络请求配置对象，存储网络请求相关的配置，如网络请求的方法、数据转换器、网络请求适配器、网络请求工厂、基地址等</span>
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Map&lt;Method, ServiceMethod&lt;?&gt;&gt; serviceMethodCache = <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;();
+
+  <span class="hljs-comment">// 网络请求器的工厂：生产网络请求器</span>
+  <span class="hljs-keyword">final</span> okhttp3.Call.Factory callFactory;
+
+  <span class="hljs-comment">// 网络请求的 URL 地址</span>
+  <span class="hljs-keyword">final</span> HttpUrl baseUrl;
+
+  <span class="hljs-comment">// 数据转换器工厂的集合</span>
+  <span class="hljs-keyword">final</span> List&lt;Converter.Factory&gt; converterFactories;
+
+  <span class="hljs-comment">// 网络请求适配器工厂的集合</span>
+  <span class="hljs-keyword">final</span> List&lt;CallAdapter.Factory&gt; callAdapterFactories;
+
+  <span class="hljs-comment">// 回调方法执行器</span>
+  <span class="hljs-keyword">final</span> <span class="hljs-meta">@Nullable</span> Executor callbackExecutor;
+
+  <span class="hljs-comment">// 是否缓存创建的 ServiceMethod</span>
+  <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> validateEagerly;
+&#125;</code></pre>
+
+<p>再看 Retrofit 构造函数，除了 serviceMethodCache, 其他成员变量都在这里进行赋值。</p>
+<pre><code class="hljs java">Retrofit(okhttp3.Call.Factory callFactory, HttpUrl baseUrl,
+         List&lt;Converter.Factory&gt; converterFactories, List&lt;CallAdapter.Factory&gt; callAdapterFactories,
+         <span class="hljs-meta">@Nullable</span> Executor callbackExecutor, <span class="hljs-keyword">boolean</span> validateEagerly) &#123;
+    <span class="hljs-keyword">this</span>.callFactory = callFactory;
+    <span class="hljs-keyword">this</span>.baseUrl = baseUrl;
+    <span class="hljs-keyword">this</span>.converterFactories = converterFactories; <span class="hljs-comment">// Copy+unmodifiable at call site.</span>
+    <span class="hljs-keyword">this</span>.callAdapterFactories = callAdapterFactories; <span class="hljs-comment">// Copy+unmodifiable at call site.</span>
+    <span class="hljs-keyword">this</span>.callbackExecutor = callbackExecutor;
+    <span class="hljs-keyword">this</span>.validateEagerly = validateEagerly;
+&#125;</code></pre>
+
+<h3 id="Retrofit-Builder"><a href="#Retrofit-Builder" class="headerlink" title="Retrofit.Builder"></a>Retrofit.Builder</h3><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Builder</span> </span>&#123;
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Platform platform;     <span class="hljs-comment">// 平台</span>
+   <span class="hljs-keyword">private</span> <span class="hljs-meta">@Nullable</span> okhttp3.Call.Factory callFactory;      <span class="hljs-comment">// 网络请求工厂，默认使用OkHttpCall（工厂方法模式）</span>
+   <span class="hljs-keyword">private</span> <span class="hljs-meta">@Nullable</span> HttpUrl baseUrl;  <span class="hljs-comment">// 网络请求URL地址</span>
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> List&lt;Converter.Factory&gt; converterFactories = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();     <span class="hljs-comment">// 数据转换器工厂的集合</span>
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> List&lt;CallAdapter.Factory&gt; callAdapterFactories = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(); <span class="hljs-comment">// 网络请求适配器工厂的集合</span>
+   <span class="hljs-keyword">private</span> <span class="hljs-meta">@Nullable</span> Executor callbackExecutor;    <span class="hljs-comment">// 回调方法执行器</span>
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> validateEagerly;
+
+   Builder(Platform platform) &#123;
+     <span class="hljs-keyword">this</span>.platform = platform;
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Builder</span><span class="hljs-params">()</span> </span>&#123;
+     <span class="hljs-keyword">this</span>(Platform.get());
+   &#125;
+    ... 
+&#125;</code></pre>
+
+<p>这里主要关注 Platform，在 Builder 构造函数中调用了 <code>Platform.get()</code> ，然后赋值给自己的 platform 变量，我们来看看 Platform 类。</p>
+<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Platform</span> </span>&#123;
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Platform PLATFORM = findPlatform();
+
+  <span class="hljs-function"><span class="hljs-keyword">static</span> Platform <span class="hljs-title">get</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">return</span> PLATFORM;
+  &#125;
+
+  <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Platform <span class="hljs-title">findPlatform</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">try</span> &#123;
+      <span class="hljs-comment">// 判断是否是 Android 平台</span>
+      Class.forName(<span class="hljs-string">&quot;android.os.Build&quot;</span>);
+      <span class="hljs-keyword">if</span> (Build.VERSION.SDK_INT != <span class="hljs-number">0</span>) &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Android();
+      &#125;
+    &#125; <span class="hljs-keyword">catch</span> (ClassNotFoundException ignored) &#123;
+    &#125;
+    <span class="hljs-keyword">try</span> &#123;
+      <span class="hljs-comment">// Java 平台</span>
+      Class.forName(<span class="hljs-string">&quot;java.util.Optional&quot;</span>);
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Java8();
+    &#125; <span class="hljs-keyword">catch</span> (ClassNotFoundException ignored) &#123;
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Platform();
+  &#125;
+&#125;</code></pre>
+
+<p><code>Platform.get()</code> 方法会调用 <code>findPlatform()</code> 方法，这里主要是判断是 Android 平台还是 Java 平台，如果是 Android 平台会返回一个 Android 对象。</p>
+<pre><code class="hljs java"><span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Android</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Platform</span> </span>&#123;
+    <span class="hljs-meta">@IgnoreJRERequirement</span> <span class="hljs-comment">// Guarded by API check.</span>
+    <span class="hljs-meta">@Override</span> <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">isDefaultMethod</span><span class="hljs-params">(Method method)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (Build.VERSION.SDK_INT &lt; <span class="hljs-number">24</span>) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        &#125;
+        <span class="hljs-keyword">return</span> method.isDefault();
+    &#125;
+
+    <span class="hljs-meta">@Override</span> <span class="hljs-function"><span class="hljs-keyword">public</span> Executor <span class="hljs-title">defaultCallbackExecutor</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MainThreadExecutor();
+    &#125;
+
+    <span class="hljs-meta">@Override</span> List&lt;? extends CallAdapter.Factory&gt; defaultCallAdapterFactories(
+        <span class="hljs-meta">@Nullable</span> Executor callbackExecutor) &#123;
+        <span class="hljs-keyword">if</span> (callbackExecutor == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> AssertionError();
+        DefaultCallAdapterFactory executorFactory = <span class="hljs-keyword">new</span> DefaultCallAdapterFactory(callbackExecutor);
+        <span class="hljs-keyword">return</span> Build.VERSION.SDK_INT &gt;= <span class="hljs-number">24</span>
+            ? asList(CompletableFutureCallAdapterFactory.INSTANCE, executorFactory)
+            : singletonList(executorFactory);
+    &#125;
+
+    <span class="hljs-meta">@Override</span> <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">defaultCallAdapterFactoriesSize</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> Build.VERSION.SDK_INT &gt;= <span class="hljs-number">24</span> ? <span class="hljs-number">2</span> : <span class="hljs-number">1</span>;
+    &#125;
+
+    <span class="hljs-meta">@Override</span> List&lt;? extends Converter.Factory&gt; defaultConverterFactories() &#123;
+        <span class="hljs-keyword">return</span> Build.VERSION.SDK_INT &gt;= <span class="hljs-number">24</span>
+            ? singletonList(OptionalConverterFactory.INSTANCE)
+            : Collections.&lt;Converter.Factory&gt;emptyList();
+    &#125;
+
+    <span class="hljs-meta">@Override</span> <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">defaultConverterFactoriesSize</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> Build.VERSION.SDK_INT &gt;= <span class="hljs-number">24</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;
+    &#125;
+
+    <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainThreadExecutor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Executor</span> </span>&#123;
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Handler handler = <span class="hljs-keyword">new</span> Handler(Looper.getMainLooper());
+
+        <span class="hljs-meta">@Override</span> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">execute</span><span class="hljs-params">(Runnable r)</span> </span>&#123;
+            handler.post(r);
+        &#125;
+    &#125;
+&#125;</code></pre>
+
+<p>关注三个重要的方法：</p>
+<ul>
+<li><p><code>defaultCallbackExecutor</code>： 返回默认的 Executor 对象，正是 Retrofit 的成员变量回调执行器，它的内部采用 Handler 负责子线程到主线程的切换工作。</p>
+</li>
+<li><p><code>defaultCallAdapterFactories</code>：返回的是默认的 CallAdpter.Factory 的集合，也就是 Retrofit 的成员变量网络请求适配器工厂集合，如果是 Android 7.0 以上或者 Java 8，使用并发包中的 CompletableFuture 保证了回调的同步。</p>
+</li>
+<li><p><code>defaultConverterFactories</code>：返回的是默认的 Converter.Factory 的集合，也就是 Retrofit 的成员变量数据转换器工厂集合。</p>
+</li>
+</ul>
+<h3 id="build-过程"><a href="#build-过程" class="headerlink" title="build 过程"></a>build 过程</h3><p>接着看一下 <code>Builder.build()</code> 方法。</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> Retrofit <span class="hljs-title">build</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">if</span> (baseUrl == <span class="hljs-keyword">null</span>) &#123;
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">&quot;Base URL required.&quot;</span>);
+    &#125;
+
+    okhttp3.Call.Factory callFactory = <span class="hljs-keyword">this</span>.callFactory;
+    <span class="hljs-keyword">if</span> (callFactory == <span class="hljs-keyword">null</span>) &#123;
+        <span class="hljs-comment">// 默认使用 OkHttp</span>
+        callFactory = <span class="hljs-keyword">new</span> OkHttpClient();
+    &#125;
+
+    Executor callbackExecutor = <span class="hljs-keyword">this</span>.callbackExecutor;
+    <span class="hljs-keyword">if</span> (callbackExecutor == <span class="hljs-keyword">null</span>) &#123;
+        <span class="hljs-comment">// 默认的 callbackExecutor</span>
+        callbackExecutor = platform.defaultCallbackExecutor();
+    &#125;
+
+    <span class="hljs-comment">// 添加你配置的 CallAdapter.Factory 到 List,然后把 Platform 默认的 defaultCallAdapterFactories 添加到 List</span>
+    <span class="hljs-comment">// Make a defensive copy of the adapters and add the default Call adapter.</span>
+    List&lt;CallAdapter.Factory&gt; callAdapterFactories = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(<span class="hljs-keyword">this</span>.callAdapterFactories);
+    callAdapterFactories.addAll(platform.defaultCallAdapterFactories(callbackExecutor));
+
+    <span class="hljs-comment">// 添加 BuiltInConverters 和手动配置的 Converter.Factory 到 List,然后把 Platform 默认的 defaultConverterFactories 添加到 List</span>
+    <span class="hljs-comment">// Make a defensive copy of the converters.</span>
+    List&lt;Converter.Factory&gt; converterFactories = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(
+        <span class="hljs-number">1</span> + <span class="hljs-keyword">this</span>.converterFactories.size() + platform.defaultConverterFactoriesSize());
+
+    <span class="hljs-comment">// Add the built-in converter factory first. This prevents overriding its behavior but also</span>
+    <span class="hljs-comment">// ensures correct behavior when using converters that consume all types.</span>
+    converterFactories.add(<span class="hljs-keyword">new</span> BuiltInConverters());
+    converterFactories.addAll(<span class="hljs-keyword">this</span>.converterFactories);
+    converterFactories.addAll(platform.defaultConverterFactories());
+
+    <span class="hljs-comment">// 返回一个 Retrofit 对象</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Retrofit(callFactory, baseUrl, unmodifiableList(converterFactories),
+                        unmodifiableList(callAdapterFactories), callbackExecutor, validateEagerly);
+&#125;
+</code></pre>
+
+<p>至此，Retrofit 的创建流程就完成了，它的成员变量的值如下：</p>
+<ul>
+<li><p>serviceMethodService：暂时为空的 ConcurrentHashMap</p>
+</li>
+<li><p>callFactory：默认OkHttpClient 对象</p>
+</li>
+<li><p>baseUrl：根据配置的 baseUrl，构建 HttpUrl 对象</p>
+</li>
+<li><p>callAdapterFactories：配置的和默认的网络请求适配器工厂集合</p>
+</li>
+<li><p>converterFactories：配置的和默认的数据转换器工厂集合</p>
+</li>
+<li><p>callbackExecutor：MainThreadExecutor 对象</p>
+</li>
+<li><p>validateEagerly：默认 false</p>
+</li>
+</ul>
+<h2 id="创建网络请求接口实例"><a href="#创建网络请求接口实例" class="headerlink" title="创建网络请求接口实例"></a>创建网络请求接口实例</h2><p>接着来看 GitHubService 实例是如何创建的。</p>
+<pre><code class="hljs java">GitHubService service = retrofit.create(GitHubService.class);</code></pre>
+
+<h3 id="Service-创建"><a href="#Service-创建" class="headerlink" title="Service 创建"></a>Service 创建</h3><p><code>retrofit.create()</code> 使用了外观模式和代理模式创建了网络请求接口实例。</p>
+<blockquote>
+<p>外观模式：定义一个统一接口，外部与通过该统一的接口对子系统里的其他接口进行访问。</p>
+<p>代理模式：通过访问代理对象的方式来间接访问目标对象。</p>
+</blockquote>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> &lt;T&gt; <span class="hljs-function">T <span class="hljs-title">create</span><span class="hljs-params">(<span class="hljs-keyword">final</span> Class&lt;T&gt; service)</span> </span>&#123;
+
+    <span class="hljs-comment">// 对参数 service 进行校验， service 必须是一个接口，而且没有继承别的接口</span>
+    Utils.validateServiceInterface(service);
+    <span class="hljs-comment">// 判断是否需要提前验证</span>
+    <span class="hljs-keyword">if</span> (validateEagerly) &#123;
+        eagerlyValidateMethods(service);
+    &#125;
+    <span class="hljs-comment">// 利用动态代理技术，自动生成 Service 接口的实现类，将 Service 接口方法中的参数交给 InvocationHandler 处理</span>
+    <span class="hljs-keyword">return</span> (T) Proxy.newProxyInstance(service.getClassLoader(), <span class="hljs-keyword">new</span> Class&lt;?&gt;[] &#123; service &#125;,
+                                      <span class="hljs-keyword">new</span> InvocationHandler() &#123;
+                                          <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Platform platform = Platform.get();
+                                          <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Object[] emptyArgs = <span class="hljs-keyword">new</span> Object[<span class="hljs-number">0</span>];
+
+                                          <span class="hljs-meta">@Override</span> <span class="hljs-keyword">public</span> <span class="hljs-meta">@Nullable</span> <span class="hljs-function">Object <span class="hljs-title">invoke</span><span class="hljs-params">(Object proxy, Method method,</span></span>
+<span class="hljs-function"><span class="hljs-params">                                                                                   <span class="hljs-meta">@Nullable</span> Object[] args)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;
+                                              <span class="hljs-comment">// Object 类的方法直接调用</span>
+                                              <span class="hljs-keyword">if</span> (method.getDeclaringClass() == Object.class) &#123;
+                                                  <span class="hljs-keyword">return</span> method.invoke(<span class="hljs-keyword">this</span>, args);
+                                              &#125;
+                                              <span class="hljs-comment">// 如果是对应平台本身类就有的方法，直接调用</span>
+                                              <span class="hljs-keyword">if</span> (platform.isDefaultMethod(method)) &#123;
+                                                  <span class="hljs-keyword">return</span> platform.invokeDefaultMethod(method, service, proxy, args);
+                                              &#125;
+                                              <span class="hljs-comment">// 否则通过 loadServiceMethod 方法获取到对应 ServiceMethod 并 invoke</span>
+                                              <span class="hljs-keyword">return</span> loadServiceMethod(method).invoke(args != <span class="hljs-keyword">null</span> ? args : emptyArgs);
+                                          &#125;
+                                      &#125;);
+&#125;</code></pre>
+
+<p><code>retrofit.create()</code> 返回的是代理对象 Proxy，并转换为 T 类型，即 GitHubService。这里利用了动态代理技术，自动生成 Service 接口的实现类，将 Service 接口方法中的参数交给 InvocationHandler 处理。</p>
+<p>对于 Object 类本身独有以及对应平台本身存在的方法，就直接调用，否则通过 <code>loadServiceMethod()</code> 对 Service  接口中对应的 method 进行解析处理，之后对其调用 <code>invoke()</code> 方法。</p>
+<p>可以看出，Retrofit 不是在创建 Service 接口实例时就立即对所有接口中的方法进行注解解析，而是采用了在方法被调用时才进行注解的解析，也就是懒加载。</p>
+<h3 id="validateEagerly-的作用"><a href="#validateEagerly-的作用" class="headerlink" title="validateEagerly 的作用"></a>validateEagerly 的作用</h3><p>我们看看 validateEagerly 这个变量，看看它控制着什么。validateEagerly 为 true 会进入 <code>eagerlyValidateMethods()</code> 方法。</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">eagerlyValidateMethods</span><span class="hljs-params">(Class&lt;?&gt; service)</span> </span>&#123;
+    Platform platform = Platform.get();
+    <span class="hljs-keyword">for</span> (Method method : service.getDeclaredMethods()) &#123;
+        <span class="hljs-keyword">if</span> (!platform.isDefaultMethod(method) &amp;&amp; !Modifier.isStatic(method.getModifiers())) &#123;
+            loadServiceMethod(method);
+        &#125;
+    &#125;
+&#125;</code></pre>
+
+<p>这里循环取出接口中的 Method，调用 <code>loadServiceMethod() </code>，  <code>loadServiceMethod() </code> 先从 serviceMethodCache 获取 Method 对应的 ServiceMethod，如果有直接返回，否则对 Method 进行解析得到一个 ServiceMethod 对象，存入缓存中。</p>
+<p>所以 validateEagerly 变量是用于判断是否需要提前验证解析的，默认为 false，如果在 Retrofit 创建时设置为 true，会对 Service 接口中所有方法进行提前解析处理。</p>
+<h3 id="ServiceMethod-创建过程"><a href="#ServiceMethod-创建过程" class="headerlink" title="ServiceMethod 创建过程"></a>ServiceMethod 创建过程</h3><p><code>loadServiceMethod()</code> 方法的具体实现如下，这里采用了 Double Check 的方式尝试从 serviceMethodCache 中获取 ServiceMethod 对象，如果获取不到则通过 <code>ServiceMethod.parseAnnotations()</code> 方法对该 method 的注解进行处理并将得到的 ServiceMethod 对象加入缓存。</p>
+<pre><code class="hljs java">ServiceMethod&lt;?&gt; loadServiceMethod(Method method) &#123;
+    <span class="hljs-comment">// 1. 先从缓存中获取，如果有则直接返回</span>
+    ServiceMethod&lt;?&gt; result = serviceMethodCache.get(method);
+    <span class="hljs-keyword">if</span> (result != <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> result;
+    <span class="hljs-keyword">synchronized</span> (serviceMethodCache) &#123;
+        <span class="hljs-comment">// 2. 这里又获取一次，原因是网络请求一般是多线程环境下，ServiceMethod 可能创建完成了</span>
+        result = serviceMethodCache.get(method);
+        <span class="hljs-keyword">if</span> (result == <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-comment">// 3. 解析方法注解，创建 ServiceMethod</span>
+            result = ServiceMethod.parseAnnotations(<span class="hljs-keyword">this</span>, method);
+            <span class="hljs-comment">// 存入缓存</span>
+            serviceMethodCache.put(method, result);
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> result;
+&#125;</code></pre>
+
+<p>我们详细看一下 ServiceMethod 创建过程。 <code>ServiceMethod.parseAnnotations()</code> 方法具体实现：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">ServiceMethod&lt;T&gt; <span class="hljs-title">parseAnnotations</span><span class="hljs-params">(Retrofit retrofit, Method method)</span> </span>&#123;
+    <span class="hljs-comment">// 通过 RequestFactory 解析注解配置（工厂模式、内部使用了建造者模式）</span>
+    RequestFactory requestFactory = RequestFactory.parseAnnotations(retrofit, method);
+
+    Type returnType = method.getGenericReturnType();
+    <span class="hljs-keyword">if</span> (Utils.hasUnresolvableType(returnType)) &#123;
+        <span class="hljs-keyword">throw</span> methodError(method,
+                          <span class="hljs-string">&quot;Method return type must not include a type variable or wildcard: %s&quot;</span>, returnType);
+    &#125;
+    <span class="hljs-keyword">if</span> (returnType == <span class="hljs-keyword">void</span>.class) &#123;
+        <span class="hljs-keyword">throw</span> methodError(method, <span class="hljs-string">&quot;Service methods cannot return void.&quot;</span>);
+    &#125;
+    <span class="hljs-comment">// HttpServiceMethod 解析注解的方法</span>
+    <span class="hljs-keyword">return</span> HttpServiceMethod.parseAnnotations(retrofit, method, requestFactory);
+&#125;</code></pre>
+
+<p><strong>1、通过 RequestFactory 解析注解配置</strong></p>
+<p>通过工厂模式和建造者模式创建 RequestFactory，解析封装注解配置。</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">static</span> RequestFactory <span class="hljs-title">parseAnnotations</span><span class="hljs-params">(Retrofit retrofit, Method method)</span> </span>&#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Builder(retrofit, method).build();
+&#125;
+
+Builder(Retrofit retrofit, Method method) &#123;
+    <span class="hljs-keyword">this</span>.retrofit = retrofit;
+    <span class="hljs-keyword">this</span>.method = method;
+    <span class="hljs-comment">// 获取网络请求接口方法里的注解</span>
+    <span class="hljs-keyword">this</span>.methodAnnotations = method.getAnnotations();
+    <span class="hljs-comment">// 获取网络请求接口方法里的参数类型</span>
+    <span class="hljs-keyword">this</span>.parameterTypes = method.getGenericParameterTypes();
+    <span class="hljs-comment">// 获取网络请求接口方法里的注解内容</span>
+    <span class="hljs-keyword">this</span>.parameterAnnotationsArray = method.getParameterAnnotations();
+&#125;</code></pre>
+
+<p><strong>2、ServiceMethod 的创建</strong></p>
+<p>ServiceMethod 的创建在 HttpServiceMethod 的 <code>parseAnnotations()</code> 方法中。 </p>
+<pre><code class="hljs java"><span class="hljs-keyword">static</span> &lt;ResponseT, ReturnT&gt; <span class="hljs-function">HttpServiceMethod&lt;ResponseT, ReturnT&gt; <span class="hljs-title">parseAnnotations</span><span class="hljs-params">(</span></span>
+<span class="hljs-function"><span class="hljs-params">    Retrofit retrofit, Method method, RequestFactory requestFactory)</span> </span>&#123;
+    <span class="hljs-keyword">boolean</span> isKotlinSuspendFunction = requestFactory.isKotlinSuspendFunction;
+    <span class="hljs-keyword">boolean</span> continuationWantsResponse = <span class="hljs-keyword">false</span>;
+    <span class="hljs-keyword">boolean</span> continuationBodyNullable = <span class="hljs-keyword">false</span>;
+
+    Annotation[] annotations = method.getAnnotations();
+    Type adapterType;
+    <span class="hljs-comment">// 如果方法是 kotlin 中的 suspend 方法</span>
+    <span class="hljs-keyword">if</span> (isKotlinSuspendFunction) &#123;
+        <span class="hljs-comment">// 获取 Continuation 的范型参数，它就是 suspend 方法的返回值类型</span>
+        Type[] parameterTypes = method.getGenericParameterTypes();
+        Type responseType = Utils.getParameterLowerBound(<span class="hljs-number">0</span>,
+                                                         (ParameterizedType) parameterTypes[parameterTypes.length - <span class="hljs-number">1</span>]);
+        <span class="hljs-comment">// 如果 Continuation 的范型参数是 Response，则说明它需要的是 Response，那么将 continuationWantsResponse 置为 true;</span>
+        <span class="hljs-keyword">if</span> (getRawType(responseType) == Response.class &amp;&amp; responseType <span class="hljs-keyword">instanceof</span> ParameterizedType) &#123;
+            <span class="hljs-comment">// Unwrap the actual body type from Response&lt;T&gt;.</span>
+            responseType = Utils.getParameterUpperBound(<span class="hljs-number">0</span>, (ParameterizedType) responseType);
+            continuationWantsResponse = <span class="hljs-keyword">true</span>;
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-comment">// TODO figure out if type is nullable or not</span>
+            <span class="hljs-comment">// Metadata metadata = method.getDeclaringClass().getAnnotation(Metadata.class)</span>
+            <span class="hljs-comment">// Find the entry for method</span>
+            <span class="hljs-comment">// Determine if return type is nullable or not</span>
+        &#125;
+
+        adapterType = <span class="hljs-keyword">new</span> Utils.ParameterizedTypeImpl(<span class="hljs-keyword">null</span>, Call.class, responseType);
+        annotations = SkipCallbackExecutorImpl.ensurePresent(annotations);
+    &#125; <span class="hljs-keyword">else</span> &#123;
+        <span class="hljs-comment">// 否则获取方法返回值的范型参数，即为请求需要的返回值的类型</span>
+        adapterType = method.getGenericReturnType();
+    &#125;
+
+    <span class="hljs-comment">// 根据网络请求接口方法的返回值和注解类型</span>
+    <span class="hljs-comment">// 从 Retrofit 对象中获取对于的网络请求适配器</span>
+    CallAdapter&lt;ResponseT, ReturnT&gt; callAdapter =
+        createCallAdapter(retrofit, method, adapterType, annotations);
+
+    <span class="hljs-comment">// 得到响应类型</span>
+    Type responseType = callAdapter.responseType();
+    <span class="hljs-keyword">if</span> (responseType == okhttp3.Response.class) &#123;
+        <span class="hljs-keyword">throw</span> methodError(method, <span class="hljs-string">&quot;&#x27;&quot;</span>
+                          + getRawType(responseType).getName()
+                          + <span class="hljs-string">&quot;&#x27; is not a valid response body type. Did you mean ResponseBody?&quot;</span>);
+    &#125;
+    <span class="hljs-keyword">if</span> (responseType == Response.class) &#123;
+        <span class="hljs-keyword">throw</span> methodError(method, <span class="hljs-string">&quot;Response must include generic type (e.g., Response&lt;String&gt;)&quot;</span>);
+    &#125;
+    <span class="hljs-comment">// TODO support Unit for Kotlin?</span>
+    <span class="hljs-keyword">if</span> (requestFactory.httpMethod.equals(<span class="hljs-string">&quot;HEAD&quot;</span>) &amp;&amp; !Void.class.equals(responseType)) &#123;
+        <span class="hljs-keyword">throw</span> methodError(method, <span class="hljs-string">&quot;HEAD method must use Void as response type.&quot;</span>);
+    &#125;
+
+    <span class="hljs-comment">// 根据网络请求接口方法的返回值和注解类型从Retrofit对象中获取对应的数据转换器</span>
+    Converter&lt;ResponseBody, ResponseT&gt; responseConverter =
+        createResponseConverter(retrofit, method, responseType);
+
+    okhttp3.Call.Factory callFactory = retrofit.callFactory;
+    <span class="hljs-keyword">if</span> (!isKotlinSuspendFunction) &#123;
+        <span class="hljs-comment">// 不是 suspend 方法的话则直接创建并返回一个 CallAdapted 对象</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CallAdapted&lt;&gt;(requestFactory, callFactory, responseConverter, callAdapter);
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (continuationWantsResponse) &#123;
+        <span class="hljs-comment">//noinspection unchecked Kotlin compiler guarantees ReturnT to be Object.</span>
+        <span class="hljs-keyword">return</span> (HttpServiceMethod&lt;ResponseT, ReturnT&gt;) <span class="hljs-keyword">new</span> SuspendForResponse&lt;&gt;(requestFactory,
+                                                                                callFactory, responseConverter, (CallAdapter&lt;ResponseT, Call&lt;ResponseT&gt;&gt;) callAdapter);
+    &#125; <span class="hljs-keyword">else</span> &#123;
+        <span class="hljs-comment">//noinspection unchecked Kotlin compiler guarantees ReturnT to be Object.</span>
+        <span class="hljs-keyword">return</span> (HttpServiceMethod&lt;ResponseT, ReturnT&gt;) <span class="hljs-keyword">new</span> SuspendForBody&lt;&gt;(requestFactory,
+                                                                            callFactory, responseConverter, (CallAdapter&lt;ResponseT, Call&lt;ResponseT&gt;&gt;) callAdapter,
+                                                                            continuationBodyNullable);
+    &#125;
+&#125;</code></pre>
+
+<p><code>HttpServiceMethod.parseAnnotations()</code> 的主要作用就是获取 CallAdapter 以及 Converter 对象，并构建对应 <code>HttpServiceMethod</code>。</p>
+<ul>
+<li>CallAdapter ：根据网络接口方法的返回值类型来选择具体要用哪种 CallAdapterFactory，然后获取具体的 CallAdapter。</li>
+</ul>
+<pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> &lt;ResponseT, ReturnT&gt; <span class="hljs-function">CallAdapter&lt;ResponseT, ReturnT&gt; <span class="hljs-title">createCallAdapter</span><span class="hljs-params">(</span></span>
+<span class="hljs-function"><span class="hljs-params">      Retrofit retrofit, Method method, Type returnType, Annotation[] annotations)</span> </span>&#123;
+    <span class="hljs-keyword">try</span> &#123;
+      <span class="hljs-comment">//noinspection unchecked</span>
+      <span class="hljs-keyword">return</span> (CallAdapter&lt;ResponseT, ReturnT&gt;) retrofit.callAdapter(returnType, annotations);
+    &#125; <span class="hljs-keyword">catch</span> (RuntimeException e) &#123; <span class="hljs-comment">// Wide exception range because factories are user code.</span>
+      <span class="hljs-keyword">throw</span> methodError(method, e, <span class="hljs-string">&quot;Unable to create call adapter for %s&quot;</span>, returnType);
+    &#125;
+  &#125;
+
+<span class="hljs-keyword">public</span> CallAdapter&lt;?, ?&gt; callAdapter(Type returnType, Annotation[] annotations) &#123;
+    <span class="hljs-keyword">return</span> nextCallAdapter(<span class="hljs-keyword">null</span>, returnType, annotations);
+&#125;
+
+<span class="hljs-keyword">public</span> CallAdapter&lt;?, ?&gt; nextCallAdapter(<span class="hljs-meta">@Nullable</span> CallAdapter.Factory skipPast, Type returnType,
+                                         Annotation[] annotations) &#123;
+
+    <span class="hljs-keyword">int</span> start = callAdapterFactories.indexOf(skipPast) + <span class="hljs-number">1</span>;
+
+    <span class="hljs-comment">// 遍历 CallAdapter.Factory 集合寻找合适的工厂(该工厂集合在第一步构造 Retrofit 对象时进行添加)</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = start, count = callAdapterFactories.size(); i &lt; count; i++) &#123;
+        CallAdapter&lt;?, ?&gt; adapter = callAdapterFactories.get(i).get(returnType, annotations, <span class="hljs-keyword">this</span>);
+        <span class="hljs-keyword">if</span> (adapter != <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">return</span> adapter;
+        &#125;
+    &#125;
+    ...
+&#125;</code></pre>
+
+<ul>
+<li>获取 Converter：根据网络请求接口方法的返回值和注解类型从 Retrofit 对象中获取对应的数据转换器，和创建 CallAdapter 基本一致，遍历 Converter.Factory 集合并寻找具体的 Converter。</li>
+</ul>
+<pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> &lt;ResponseT&gt; <span class="hljs-function">Converter&lt;ResponseBody, ResponseT&gt; <span class="hljs-title">createResponseConverter</span><span class="hljs-params">(</span></span>
+<span class="hljs-function"><span class="hljs-params">    Retrofit retrofit, Method method, Type responseType)</span> </span>&#123;
+    Annotation[] annotations = method.getAnnotations();
+    <span class="hljs-keyword">try</span> &#123;
+        <span class="hljs-keyword">return</span> retrofit.responseBodyConverter(responseType, annotations);
+    &#125; <span class="hljs-keyword">catch</span> (RuntimeException e) &#123; <span class="hljs-comment">// Wide exception range because factories are user code.</span>
+        <span class="hljs-keyword">throw</span> methodError(method, e, <span class="hljs-string">&quot;Unable to create converter for %s&quot;</span>, responseType);
+    &#125;
+&#125;
+
+<span class="hljs-keyword">public</span> &lt;T&gt; <span class="hljs-function">Converter&lt;ResponseBody, T&gt; <span class="hljs-title">responseBodyConverter</span><span class="hljs-params">(Type type, Annotation[] annotations)</span> </span>&#123;
+    <span class="hljs-keyword">return</span> nextResponseBodyConverter(<span class="hljs-keyword">null</span>, type, annotations);
+&#125;
+
+<span class="hljs-keyword">public</span> &lt;T&gt; <span class="hljs-function">Converter&lt;ResponseBody, T&gt; <span class="hljs-title">nextResponseBodyConverter</span><span class="hljs-params">(</span></span>
+<span class="hljs-function"><span class="hljs-params">      <span class="hljs-meta">@Nullable</span> Converter.Factory skipPast, Type type, Annotation[] annotations)</span> </span>&#123;
+
+    <span class="hljs-keyword">int</span> start = converterFactories.indexOf(skipPast) + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = start, count = converterFactories.size(); i &lt; count; i++) &#123;
+      Converter&lt;ResponseBody, ?&gt; converter =
+          converterFactories.get(i).responseBodyConverter(type, annotations, <span class="hljs-keyword">this</span>);
+      <span class="hljs-keyword">if</span> (converter != <span class="hljs-keyword">null</span>) &#123;
+        <span class="hljs-comment">//noinspection unchecked</span>
+        <span class="hljs-keyword">return</span> (Converter&lt;ResponseBody, T&gt;) converter;
+      &#125;
+    &#125;
+    ...
+&#125;</code></pre>
+
+<ul>
+<li>构建 HttpServiceMethod：根据是否是 kotlin suspend 方法分别返回不同类型的 HttpServiceMethod。如果不是 suspend 方法的话则直接创建并返回一个 CallAdapted 对象，否则根据 suspend 方法需要的是 Response 还是具体的类型，分别返回 SuspendForResponse 和 SuspendForBody 对象。</li>
+</ul>
+<h3 id="ServiceMethod-invoke"><a href="#ServiceMethod-invoke" class="headerlink" title="ServiceMethod.invoke()"></a>ServiceMethod.invoke()</h3><p>ServiceMethod 是一个抽象类，<code>invoke()</code> 是一个抽象方法，具体实现在子类中。</p>
+<pre><code class="hljs java"><span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ServiceMethod</span>&lt;<span class="hljs-title">T</span>&gt; </span>&#123;
+  <span class="hljs-keyword">abstract</span> <span class="hljs-meta">@Nullable</span> <span class="hljs-function">T <span class="hljs-title">invoke</span><span class="hljs-params">(Object[] args)</span></span>;
+&#125;</code></pre>
+
+<p>它的子类是 HttpServiceMethod，HttpServiceMethod 的 <code>invoke()</code> 方法中，首先构造一个 OkHttpCall，然后通过 <code>adapt()</code> 方法实现对 Call 的转换。</p>
+<pre><code class="hljs java"><span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HttpServiceMethod</span>&lt;<span class="hljs-title">ResponseT</span>, <span class="hljs-title">ReturnT</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">ServiceMethod</span>&lt;<span class="hljs-title">ReturnT</span>&gt; </span>&#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">final</span> <span class="hljs-meta">@Nullable</span> <span class="hljs-function">ReturnT <span class="hljs-title">invoke</span><span class="hljs-params">(Object[] args)</span> </span>&#123;
+        Call&lt;ResponseT&gt; call = <span class="hljs-keyword">new</span> OkHttpCall&lt;&gt;(requestFactory, args, callFactory, responseConverter);
+        <span class="hljs-keyword">return</span> adapt(call, args);
+    &#125;
+
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> <span class="hljs-meta">@Nullable</span> <span class="hljs-function">ReturnT <span class="hljs-title">adapt</span><span class="hljs-params">(Call&lt;ResponseT&gt; call, Object[] args)</span></span>;
+&#125;</code></pre>
+
+<p><code>adapt()</code> 是一个 抽象方法，所以具体实现在 HttpServiceMethod 的子类中。</p>
+<p>HttpServiceMethod 有三个子类，非协程的情况是 CallAdapted，另外两个子类则是在使用协程的情况下为了配合协程的 SuspendForResponse 以及 SuspendForBody 类。</p>
+<ul>
+<li><p>CallAdapted：通过传递进来的 CallAdapter 对 Call 进行转换。</p>
+</li>
+<li><p>SuspendForResponse：首先根据传递进来的 Call 构造了一个参数为 Response 的 Continuation 对象然后通过 Kotlin 实现的 <code>awaitResponse()</code> 方法将 call 的 <code>enqueue</code> 异步回调过程封装成 一个 suspend 的函数。</p>
+</li>
+<li><p>SuspendForBody：SuspendForBody 则是根据传递进来的 Call 构造了一个 Continuation 对象然后通过 Kotlin 实现的 <code>await()</code> 或 <code>awaitNullable()</code> 方法将 call 的 <code>enqueue</code> 异步回调过程封装为了一个 suspend 的函数。</p>
+</li>
+</ul>
+<h2 id="发起网络请求"><a href="#发起网络请求" class="headerlink" title="发起网络请求"></a>发起网络请求</h2><h3 id="创建-Call"><a href="#创建-Call" class="headerlink" title="创建 Call"></a>创建 Call</h3><pre><code class="hljs java">Call&lt;List&lt;Repo&gt;&gt; repos = service.listRepos(<span class="hljs-string">&quot;octocat&quot;</span>);</code></pre>
+
+<p>从前面的分析了解到，Service 对象是动态代理对象，当调用 <code>listRepos()</code> 方法时会调用到 InvocationHandler的 <code>invoke()</code> 方法，得到最终的 Call 对象。</p>
+<p>如果没有传入 CallAdapter 的话，默认情况返回的 Call 是 OkHttpCall 对象，它实现了 Call 接口。</p>
+<h3 id="同步请求"><a href="#同步请求" class="headerlink" title="同步请求"></a>同步请求</h3><pre><code class="hljs java"><span class="hljs-meta">@Override</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> Response&lt;T&gt; <span class="hljs-title">execute</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+    okhttp3.Call call;
+
+    <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>) &#123;
+        <span class="hljs-keyword">if</span> (executed) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">&quot;Already executed.&quot;</span>);
+        executed = <span class="hljs-keyword">true</span>;
+
+        <span class="hljs-keyword">if</span> (creationFailure != <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">if</span> (creationFailure <span class="hljs-keyword">instanceof</span> IOException) &#123;
+                <span class="hljs-keyword">throw</span> (IOException) creationFailure;
+            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (creationFailure <span class="hljs-keyword">instanceof</span> RuntimeException) &#123;
+                <span class="hljs-keyword">throw</span> (RuntimeException) creationFailure;
+            &#125; <span class="hljs-keyword">else</span> &#123;
+                <span class="hljs-keyword">throw</span> (Error) creationFailure;
+            &#125;
+        &#125;
+
+        call = rawCall;
+        <span class="hljs-keyword">if</span> (call == <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">try</span> &#123;
+                <span class="hljs-comment">// 1. 创建 OkHttp 的 Call 对象</span>
+                call = rawCall = createRawCall();
+            &#125; <span class="hljs-keyword">catch</span> (IOException | RuntimeException | Error e) &#123;
+                throwIfFatal(e); <span class="hljs-comment">//  Do not assign a fatal error to creationFailure.</span>
+                creationFailure = e;
+                <span class="hljs-keyword">throw</span> e;
+            &#125;
+        &#125;
+    &#125;
+
+    <span class="hljs-keyword">if</span> (canceled) &#123;
+        call.cancel();
+    &#125;
+
+    <span class="hljs-comment">// 2. 执行请求并解析返回结果</span>
+    <span class="hljs-keyword">return</span> parseResponse(call.execute());
+&#125;</code></pre>
+
+<p>很简单，主要就是创建 OkHttp 的 Call 对象，调用 Call 的 <code>execute</code> 方法，对 Response 进行解析返回。</p>
+<h3 id="异步请求"><a href="#异步请求" class="headerlink" title="异步请求"></a>异步请求</h3><pre><code class="hljs java"><span class="hljs-meta">@Override</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">enqueue</span><span class="hljs-params">(<span class="hljs-keyword">final</span> Callback&lt;T&gt; callback)</span> </span>&#123;
+    checkNotNull(callback, <span class="hljs-string">&quot;callback == null&quot;</span>);
+
+    okhttp3.Call call;
+    Throwable failure;
+
+    <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>) &#123;
+        <span class="hljs-keyword">if</span> (executed) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">&quot;Already executed.&quot;</span>);
+        executed = <span class="hljs-keyword">true</span>;
+
+        call = rawCall;
+        failure = creationFailure;
+        <span class="hljs-keyword">if</span> (call == <span class="hljs-keyword">null</span> &amp;&amp; failure == <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">try</span> &#123;
+                <span class="hljs-comment">// 1. 创建 OkHttp 的 Call 对象</span>
+                call = rawCall = createRawCall();
+            &#125; <span class="hljs-keyword">catch</span> (Throwable t) &#123;
+                throwIfFatal(t);
+                failure = creationFailure = t;
+            &#125;
+        &#125;
+    &#125;
+
+    <span class="hljs-keyword">if</span> (failure != <span class="hljs-keyword">null</span>) &#123;
+        callback.onFailure(<span class="hljs-keyword">this</span>, failure);
+        <span class="hljs-keyword">return</span>;
+    &#125;
+
+    <span class="hljs-keyword">if</span> (canceled) &#123;
+        call.cancel();
+    &#125;
+
+    <span class="hljs-comment">// 2. 调用 Call 的异步执行方法</span>
+    call.enqueue(<span class="hljs-keyword">new</span> okhttp3.Callback() &#123;
+        <span class="hljs-meta">@Override</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onResponse</span><span class="hljs-params">(okhttp3.Call call, okhttp3.Response rawResponse)</span> </span>&#123;
+            Response&lt;T&gt; response;
+            <span class="hljs-keyword">try</span> &#123;
+                <span class="hljs-comment">// 3. 解析返回结果</span>
+                response = parseResponse(rawResponse);
+            &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;
+                throwIfFatal(e);
+                callFailure(e);
+                <span class="hljs-keyword">return</span>;
+            &#125;
+
+            <span class="hljs-keyword">try</span> &#123;
+                <span class="hljs-comment">// 4. 执行回调</span>
+                callback.onResponse(OkHttpCall.<span class="hljs-keyword">this</span>, response);
+            &#125; <span class="hljs-keyword">catch</span> (Throwable t) &#123;
+                throwIfFatal(t);
+                t.printStackTrace(); <span class="hljs-comment">// TODO this is not great</span>
+            &#125;
+        &#125;
+
+        <span class="hljs-meta">@Override</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onFailure</span><span class="hljs-params">(okhttp3.Call call, IOException e)</span> </span>&#123;
+            callFailure(e);
+        &#125;
+
+        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">callFailure</span><span class="hljs-params">(Throwable e)</span> </span>&#123;
+            <span class="hljs-keyword">try</span> &#123;
+                callback.onFailure(OkHttpCall.<span class="hljs-keyword">this</span>, e);
+            &#125; <span class="hljs-keyword">catch</span> (Throwable t) &#123;
+                throwIfFatal(t);
+                t.printStackTrace(); <span class="hljs-comment">// TODO this is not great</span>
+            &#125;
+        &#125;
+    &#125;);
+&#125;</code></pre>
+
+<p>也很简单，主要就是创建 OkHttp 的 Call 对象，调用 Call 的 <code>enqueue</code> 方法，解析返回结果，执行回调。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>至此，Retrofit 的源码基本上就看完了，虽然还有很多细节没有提及，但 Retrofit 的整体流程很清晰了。</p>
+<p>Retrofit 本质上是一个 RESTful 的 Http 网络请求框架的封装，通过大量的设计模式封装了 OkHttp，使得更加简单易用。它内部主要是用动态代理的方式，动态将网络请求接口的注解解析成 HTTP 请求，最后执行请求的过程。</p>
+<p>建议将 Retrofit 的源码下载下来，使用 IDEA 可以直接打开阅读。我这边已经将源码下载下来，进行了注释说明，有需要的可以直接从 <a target="_blank" rel="noopener" href="https://github.com/zywudev/android-open-framework-analysis">Android open framework analysis</a> 查看。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>1、<a target="_blank" rel="noopener" href="https://github.com/sucese/android-open-framework-analysis/blob/master/doc/Android%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E6%BA%90%E7%A0%81%E9%89%B4%E8%B5%8F%EF%BC%9ARetrofit.md">Android开源框架源码鉴赏：Retrofit</a></p>
+<p>2、<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0c055ad46b6c">Android：手把手带你 深入读懂 Retrofit 2.0 源码</a></p>
+<p>3、<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/101508725">带你一步步剖析Retrofit 源码解析：一款基于 OkHttp 实现的网络请求框架</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Android/">Android</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">源码分析</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/03/04/let-baidu-index-github-pages/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">如何让百度收录 GitHub Pages 个人博客</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/01/07/my-2019/">
+                        <span class="hidden-mobile">我的 2019 年个人总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Retrofit 源码分析&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

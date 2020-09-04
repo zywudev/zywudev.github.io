@@ -1,0 +1,688 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="贾小昆">
+  <meta name="keywords" content="">
+  <title>如何使用 Python 爬取微信公众号文章 - 贾小昆</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-08-09 10:26" pubdate>
+      2019年8月9日 上午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">如何使用 Python 爬取微信公众号文章</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>我比较喜欢看公众号，有时遇到一个感兴趣的公众号时，都会感觉相逢恨晚，想一口气看完所有历史文章。但是微信的阅读体验挺不好的，看历史文章得一页页的往后翻，下一次再看时还得重复操作，很是麻烦。</p>
+<p>于是便想着能不能把某个公众号所有的文章都保存下来，这样就很方便自己阅读历史文章了。</p>
+<p>话不多说，下面我就介绍如何使用 Python 爬取微信公众号所有文章的。</p>
+<p>主要有以下步骤：</p>
+<p>1 使用 Fiddler 抓取公众号接口数据</p>
+<p>2 使用 Python 脚本获取公众号所有历史文章数据</p>
+<p>3 保存历史文章</p>
+<h2 id="Fiddler-抓包"><a href="#Fiddler-抓包" class="headerlink" title="Fiddler 抓包"></a>Fiddler 抓包</h2><p>Fiddler 是一款抓包工具，可以监听网络通讯数据，开发测试过程中非常有用，这里不多做介绍。没有使用过的可以查看这篇文章，很容易上手。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jingjingshizhu/article/details/80566191">https://blog.csdn.net/jingjingshizhu/article/details/80566191</a></p>
+<p>接下来，使用微信桌面客户端，打开某个公众号的历史文章，这里以我的公众号举例，如下图。</p>
+<p><img src="/2019/08/09/python-save-wechat-article/wechat_article.png" srcset="/img/loading.gif" alt="wechat_article"></p>
+<p>如果你的 fiddler 配置好了的话，能够看到如下图的数据。</p>
+<p><img src="/2019/08/09/python-save-wechat-article/fiddler_wechat.png" srcset="/img/loading.gif" alt="fiddler_wechat"></p>
+<p>图中包含抓取的 url、一些重要的参数和我们想要的数据。</p>
+<p>这些参数中，<code>offset</code> 控制着翻页，其他参数在每一页中都是固定不变的。</p>
+<p>接口返回的数据结构如下图，其中 <code>can_msg_continue</code> 字段控制着能否翻页，1 表示还有下一页，0 表示没有已经是最后一页了。 <code>next_offset</code> 字段就是下一次请求的 <code>offset</code> 参数。</p>
+<p><img src="/2019/08/09/python-save-wechat-article/wechat_json.png" srcset="/img/loading.gif" alt="wechat_json"></p>
+<h2 id="构造请求，获取数据"><a href="#构造请求，获取数据" class="headerlink" title="构造请求，获取数据"></a>构造请求，获取数据</h2><p>接下来我们的目标就是根据 url 和一些参数，构建请求，获取标题、文章 url 和日期等数据，保存数据。</p>
+<p>保存数据一种是使用 pdfkit 将 文章 url 保存为 pdf 文件；另一种是先保存 html 文件，然后将 html 制作成 chm 文件。</p>
+<p>1 将 文章 url 保存为 pdf 文件，关键代码如下：</p>
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">parse</span>(<span class="hljs-params">index, biz, uin, key</span>):</span>
+    <span class="hljs-comment"># url前缀</span>
+    url = <span class="hljs-string">&quot;https://mp.weixin.qq.com/mp/profile_ext&quot;</span>
+
+    <span class="hljs-comment"># 请求头</span>
+    headers = &#123;
+        <span class="hljs-string">&quot;User-Agent&quot;</span>: <span class="hljs-string">&quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 &quot;</span>
+                      <span class="hljs-string">&quot;Safari/537.36 MicroMessenger/6.5.2.501 NetType/WIFI WindowsWechat QBCore/3.43.901.400 &quot;</span>
+                      <span class="hljs-string">&quot;QQBrowser/9.0.2524.400&quot;</span>,
+    &#125;
+
+    proxies = &#123;
+        <span class="hljs-string">&#x27;https&#x27;</span>: <span class="hljs-literal">None</span>,
+        <span class="hljs-string">&#x27;http&#x27;</span>: <span class="hljs-literal">None</span>,
+    &#125;
+
+    <span class="hljs-comment"># 重要参数</span>
+    param = &#123;
+        <span class="hljs-string">&#x27;action&#x27;</span>: <span class="hljs-string">&#x27;getmsg&#x27;</span>,
+        <span class="hljs-string">&#x27;__biz&#x27;</span>: biz,
+        <span class="hljs-string">&#x27;f&#x27;</span>: <span class="hljs-string">&#x27;json&#x27;</span>,
+        <span class="hljs-string">&#x27;offset&#x27;</span>: index * <span class="hljs-number">10</span>,
+        <span class="hljs-string">&#x27;count&#x27;</span>: <span class="hljs-string">&#x27;10&#x27;</span>,
+        <span class="hljs-string">&#x27;is_ok&#x27;</span>: <span class="hljs-string">&#x27;1&#x27;</span>,
+        <span class="hljs-string">&#x27;scene&#x27;</span>: <span class="hljs-string">&#x27;124&#x27;</span>,
+        <span class="hljs-string">&#x27;uin&#x27;</span>: uin,
+        <span class="hljs-string">&#x27;key&#x27;</span>: key,
+        <span class="hljs-string">&#x27;wxtoken&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+        <span class="hljs-string">&#x27;x5&#x27;</span>: <span class="hljs-string">&#x27;0&#x27;</span>,
+    &#125;
+
+    <span class="hljs-comment"># 发送请求，获取响应</span>
+    response = requests.get(url, headers=headers, params=param, proxies=proxies)
+    response_dict = response.json()
+
+    print(response_dict)
+
+    next_offset = response_dict[<span class="hljs-string">&#x27;next_offset&#x27;</span>]
+    can_msg_continue = response_dict[<span class="hljs-string">&#x27;can_msg_continue&#x27;</span>]
+
+    general_msg_list = response_dict[<span class="hljs-string">&#x27;general_msg_list&#x27;</span>]
+    data_list = json.loads(general_msg_list)[<span class="hljs-string">&#x27;list&#x27;</span>]
+
+    <span class="hljs-comment"># print(data_list)</span>
+
+    <span class="hljs-keyword">for</span> data <span class="hljs-keyword">in</span> data_list:
+        <span class="hljs-keyword">try</span>:
+            <span class="hljs-comment"># 文章发布时间</span>
+            datetime = data[<span class="hljs-string">&#x27;comm_msg_info&#x27;</span>][<span class="hljs-string">&#x27;datetime&#x27;</span>]
+            date = time.strftime(<span class="hljs-string">&#x27;%Y-%m-%d&#x27;</span>, time.localtime(datetime))
+
+            msg_info = data[<span class="hljs-string">&#x27;app_msg_ext_info&#x27;</span>]
+
+            <span class="hljs-comment"># 文章标题</span>
+            title = msg_info[<span class="hljs-string">&#x27;title&#x27;</span>]
+
+            <span class="hljs-comment"># 文章链接</span>
+            url = msg_info[<span class="hljs-string">&#x27;content_url&#x27;</span>]
+
+            <span class="hljs-comment"># 自己定义存储路径（绝对路径）</span>
+            pdfkit.from_url(url, <span class="hljs-string">&#x27;C:/Users/admin/Desktop/wechat_to_pdf/&#x27;</span> + date + title + <span class="hljs-string">&#x27;.pdf&#x27;</span>)
+
+            print(title + date + <span class="hljs-string">&#x27;成功&#x27;</span>)
+
+        <span class="hljs-keyword">except</span>:
+            print(<span class="hljs-string">&quot;不是图文消息&quot;</span>)
+
+    <span class="hljs-keyword">if</span> can_msg_continue == <span class="hljs-number">1</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+    <span class="hljs-keyword">else</span>:
+        print(<span class="hljs-string">&#x27;爬取完毕&#x27;</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span></code></pre>
+
+<p>2 保存 html 文件，关键代码如下</p>
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">parse</span>(<span class="hljs-params">index, biz, uin, key</span>):</span>
+
+    <span class="hljs-comment"># url前缀</span>
+    url = <span class="hljs-string">&quot;https://mp.weixin.qq.com/mp/profile_ext&quot;</span>
+
+    <span class="hljs-comment"># 请求头</span>
+    headers = &#123;
+        <span class="hljs-string">&quot;User-Agent&quot;</span>: <span class="hljs-string">&quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 &quot;</span>
+                      <span class="hljs-string">&quot;Safari/537.36 MicroMessenger/6.5.2.501 NetType/WIFI WindowsWechat QBCore/3.43.901.400 &quot;</span>
+                      <span class="hljs-string">&quot;QQBrowser/9.0.2524.400&quot;</span>,
+    &#125;
+
+    proxies = &#123;
+        <span class="hljs-string">&#x27;https&#x27;</span>: <span class="hljs-literal">None</span>,
+        <span class="hljs-string">&#x27;http&#x27;</span>: <span class="hljs-literal">None</span>,
+    &#125;
+
+    <span class="hljs-comment"># 重要参数</span>
+    param = &#123;
+        <span class="hljs-string">&#x27;action&#x27;</span>: <span class="hljs-string">&#x27;getmsg&#x27;</span>,
+        <span class="hljs-string">&#x27;__biz&#x27;</span>: biz,
+        <span class="hljs-string">&#x27;f&#x27;</span>: <span class="hljs-string">&#x27;json&#x27;</span>,
+        <span class="hljs-string">&#x27;offset&#x27;</span>: index * <span class="hljs-number">10</span>,
+        <span class="hljs-string">&#x27;count&#x27;</span>: <span class="hljs-string">&#x27;10&#x27;</span>,
+        <span class="hljs-string">&#x27;is_ok&#x27;</span>: <span class="hljs-string">&#x27;1&#x27;</span>,
+        <span class="hljs-string">&#x27;scene&#x27;</span>: <span class="hljs-string">&#x27;124&#x27;</span>,
+        <span class="hljs-string">&#x27;uin&#x27;</span>: uin,
+        <span class="hljs-string">&#x27;key&#x27;</span>: key,
+        <span class="hljs-string">&#x27;wxtoken&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+        <span class="hljs-string">&#x27;x5&#x27;</span>: <span class="hljs-string">&#x27;0&#x27;</span>,
+    &#125;
+
+    <span class="hljs-comment"># 发送请求，获取响应</span>
+    reponse = requests.get(url, headers=headers, params=param, proxies=proxies)
+    reponse_dict = reponse.json()
+
+    <span class="hljs-comment"># print(reponse_dict)</span>
+    next_offset = reponse_dict[<span class="hljs-string">&#x27;next_offset&#x27;</span>]
+    can_msg_continue = reponse_dict[<span class="hljs-string">&#x27;can_msg_continue&#x27;</span>]
+
+    general_msg_list = reponse_dict[<span class="hljs-string">&#x27;general_msg_list&#x27;</span>]
+    data_list = json.loads(general_msg_list)[<span class="hljs-string">&#x27;list&#x27;</span>]
+
+    print(data_list)
+
+    <span class="hljs-keyword">for</span> data <span class="hljs-keyword">in</span> data_list:
+        <span class="hljs-keyword">try</span>:
+            datetime = data[<span class="hljs-string">&#x27;comm_msg_info&#x27;</span>][<span class="hljs-string">&#x27;datetime&#x27;</span>]
+            date = time.strftime(<span class="hljs-string">&#x27;%Y-%m-%d&#x27;</span>, time.localtime(datetime))
+
+            msg_info = data[<span class="hljs-string">&#x27;app_msg_ext_info&#x27;</span>]
+
+            <span class="hljs-comment"># 标题</span>
+            title = msg_info[<span class="hljs-string">&#x27;title&#x27;</span>]
+
+            <span class="hljs-comment"># 内容的url</span>
+            url = msg_info[<span class="hljs-string">&#x27;content_url&#x27;</span>].replace(<span class="hljs-string">&quot;\\&quot;</span>, <span class="hljs-string">&quot;&quot;</span>).replace(<span class="hljs-string">&quot;http&quot;</span>, <span class="hljs-string">&quot;https&quot;</span>)
+            url = html.unescape(url)
+            print(url)
+
+            res = requests.get(url, headers=headers, proxies=proxies)
+            <span class="hljs-keyword">with</span> open(<span class="hljs-string">&#x27;C:/Users/admin/Desktop/test/&#x27;</span> + title + <span class="hljs-string">&#x27;.html&#x27;</span>, <span class="hljs-string">&#x27;wb+&#x27;</span>) <span class="hljs-keyword">as</span> f:
+                f.write(res.content)
+
+            print(title + date + <span class="hljs-string">&#x27;成功&#x27;</span>)
+
+        <span class="hljs-keyword">except</span>:
+            print(<span class="hljs-string">&quot;不是图文消息&quot;</span>)
+
+    <span class="hljs-keyword">if</span> can_msg_continue == <span class="hljs-number">1</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+    <span class="hljs-keyword">else</span>:
+        print(<span class="hljs-string">&#x27;全部获取完毕&#x27;</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span></code></pre>
+
+<h2 id="保存文章"><a href="#保存文章" class="headerlink" title="保存文章"></a>保存文章</h2><p><strong>保存为 pdf 文件</strong>，用到了 python 的第三方库 pdfkit 和 wkhtmltopdf。</p>
+<p>安装 pdfkit：</p>
+<pre><code class="hljs python">pip install pdfkit</code></pre>
+
+<p>安装 wkhtmltopdf：</p>
+<p>下载地址：</p>
+<p><a target="_blank" rel="noopener" href="https://wkhtmltopdf.org/downloads.html">https://wkhtmltopdf.org/downloads.html</a></p>
+<p>安装后将 wkhtmltopdf 目录下的 bin 添加到环境变量中。</p>
+<p><strong>保存为 chm 文件</strong>，可以下载 Easy CHM ，使用这个软件可以将 html 制作成 chm，使用教程网上比较多。</p>
+<p>下载地址：</p>
+<p><a target="_blank" rel="noopener" href="http://www.etextwizard.com/cn/easychm.html">http://www.etextwizard.com/cn/easychm.html</a></p>
+<p>效果图：</p>
+<p><img src="/2019/08/09/python-save-wechat-article/chm.png" srcset="/img/loading.gif" alt="chm"></p>
+<p><strong>pdf 和 chm 对比</strong>：</p>
+<p>pdf 支持多终端，阅读体验好，但是有个大坑，就是微信文章保存的 pdf 没有图片，很影响阅读体验，暂未找到解决办法。</p>
+<p>chm 的好处是可以建立索引，查看文章方便。一个公众号制作成一个 chm 文件，管理方便。不会出现图片不显示问题。</p>
+<p>所以推荐将爬取到的公众号文章保存为 chm 文件，方便阅读。</p>
+<p>需要完整代码和文中相关软件的朋友，可以关注公众号「贾小昆」，后台回复关键词 ”<strong>公众号文章</strong>“ 获取。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Python/">Python</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/08/31/ten-step-learning-method/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">程序员成长离不开的技能</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/07/28/yuv-format-explaination/">
+                        <span class="hidden-mobile">YUV 格式详解</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "如何使用 Python 爬取微信公众号文章&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,877 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="贾小昆">
+  <meta name="keywords" content="">
+  <title>贾小昆</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/06/03/aspectj/">Android AspectJ 学习笔记</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/06/03/aspectj/">
+          
+          
+            
+          
+          AOP
+AOP : Aspect Oriented Programming 的缩写，意为：面向切面编程
+
+优点：针对同一问题的统一处理；无侵入添加代码
+Android 平台，常用的是 hujiang 的一个aspectjx插件，它的工作原理是：通过Gradle Transform，在class文件生成后至dex文件生成前，遍历并匹配所有符合AspectJ文件中声明的切点，然后将事先声明好的代码在切
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-06-03 09:56" pubdate>
+              2020-06-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android/">Android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/AspectJ/">AspectJ</a>
+            
+              <a href="/tags/AOP/">AOP</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/05/21/android-mediacodec/">Android 音视频学习：使用 MediaCodec API 完成音频 AAC 硬编、硬解</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/05/21/android-mediacodec/">
+          
+          
+            
+          
+          这篇文章主要来学习下使用 MediaCodec API 进行音频的编解码。
+什么是编码、解码？音视频领域，我们常说的 编码 就是压缩，解码 就是解压缩。
+编码的目的是减小数据的体积，减少存储空间和传输已存储文件所需的带宽。
+编码后的数据是不能直接使用的，必须先解码成原来的样子。就像 zip 压缩文件里面有张图片，我们用图片查看器是无法打开的，必须先解压文件，恢复图片原来的数据，这样才能查看。音视频
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-05-21 15:59" pubdate>
+              2020-05-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/">Android 音视频</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/">Android 音视频</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/05/21/android-mediamuxer-and-mediaextractor/">Android 音视频学习：使用 MediaExtractor 和 MediaMuxer 解析和封装 mp4 文件</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/05/21/android-mediamuxer-and-mediaextractor/">
+          
+          
+            
+          
+          这篇文章的目的主要是学习 Android 平台的 MediaExtractor 和 MediaMuxer API，知道如何解析和封装 mp4 文件。
+一个音视频文件是包含音频和视频，Android 中可以通过 MediaExtractor  API 把音频或视频给单独抽取出来，通过 MediaMuxer 合成新的视频。
+MediaExtractorMediaExtractor 的作用就是将音频和视
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-05-21 08:44" pubdate>
+              2020-05-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/">Android 音视频</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/">Android 音视频</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/05/18/weekly-issue-8/">每周分享第 8 期</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/05/18/weekly-issue-8/">
+          
+          
+            
+          
+          这里记录过去一周，我看到的值得分享的内容。
+本周刊开源（GitHub: weekly），欢迎投稿，分享文章、资源、工具等。
+文章1、想退休，可能没机会了
+别再想着三十五岁或四十五岁退休了。好好工作，好好生活，不辜负这样的时代。
+2、您可坐稳了，海苔…其实是紫菜做出来的!
+涨知识，有意思的公众号，推荐订阅。
+资源1、Learn Git Branching
+一个 Git 命令可视化学习项目。能够生动形
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-05-18 09:38" pubdate>
+              2020-05-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/05/08/weekly-issue-7/">每周分享第 7 期</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/05/08/weekly-issue-7/">
+          
+          
+            
+          
+          这里记录过去一周，我看到的值得分享的内容。
+本周刊开源（GitHub: zywudev/weekly），欢迎投稿，或者推荐好玩的东西。
+文章1、这一年团队的磨合与成长
+作者讲述了自己在字节跳动组建团队过程中的一些故事和感悟。
+“如果你喜欢一只蝴蝶，千万不要去追，因为你追不上她。你应该去种花、种草，等到春暖花开的时候，等到草长莺飞的时候，蝴蝶自然会飞回来。如果你喜欢的那只蝴蝶没有飞回来，怎么办呢? 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-05-08 10:30" pubdate>
+              2020-05-08
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/04/30/Android-Camera/">Android 音视频学习：使用 Camera API 采集视频数据</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/04/30/Android-Camera/">
+          
+          
+            
+          
+          这篇文章的主要学习内容是：使用 Camera API 采集视频数据并保存到文件，分别使用 SurfaceView、TextureView 来预览 Camera 数据，取到 NV21 的数据回调。
+Android 中预览相机画面主要用 SurfaceView 和 TextureView。
+SurfaceView：SurfaceView 是一个有自己 Surface 的 View。界面渲染可以放在单独
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-04-30 16:06" pubdate>
+              2020-04-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/">Android 音视频</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/">Android 音视频</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/04/28/android-audiorecord-and-audiotrack/">Android 音视频学习：使用 AudioRecord 和 AudioTrack API 完成音频 PCM 数据的采集和播放，并实现 PCM 保存为 WAV 文件</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/04/28/android-audiorecord-and-audiotrack/">
+          
+          
+            
+          
+          在具体使用 AudioRecord 采集音频之前，简单了解下 PCM。
+什么是 PCM?我们知道，声音本身是模拟信号，而计算机只能处理离散的数字信号，要在计算机中处理声音，就需要将声音数字化，这个过程叫模数转换（A/D 变换） 。模数转换直接生成的二进制序列称为 PCM（pulse code modulation， 脉冲编码调制）数据。它是数字音频在计算机、光盘、数字电话和其他数字音频应用中的标准
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-04-28 10:36" pubdate>
+              2020-04-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/">Android 音视频</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/">Android 音视频</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/04/24/programmer-group/">程序员技术资源分享群</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/04/24/programmer-group/">
+          
+          
+            
+          
+          独学而无友，则孤陋而寡闻。
+我是个爱分享的程序员，遇上好的资源、工具软件都会主动分享给朋友。
+好东西怎么能独享呢，分享给别人的同时，可能会收获更多。
+所以，创建了一个技术资源分享群，欢迎爱分享的你加入进来。
+本群主要是技术资源分享，包括：
+
+技术资源
+
+工具软件
+
+技术心得
+
+技术热点
+
+
+为了让群价值最大化，交流更有效率：
+
+鼓励有价值的内容分享
+
+鼓励友善、互相帮助、积极努力的氛围
+
+不要只做
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-04-24 09:59" pubdate>
+              2020-04-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/04/24/Android-Draw-Image/">Android 音视频学习：使用三种不同的方式绘制图片</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/04/24/Android-Draw-Image/">
+          
+          
+            
+          
+          本系列是个人 Android 音视频学习总结，这是第一篇，主要学习内容是：
+在 Android 平台上绘制一张图片，使用三种不同的 API，ImageView、SurfaceView、自定义 View。
+ImageView 绘制图片这种方式较为普遍简单。
+public class ImageViewActivity extends BaseActivity &#123;
+
+    private 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-04-24 08:07" pubdate>
+              2020-04-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/">Android 音视频</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/">Android 音视频</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/03/04/let-baidu-index-github-pages/">如何让百度收录 GitHub Pages 个人博客</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/03/04/let-baidu-index-github-pages/">
+          
+          
+            
+          
+          很多程序员朋友都有在 GitHub Pages 上搭建自己的个人博客，对于个人博客，没有被搜索引擎收录的话，别人基本是是看不到的，再好的技术文无法被分享也是白搭。
+基于 GitHub Pages 的个人博客， Google 收录非常及时全面。然而，到目前为止，GitHub 还是拒绝百度爬虫的访问，直接返回 403。
+官方给出原因是，百度爬虫爬得太狠，影响了 Github Pages 服务的正常使用
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-03-04 20:55" pubdate>
+              2020-03-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/GitHub-Pages/">GitHub Pages</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "万物之中 希望至美&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

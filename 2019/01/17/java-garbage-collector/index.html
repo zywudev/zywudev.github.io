@@ -1,0 +1,634 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="贾小昆">
+  <meta name="keywords" content="">
+  <title>JVM 七种垃圾收集器 - 贾小昆</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-01-17 20:43" pubdate>
+      2019年1月17日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">JVM 七种垃圾收集器</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>Java 垃圾收集器是 <a href="http://wuzhangyang.com/2019/01/15/garbage-collection-algorithm/">垃圾收集算法</a> 的具体实现。</p>
+<p>下图展示的是 7 种作用于不同分代的收集器，如果两种收集器之前有连接，表示它们可以配合使用。收集器所在的位置表示它是属于新生代收集器还是老年代收集器。</p>
+<p><img src="/2019/01/17/java-garbage-collector/seven_garbage_collector.png" srcset="/img/loading.gif" alt="seven_garbage_collector"></p>
+<h2 id="Serial-收集器"><a href="#Serial-收集器" class="headerlink" title="Serial 收集器"></a>Serial 收集器</h2><p><strong>单线程</strong>、<strong>串行</strong>收集器。即在垃圾清理时，必须暂停其他所有工作线程。</p>
+<p>它是采用<strong>复制算法</strong>的<strong>新生代收集器</strong>。</p>
+<p>下图是 Serial 收集器的运行过程。</p>
+<p><img src="/2019/01/17/java-garbage-collector/serial_collector.png" srcset="/img/loading.gif" alt="serial_collector"></p>
+<h2 id="ParNew-收集器"><a href="#ParNew-收集器" class="headerlink" title="ParNew 收集器"></a>ParNew 收集器</h2><p>ParNew 收集器是 Serial 收集器的<strong>多线程</strong>版本。除了使用多线程收集，其他与 Serial 收集相比并无太多创新之处。</p>
+<p>默认开启的线程数量与 CPU 数量相同。</p>
+<p>在单 CPU 的环境，ParNew 收集器不会比 Serial 收集器更优秀。</p>
+<p><img src="/2019/01/17/java-garbage-collector/parnew_collector.png" srcset="/img/loading.gif" alt="parnew_collector"></p>
+<h2 id="Parallel-Scavenge-收集器"><a href="#Parallel-Scavenge-收集器" class="headerlink" title="Parallel Scavenge 收集器"></a>Parallel Scavenge 收集器</h2><p>Parallel Scavenge 收集器也是一个 <strong>并行的多线程</strong>新生代收集器，使用的是<strong>复制算法</strong>。</p>
+<p>特点在于它的目标是达到一个可控制的吞吐量（Throughput）。</p>
+<p>吞吐量就是 CPU 用于运行用户代码得时间与 CPU 消耗时间的比值。</p>
+<p><strong>吞吐量 = 运行用户代码时间 / (运行用户代码时间 + 垃圾收集时间)</strong></p>
+<p>高吞吐量可以高效率地利用 CPU 时间，尽快完成程序地运行任务，适合在后台运行不需要太多交互的任务。</p>
+<p>-XX:GCTimeRatio : 设置吞吐量大小。</p>
+<p>-XX:MaxGCPauseMillis : 设置最大垃圾收集停顿时间。</p>
+<h2 id="Serial-Old-收集器"><a href="#Serial-Old-收集器" class="headerlink" title="Serial Old 收集器"></a>Serial Old 收集器</h2><p>Serial 收集器的老年代产品。同样是<strong>单线程</strong>，使用标<strong>记整理算法</strong>。</p>
+<p><img src="/2019/01/17/java-garbage-collector/serial_collector.png" srcset="/img/loading.gif" alt="serial_collector"></p>
+<h2 id="Parallel-Old-收集器"><a href="#Parallel-Old-收集器" class="headerlink" title="Parallel Old 收集器"></a>Parallel Old 收集器</h2><p>Parallel Old 是 Parallel Scanvenge 的老年代版本，使用<strong>多线程</strong>和<strong>标记整理算法</strong>。</p>
+<p><img src="/2019/01/17/java-garbage-collector/parallel_old_collector.png" srcset="/img/loading.gif" alt="parallel_old_collector"></p>
+<h2 id="CMS-收集器"><a href="#CMS-收集器" class="headerlink" title="CMS 收集器"></a>CMS 收集器</h2><p>CMS（Concurrent Mark Sweep）收集器是一种以获取最短回收停顿时间为目标的收集器。</p>
+<p>从名称是上看出 CMS 采用的是标记清除算法。整个过程有四个步骤：</p>
+<ul>
+<li>初始标记（CMS initial mark）：仅仅标记一下 GC Roots 能关联到的对象，速度很快。</li>
+<li>并发标记（CMS concurrent mark）：GC Roots Tracing 过程。</li>
+<li>重新标记（CMS remark）：修正并发标记期间引用变化那一部分对象</li>
+<li>并发清除（CMS concurrent sweep）</li>
+</ul>
+<p>其中，初始标记、重新标记需要“Stop The World”。并发标记和并发清除时收集器线程可以与用户线程一起工作。</p>
+<p><img src="/2019/01/17/java-garbage-collector/cms_collector.png" srcset="/img/loading.gif" alt="cms_collector"></p>
+<p><strong>优势</strong>：</p>
+<p>并发收集、低停顿。</p>
+<p><strong>缺陷</strong>：</p>
+<ul>
+<li>对 CPU 资源敏感。多线程导致占用一部分 CPU 资源而导致应用程序变慢。</li>
+<li>无法处理<strong>浮动垃圾</strong>。并发清理过程中用户线程还在运行，会产生新的垃圾，CMS 无法在当次收集中处理它们，只好等待下一次 GC 时再清理掉。这一部分垃圾称为浮动垃圾。</li>
+<li>CMS 采取的标记清除算法会产生大量空间碎片。往往出现老年代空间剩余，但无法找到足够大连续空间来分配当前对象，不得不提前触发一次 Full GC。</li>
+</ul>
+<h2 id="G1收集器"><a href="#G1收集器" class="headerlink" title="G1收集器"></a>G1收集器</h2><p><strong>Region</strong></p>
+<p>上述的 GC 收集器将连续的内存空间划分为新生代、老生代和永久代（JDK 8 去除了永久代，引入了元空间 Metaspace），这种划分的特点是各代的存储地址（逻辑地址）是连续的。</p>
+<p>G1 (Garbage First) 的各代存储地址是不连续的，每一代都使用了 n 个不连续的大小相同的 region， 每个 region 占有一块连续的虚拟内存地址。</p>
+<p><img src="/2019/01/17/java-garbage-collector/g1_region.png" srcset="/img/loading.gif" alt="g1_region"></p>
+<p>G1 跟踪各个 Region 里面的垃圾堆积的价值大小（回收所获得的空间大小以及回收所需时间的经验值），在后台维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的 Region。</p>
+<p><strong>避免全堆扫描</strong></p>
+<p>多个 Region 之前的对象可能会有引用关系，在做可达性分析时需要扫描整个堆才能保证准确性，这显然降低了 GC 效率。</p>
+<p>为避免全堆扫描，虚拟机为 G1 中每个 Region 维护了一个与之对应的 Remembered Set。虚拟机发现程序在对Reference类型的数据进行写操作时，会产生一个Write Barrier 暂时中断写操作，检查 Reference 引用的对象是否处于不同的 Region 之中（在分代的例子中就是检查是否老年代中的对象引用了新生代中的对象），如果是，便通过 CardTable <strong>把相关引用信息记录到被引用对象所属的Region的 Remembered Set 之中</strong>。当进行内存回收时，在GC根节点的枚举范围中加入 Remembered Set 即可保证不对全堆扫描也不会有遗漏。</p>
+<p><strong>G1 的运作步骤</strong>：</p>
+<ul>
+<li>初始标记（Initial Marking）</li>
+<li>并发标记（Concurrent Marking）</li>
+<li>最终标记（Final Marking）</li>
+<li>筛选回收（Live Data Counting and Evacuation）</li>
+</ul>
+<p><img src="/2019/01/17/java-garbage-collector/g1_collector.png" srcset="/img/loading.gif" alt="g1_collector"></p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>空间整合：整体来看是基于“标记 - 整理”算法实现的收集器，从局部（两个 Region 之间）上来看是基于“复制”算法实现的，这意味着运行期间不会产生内存空间碎片。</li>
+<li>可预测的停顿：能让使用者明确指定在一个长度为 M 毫秒的时间片段内，消耗在 GC 上的时间不得超过 N 毫秒。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><table>
+<thead>
+<tr>
+<th>收集器</th>
+<th>串行、并行or并发</th>
+<th>新生代/老年代</th>
+<th>算法</th>
+<th>目标</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Serial</strong></td>
+<td>串行</td>
+<td>新生代</td>
+<td>复制算法</td>
+<td>响应速度优先</td>
+<td>单CPU环境下的Client模式</td>
+</tr>
+<tr>
+<td><strong>Serial Old</strong></td>
+<td>串行</td>
+<td>老年代</td>
+<td>标记-整理</td>
+<td>响应速度优先</td>
+<td>单CPU环境下的Client模式、CMS的后备预案</td>
+</tr>
+<tr>
+<td><strong>ParNew</strong></td>
+<td>并行</td>
+<td>新生代</td>
+<td>复制算法</td>
+<td>响应速度优先</td>
+<td>多CPU环境时在Server模式下与CMS配合</td>
+</tr>
+<tr>
+<td><strong>Parallel Scavenge</strong></td>
+<td>并行</td>
+<td>新生代</td>
+<td>复制算法</td>
+<td>吞吐量优先</td>
+<td>在后台运算而不需要太多交互的任务</td>
+</tr>
+<tr>
+<td><strong>Parallel Old</strong></td>
+<td>并行</td>
+<td>老年代</td>
+<td>标记-整理</td>
+<td>吞吐量优先</td>
+<td>在后台运算而不需要太多交互的任务</td>
+</tr>
+<tr>
+<td><strong>CMS</strong></td>
+<td>并发</td>
+<td>老年代</td>
+<td>标记-清除</td>
+<td>响应速度优先</td>
+<td>集中在互联网站或B/S系统服务端上的Java应用</td>
+</tr>
+<tr>
+<td><strong>G1</strong></td>
+<td>并发</td>
+<td>both</td>
+<td>标记-整理+复制算法</td>
+<td>响应速度优先</td>
+<td>面向服务端应用</td>
+</tr>
+</tbody></table>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://book.douban.com/subject/24722612/">深入理解Java虚拟机:JVM高级特性与最佳实践(第2版)</a></p>
+<p><a target="_blank" rel="noopener" href="https://crowhawk.github.io/2017/08/15/jvm_3/">深入理解JVM(3)——7种垃圾收集器</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JVM/">JVM</a>
+                    
+                      <a class="hover-with-bg" href="/tags/GC/">GC</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/01/18/understand-safe-point/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JVM 安全点介绍</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/01/15/garbage-collection-algorithm/">
+                        <span class="hidden-mobile">Java 垃圾收集算法有哪些？</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "JVM 七种垃圾收集器&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

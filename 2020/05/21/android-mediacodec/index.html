@@ -1,0 +1,897 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="贾小昆">
+  <meta name="keywords" content="">
+  <title>Android 音视频学习：使用 MediaCodec API 完成音频 AAC 硬编、硬解 - 贾小昆</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-05-21 15:59" pubdate>
+      2020年5月21日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      35
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Android 音视频学习：使用 MediaCodec API 完成音频 AAC 硬编、硬解</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>这篇文章主要来学习下使用 MediaCodec API 进行音频的编解码。</p>
+<h2 id="什么是编码、解码？"><a href="#什么是编码、解码？" class="headerlink" title="什么是编码、解码？"></a>什么是编码、解码？</h2><p>音视频领域，我们常说的 <strong>编码</strong> 就是压缩，<strong>解码</strong> 就是解压缩。</p>
+<p>编码的目的是减小数据的体积，减少存储空间和传输已存储文件所需的带宽。</p>
+<p>编码后的数据是不能直接使用的，必须先解码成原来的样子。就像 zip 压缩文件里面有张图片，我们用图片查看器是无法打开的，必须先解压文件，恢复图片原来的数据，这样才能查看。音视频编解码也是同样的道理。</p>
+<h2 id="MediaCodec"><a href="#MediaCodec" class="headerlink" title="MediaCodec"></a>MediaCodec</h2><p>我们了解一下 Android 官方提供的音频编解码的 API，即 MediaCodec 类，该 API 是在 Andorid 4.1 （API 16） 版本引入的，因此只能工作于 Android 4.1 以上的手机上。</p>
+<p>MediaCodec 采用了基于环形缓冲区的「生产者-消费者」模型，异步处理数据。在 input 端，Client 是这个环形缓冲区「生产者」，MediaCodec 是「消费者」。在 output 端，MediaCodec 是这个环形缓冲区「生产者」，而 Client 则变成了「消费者」。</p>
+<p>工作流程是这样的：</p>
+<p>（1）Client 从 input 缓冲区队列申请 empty buffer [dequeueInputBuffer]</p>
+<p>（2）Client 把需要编解码的数据拷贝到 empty buffer，然后放入 input 缓冲区队列 [queueInputBuffer]</p>
+<p>（3）MediaCodec 从 input 缓冲区队列取一帧数据进行编解码处理</p>
+<p>（4）处理结束后，MediaCodec 将原始数据 buffer 置为 empty 后放回 input 缓冲区队列，将编解码后的数据放入到 output 缓冲区队列</p>
+<p>（5）Client 从 output 缓冲区队列申请编解码后的 buffer [dequeueOutputBuffer]</p>
+<p>（6）Client 对编解码后的 buffer 进行渲染/播放</p>
+<p>（7）渲染/播放完成后，Client 再将该 buffer 放回 output 缓冲区队列 [releaseOutputBuffer]</p>
+<p><img src="/2020/05/21/android-mediacodec/mediacodec.png" srcset="/img/loading.gif" alt="mediacodec"></p>
+<p>MediaCodec 使用的基本流程是：</p>
+<pre><code class="hljs java">- createEncoderByType/createDecoderByType
+- configure
+- start
+- <span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>) &#123;
+    - dequeueInputBuffer
+    - queueInputBuffer
+    - dequeueOutputBuffer
+    - releaseOutputBuffer
+&#125;
+- stop
+- release</code></pre>
+
+<p>MediaCodec 的生命周期有三种状态：<strong>停止态-Stopped、执行态-Executing、释放态-Released</strong>。</p>
+<p>停止状态（Stopped）包括了三种子状态：未初始化（Uninitialized）、配置（Configured）、错误（Error）。</p>
+<p>执行状态（Executing）会经历三种子状态：刷新（Flushed）、运行（Running）、流结束（End-of-Stream）</p>
+<p><img src="/2020/05/21/android-mediacodec/mediacodec_lifecycle.png" srcset="/img/loading.gif" alt="mediacodec_lifecycle"></p>
+<p>（1）当创建编解码器的时候处于未初始化状态。首先你需要调用 configure(…) 方法让它处于 Configured 状态，然后调用 start() 方法让其处于 Executing 状态。在 Executing 状态下，你就可以使用上面提到的缓冲区来处理数据。</p>
+<p>（2）Executing 的状态下也分为三种子状态：Flushed, Running、End-of-Stream。在 start() 调用后，编解码器处于 Flushed 状态，这个状态下它保存着所有的缓冲区。一旦第一个输入 buffer 出现了，编解码器就会自动运行到 Running 的状态。当带有 end-of-stream 标志的 buffer 进去后，编解码器会进入 End-of-Stream 状态，这种状态下编解码器不在接受输入 buffer，但是仍然在产生输出的 buffer。此时你可以调用 flush() 方法，将编解码器重置于 Flushed 状态。</p>
+<p>（3）调用 stop() 将编解码器返回到未初始化状态，然后可以重新配置。 完成使用编解码器后，您必须通过调用 release() 来释放它。</p>
+<p>（4）在极少数情况下，编解码器可能会遇到错误并转到错误状态。 这是使用来自排队操作的无效返回值或有时通过异常来传达的。 调用 reset() 使编解码器再次可用。 您可以从任何状态调用它来将编解码器移回未初始化状态。 否则，调用 release() 动到终端释放状态。</p>
+<h2 id="AAC-编解码"><a href="#AAC-编解码" class="headerlink" title="AAC 编解码"></a>AAC 编解码</h2><p>对音频进行编码的目的用更少的空间来存储和传输，有有损编码和无损编码，其中我们常见的 Mp3 和 ACC 格式就是有损编码。</p>
+<p>ACC 音频有 ADIF 和 ADTS 两种格式，第一种适用于磁盘，优点是需要空间小，但是不能边下载边播放；第二种则适用于流的传输，它是一种帧序列，可以逐帧播放。我们这里用 ADTS 这种来进行编码。</p>
+<p><strong>ADTS 帧结构：</strong></p>
+<p>head :: body</p>
+<p><strong>ADTS 帧首部结构：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>序号</strong></th>
+<th><strong>域</strong></th>
+<th><strong>长度（bits）</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Syncword</td>
+<td>12</td>
+<td>all bits <strong>must</strong> be 1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>MPEG version</td>
+<td>1</td>
+<td>0 for MPEG-4, 1 for MPEG-2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Layer</td>
+<td>2</td>
+<td>always 0</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Protection Absent</td>
+<td>1</td>
+<td>et to 1 if there is no CRC and 0 if there is CRC</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Profile</td>
+<td>2</td>
+<td>the <a target="_blank" rel="noopener" href="http://wiki.multimedia.cx/index.php?title=MPEG-4_Audio#Audio_Object_Types">MPEG-4 Audio Object Type</a> minus 1</td>
+</tr>
+<tr>
+<td>6</td>
+<td>MPEG-4 Sampling Frequency Index</td>
+<td>4</td>
+<td><a target="_blank" rel="noopener" href="http://wiki.multimedia.cx/index.php?title=MPEG-4_Audio#Sampling_Frequencies">MPEG-4 Sampling Frequency Index</a> (15 is forbidden)</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Private Stream</td>
+<td>1</td>
+<td>set to 0 when encoding, ignore when decoding</td>
+</tr>
+<tr>
+<td>8</td>
+<td>MPEG-4 Channel Configuration</td>
+<td>3</td>
+<td><a target="_blank" rel="noopener" href="http://wiki.multimedia.cx/index.php?title=MPEG-4_Audio#Channel_Configurations">MPEG-4 Channel Configuration</a> (in the case of 0, the channel configuration is sent via an inband PCE)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Originality</td>
+<td>1</td>
+<td>set to 0 when encoding, ignore when decoding</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Home</td>
+<td>1</td>
+<td>set to 0 when encoding, ignore when decoding</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Copyrighted Stream</td>
+<td>1</td>
+<td>set to 0 when encoding, ignore when decoding</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Copyrighted Start</td>
+<td>1</td>
+<td>set to 0 when encoding, ignore when decoding</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Frame Length</td>
+<td>13</td>
+<td>this value must include 7 or 9 bytes of header length: FrameLength = (ProtectionAbsent == 1 ? 7 : 9) + size(AACFrame)</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Buffer Fullness</td>
+<td>11</td>
+<td>buffer fullness</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Number of AAC Frames</td>
+<td>2</td>
+<td>number of AAC frames (RDBs) in ADTS frame <strong>minus 1</strong>, for maximum compatibility always use 1 AAC frame per ADTS frame</td>
+</tr>
+<tr>
+<td>16</td>
+<td>CRC</td>
+<td>16</td>
+<td>CRC if <em>protection absent</em> is 0</td>
+</tr>
+</tbody></table>
+<p>编解码代码：</p>
+<pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * AAC 编解码</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AacPcmCoder</span> </span>&#123;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String TAG = <span class="hljs-string">&quot;AacPcmCoder&quot;</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> String AUDIO_MIME = <span class="hljs-string">&quot;audio/mp4a-latm&quot;</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">long</span> AUDIO_BYTES_PER_SAMPLE = <span class="hljs-number">44100</span> * <span class="hljs-number">1</span> * <span class="hljs-number">16</span> / <span class="hljs-number">8</span>;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * PCM 编码为 AAC 格式</span>
+<span class="hljs-comment">     *</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> inPcmFile</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> outAacFile</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">encodePcmToAac</span><span class="hljs-params">(File inPcmFile, File outAacFile)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        FileInputStream fisRawAudio = <span class="hljs-keyword">null</span>;
+        FileOutputStream fosAccAudio = <span class="hljs-keyword">null</span>;
+        MediaCodec audioEncoder = createAudioEncoder();
+
+        <span class="hljs-keyword">try</span> &#123;
+            fisRawAudio = <span class="hljs-keyword">new</span> FileInputStream(inPcmFile);
+            fosAccAudio = <span class="hljs-keyword">new</span> FileOutputStream(outAacFile);
+            <span class="hljs-comment">// 开始编码</span>
+            audioEncoder.start();
+            ByteBuffer[] audioInputBuffers = audioEncoder.getInputBuffers();
+            ByteBuffer[] audioOutputBuffers = audioEncoder.getOutputBuffers();
+            <span class="hljs-keyword">boolean</span> sawInputEOS = <span class="hljs-keyword">false</span>;
+            <span class="hljs-keyword">boolean</span> sawOutputEOS = <span class="hljs-keyword">false</span>;
+            <span class="hljs-keyword">long</span> audioTimeUs = <span class="hljs-number">0</span>;
+            MediaCodec.BufferInfo outBufferInfo = <span class="hljs-keyword">new</span> MediaCodec.BufferInfo();
+            <span class="hljs-keyword">boolean</span> readRawAudioEOS = <span class="hljs-keyword">false</span>;
+            <span class="hljs-keyword">byte</span>[] rawInputBytes = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[<span class="hljs-number">8192</span>];
+            <span class="hljs-keyword">int</span> readRawAudioCount;
+            <span class="hljs-keyword">int</span> rawAudioSize = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">long</span> lastAudioPresentationTimeUs = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">int</span> inputBufIndex, outputBufIndex;
+            <span class="hljs-keyword">while</span> (!sawOutputEOS) &#123;
+                <span class="hljs-keyword">if</span> (!sawInputEOS) &#123;
+                    inputBufIndex = audioEncoder.dequeueInputBuffer(<span class="hljs-number">10_000</span>);
+                    <span class="hljs-keyword">if</span> (inputBufIndex &gt;= <span class="hljs-number">0</span>) &#123;
+                        ByteBuffer inputBuffer = audioInputBuffers[inputBufIndex];
+                        inputBuffer.clear();
+                        <span class="hljs-keyword">int</span> bufferSize = inputBuffer.remaining();
+                        <span class="hljs-keyword">if</span> (bufferSize != rawInputBytes.length) &#123;
+                            rawInputBytes = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[bufferSize];
+                        &#125;
+
+                        readRawAudioCount = fisRawAudio.read(rawInputBytes);
+                        <span class="hljs-keyword">if</span> (readRawAudioCount == -<span class="hljs-number">1</span>) &#123;
+                            readRawAudioEOS = <span class="hljs-keyword">true</span>;
+                        &#125;
+
+                        <span class="hljs-keyword">if</span> (readRawAudioEOS) &#123;
+                            audioEncoder.queueInputBuffer(inputBufIndex, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, MediaCodec.BUFFER_FLAG_END_OF_STREAM);
+                            sawInputEOS = <span class="hljs-keyword">true</span>;
+                        &#125; <span class="hljs-keyword">else</span> &#123;
+                            inputBuffer.put(rawInputBytes, <span class="hljs-number">0</span>, readRawAudioCount);
+                            rawAudioSize += readRawAudioCount;
+                            audioEncoder.queueInputBuffer(inputBufIndex, <span class="hljs-number">0</span>, readRawAudioCount, audioTimeUs, <span class="hljs-number">0</span>);
+                            audioTimeUs = (<span class="hljs-keyword">long</span>) (<span class="hljs-number">1_000_000</span> * ((<span class="hljs-keyword">float</span>) rawAudioSize / AUDIO_BYTES_PER_SAMPLE));
+                        &#125;
+                    &#125;
+                &#125;
+
+                outputBufIndex = audioEncoder.dequeueOutputBuffer(outBufferInfo, <span class="hljs-number">10_000</span>);
+                <span class="hljs-keyword">if</span> (outputBufIndex &gt;= <span class="hljs-number">0</span>) &#123;
+                    <span class="hljs-comment">// Simply ignore codec config buffers.</span>
+                    <span class="hljs-keyword">if</span> ((outBufferInfo.flags &amp; MediaCodec.BUFFER_FLAG_CODEC_CONFIG) != <span class="hljs-number">0</span>) &#123;
+                        Log.i(TAG, <span class="hljs-string">&quot;audio encoder: codec config buffer&quot;</span>);
+                        audioEncoder.releaseOutputBuffer(outputBufIndex, <span class="hljs-keyword">false</span>);
+                        <span class="hljs-keyword">continue</span>;
+                    &#125;
+                    <span class="hljs-keyword">if</span> (outBufferInfo.size != <span class="hljs-number">0</span>) &#123;
+                        ByteBuffer outBuffer = audioOutputBuffers[outputBufIndex];
+                        outBuffer.position(outBufferInfo.offset);
+                        outBuffer.limit(outBufferInfo.offset + outBufferInfo.size);
+                        <span class="hljs-keyword">if</span> (lastAudioPresentationTimeUs &lt;= outBufferInfo.presentationTimeUs) &#123;
+                            lastAudioPresentationTimeUs = outBufferInfo.presentationTimeUs;
+                            <span class="hljs-keyword">int</span> outBufSize = outBufferInfo.size;
+                            <span class="hljs-keyword">int</span> outPacketSize = outBufSize + <span class="hljs-number">7</span>;
+                            outBuffer.position(outBufferInfo.offset);
+                            outBuffer.limit(outBufferInfo.offset + outBufSize);
+                            <span class="hljs-keyword">byte</span>[] outData = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[outPacketSize];
+                            addADTStoPacket(outData, outPacketSize);
+                            outBuffer.get(outData, <span class="hljs-number">7</span>, outBufSize);
+                            fosAccAudio.write(outData, <span class="hljs-number">0</span>, outData.length);
+                            <span class="hljs-comment">//Log.v(TAG, outData.length + &quot; bytes written.&quot;);</span>
+                        &#125; <span class="hljs-keyword">else</span> &#123;
+                            Log.e(TAG, <span class="hljs-string">&quot;error sample! its presentationTimeUs should not lower than before.&quot;</span>);
+                        &#125;
+                    &#125;
+                    audioEncoder.releaseOutputBuffer(outputBufIndex, <span class="hljs-keyword">false</span>);
+                    <span class="hljs-keyword">if</span> ((outBufferInfo.flags &amp; MediaCodec.BUFFER_FLAG_END_OF_STREAM) != <span class="hljs-number">0</span>) &#123;
+                        sawOutputEOS = <span class="hljs-keyword">true</span>;
+                    &#125;
+                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (outputBufIndex == MediaCodec.INFO_OUTPUT_BUFFERS_CHANGED) &#123;
+                    audioOutputBuffers = audioEncoder.getOutputBuffers();
+                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (outputBufIndex == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) &#123;
+                    MediaFormat audioFormat = audioEncoder.getOutputFormat();
+                    Log.i(TAG, <span class="hljs-string">&quot;format change : &quot;</span> + audioFormat);
+                &#125;
+            &#125;
+        &#125; <span class="hljs-keyword">finally</span> &#123;
+            Log.i(TAG, <span class="hljs-string">&quot;encodePcmToAac: finish&quot;</span>);
+            <span class="hljs-keyword">if</span> (fisRawAudio != <span class="hljs-keyword">null</span>) &#123;
+                fisRawAudio.close();
+            &#125;
+            <span class="hljs-keyword">if</span> (fosAccAudio != <span class="hljs-keyword">null</span>) &#123;
+                fosAccAudio.close();
+            &#125;
+            audioEncoder.release();
+        &#125;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * AAC 解码至 PCM 格式</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> aacFile</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> pcmFile</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">decodeAacTomPcm</span><span class="hljs-params">(File aacFile, File pcmFile)</span> <span class="hljs-keyword">throws</span> IOException</span>&#123;
+        MediaExtractor extractor = <span class="hljs-keyword">new</span> MediaExtractor();
+        extractor.setDataSource(aacFile.getAbsolutePath());
+        MediaFormat mediaFormat = <span class="hljs-keyword">null</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; extractor.getTrackCount(); i++) &#123;
+            MediaFormat format = extractor.getTrackFormat(i);
+            String mime = format.getString(MediaFormat.KEY_MIME);
+            <span class="hljs-keyword">if</span> (mime.startsWith(<span class="hljs-string">&quot;audio/&quot;</span>)) &#123;
+                extractor.selectTrack(i);
+                mediaFormat = format;
+                <span class="hljs-keyword">break</span>;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">if</span> (mediaFormat == <span class="hljs-keyword">null</span>) &#123;
+            Log.e(TAG, <span class="hljs-string">&quot;Invalid file with audio track.&quot;</span>);
+            extractor.release();
+            <span class="hljs-keyword">return</span>;
+        &#125;
+
+        FileOutputStream fosDecoder = <span class="hljs-keyword">new</span> FileOutputStream(pcmFile);
+        String mediaMime = mediaFormat.getString(MediaFormat.KEY_MIME);
+        Log.i(TAG, <span class="hljs-string">&quot;decodeAacToPcm: mimeType: &quot;</span> + mediaMime);
+        MediaCodec codec = MediaCodec.createDecoderByType(mediaMime);
+        codec.configure(mediaFormat, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>, <span class="hljs-number">0</span>);
+        codec.start();
+        ByteBuffer[] codecInputBuffers = codec.getInputBuffers();
+        ByteBuffer[] codecOutputBuffers = codec.getOutputBuffers();
+        <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> kTimeOutUs = <span class="hljs-number">10_000</span>;
+        MediaCodec.BufferInfo info = <span class="hljs-keyword">new</span> MediaCodec.BufferInfo();
+        <span class="hljs-keyword">boolean</span> sawInputEOS = <span class="hljs-keyword">false</span>;
+        <span class="hljs-keyword">boolean</span> sawOutputEOS = <span class="hljs-keyword">false</span>;
+
+        <span class="hljs-keyword">try</span> &#123;
+            <span class="hljs-keyword">while</span> (!sawOutputEOS) &#123;
+                <span class="hljs-keyword">if</span> (!sawInputEOS) &#123;
+                    <span class="hljs-keyword">int</span> inputBufIndex = codec.dequeueInputBuffer(kTimeOutUs);
+                    <span class="hljs-keyword">if</span> (inputBufIndex &gt;= <span class="hljs-number">0</span>) &#123;
+                        ByteBuffer dstBuf = codecInputBuffers[inputBufIndex];
+                        <span class="hljs-keyword">int</span> sampleSize = extractor.readSampleData(dstBuf, <span class="hljs-number">0</span>);
+                        <span class="hljs-keyword">if</span> (sampleSize &lt; <span class="hljs-number">0</span>) &#123;
+                            Log.i(TAG, <span class="hljs-string">&quot;saw input EOS.&quot;</span>);
+                            sawInputEOS = <span class="hljs-keyword">true</span>;
+                            codec.queueInputBuffer(inputBufIndex, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, MediaCodec.BUFFER_FLAG_END_OF_STREAM);
+                        &#125; <span class="hljs-keyword">else</span> &#123;
+                            codec.queueInputBuffer(inputBufIndex, <span class="hljs-number">0</span>, sampleSize, extractor.getSampleTime(), <span class="hljs-number">0</span>);
+                            extractor.advance();
+                        &#125;
+                    &#125;
+                &#125;
+
+                <span class="hljs-keyword">int</span> outputBufferIndex = codec.dequeueOutputBuffer(info, kTimeOutUs);
+                <span class="hljs-keyword">if</span> (outputBufferIndex &gt;= <span class="hljs-number">0</span>) &#123;
+                    <span class="hljs-comment">// Simply ignore codec config buffers.</span>
+                    <span class="hljs-keyword">if</span> ((info.flags &amp; MediaCodec.BUFFER_FLAG_CODEC_CONFIG) != <span class="hljs-number">0</span>) &#123;
+                        Log.i(TAG, <span class="hljs-string">&quot;audio encoder: codec config buffer&quot;</span>);
+                        codec.releaseOutputBuffer(outputBufferIndex, <span class="hljs-keyword">false</span>);
+                        <span class="hljs-keyword">continue</span>;
+                    &#125;
+
+                    <span class="hljs-keyword">if</span> (info.size != <span class="hljs-number">0</span>) &#123;
+                        ByteBuffer outBuf = codecOutputBuffers[outputBufferIndex];
+                        outBuf.position(info.offset);
+                        outBuf.limit(info.offset + info.size);
+                        <span class="hljs-keyword">byte</span>[] data = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[info.size];
+                        outBuf.get(data);
+                        fosDecoder.write(data);
+                    &#125;
+
+                    codec.releaseOutputBuffer(outputBufferIndex, <span class="hljs-keyword">false</span>);
+                    <span class="hljs-keyword">if</span> ((info.flags &amp; MediaCodec.BUFFER_FLAG_END_OF_STREAM) != <span class="hljs-number">0</span>) &#123;
+                        Log.i(TAG, <span class="hljs-string">&quot;saw output EOS.&quot;</span>);
+                        sawOutputEOS = <span class="hljs-keyword">true</span>;
+                    &#125;
+                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (outputBufferIndex == MediaCodec.INFO_OUTPUT_BUFFERS_CHANGED) &#123;
+                    codecOutputBuffers = codec.getOutputBuffers();
+                    Log.i(TAG, <span class="hljs-string">&quot;output buffers have changed.&quot;</span>);
+                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (outputBufferIndex == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) &#123;
+                    MediaFormat oformat = codec.getOutputFormat();
+                    Log.i(TAG, <span class="hljs-string">&quot;output format has changed to &quot;</span> + oformat);
+                &#125;
+            &#125;
+        &#125; <span class="hljs-keyword">finally</span> &#123;
+            Log.i(TAG, <span class="hljs-string">&quot;decodeAacToPcm finish&quot;</span>);
+            codec.stop();
+            codec.release();
+            extractor.release();
+            fosDecoder.close();
+        &#125;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 创建编码器</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> MediaCodec <span class="hljs-title">createAudioEncoder</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        MediaCodec codec = MediaCodec.createEncoderByType(AUDIO_MIME);
+        MediaFormat format = <span class="hljs-keyword">new</span> MediaFormat();
+        format.setString(MediaFormat.KEY_MIME, AUDIO_MIME);
+        format.setInteger(MediaFormat.KEY_BIT_RATE, <span class="hljs-number">64000</span>);
+        format.setInteger(MediaFormat.KEY_CHANNEL_COUNT, <span class="hljs-number">1</span>);
+        format.setInteger(MediaFormat.KEY_SAMPLE_RATE, <span class="hljs-number">44100</span>);
+        format.setInteger(MediaFormat.KEY_AAC_PROFILE, MediaCodecInfo.CodecProfileLevel.AACObjectLC);
+        codec.configure(format, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>, MediaCodec.CONFIGURE_FLAG_ENCODE);
+        <span class="hljs-keyword">return</span> codec;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addADTStoPacket</span><span class="hljs-params">(<span class="hljs-keyword">byte</span>[] packet, <span class="hljs-keyword">int</span> packetLen)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> profile = <span class="hljs-number">2</span>;  <span class="hljs-comment">//AAC LC</span>
+        <span class="hljs-comment">//39=MediaCodecInfo.CodecProfileLevel.AACObjectELD;</span>
+        <span class="hljs-keyword">int</span> freqIdx = <span class="hljs-number">4</span>;  <span class="hljs-comment">//44.1KHz</span>
+        <span class="hljs-keyword">int</span> chanCfg = <span class="hljs-number">1</span>;  <span class="hljs-comment">//CPE</span>
+        <span class="hljs-comment">// fill in ADTS data</span>
+        packet[<span class="hljs-number">0</span>] = (<span class="hljs-keyword">byte</span>) <span class="hljs-number">0xFF</span>;
+        packet[<span class="hljs-number">1</span>] = (<span class="hljs-keyword">byte</span>) <span class="hljs-number">0xF9</span>;
+        packet[<span class="hljs-number">2</span>] = (<span class="hljs-keyword">byte</span>) (((profile - <span class="hljs-number">1</span>) &lt;&lt; <span class="hljs-number">6</span>) + (freqIdx &lt;&lt; <span class="hljs-number">2</span>) + (chanCfg &gt;&gt; <span class="hljs-number">2</span>));
+        packet[<span class="hljs-number">3</span>] = (<span class="hljs-keyword">byte</span>) (((chanCfg &amp; <span class="hljs-number">3</span>) &lt;&lt; <span class="hljs-number">6</span>) + (packetLen &gt;&gt; <span class="hljs-number">11</span>));
+        packet[<span class="hljs-number">4</span>] = (<span class="hljs-keyword">byte</span>) ((packetLen &amp; <span class="hljs-number">0x7FF</span>) &gt;&gt; <span class="hljs-number">3</span>);
+        packet[<span class="hljs-number">5</span>] = (<span class="hljs-keyword">byte</span>) (((packetLen &amp; <span class="hljs-number">7</span>) &lt;&lt; <span class="hljs-number">5</span>) + <span class="hljs-number">0x1F</span>);
+        packet[<span class="hljs-number">6</span>] = (<span class="hljs-keyword">byte</span>) <span class="hljs-number">0xFC</span>;
+    &#125;
+&#125;</code></pre>
+
+<p>具体源码详见 GitHub ：<a target="_blank" rel="noopener" href="https://github.com/zywudev/AndroidMultiMediaLearning">AndroidMultiMediaLearning</a></p>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>1、<a target="_blank" rel="noopener" href="https://blog.51cto.com/ticktick/1760191">Android 音频开发（5）：音频数据的编解码 </a></p>
+<p>2、<a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/media/MediaCodec">Android 官方文档 </a></p>
+<p>3、<a target="_blank" rel="noopener" href="https://juejin.im/entry/5aa234f751882555712bf210">安卓解码器 MediaCodec 解析 </a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/">Android 音视频</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/">Android 音视频</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/06/03/aspectj/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Android AspectJ 学习笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/05/21/android-mediamuxer-and-mediaextractor/">
+                        <span class="hidden-mobile">Android 音视频学习：使用 MediaExtractor 和 MediaMuxer 解析和封装 mp4 文件</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Android 音视频学习：使用 MediaCodec API 完成音频 AAC 硬编、硬解&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
