@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://wuzhangyang.com/2020/09/17/mac-idea-activate/</loc>
+    
+    <lastmod>2020-09-18</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/2020/09/17/kotlin-inline/</loc>
+    
+    <lastmod>2020-09-17</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://wuzhangyang.com/search/index.html</loc>
     
     <lastmod>2020-09-04</lastmod>
@@ -254,14 +268,14 @@
   </url>
   
   <url>
-    <loc>http://wuzhangyang.com/2019/10/08/jiucai/</loc>
+    <loc>http://wuzhangyang.com/2018/09/13/java-reflection/</loc>
     
     <lastmod>2020-09-04</lastmod>
     
   </url>
   
   <url>
-    <loc>http://wuzhangyang.com/2018/09/13/java-reflection/</loc>
+    <loc>http://wuzhangyang.com/2019/10/08/jiucai/</loc>
     
     <lastmod>2020-09-04</lastmod>
     
@@ -611,14 +625,14 @@
   </url>
   
   <url>
-    <loc>http://wuzhangyang.com/2018/04/18/a-screen-match-method-was-recommend-in-android/</loc>
+    <loc>http://wuzhangyang.com/2018/01/28/Zen-and-the-Art-of-Motorcycle-Maintenance/</loc>
     
     <lastmod>2020-09-04</lastmod>
     
   </url>
   
   <url>
-    <loc>http://wuzhangyang.com/2018/01/28/Zen-and-the-Art-of-Motorcycle-Maintenance/</loc>
+    <loc>http://wuzhangyang.com/2018/04/18/a-screen-match-method-was-recommend-in-android/</loc>
     
     <lastmod>2020-09-04</lastmod>
     
@@ -709,14 +723,14 @@
   </url>
   
   <url>
-    <loc>http://wuzhangyang.com/2019/05/07/Android-PhotoViewEx/</loc>
+    <loc>http://wuzhangyang.com/2018/10/09/Android-Reinforce/</loc>
     
     <lastmod>2020-09-04</lastmod>
     
   </url>
   
   <url>
-    <loc>http://wuzhangyang.com/2018/10/09/Android-Reinforce/</loc>
+    <loc>http://wuzhangyang.com/2019/05/07/Android-PhotoViewEx/</loc>
     
     <lastmod>2020-09-04</lastmod>
     
@@ -732,288 +746,288 @@
 
   <url>
     <loc>http://wuzhangyang.com/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>http://wuzhangyang.com/tags/%E9%9A%8F%E7%AC%94/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <loc>http://wuzhangyang.com/tags/Android-%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://wuzhangyang.com/tags/Android-%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <loc>http://wuzhangyang.com/tags/%E9%9A%8F%E7%AC%94/</loc>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/tags/%E5%BC%80%E6%BA%90%E5%BA%93/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/Android-%E5%8A%A0%E5%9B%BA/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/tags/%E5%BC%80%E6%BA%90%E5%BA%93/</loc>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/Android-%E6%97%A5%E5%BF%97/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/Android-%E8%B5%84%E6%BA%90/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/tags/JVM/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/tags/Java-%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/tags/Android-%E6%9E%B6%E6%9E%84/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/tags/Android-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/tags/Android%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/Blog/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/Hexo/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/GitHub-Pages/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/tags/JVM/</loc>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/tags/Java-%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/tags/Android-%E6%9E%B6%E6%9E%84/</loc>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/tags/Android-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</loc>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</loc>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/tags/Android%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/Junit/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/Android-%E4%BF%9D%E6%B4%BB/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/TraceView/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/Systrace/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/AspectJ/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/AOP/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/ijkplayer/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/GC/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/Java/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/Git/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/Chrome/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/Jcenter/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/%E4%BF%9D%E9%99%A9/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/tags/%E7%88%AC%E8%99%AB/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/tags/%E8%BD%AF%E6%8A%80%E8%83%BD/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/tags/%E5%8D%81%E6%AD%A5%E5%AD%A6%E4%B9%A0%E6%B3%95/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/tags/Android-Studio/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/tags/Ubuntu/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/tags/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/tags/Android/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/tags/Kotlin/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/tags/%E7%88%AC%E8%99%AB/</loc>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/tags/%E8%BD%AF%E6%8A%80%E8%83%BD/</loc>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/tags/%E5%8D%81%E6%AD%A5%E5%AD%A6%E4%B9%A0%E6%B3%95/</loc>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/tags/Android-Studio/</loc>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/tags/Ubuntu/</loc>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/tags/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/</loc>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/tags/Android/</loc>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -1021,99 +1035,99 @@
 
   
   <url>
-    <loc>http://wuzhangyang.com/categories/%E9%9A%8F%E7%AC%94/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <loc>http://wuzhangyang.com/categories/Android/</loc>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://wuzhangyang.com/categories/Android/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <loc>http://wuzhangyang.com/categories/%E9%9A%8F%E7%AC%94/</loc>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/categories/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/categories/Java/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/categories/Android%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/categories/%E6%9D%82%E9%A1%B9/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/categories/Java/</loc>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/categories/Android%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/categories/Android%E8%AE%B0%E5%BD%95/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/categories/Git/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/categories/%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/categories/Python/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/categories/Linux/</loc>
-    <lastmod>2020-09-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://wuzhangyang.com/categories/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://wuzhangyang.com/categories/Kotlin/</loc>
-    <lastmod>2020-09-04</lastmod>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/categories/Python/</loc>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/categories/Linux/</loc>
+    <lastmod>2020-09-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wuzhangyang.com/categories/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/</loc>
+    <lastmod>2020-09-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>

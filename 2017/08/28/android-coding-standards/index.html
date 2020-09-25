@@ -1,227 +1,56 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.1.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.1.1" type="image/png" sizes="32x32"><meta name="description" content="简单总结了 Android 开发中的一些代码规范，供开发者参考。                     0 Index        1 命名规范 2 注释规范 3 格式规范 4 参考资料                      1 命名规范       大驼峰命名（UpperCamelCase）：每个单词的第一个字母都大写。 小驼峰命名（lowerCamelCase）：除第一个单词以外，每一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 编码规范">
+<meta property="og:url" content="http://wuzhangyang.com/2017/08/28/android-coding-standards/index.html">
+<meta property="og:site_name" content="贾小昆">
+<meta property="og:description" content="简单总结了 Android 开发中的一些代码规范，供开发者参考。                     0 Index        1 命名规范 2 注释规范 3 格式规范 4 参考资料                      1 命名规范       大驼峰命名（UpperCamelCase）：每个单词的第一个字母都大写。 小驼峰命名（lowerCamelCase）：除第一个单词以外，每一">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-08-28T07:34:14.000Z">
+<meta property="article:modified_time" content="2020-09-04T05:58:03.219Z">
+<meta property="article:author" content="贾小昆">
+<meta property="article:tag" content="Android 编码规范">
+<meta name="twitter:card" content="summary"><title>Android 编码规范 | 贾小昆</title><link ref="canonical" href="http://wuzhangyang.com/2017/08/28/android-coding-standards/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.1.1"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><script src="https://www.googletagmanager.com/gtag/js?id=UA-127464210-1" async=""></script><script>if (window.location.hostname !== 'localhost') {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'UA-127464210-1');
+}</script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: undefined,
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
 
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.1.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Android 编码规范</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-08-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">2.5k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">16分</span></span><span class="post-meta-item post-meta-item--visitors"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value" id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><p>简单总结了 Android 开发中的一些代码规范，供开发者参考。</p>
 
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.ico">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="贾小昆">
-  <meta name="keywords" content="">
-  <title>Android 编码规范 - 贾小昆</title>
-
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
-  
-
-  
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container page-header text-center fade-in-up">
-            <span class="h2" id="subtitle">
-              
-            </span>
-
-            
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2017-08-28 15:34" pubdate>
-      2017年8月28日 下午
-    </time>
-  </div>
-
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      2.5k 字
-    </span>
-  
-
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      29
-       分钟
-    </span>
-  
-
-  
-  
-</div>
-
-            
-          </div>
-
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto" id="post">
-            <!-- SEO header -->
-            <h1 style="display: none">Android 编码规范</h1>
-            
-            <div class="markdown-body" id="post-body">
-              <p>简单总结了 Android 开发中的一些代码规范，供开发者参考。</p>
-<h2 id="0-Index"><a href="#0-Index" class="headerlink" title="0 Index"></a>0 Index</h2><ul>
+        <h2 id="0-Index">
+          <a href="#0-Index" class="heading-link"><i class="fas fa-link"></i></a>0 Index</h2>
+      <ul>
 <li><a href="#1-%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83">1 命名规范</a></li>
 <li><a href="#2-%E6%B3%A8%E9%87%8A%E8%A7%84%E8%8C%83">2 注释规范</a></li>
 <li><a href="#3-%E6%A0%BC%E5%BC%8F%E8%A7%84%E8%8C%83">3 格式规范</a></li>
 <li><a href="#4-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">4 参考资料</a></li>
 </ul>
-<h2 id="1-命名规范"><a href="#1-命名规范" class="headerlink" title="1 命名规范"></a>1 命名规范</h2><p><strong>大驼峰命名（UpperCamelCase）</strong>：每个单词的第一个字母都大写。</p>
+
+        <h2 id="1-命名规范">
+          <a href="#1-命名规范" class="heading-link"><i class="fas fa-link"></i></a>1 命名规范</h2>
+      <p><strong>大驼峰命名（UpperCamelCase）</strong>：每个单词的第一个字母都大写。</p>
 <p><strong>小驼峰命名（lowerCamelCase）</strong>：除第一个单词以外，每一个单词的第一个字母大写。</p>
 <p><strong>命名的基本原则</strong>： </p>
 <ul>
@@ -229,14 +58,17 @@
 <li>严禁使用拼音与英文混合的方式，更不允许直接使用中文的方式。但比如 <code>shanghai</code> 等通用的名称，可视同英文。</li>
 <li>除了常见的英文缩写，尽量避免缩写。</li>
 </ul>
-<h3 id="1-1-类-接口命名"><a href="#1-1-类-接口命名" class="headerlink" title="1.1 类 / 接口命名"></a>1.1 类 / 接口命名</h3><ul>
+
+        <h3 id="1-1-类-接口命名">
+          <a href="#1-1-类-接口命名" class="heading-link"><i class="fas fa-link"></i></a>1.1 类 / 接口命名</h3>
+      <ul>
 <li>使用大驼峰命名法，用名词或者名词词组命名，每个单词的首字母大写。</li>
 <li>尽量避免大写，除非该缩写是众所周知的，比如 <code>URL</code>、<code>HTML</code> 等。</li>
 <li>接口命名规则与类一样采用大驼峰命名法，多以<code>able</code> 或 <code>ible</code> 结尾，如<code>interface Runnable</code>、<code>interface Accessible</code> 。</li>
 <li>若项目采用 <code>MVP</code> 架构，接口都以 <code>I</code> 为前缀，不加后缀，其他的接口采用上述命名规则。比如 <code>interface IUserTest</code>。</li>
 <li>常见类名命名规则如下：</li>
 </ul>
-<table>
+<div class="table-container"><table>
 <thead>
 <tr>
 <th>类</th>
@@ -299,8 +131,11 @@
 <td>以 Abstract 或 Abs 为前缀</td>
 <td>AbsUserTest</td>
 </tr>
-</tbody></table>
-<h3 id="1-2-变量命名"><a href="#1-2-变量命名" class="headerlink" title="1.2 变量命名"></a>1.2 变量命名</h3><ul>
+</tbody></table></div>
+
+        <h3 id="1-2-变量命名">
+          <a href="#1-2-变量命名" class="heading-link"><i class="fas fa-link"></i></a>1.2 变量命名</h3>
+      <ul>
 <li>成员变量 / 局部变量<ul>
 <li>使用小驼峰命名。</li>
 <li>不推荐使用谷歌的前面加 <code>m</code> 的编码风格。</li>
@@ -314,7 +149,7 @@
 </ul>
 </li>
 </ul>
-<table>
+<div class="table-container"><table>
 <thead>
 <tr>
 <th>控件</th>
@@ -395,17 +230,23 @@
 <td>RecyclerView</td>
 <td>rv</td>
 </tr>
-</tbody></table>
-<h3 id="1-3-常量命名"><a href="#1-3-常量命名" class="headerlink" title="1.3 常量命名"></a>1.3 常量命名</h3><ul>
+</tbody></table></div>
+
+        <h3 id="1-3-常量命名">
+          <a href="#1-3-常量命名" class="heading-link"><i class="fas fa-link"></i></a>1.3 常量命名</h3>
+      <ul>
 <li>单词每个字母均大写。</li>
 <li>单词之间用下划线连接，力求语义表达完整清楚，不要嫌名字长。</li>
 </ul>
-<h3 id="1-4-方法命名"><a href="#1-4-方法命名" class="headerlink" title="1.4 方法命名"></a>1.4 方法命名</h3><ul>
+
+        <h3 id="1-4-方法命名">
+          <a href="#1-4-方法命名" class="heading-link"><i class="fas fa-link"></i></a>1.4 方法命名</h3>
+      <ul>
 <li>使用小驼峰命名。</li>
 <li>方法名通常是动词或动词短语，保证见名知义，尽量不适用 <code>or</code> 或者 <code>and</code>，遵循 “ do one thing ” 原则。</li>
 <li>一个方法尽量不要超过 50 行，如果方法太长，说明当前方法业务逻辑已经非常复杂，那么就需要进行方法拆分。</li>
 </ul>
-<table>
+<div class="table-container"><table>
 <thead>
 <tr>
 <th>方法</th>
@@ -456,10 +297,16 @@
 <td></td>
 <td></td>
 </tr>
-</tbody></table>
-<h3 id="1-5-资源文件命名"><a href="#1-5-资源文件命名" class="headerlink" title="1.5 资源文件命名"></a>1.5 资源文件命名</h3><p>全部小写，采用下划线命名法。</p>
-<h4 id="1-5-1-布局文件命名（xml-文件）"><a href="#1-5-1-布局文件命名（xml-文件）" class="headerlink" title="1.5.1 布局文件命名（xml 文件）"></a>1.5.1 布局文件命名（xml 文件）</h4><p>以对应的类别名称为前缀，逻辑名称在后，以下划线连接。</p>
-<table>
+</tbody></table></div>
+
+        <h3 id="1-5-资源文件命名">
+          <a href="#1-5-资源文件命名" class="heading-link"><i class="fas fa-link"></i></a>1.5 资源文件命名</h3>
+      <p>全部小写，采用下划线命名法。</p>
+
+        <h4 id="1-5-1-布局文件命名（xml-文件）">
+          <a href="#1-5-1-布局文件命名（xml-文件）" class="heading-link"><i class="fas fa-link"></i></a>1.5.1 布局文件命名（xml 文件）</h4>
+      <p>以对应的类别名称为前缀，逻辑名称在后，以下划线连接。</p>
+<div class="table-container"><table>
 <thead>
 <tr>
 <th>布局类型</th>
@@ -498,9 +345,12 @@
 <td>ListView 的 item 布局文件</td>
 <td>item_list_</td>
 </tr>
-</tbody></table>
-<h4 id="1-5-2-drawable-文件命名"><a href="#1-5-2-drawable-文件命名" class="headerlink" title="1.5.2 drawable 文件命名"></a>1.5.2 drawable 文件命名</h4><p>以用途缩写作为前缀，逻辑名称在后，以下划线连接，区分状态时，添加状态后缀。</p>
-<table>
+</tbody></table></div>
+
+        <h4 id="1-5-2-drawable-文件命名">
+          <a href="#1-5-2-drawable-文件命名" class="heading-link"><i class="fas fa-link"></i></a>1.5.2 drawable 文件命名</h4>
+      <p>以用途缩写作为前缀，逻辑名称在后，以下划线连接，区分状态时，添加状态后缀。</p>
+<div class="table-container"><table>
 <thead>
 <tr>
 <th>drawable</th>
@@ -551,9 +401,12 @@
 <td>区分状态时，可选状态</td>
 <td>_checkable</td>
 </tr>
-</tbody></table>
-<h4 id="1-5-3-动画文件命名（anim-文件夹下）"><a href="#1-5-3-动画文件命名（anim-文件夹下）" class="headerlink" title="1.5.3 动画文件命名（anim 文件夹下）"></a>1.5.3 动画文件命名（anim 文件夹下）</h4><p>规则：动画类型_动画方向。</p>
-<table>
+</tbody></table></div>
+
+        <h4 id="1-5-3-动画文件命名（anim-文件夹下）">
+          <a href="#1-5-3-动画文件命名（anim-文件夹下）" class="heading-link"><i class="fas fa-link"></i></a>1.5.3 动画文件命名（anim 文件夹下）</h4>
+      <p>规则：动画类型_动画方向。</p>
+<div class="table-container"><table>
 <thead>
 <tr>
 <th>名称</th>
@@ -596,79 +449,79 @@
 <td>shrink_to_middle</td>
 <td>中间缩写</td>
 </tr>
-</tbody></table>
-<h4 id="1-5-4-values-中-name-命名"><a href="#1-5-4-values-中-name-命名" class="headerlink" title="1.5.4 values 中 name 命名"></a>1.5.4 values 中 name 命名</h4><h5 id="1-5-4-1-strings-xml"><a href="#1-5-4-1-strings-xml" class="headerlink" title="1.5.4.1 strings.xml"></a>1.5.4.1 strings.xml</h5><ul>
+</tbody></table></div>
+
+        <h4 id="1-5-4-values-中-name-命名">
+          <a href="#1-5-4-values-中-name-命名" class="heading-link"><i class="fas fa-link"></i></a>1.5.4 values 中 name 命名</h4>
+      
+        <h5 id="1-5-4-1-strings-xml">
+          <a href="#1-5-4-1-strings-xml" class="heading-link"><i class="fas fa-link"></i></a>1.5.4.1 strings.xml</h5>
+      <ul>
 <li>命名格式：xx 界面 + 逻辑功能 ，如 <code>activity_home_welcome_str</code>。</li>
 <li>建议把同一个界面的所有 String 都在一起，方便查找。</li>
 </ul>
-<h5 id="1-5-4-2-styles-xml"><a href="#1-5-4-2-styles-xml" class="headerlink" title="1.5.4.2 styles.xml"></a>1.5.4.2 styles.xml</h5><ul>
+
+        <h5 id="1-5-4-2-styles-xml">
+          <a href="#1-5-4-2-styles-xml" class="heading-link"><i class="fas fa-link"></i></a>1.5.4.2 styles.xml</h5>
+      <ul>
 <li>使用大驼峰命名法，主题可以命名为<code>XXTheme</code> ，控件的风格可以命名为 <code>XXStyle</code> 。</li>
 </ul>
-<h5 id="1-5-4-3-colors-xml"><a href="#1-5-4-3-colors-xml" class="headerlink" title="1.5.4.3 colors.xml"></a>1.5.4.3 colors.xml</h5><ul>
+
+        <h5 id="1-5-4-3-colors-xml">
+          <a href="#1-5-4-3-colors-xml" class="heading-link"><i class="fas fa-link"></i></a>1.5.4.3 colors.xml</h5>
+      <ul>
 <li>命名格式：color_16进制颜色值</li>
 </ul>
 <ul>
 <li>不要为某个控件指定特定颜色，比如 <code>bg_login</code> ，这样非常容易重复定义颜色值。</li>
 </ul>
-<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span>
-  
-    <span class="hljs-tag">&lt;<span class="hljs-name">color</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;red_FF432F&quot;</span>&gt;</span>#FF432F<span class="hljs-tag">&lt;/<span class="hljs-name">color</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">color</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;red_FF0000&quot;</span>&gt;</span>#FF0000<span class="hljs-tag">&lt;/<span class="hljs-name">color</span>&gt;</span>
-  
-<span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span></code></pre>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;red_FF432F&quot;</span>&gt;</span>#FF432F<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;red_FF0000&quot;</span>&gt;</span>#FF0000<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">  </span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
 
-<h5 id="1-5-4-4-dimens-xml"><a href="#1-5-4-4-dimens-xml" class="headerlink" title="1.5.4.4 dimens.xml"></a>1.5.4.4 dimens.xml</h5><ul>
+
+        <h5 id="1-5-4-4-dimens-xml">
+          <a href="#1-5-4-4-dimens-xml" class="heading-link"><i class="fas fa-link"></i></a>1.5.4.4 dimens.xml</h5>
+      <ul>
 <li>可以和 colors.xml 中命名格式类似</li>
 <li>必要时也可用”逻辑名称_功能“ 命名</li>
 </ul>
-<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- font sizes --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dimen</span> <span class="attr">name</span>=<span class="string">&quot;font_22&quot;</span>&gt;</span>22sp<span class="tag">&lt;/<span class="name">dimen</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dimen</span> <span class="attr">name</span>=<span class="string">&quot;font_12&quot;</span>&gt;</span>12sp<span class="tag">&lt;/<span class="name">dimen</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- typical spacing between two views --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dimen</span> <span class="attr">name</span>=<span class="string">&quot;spacing_40&quot;</span>&gt;</span>40dp<span class="tag">&lt;/<span class="name">dimen</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dimen</span> <span class="attr">name</span>=<span class="string">&quot;spacing_4&quot;</span>&gt;</span>4dp<span class="tag">&lt;/<span class="name">dimen</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- typical sizes of views --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dimen</span> <span class="attr">name</span>=<span class="string">&quot;button_height_60&quot;</span>&gt;</span>60dp<span class="tag">&lt;/<span class="name">dimen</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dimen</span> <span class="attr">name</span>=<span class="string">&quot;button_height_40&quot;</span>&gt;</span>40dp<span class="tag">&lt;/<span class="name">dimen</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
 
-    <span class="hljs-comment">&lt;!-- font sizes --&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">dimen</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;font_22&quot;</span>&gt;</span>22sp<span class="hljs-tag">&lt;/<span class="hljs-name">dimen</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">dimen</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;font_12&quot;</span>&gt;</span>12sp<span class="hljs-tag">&lt;/<span class="hljs-name">dimen</span>&gt;</span>
 
-    <span class="hljs-comment">&lt;!-- typical spacing between two views --&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">dimen</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;spacing_40&quot;</span>&gt;</span>40dp<span class="hljs-tag">&lt;/<span class="hljs-name">dimen</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">dimen</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;spacing_4&quot;</span>&gt;</span>4dp<span class="hljs-tag">&lt;/<span class="hljs-name">dimen</span>&gt;</span>
+        <h2 id="2-注释规范">
+          <a href="#2-注释规范" class="heading-link"><i class="fas fa-link"></i></a>2 注释规范</h2>
+      <p>类、类属性、类方法的注释必须使用 Javadoc 规范，使用<code>/** XXX */ </code>格式，不得使用 <code>// XXX</code> 方式。</p>
 
-    <span class="hljs-comment">&lt;!-- typical sizes of views --&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">dimen</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;button_height_60&quot;</span>&gt;</span>60dp<span class="hljs-tag">&lt;/<span class="hljs-name">dimen</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">dimen</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;button_height_40&quot;</span>&gt;</span>40dp<span class="hljs-tag">&lt;/<span class="hljs-name">dimen</span>&gt;</span>
+        <h3 id="2-1-类和接口注释">
+          <a href="#2-1-类和接口注释" class="heading-link"><i class="fas fa-link"></i></a>2.1 类和接口注释</h3>
+      <p>类和接口统一添加 Javadoc 注释，要求至少写出创建者、创建时间以及内容简要说明。具体可以在 AS 中自己配制，<code>Settings → Editor → File and Code Templates → Includes → File Header</code>，格式如下：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : xxx</span></span><br><span class="line"><span class="comment"> * e-mail : xxx@xx</span></span><br><span class="line"><span class="comment"> * time   : 2017/08/28</span></span><br><span class="line"><span class="comment"> * desc   :</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></div></figure>
 
-<span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span></code></pre>
 
-<h2 id="2-注释规范"><a href="#2-注释规范" class="headerlink" title="2 注释规范"></a>2 注释规范</h2><p>类、类属性、类方法的注释必须使用 Javadoc 规范，使用<code>/** XXX */ </code>格式，不得使用 <code>// XXX</code> 方式。</p>
-<h3 id="2-1-类和接口注释"><a href="#2-1-类和接口注释" class="headerlink" title="2.1 类和接口注释"></a>2.1 类和接口注释</h3><p>类和接口统一添加 Javadoc 注释，要求至少写出创建者、创建时间以及内容简要说明。具体可以在 AS 中自己配制，<code>Settings → Editor → File and Code Templates → Includes → File Header</code>，格式如下：</p>
-<pre><code class="hljs java"><span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * author : xxx</span>
-<span class="hljs-comment"> * e-mail : xxx@xx</span>
-<span class="hljs-comment"> * time   : 2017/08/28</span>
-<span class="hljs-comment"> * desc   :</span>
-<span class="hljs-comment"> */</span></code></pre>
-
-<h3 id="2-2-方法注释"><a href="#2-2-方法注释" class="headerlink" title="2.2 方法注释"></a>2.2 方法注释</h3><p>下面几种方法，都必须添加 Javadoc 注释，除了返回值、参数、异常说明外，还必须指出该方法做什么事情，实现什么功能。</p>
+        <h3 id="2-2-方法注释">
+          <a href="#2-2-方法注释" class="heading-link"><i class="fas fa-link"></i></a>2.2 方法注释</h3>
+      <p>下面几种方法，都必须添加 Javadoc 注释，除了返回值、参数、异常说明外，还必须指出该方法做什么事情，实现什么功能。</p>
 <ul>
 <li>接口中定义的所有方法</li>
 <li>抽象类中自定义的抽象方法</li>
 <li>抽象父类的自定义公用方法</li>
 <li>工具类的公用方法</li>
 </ul>
-<pre><code class="hljs java"><span class="hljs-comment">/** 方法的一句话概述</span>
-<span class="hljs-comment">* 方法详述（简单方法可不必详述）</span>
-<span class="hljs-comment">* <span class="hljs-doctag">@param</span> s 说明参数含义</span>
-<span class="hljs-comment">* <span class="hljs-doctag">@return</span> 说明返回值含义</span>
-<span class="hljs-comment">* <span class="hljs-doctag">@throws</span> IOException 说明发生此异常的条件</span>
-<span class="hljs-comment">* <span class="hljs-doctag">@throws</span> NullPointerException 说明发生此异常的条件</span>
-<span class="hljs-comment">*/</span></code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 方法的一句话概述</span></span><br><span class="line"><span class="comment">* 方法详述（简单方法可不必详述）</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> s 说明参数含义</span></span><br><span class="line"><span class="comment">* <span class="doctag">@return</span> 说明返回值含义</span></span><br><span class="line"><span class="comment">* <span class="doctag">@throws</span> IOException 说明发生此异常的条件</span></span><br><span class="line"><span class="comment">* <span class="doctag">@throws</span> NullPointerException 说明发生此异常的条件</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></div></figure>
 
-<h3 id="2-3-变量和常量注释"><a href="#2-3-变量和常量注释" class="headerlink" title="2.3 变量和常量注释"></a>2.3 变量和常量注释</h3><p>下面几种情况下的常量和变量，都要添加注释说明，优先采用右侧 <code>//</code> 来注释，若注释说明太长则在上方添加注释。</p>
+
+        <h3 id="2-3-变量和常量注释">
+          <a href="#2-3-变量和常量注释" class="heading-link"><i class="fas fa-link"></i></a>2.3 变量和常量注释</h3>
+      <p>下面几种情况下的常量和变量，都要添加注释说明，优先采用右侧 <code>//</code> 来注释，若注释说明太长则在上方添加注释。</p>
 <ul>
 <li>接口中定义的所有常量</li>
 <li>公有类的公有常量</li>
 <li>枚举类定义的所有枚举常量</li>
 <li>实体类的所有属性变量</li>
 </ul>
-<h3 id="2-4-方法体内代码的注释"><a href="#2-4-方法体内代码的注释" class="headerlink" title="2.4 方法体内代码的注释"></a>2.4 方法体内代码的注释</h3><ul>
+
+        <h3 id="2-4-方法体内代码的注释">
+          <a href="#2-4-方法体内代码的注释" class="heading-link"><i class="fas fa-link"></i></a>2.4 方法体内代码的注释</h3>
+      <ul>
 <li>方法内部单行注释，在被注释语句上方另起一行，使用 <code>//</code> 注释。</li>
 <li>方法内部多行注释使用 <code>/* ... */</code> 注释。</li>
 </ul>
@@ -676,18 +529,26 @@
 <li>注意与代码对齐，<code>*</code> 及 <code>//</code> 与其后文字之间空一格。</li>
 <li>不要在方法内部使用 Javadoc 形式的注释。</li>
 </ul>
-<h3 id="2-5-其他一些注释"><a href="#2-5-其他一些注释" class="headerlink" title="2.5 其他一些注释"></a>2.5 其他一些注释</h3><ul>
+
+        <h3 id="2-5-其他一些注释">
+          <a href="#2-5-其他一些注释" class="heading-link"><i class="fas fa-link"></i></a>2.5 其他一些注释</h3>
+      <ul>
 <li>资源文件代码注释</li>
 </ul>
-<pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 注释内容 --&gt;</span></code></pre>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 注释内容 --&gt;</span></span><br></pre></td></tr></table></div></figure>
 
 <ul>
 <li>AS 已帮你集成了一些注释模板，我们只需要直接使用即可，在代码中输入<code>todo</code>、<code>fixme</code>等这些注释模板，回车后便会出现如下注释：</li>
 </ul>
-<pre><code class="hljs java"><span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> 2017/8/28 需要实现，但目前还未实现的功能的说明</span>
-<span class="hljs-comment">// <span class="hljs-doctag">FIXME:</span> 2017/8/28 需要修正，甚至代码是错误的，不能工作，需要修复的说明</span></code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// <span class="doctag">TODO:</span> 2017/8/28 需要实现，但目前还未实现的功能的说明</span></span><br><span class="line"><span class="comment">// <span class="doctag">FIXME:</span> 2017/8/28 需要修正，甚至代码是错误的，不能工作，需要修复的说明</span></span><br></pre></td></tr></table></div></figure>
 
-<h2 id="3-格式规范"><a href="#3-格式规范" class="headerlink" title="3 格式规范"></a>3 格式规范</h2><h3 id="3-1-使用标准的大括号风格"><a href="#3-1-使用标准的大括号风格" class="headerlink" title="3.1 使用标准的大括号风格"></a>3.1 使用标准的大括号风格</h3><ul>
+
+        <h2 id="3-格式规范">
+          <a href="#3-格式规范" class="heading-link"><i class="fas fa-link"></i></a>3 格式规范</h2>
+      
+        <h3 id="3-1-使用标准的大括号风格">
+          <a href="#3-1-使用标准的大括号风格" class="heading-link"><i class="fas fa-link"></i></a>3.1 使用标准的大括号风格</h3>
+      <ul>
 <li>大括号与<code>if, else, for, do, while</code>语句一起使用，即使只有一条语句(或是空)，也应该把大括号写上。</li>
 <li>对于非空块和块状结构，大括号遵循 Kernighan 和 Ritchie 风格（R &amp; N）<ul>
 <li>左大括号前不换行</li>
@@ -696,27 +557,23 @@
 </ul>
 </li>
 </ul>
-<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>&#123;
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method</span><span class="hljs-params">()</span> </span>&#123;
-      <span class="hljs-keyword">if</span> (condition()) &#123;
-        <span class="hljs-keyword">try</span> &#123;
-          something();
-        &#125; <span class="hljs-keyword">catch</span> (ProblemException e) &#123;
-          recover();
-        &#125;
-      &#125;
-    &#125;
-&#125;</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (condition()) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          something();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ProblemException e) &#123;</span><br><span class="line">          recover();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <ul>
 <li>一个空的块状结构里什么也不包含，大括号可以简洁地写成<code>&#123;&#125;</code>，不需要换行。</li>
 </ul>
-<h3 id="3-2-限制代码行的长度"><a href="#3-2-限制代码行的长度" class="headerlink" title="3.2 限制代码行的长度"></a>3.2 限制代码行的长度</h3><ul>
+
+        <h3 id="3-2-限制代码行的长度">
+          <a href="#3-2-限制代码行的长度" class="heading-link"><i class="fas fa-link"></i></a>3.2 限制代码行的长度</h3>
+      <ul>
 <li>每行代码的长度不应该不超过 100 个字符。</li>
 <li>例外：<code>package</code>和<code>import</code>语句，不换行。</li>
 <li>例外：注释中包含了超过 100 个字符的命令示例或者 URL，为了便于剪切和复制，其长度可以超过 100 个字符。</li>
 </ul>
-<h3 id="3-3-合理空白"><a href="#3-3-合理空白" class="headerlink" title="3.3 合理空白"></a>3.3 合理空白</h3><ul>
+
+        <h3 id="3-3-合理空白">
+          <a href="#3-3-合理空白" class="heading-link"><i class="fas fa-link"></i></a>3.3 合理空白</h3>
+      <ul>
 <li>垂直空白<ul>
 <li>方法体内的执行语句组、变量的定义语句组、不同的业务逻辑之间或者不同的语义之间插入一个空行。相同业务逻辑和语义之间不需要插入空行。</li>
 </ul>
@@ -730,295 +587,280 @@
 </ul>
 </li>
 </ul>
-<h2 id="4-参考资料"><a href="#4-参考资料" class="headerlink" title="4 参考资料"></a>4 参考资料</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://www.hawstein.com/posts/google-java-style.html">Google Java编程风格指南</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&mid=100001199&idx=1&sn=c47917de3a4acc2b15186149ee918b82&chksm=692938a05e5eb1b6e1e075a2012cd4e17f09e3b175da682c8491221c73627cb52bbcc6f99d14&scene=20#rd">阿里巴巴Java开发手册v1.2.0</a></li>
-<li><a target="_blank" rel="noopener" href="http://jaeger.itscoder.com/android/2015/11/02/code-style-guideline-for-android.html">Android 编码规范</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/Blankj/AndroidStandardDevelop#4-%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E8%A7%84%E8%8C%83">Android 开发规范</a></li>
-<li><a target="_blank" rel="noopener" href="http://xhrong.github.io/2017/01/12/Android%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/">Android 开发规范</a></li>
+
+        <h2 id="4-参考资料">
+          <a href="#4-参考资料" class="heading-link"><i class="fas fa-link"></i></a>4 参考资料</h2>
+      <ul>
+<li><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://www.hawstein.com/posts/google-java-style.html">Google Java编程风格指南</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&mid=100001199&idx=1&sn=c47917de3a4acc2b15186149ee918b82&chksm=692938a05e5eb1b6e1e075a2012cd4e17f09e3b175da682c8491221c73627cb52bbcc6f99d14&scene=20#rd">阿里巴巴Java开发手册v1.2.0</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://jaeger.itscoder.com/android/2015/11/02/code-style-guideline-for-android.html">Android 编码规范</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/Blankj/AndroidStandardDevelop#4-%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E8%A7%84%E8%8C%83">Android 开发规范</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://xhrong.github.io/2017/01/12/Android%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/">Android 开发规范</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
 </ul>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://wuzhangyang.com">贾小昆</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://wuzhangyang.com/2017/08/28/android-coding-standards/">http://wuzhangyang.com/2017/08/28/android-coding-standards/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://wuzhangyang.com/tags/Android-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/">Android 编码规范</a></span></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2017/09/08/android-multiple-processes-summary/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Android 多进程基本知识整理</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2017/08/17/android-intent-transfer-subject/"><span class="paginator-prev__text">Android Intent 传递自定义对象</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-Index"><span class="toc-number">1.</span> <span class="toc-text">
+          0 Index</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83"><span class="toc-number">2.</span> <span class="toc-text">
+          1 命名规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E7%B1%BB-%E6%8E%A5%E5%8F%A3%E5%91%BD%E5%90%8D"><span class="toc-number">2.1.</span> <span class="toc-text">
+          1.1 类 &#x2F; 接口命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%8F%98%E9%87%8F%E5%91%BD%E5%90%8D"><span class="toc-number">2.2.</span> <span class="toc-text">
+          1.2 变量命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%B8%B8%E9%87%8F%E5%91%BD%E5%90%8D"><span class="toc-number">2.3.</span> <span class="toc-text">
+          1.3 常量命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E6%96%B9%E6%B3%95%E5%91%BD%E5%90%8D"><span class="toc-number">2.4.</span> <span class="toc-text">
+          1.4 方法命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E5%91%BD%E5%90%8D"><span class="toc-number">2.5.</span> <span class="toc-text">
+          1.5 资源文件命名</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-1-%E5%B8%83%E5%B1%80%E6%96%87%E4%BB%B6%E5%91%BD%E5%90%8D%EF%BC%88xml-%E6%96%87%E4%BB%B6%EF%BC%89"><span class="toc-number">2.5.1.</span> <span class="toc-text">
+          1.5.1 布局文件命名（xml 文件）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-2-drawable-%E6%96%87%E4%BB%B6%E5%91%BD%E5%90%8D"><span class="toc-number">2.5.2.</span> <span class="toc-text">
+          1.5.2 drawable 文件命名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-3-%E5%8A%A8%E7%94%BB%E6%96%87%E4%BB%B6%E5%91%BD%E5%90%8D%EF%BC%88anim-%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%EF%BC%89"><span class="toc-number">2.5.3.</span> <span class="toc-text">
+          1.5.3 动画文件命名（anim 文件夹下）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-4-values-%E4%B8%AD-name-%E5%91%BD%E5%90%8D"><span class="toc-number">2.5.4.</span> <span class="toc-text">
+          1.5.4 values 中 name 命名</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-4-1-strings-xml"><span class="toc-number">2.5.4.1.</span> <span class="toc-text">
+          1.5.4.1 strings.xml</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-4-2-styles-xml"><span class="toc-number">2.5.4.2.</span> <span class="toc-text">
+          1.5.4.2 styles.xml</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-4-3-colors-xml"><span class="toc-number">2.5.4.3.</span> <span class="toc-text">
+          1.5.4.3 colors.xml</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-4-4-dimens-xml"><span class="toc-number">2.5.4.4.</span> <span class="toc-text">
+          1.5.4.4 dimens.xml</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%B3%A8%E9%87%8A%E8%A7%84%E8%8C%83"><span class="toc-number">3.</span> <span class="toc-text">
+          2 注释规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3%E6%B3%A8%E9%87%8A"><span class="toc-number">3.1.</span> <span class="toc-text">
+          2.1 类和接口注释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E6%96%B9%E6%B3%95%E6%B3%A8%E9%87%8A"><span class="toc-number">3.2.</span> <span class="toc-text">
+          2.2 方法注释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E5%8F%98%E9%87%8F%E5%92%8C%E5%B8%B8%E9%87%8F%E6%B3%A8%E9%87%8A"><span class="toc-number">3.3.</span> <span class="toc-text">
+          2.3 变量和常量注释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E6%96%B9%E6%B3%95%E4%BD%93%E5%86%85%E4%BB%A3%E7%A0%81%E7%9A%84%E6%B3%A8%E9%87%8A"><span class="toc-number">3.4.</span> <span class="toc-text">
+          2.4 方法体内代码的注释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E5%85%B6%E4%BB%96%E4%B8%80%E4%BA%9B%E6%B3%A8%E9%87%8A"><span class="toc-number">3.5.</span> <span class="toc-text">
+          2.5 其他一些注释</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%A0%BC%E5%BC%8F%E8%A7%84%E8%8C%83"><span class="toc-number">4.</span> <span class="toc-text">
+          3 格式规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E4%BD%BF%E7%94%A8%E6%A0%87%E5%87%86%E7%9A%84%E5%A4%A7%E6%8B%AC%E5%8F%B7%E9%A3%8E%E6%A0%BC"><span class="toc-number">4.1.</span> <span class="toc-text">
+          3.1 使用标准的大括号风格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E9%99%90%E5%88%B6%E4%BB%A3%E7%A0%81%E8%A1%8C%E7%9A%84%E9%95%BF%E5%BA%A6"><span class="toc-number">4.2.</span> <span class="toc-text">
+          3.2 限制代码行的长度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%90%88%E7%90%86%E7%A9%BA%E7%99%BD"><span class="toc-number">4.3.</span> <span class="toc-text">
+          3.3 合理空白</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">5.</span> <span class="toc-text">
+          4 参考资料</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">万物之中，希望至美</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/zywudev/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/zywu-43/" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="https://weixin.sogou.com/weixin?query=%E8%B4%BE%E5%B0%8F%E6%98%86/" target="_blank" rel="noopener" data-popover="微信" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-weixin"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">100</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">14</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">40</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>贾小昆</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.1.1</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.1.1</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__info">访问人数</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__info">浏览总量</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Android/">Android</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Android-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/">Android 编码规范</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext row">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2017/09/08/android-multiple-processes-summary/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Android 多进程基本知识整理</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2017/08/17/android-intent-transfer-subject/">
-                        <span class="hidden-mobile">Android Intent 传递自定义对象</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
 
-            
-          </article>
-        </div>
-      </div>
-    </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
-</div>
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
 
-      </div>
-    
-  </div>
-</div>
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
 
-<!-- Custom -->
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
 
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
 
-    
-  </main>
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-  
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
 
-  
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
 
-  
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
 
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
-    </div>
-    
-  <div class="statistics">
-    
-    
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
 
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
 
-    
-
-    
-  </div>
-</footer>
-
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '#post-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
       });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
       }
     });
-  </script>
+  };
 
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "Android 编码规范&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</body>
-</html>
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="/js/utils.js?v=2.1.1"></script><script src="/js/stun-boot.js?v=2.1.1"></script><script src="/js/scroll.js?v=2.1.1"></script><script src="/js/header.js?v=2.1.1"></script><script src="/js/sidebar.js?v=2.1.1"></script><script type="application/json" src="/search.xml"></script></body></html>

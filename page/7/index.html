@@ -1,861 +1,991 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.ico">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="贾小昆">
-  <meta name="keywords" content="">
-  <title>贾小昆</title>
-
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"></head>
-
-
-<body>
-  <header style="height: 100vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container page-header text-center fade-in-up">
-            <span class="h2" id="subtitle">
-              
-            </span>
-
-            
-          </div>
-
-          
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    
-      <div class="container nopadding-md">
-        <div class="py-5" id="board"
-          style=margin-top:0>
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2018/10/16/the-drawing-process-of-android-view/">Android View 的绘制过程</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2018/10/16/the-drawing-process-of-android-view/">
-          
-          
-            
-          
-          View 整体结构Activity、Window、DecorView 之间的关系：
-
-Activity: 类似控制器，统筹视图的添加与显示，以及通过回调来与 Window、View 进行交互。
-Window：视图承载器，抽象类，PhoneWindow 是其唯一实现类。
-DecorView：顶级 View，包含 StatusBar、TitleBar + ContentView 和 Navigatio
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2018-10-16 16:54" pubdate>
-              2018-10-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Android/">Android</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">源码分析</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2018/10/16/android-clean-architecture/">Android Clean 架构</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2018/10/16/android-clean-architecture/">
-          
-          
-            
-          
-           Clean 一般是指，代码以洋葱的形状依据一定的依赖规则被划分为多层：内层对于外层一无所知。这就意味着依赖只能由外向内。
-
-
-架构独立。架构不依赖于一些满载功能的软件库。
-可测试性。业务规则可以在没有 UI、数据库等外部元素的情况下完成测试。
-UI的独立性。在不改变系统其余部分的情况下完成UI的简易修改。
-数据库的独立性。业务规则不绑定数据库，可以随意更换数据库的实现。
-外部机制独立。业务规则不
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2018-10-16 14:27" pubdate>
-              2018-10-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Android/">Android</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Android-%E6%9E%B6%E6%9E%84/">Android 架构</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2018/10/10/Android-touch-event-dispatch-theory/">Android 事件分发机制</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2018/10/10/Android-touch-event-dispatch-theory/">
-          
-          
-            
-          
-          MotionEvent根据面向对象思想，事件被封装成 MotionEvent 对象，以下是几个与手指触摸相关的常见事件:
-
-ACTION_DOWN : 手指初次触摸到屏幕时触发。
-ACTION_MOVE：手指在屏幕上滑动时触发，会触发多次。
-ACTION_UP：手指离开屏幕时触发。
-ACTION_CANCEL：事件被上层拦截时触发。
-
-对于单指操作，一次触摸事件流程是这样的：
-按下（ACTION_
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2018-10-10 17:13" pubdate>
-              2018-10-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Android/">Android</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">源码分析</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2018/10/09/Android-Reinforce/">Android 加固技术调研</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2018/10/09/Android-Reinforce/">
-          
-          
-            
-          
-          第一代加固第一代加固原理是基于 Dex 加载器的加固技术。
-基本步骤1、从 Apk 文件中获取原始的 dex 文件。
-2、对原始的 dex 文件进行加密，并将加密后的 dex 文件存放在 asset 目录。
-3、用脱壳 dex 文件替换原始 apk 文件的 dex 文件。脱壳  dex 文件的作用主要有两个：一是解密加密后的 dex 文件，二是动态加载解密后的 dex 文件。
-4、修改清单文件，将
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2018-10-09 19:09" pubdate>
-              2018-10-09
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Android/">Android</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Android-%E5%8A%A0%E5%9B%BA/">Android 加固</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2018/10/06/hit-refresh/">《刷新》书摘</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2018/10/06/hit-refresh/">
-          
-          
-            
-          
-          1、
-在首堂正念训练课上，热尔韦博士问我们是否愿意先尝试一次特别的个人体验，大家全都点头表示同意。然后他要求我们中一人站出来当志愿者。结果没有人站出来，一时间房间里非常安静，气氛也非常尴尬。然后，我们的首席财务官埃米·胡德站了出来，她被要求背诵字母表，而且每个字母后面都要加入一个数字，即A1B2C3……让热尔韦博士感到奇怪的是：为什么不是每个人都站出来呢？这是一个高绩效团队吗？不是刚才每个人都说要
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2018-10-06 14:49" pubdate>
-              2018-10-06
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2018/09/13/java-reflection/">Java 反射基础</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2018/09/13/java-reflection/">
-          
-          
-            
-          
-          最近在调研 Android 应用加固方案，涉及大量反射技术，因此趁这个机会总结下 Java 反射的一些知识。
-什么是反射？反射是 Java 语言提供的一种基本功能。通过反射我们可以在运行时动态地操作类或者对象，比如获取某个对象的类定义，获取类声明的属性和方法，调用方法或者构造函数，甚至可以在运行时修改类定义。
-基本使用方法反射的主要步骤包括：
-
-获取目标类型的 Class 对象
-通过 Class 
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2018-09-13 22:08" pubdate>
-              2018-09-13
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Java/">Java</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Java-%E5%9F%BA%E7%A1%80/">Java 基础</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2018/09/09/String-StringBuffer-StringBuilder/">String、StringBuilder 和 StringBuffer</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2018/09/09/String-StringBuffer-StringBuilder/">
-          
-          
-            
-          
-          在之前的文章 Java 中 String 类为什么要设计成不可变的？ 中对 String 的特性已经作了总结。这篇文章主要介绍另外两个常用的类 StringBuilder 和 StringBuffer 的特性。
-我们知道 String 是不可变的 (Immutable)，字符串的操作会产生新对象，消耗内存。为此，JDK 提供了 StringBuffer 和 StringBuilder 两个类。
-S
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2018-09-09 20:56" pubdate>
-              2018-09-09
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Java/">Java</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Java-%E5%9F%BA%E7%A1%80/">Java 基础</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2018/09/01/why-string-is-immutable/">Java 中 String 类为什么要设计成不可变的？</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2018/09/01/why-string-is-immutable/">
-          
-          
-            
-          
-          String 是 Java 中不可变的类，所以一旦被实例化就无法修改。不可变类的实例一旦创建，其成员变量的值就不能被修改。本文总结下 String 类设计成不可变的原因及好处，以及 String 类是如何设计成不可变的。
-String 类设计成不可变的原因及好处？其实好处就是原因，String 设计成不可变，主要是从性能和安全两方面考虑。
-1、常量池的需要这个方面很好理解，Java 中的字符串常量
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2018-09-01 20:18" pubdate>
-              2018-09-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Java/">Java</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Java-%E5%9F%BA%E7%A1%80/">Java 基础</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2018/08/05/Android-resource-library/">Android RxJava + Retrofit + Dagger2 + MVP</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2018/08/05/Android-resource-library/">
-          
-          
-            
-          
-          如何即快速掌握 Android RxJava + Retrofit + Dagger2 + MVP，以下是个人认为值得学习的开源项目、库以及技术教程，以下两个项目基本涵盖了当前 Android 开发中常用的主流技术框架，适合没有项目经验的同学，能够帮助你快速提高项目开发能力、掌握前沿技术。
-值得学习的项目
-Awesome-WanAndroid ：基于Material Design + MVP + 
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2018-08-05 18:05" pubdate>
-              2018-08-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Android/">Android</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Android-%E8%B5%84%E6%BA%90/">Android 资源</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2018/07/10/Android-APK-signature-principle/">Android APK 签名原理</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2018/07/10/Android-APK-signature-principle/">
-          
-          
-            
-          
-          Android APK 签名原理涉及到密码学的加密算法、数字签名、数字证书等基础知识，这里做个总结记录。
-非对称加密需要两个密钥，一个是公开密钥，另一个是私有密钥；一个用作加密的时候，另一个则用作解密。
-其相对的加密即为对称加密，可以用现实世界中的例子来对比：一个传统保管箱，开门和关门都是使用同一条钥匙，这是对称加密；而一个公开的邮箱，投递口是任何人都可以寄信进去的，这可视为公钥；而只有邮箱主人拥
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2018-07-10 20:46" pubdate>
-              2018-07-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Android/">Android</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Android-%E5%9F%BA%E7%A1%80/">Android 基础</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-
-
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/6/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/8/"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
-  
-  <script>
-    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
-      ele.href += '#board';
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.1.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.1.1" type="image/png" sizes="32x32"><meta property="og:type" content="website">
+<meta property="og:title" content="贾小昆">
+<meta property="og:url" content="http://wuzhangyang.com/page/7/index.html">
+<meta property="og:site_name" content="贾小昆">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="贾小昆">
+<meta name="twitter:card" content="summary"><title>贾小昆</title><link ref="canonical" href="http://wuzhangyang.com/page/7/index.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.1.1"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><script src="https://www.googletagmanager.com/gtag/js?id=UA-127464210-1" async=""></script><script>if (window.location.hostname !== 'localhost') {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'UA-127464210-1');
+}</script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: undefined,
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.1.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/10/24/android-junit-test/">Android 单元测试 Junit</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-10-24</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">7分</span></span></div></header><div class="post-body"><div class="post-excerpt"><blockquote>
+<p>示例代码：<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/zywudev/AndroidUnitTest">https://github.com/zywudev/AndroidUnitTest</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+<p>Anroid Studio 在新建项目中自动将 Junit 框架集成，无需额外导入依赖。</p>
+
+        <h2 id="Junit-Assert">
+          <a href="#Junit-Assert" class="heading-link"><i class="fas fa-link"></i></a>Junit Assert</h2>
+      <p>Assert 就是断言，判断假设与实际是否一致，一致则测试通过。</p>
+<p>常用断言：</p>
+<ul>
+<li>assertTrue                                  假设为真</li>
+<li>assertFalse                                 假设为假</li>
+<li>assertEquals                              假设相同（基本数据类型或者对象）</li>
+<li>assertNotEquals                       假设不相同（基本数据类型或者对象）</li>
+<li>assertNull                                  假设为空</li>
+<li>assertNotNull                           假设不为空</li>
+<li>assertSame                               假设相同（只能是对象）</li>
+<li>assertNotSame                        假设不相同（只能是对象）</li>
+<li>assertArrayEquals                   假设数组相同</li>
+<li>assertThat                                断言实际值是否满足指定的条件</li>
+</ul>
+<p>期望值是前一个参数，实际值是后一个参数。</p>
+<p><strong>assertThat</strong></p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">assertThat(T actual, Matcher&lt;? <span class="keyword">super</span> T&gt; matcher);</span><br><span class="line"></span><br><span class="line">assertThat(String reason, T actual, Matcher&lt;? <span class="keyword">super</span> T&gt; matcher); </span><br></pre></td></tr></table></div></figure>
+
+<p>其中，reason 为断言失败的输出信息，actual 为实际值，matcher 为匹配器。</p>
+<p>常用的匹配器整理：</p>
+<ul>
+<li>is    断言参数等于后面给出的匹配表达式    </li>
+<li>not    断言参数不等于后面给出的匹配表达式    </li>
+<li>equalTo    断言参数相等    </li>
+<li>equalToIgnoringCase    断言字符串相等忽略大小写</li>
+<li>containsString    断言字符串包含某字符串    </li>
+<li>startsWith    断言字符串以某字符串开始</li>
+<li>endsWith    断言字符串以某字符串结束</li>
+<li>nullValue    断言参数的值为null</li>
+<li>notNullValue    断言参数的值不为null    </li>
+<li>greaterThan    断言参数大于    </li>
+<li>lessThan    断言参数小于</li>
+<li>greaterThanOrEqualTo    断言参数大于等于</li>
+<li>lessThanOrEqualTo    断言参数小于等于</li>
+<li>closeTo    断言浮点型数在某一范围内</li>
+<li>allOf    断言符合所有条件，相当于&amp;&amp;    </li>
+<li>anyOf    断言符合某一条件，相当于或</li>
+<li>hasKey    断言Map集合含有此键    </li>
+<li>hasValue    断言Map集合含有此值    </li>
+<li>hasItem    断言迭代对象含有此元素</li>
+</ul>
+<p>自定义匹配器：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by wuzy on 2018/10/26.</span></span><br><span class="line"><span class="comment"> * 自定义匹配器，判断数字是否在范围内</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IsNumberRangeMatcher</span> <span class="keyword">extends</span> <span class="title">BaseMatcher</span>&lt;<span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> start;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> end;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">IsNumberRangeMatcher</span><span class="params">(<span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.start = start;</span><br><span class="line">        <span class="keyword">this</span>.end = end;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">matches</span><span class="params">(Object item)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (item == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Integer i = (Integer) item;</span><br><span class="line">        <span class="keyword">return</span> start &lt;= i &amp;&amp; i &lt;= end;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">describeTo</span><span class="params">(Description description)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://www.vogella.com/tutorials/Hamcrest/article.html">http://www.vogella.com/tutorials/Hamcrest/article.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+
+        <h2 id="Junit-Annotation">
+          <a href="#Junit-Annotation" class="heading-link"><i class="fas fa-link"></i></a>Junit Annotation</h2>
+      <p>常用注解：</p>
+<ul>
+<li>@Test    表示此方法为测试方法<br>   @Before    在每个测试方法前执行，可做初始化操作<pre><code>@After    在每个测试方法后执行，可做释放资源操作</code></pre>
+   @Ignore    忽略的测试方法<br>   @BeforeClass    在类中所有方法前运行。此注解修饰的方法必须是static void<br>   @AfterClass    在类中最后运行。此注解修饰的方法必须是static void<br>   @RunWith    指定该测试类使用某个运行器<br>   @Parameters    指定测试类的测试数据集合<br>   @Rule    重新制定测试类中方法的行为<br>   @FixMethodOrder    指定测试类中方法的执行顺序</li>
+</ul>
+<p>执行顺序：</p>
+<p>@BeforeClass –&gt; @Before –&gt; @Test –&gt; @After –&gt; @AfterClass</p>
+<p><strong>@Test</strong></p>
+<p>它可以接受两个参数，一个是预期异常，一个是超时时间。</p>
+<p>即不出现预期异常则测试不通过；超过超时时间则测试不通过。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test(expected = ParseException.class)</span>   <span class="comment">// 日期解析错误，预期异常</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dateToStamp1</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    DateUtil.dateToStamp(time);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test(timeout = 100)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dateToStamp2</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    DateUtil.dateToStamp(time);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p><strong>@Parameters</strong></p>
+<p>参数化测试，用于测试数据集合。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith(Parameterized.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DateUtilTest</span> </span>&#123;</span><br><span class="line">   </span><br><span class="line">    <span class="meta">@Parameterized</span>.Parameters</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Collection <span class="title">primeNumber</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> Arrays.asList(<span class="string">&quot;2018-10-24&quot;</span>, <span class="string">&quot;2018-10-24 16:18:28&quot;</span>,<span class="string">&quot;2018年10月24日 16点18分28秒&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p><strong>@Rule</strong></p>
+<p>Junit 提供自定义规则。</p>
+<ul>
+<li>实现 TestRule 接口，实现 apply 方法。</li>
+</ul>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by wuzy on 2018/10/26.</span></span><br><span class="line"><span class="comment"> * 自定义 Rule，单元测试方法执行前后打印</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyRule</span> <span class="keyword">implements</span> <span class="title">TestRule</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Statement <span class="title">apply</span><span class="params">(<span class="keyword">final</span> Statement base, <span class="keyword">final</span> Description description)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Statement() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">evaluate</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">                <span class="comment">// evaluate前执行方法相当于@Before</span></span><br><span class="line">                String methodName = description.getMethodName(); <span class="comment">// 获取测试方法的名字</span></span><br><span class="line">                System.out.println(methodName + <span class="string">&quot;测试开始！&quot;</span>);</span><br><span class="line"></span><br><span class="line">                base.evaluate();  <span class="comment">// 运行的测试方法</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">// evaluate后执行方法相当于@After</span></span><br><span class="line">                System.out.println(methodName + <span class="string">&quot;测试结束！&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<ul>
+<li>在测试类中添加自定义 Rule 。</li>
+</ul>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// 添加自定义 Rule</span></span><br><span class="line"><span class="meta">@Rule</span></span><br><span class="line"><span class="keyword">public</span> MyRule myRule = <span class="keyword">new</span> MyRule();</span><br></pre></td></tr></table></div></figure>
+
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/10/16/how-the-economic-machine-works/">经济机器是怎样运行的？</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-10-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.7k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">8分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>最近看到的一个视频，是大师级人物瑞达利欧自己的宏观经济框架，三十分钟解释了经济机器是怎样运行的，通俗易懂。</p>
+<p>视频地址：<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=rFV7wdEX-Mo">https://www.youtube.com/watch?v=rFV7wdEX-Mo</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>以下是个人总结的要点，结合视频看，效果更佳。</p>
+<p>经济是由几个简单的零部件和无数次重复的简单交易组成，这些交易首先由人的天性所驱动，因而形成了三股主要的经济动力。</p>
+<p>1、生产率的提高</p>
+<p>2、短期债务周期</p>
+<p>3、长期债务周期</p>
+<p>把三股动力结合在起来，就是一个简单有效的宏观经济分析模型。</p>
+<p><img src="/2018/10/16/how-the-economic-machine-works/image_1.png" alt="image_1"></p>
+
+        <h2 id="交易">
+          <a href="#交易" class="heading-link"><i class="fas fa-link"></i></a>交易</h2>
+      <p>交易时刻在发生，你每次买东西都是进行一笔交易。</p>
+<p><img src="/2018/10/16/how-the-economic-machine-works/image_2.png" alt="image_2"></p>
+<p>在一次交易中，买方可以使用「货币、信用」向卖方交换「商品、服务、金融资产」。</p>
+<p>信用在使用时和货币是一样的，经济社会中同时存在着货币和信用，把两者相加，就是支出总额—这是经济的驱动力。 </p>
+<p>支出之所以是经济的驱动力，是因为一个人的支出是另一个人的收入。</p>
+<p>在经济体中，有四种交易主体：个人、企业、银行和政府。</p>
+<p><img src="/2018/10/16/how-the-economic-machine-works/image_3.png" alt="image_3"></p>
+<p>其中政府是最大的买方和卖方。政府包括中央政府和中央银行。</p>
+<p>中央银行控制经济中的货币和信贷数量，主要通过利率和发行货币来控制。</p>
+<p><img src="/2018/10/16/how-the-economic-machine-works/image_4.png" alt="image_4"></p>
+
+        <h2 id="信贷">
+          <a href="#信贷" class="heading-link"><i class="fas fa-link"></i></a>信贷</h2>
+      <p>人们在交易过程中除了使用货币还会使用「信用」。</p>
+<p>一旦使用信用，则会同时产生「信贷」和「债务」，债务是贷款人的资产，是借款人的负债，借款人一旦获得信贷，便可以增加自己的支出，而一个人的支出是另一个人的收入，这就导致借贷在不断增加循环。这一驱动模式导致经济增长，也就形成了长短债务周期。</p>
+<p><img src="/2018/10/16/how-the-economic-machine-works/image_5.png" alt="image_5"></p>
+
+        <h2 id="经济周期">
+          <a href="#经济周期" class="heading-link"><i class="fas fa-link"></i></a>经济周期</h2>
+      <p>生产率的提高是经济发展的根本动力，如果抛开其它动力的影响，生产率提高会使得经济长期缓慢线性发展。</p>
+<p>但信贷是导致经济周期的根本原因。为什么呢？</p>
+<p>因为债务本质上是向未来的自己借钱，提前消费。你给自己设定了一个未来的时间，到那个时候你的支出必须少于收入，以便偿还债务，这样马上就产生了一个短期债务周期。</p>
+<p><img src="/2018/10/16/how-the-economic-machine-works/image_6.png" alt="image_6"></p>
+
+        <h3 id="短期债务周期">
+          <a href="#短期债务周期" class="heading-link"><i class="fas fa-link"></i></a>短期债务周期</h3>
+      <p>如果支出和收入的增长速度超过所售商品的生产速度，价格就会上涨，我们把价格的上涨称为通货膨胀。</p>
+<p>央行会通过利率调节债务成本，从而把短期负债控制在合理范围内。</p>
+<p>通货膨胀－&gt; 价格上涨 －&gt; 提高利率－&gt;  借贷人减少、现有债务成本上升－&gt; 支出资金减少－&gt; 收入下降－&gt; 商品价格下跌－&gt; 经济衰退 －&gt; 降低利率 －&gt; 经济增长</p>
+<p>短期债务周期通常持续5-8年，在几十年里不断重复。</p>
+<p>但是请注意在每个周期的低谷和高峰后，经济增长和债务都超过前一个周期。为什么会这样，这是人促成的，人具有借更多钱和花更多钱的倾向，而不喜欢偿还债务。这是人的天性，因此在长期内债务增加的速度超过收入，从而形成长期债务周期。</p>
+
+        <h3 id="长期债务周期">
+          <a href="#长期债务周期" class="heading-link"><i class="fas fa-link"></i></a>长期债务周期</h3>
+      <p>长期债务周期通常持续大约75-100年。</p>
+<p>当债务负担过大，亦或者短期债务周期使得某个时间段内收入过少，长期债务的压力可能就会快速释放，从而形成经济危机，政府随之开始去杠杆。</p>
+
+        <h2 id="去杠杆化">
+          <a href="#去杠杆化" class="heading-link"><i class="fas fa-link"></i></a>去杠杆化</h2>
+      <p><img src="/2018/10/16/how-the-economic-machine-works/image_7.png" alt="image_7"></p>
+<p>主要通过四种办法：</p>
+<p>1、个人、企业和政府削减支出</p>
+<p>2、通过债务违约和重组来减少债务</p>
+<p>3、财富再分配将从富人转给穷人</p>
+<p>4、最后央行发行更多货币</p>
+
+        <h3 id="削减支出">
+          <a href="#削减支出" class="heading-link"><i class="fas fa-link"></i></a>削减支出</h3>
+      <p>削减支出会导致支出减少，而一个人的支出是另一个人收入，这就导致收入减少。收入下降速度超过还债速度，债务负担会更为严重。企业不得不削减成本，意味着工作机会减少，失业率上升。</p>
+
+        <h3 id="债务重组">
+          <a href="#债务重组" class="heading-link"><i class="fas fa-link"></i></a>债务重组</h3>
+      <p>如果借款人不偿还债务，出现违约，存款人纷纷取出存款，这种严重的经济收缩就是萧条。</p>
+<p>债务重组让债务消失，但它导致收入和资产价值消失，和削减支出一样会导致通货紧缩。这些会对中央政府产生影响，因为收入降低和就业减少意味着税收减少，失业率上升，政府需要增加支出。如果政府的支出超过税收，就会导致财政赤字。</p>
+
+        <h3 id="财务再分配">
+          <a href="#财务再分配" class="heading-link"><i class="fas fa-link"></i></a>财务再分配</h3>
+      <p>由于政府需要更多的钱，而大量财富集中在少数人手中，政府自然而然地增加对富人的征税，将财富从富人那里转给穷人。但是这会导致穷人富人相互怨恨，容易造成社会动荡。</p>
+
+        <h3 id="发行货币">
+          <a href="#发行货币" class="heading-link"><i class="fas fa-link"></i></a>发行货币</h3>
+      <p>当利率接近零的水平，央行就不得不发行更多货币，发行货币与前三种方式不同，会引起通货膨胀和刺激经济。</p>
+<p>央行一方面通过货币购买金融资产，帮助推升资产价格从而提高人们的信用，但这仅仅有助于那些有金融资产的人。另一方面，央行通过购买政府债券，其实就是把钱借给政府使其能够运行赤字预算，并通过刺激计划和失业救济金来增加购买商品和服务的支出，这就增加了人们的收入。</p>
+
+        <h2 id="和谐的去杠杆化">
+          <a href="#和谐的去杠杆化" class="heading-link"><i class="fas fa-link"></i></a>和谐的去杠杆化</h2>
+      <p>如果决策层取得适当的平衡，推动收入比债务增长得快，债务负担下降，这就是和谐的去杠杆化。</p>
+
+        <h2 id="三条经验法则">
+          <a href="#三条经验法则" class="heading-link"><i class="fas fa-link"></i></a>三条经验法则</h2>
+      <p>1、不要让债务的增长速度超过收入。因为债务负担最终将把你压垮。</p>
+<p>2、不要让收入的增长速度超过生产率。因为这最终将使你失去竞争力。 </p>
+<p>3、尽一切努力提高生产率。因为生产率在长期内起着最关键的作用。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/10/16/the-drawing-process-of-android-view/">Android View 的绘制过程</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-10-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">988</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">7分</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h2 id="View-整体结构">
+          <a href="#View-整体结构" class="heading-link"><i class="fas fa-link"></i></a>View 整体结构</h2>
+      <p>Activity、Window、DecorView 之间的关系：</p>
+<p><img src="/2018/10/16/the-drawing-process-of-android-view/view_1.png" alt="view_1"></p>
+<p><strong>Activity</strong>: 类似控制器，统筹视图的添加与显示，以及通过回调来与 Window、View 进行交互。</p>
+<p><strong>Window</strong>：视图承载器，抽象类，PhoneWindow 是其唯一实现类。</p>
+<p><strong>DecorView</strong>：顶级 View，包含 StatusBar、TitleBar + ContentView 和 NavigationBar。</p>
+<p>StatusBar 是状态栏； </p>
+<p>TitleBar 对应各种 ActionBar； </p>
+<p>ContentView 对应 R.id.content，setContentView 设置的 View 被添加到 R.id.content 对应的 View 上。</p>
+<p>NavigationBar是虚拟按键。</p>
+<p><strong>ViewRoot</strong>: 实现类是 ViewRootImpl，它是连接 WidowManager 和 DecorView 的纽带。View 的三大流程(测量（measure），布局（layout），绘制（draw）)均通过 ViewRoot 来完成。ViewRoot 继承了 Handler 类，可以接收事件并分发，Android 的所有触屏事件、按键事件、界面刷新等事件都是通过 ViewRoot 进行分发的。</p>
+
+        <h2 id="View-的工作流程">
+          <a href="#View-的工作流程" class="heading-link"><i class="fas fa-link"></i></a>View 的工作流程</h2>
+      <p><img src="/2018/10/16/the-drawing-process-of-android-view/view_2.png" alt="view_2"></p>
+<p>View 的绘制是从上往下一层层迭代，DecorView –&gt; ViewGroup（—&gt;ViewGroup）–&gt; View ，依次 measure、layout 、draw。</p>
+
+        <h3 id="measure">
+          <a href="#measure" class="heading-link"><i class="fas fa-link"></i></a>measure</h3>
+      <p><strong>ViewGroup.LayoutParams</strong></p>
+<p>布局参数类，指定视图 View 的高度和宽度等参数。</p>
+<p><strong>MeasureSpec</strong></p>
+<p>测量规格类，决定一个视图的大小。</p>
+<p><strong>measureSpec</strong>：32 位 int 值，高 2 位代表 mode，低 30 位代表 size。</p>
+<p><strong>mode</strong>：测量模式，包括：</p>
+<ul>
+<li>UNSPECIFIED：父 View 不约束当前 View 的大小。</li>
+<li>EXACTLY：对应 LayoutParams 中的 match_parent 和具体数值这两种模式。父 View 决定当前 View 的精确大小。</li>
+<li>AT_MOST：对应 LayoutParams 中的 wrap_content，View 的大小不能大于父容器的大小。</li>
+</ul>
+<p><strong>size</strong>：某种测量模式下的规格大小。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MeasureSpec</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MODE_SHIFT = <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MODE_MASK  = <span class="number">0x3</span> &lt;&lt; MODE_SHIFT;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UNSPECIFIED = <span class="number">0</span> &lt;&lt; MODE_SHIFT;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> EXACTLY     = <span class="number">1</span> &lt;&lt; MODE_SHIFT;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> AT_MOST     = <span class="number">2</span> &lt;&lt; MODE_SHIFT;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">makeMeasureSpec</span><span class="params">(<span class="keyword">int</span> size, <span class="keyword">int</span> mode)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (size &amp; ~MODE_MASK) | (mode &amp; MODE_MASK);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getMode</span><span class="params">(<span class="keyword">int</span> measureSpec)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (measureSpec &amp; MODE_MASK);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getSize</span><span class="params">(<span class="keyword">int</span> measureSpec)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (measureSpec &amp; ~MODE_MASK);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p><strong>measure 流程</strong></p>
+<p>1、ViewRootImpl.performMeasure -&gt; performMeasure()</p>
+<p>根据手机屏幕的宽高和 DecorView 的 LayoutParams 生成 DecorView 的 MeasureSpec，然后调用 DecorView 的 measure() 开始 DecorView 的测量。</p>
+<p>2、DecorView.measure() -&gt; onMeasure()</p>
+<p>DecorView 继承自 FrameLayout，所以会走到 FrameLayout 的 onMeasure() 方法，onMeasure() 里面会调用 measureChild() 为 ViewGroup 生成 MeasureSpec，通过 ViewGroup 的 measure()  开始 ViewGroup 的测量。</p>
+<p>3、ViewGroup.measure() -&gt; onMeasure()</p>
+<p>如果自定义的 ViewGroup 没有重写 onMeasure() 方法，默认会调用 View.onMeasure() 方法，则不会继续对子 view 进行测量。</p>
+<p>因此，自定义 ViewGroup，需要重写 onMeasure() 方法，里面调用 measureChild() 为子 View 生成 MeasureSpec 并测量 child。最后调用 setMeasuredDimension 来设置自己的宽高。</p>
+<p>4、View.measure() -&gt; onMeasure()</p>
+<p>根据父 View 的 MeasureSpec 和自身的 LayoutParams 参数进行测量。</p>
+<p><img src="/2018/10/16/the-drawing-process-of-android-view/view_3.png" alt="view_3"></p>
+<p><strong>细节：</strong></p>
+<p><strong>父 View 的测量方法</strong>：</p>
+<p>根据子 View 的布局样式，调用 setMeasuredDimension 来设置自己的宽高。</p>
+<p><strong>子 View 的测量方法</strong>：</p>
+<p>根据父 View 的 MeasureSpec 和 自身的 LayoutParams 参数进行测量。</p>
+<p>先计算子 View 的MeasureSpec，即 childMeasureSpec；</p>
+<p>再调用 child.measure(childWidthMeasureSpec, childHeightMeasureSpec) 测量子 View 的大小。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">measureChild</span><span class="params">(View child, <span class="keyword">int</span> parentWidthMeasureSpec,</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="keyword">int</span> parentHeightMeasureSpec)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> LayoutParams lp = child.getLayoutParams();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> childWidthMeasureSpec = getChildMeasureSpec(parentWidthMeasureSpec,</span><br><span class="line">                                                          mPaddingLeft + mPaddingRight, lp.width);</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> childHeightMeasureSpec = getChildMeasureSpec(parentHeightMeasureSpec,</span><br><span class="line">                                                           mPaddingTop + mPaddingBottom, lp.height);</span><br><span class="line"></span><br><span class="line">    child.measure(childWidthMeasureSpec, childHeightMeasureSpec);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>childMeasureSpec 的计算：</p>
+<p>由 parentMeasureSpec 和 childDimension 确定。childDimension 为 LayoutParams 的 width 和 height。</p>
+<p><strong>规律</strong>：</p>
+<ul>
+<li>当子 View 采用具体数值<ul>
+<li>mode: EXACTLY</li>
+<li>size: 自身设置的具体数值</li>
+</ul>
+</li>
+<li>当子 View 采用 match_parent<ul>
+<li>mode: 父容器的测量模式</li>
+<li>size: 若父容器为EXACTLY，则大小为父容器的剩余大小；若父容器为 AT_MOST，则大小为不超过父容器的剩余大小。</li>
+</ul>
+</li>
+<li>当子 View采用 wrap_content<ul>
+<li>mode：AT_MOST</li>
+<li>size：不超过父容器的剩余空间</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="layout">
+          <a href="#layout" class="heading-link"><i class="fas fa-link"></i></a>layout</h3>
+      <p>计算视图的位置，也就是 left、top、right、bottom。这些坐标都是相对于父布局的坐标。</p>
+<p>布局也是自上而下，不同的是 ViewGroup 先在 layout() 中确定自己的布局，然后在 onLayout() 方法中再调用子View 的 layout() 方法，让子 View 布局。</p>
+<p><img src="/2018/10/16/the-drawing-process-of-android-view/view_4.png" alt="view_4"></p>
+
+        <h3 id="draw">
+          <a href="#draw" class="heading-link"><i class="fas fa-link"></i></a>draw</h3>
+      <p>draw 主要流程：</p>
+<ul>
+<li>绘制背景 background.draw(canvas)</li>
+<li>绘制自己（onDraw）</li>
+<li>绘制Children(dispatchDraw)</li>
+<li>绘制装饰（onDrawScrollBars）</li>
+</ul>
+<p><img src="/2018/10/16/the-drawing-process-of-android-view/view_5.png" alt="view_5"></p>
+
+        <h2 id="参考">
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a>参考</h2>
+      <p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://love2.io/@funkkiid/doc/android_interview//android/basis/decorview.md">Window、Activity、DecorView以及ViewRoot之间的关系</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>  </p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://love2.io/@funkkiid/doc/android_interview//android/basis/custom_view.md">View测量、布局及绘制原理</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/10/16/android-clean-architecture/">Android Clean 架构</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-10-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">647</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">3分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p> Clean 一般是指，代码以洋葱的形状依据一定的依赖规则被划分为多层：内层对于外层一无所知。这就意味着<strong>依赖只能由外向内</strong>。</p>
+<p><img src="/2018/10/16/android-clean-architecture/clean_1.png" alt="clean_1"></p>
+<ul>
+<li>架构独立。架构不依赖于一些满载功能的软件库。</li>
+<li>可测试性。业务规则可以在没有 UI、数据库等外部元素的情况下完成测试。</li>
+<li>UI的独立性。在不改变系统其余部分的情况下完成UI的简易修改。</li>
+<li>数据库的独立性。业务规则不绑定数据库，可以随意更换数据库的实现。</li>
+<li>外部机制独立。业务规则不知道外层的事情。</li>
+</ul>
+
+        <h3 id="Framework-and-Drivers">
+          <a href="#Framework-and-Drivers" class="heading-link"><i class="fas fa-link"></i></a>Framework and Drivers</h3>
+      <p>框架或者驱动，包括 UI、框架、数据库实现、网络实现细节等。</p>
+
+        <h3 id="Interface-Adapter">
+          <a href="#Interface-Adapter" class="heading-link"><i class="fas fa-link"></i></a>Interface Adapter</h3>
+      <p>接口适配层，负责将实现细节和业务逻辑连接起来的粘合层。</p>
+
+        <h3 id="Business-rules-Interactors">
+          <a href="#Business-rules-Interactors" class="heading-link"><i class="fas fa-link"></i></a>Business rules(Interactors)</h3>
+      <p>业务规则，整合了实现系统需要的所有实例。</p>
+
+        <h3 id="Domain-logic">
+          <a href="#Domain-logic" class="heading-link"><i class="fas fa-link"></i></a>Domain logic</h3>
+      <p>封装了业务实体。实体可以是包含有方法的对象，或者一系列的数据结构、函数。</p>
+<p>依据这些规则将工程分为三层：</p>
+<p><img src="/2018/10/16/android-clean-architecture/clean_2.png" alt="clean_2"></p>
+
+        <h3 id="Presentation-Layer">
+          <a href="#Presentation-Layer" class="heading-link"><i class="fas fa-link"></i></a>Presentation Layer</h3>
+      <p>MVC 或者 MVP 对应的地方，不处理 UI 以外的任何逻辑。 </p>
+
+        <h3 id="Domain-Layer">
+          <a href="#Domain-Layer" class="heading-link"><i class="fas fa-link"></i></a>Domain Layer</h3>
+      <p>业务逻辑 Use Case 实现的地方。属于系统最内层。</p>
+<p>这一层为纯 Java 代码，不牵扯任何 Android 相关依赖，规定了要做什么，具体实现细节交给外层。</p>
+
+        <h3 id="Data-Layer">
+          <a href="#Data-Layer" class="heading-link"><i class="fas fa-link"></i></a>Data Layer</h3>
+      <p><img src="/2018/10/16/android-clean-architecture/clean_3.png" alt="clean_3"></p>
+<p>所有系统需要的数据通过这一层的 Repository 获取， 这是一种 Repository 模式，具体看<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ff649690(v=pandp.10)">这里</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。Repository 接口定义是在 Domain 层，接口表示怎么去存储或者访问数据，这些是业务逻辑，但是具体的实现与业务逻辑无关，应该交给 Data 层。</p>
+
+        <h3 id="总结">
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a>总结</h3>
+      <p>1、Clean 架构中内层意味着抽象，外层意味着细节，同样一个抽象可能有多个子类，这种一对多的方式更具灵活性。</p>
+<p>2、细节依赖抽象，业务逻辑制定规则，外层实现接口，这样能保证在内层能够调用外层组件去实现需要的逻辑，这里依据的是 DIP。</p>
+<p>3、Clean 架构较为繁琐，如果是简单项目，完全没必要使用。</p>
+
+        <h3 id="测试方法">
+          <a href="#测试方法" class="heading-link"><i class="fas fa-link"></i></a>测试方法</h3>
+      <ul>
+<li>Presentation Layer： 使用 AndroidInstruction 和 espresso 做集成测试和功能测试</li>
+<li>Domain Layer：使用 JUnit 和 mockito 做单元测试</li>
+<li>Data Layer：使用 Robolectric（这层有Android依赖）和 junit、mockito 做集成和单元测试。</li>
+</ul>
+
+        <h3 id="学习项目">
+          <a href="#学习项目" class="heading-link"><i class="fas fa-link"></i></a>学习项目</h3>
+      <ul>
+<li><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/android10/Android-CleanArchitecture">https://github.com/android10/Android-CleanArchitecture</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/crazysunj/CrazyDaily">https://github.com/crazysunj/CrazyDaily</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+</ul>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/10/10/Android-touch-event-dispatch-theory/">Android 事件分发机制</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-10-10</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">3.1k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">23分</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h2 id="MotionEvent">
+          <a href="#MotionEvent" class="heading-link"><i class="fas fa-link"></i></a>MotionEvent</h2>
+      <p>根据面向对象思想，事件被封装成 MotionEvent 对象，以下是几个与手指触摸相关的常见事件:</p>
+<ul>
+<li>ACTION_DOWN : 手指初次触摸到屏幕时触发。</li>
+<li>ACTION_MOVE：手指在屏幕上滑动时触发，会触发多次。</li>
+<li>ACTION_UP：手指离开屏幕时触发。</li>
+<li>ACTION_CANCEL：事件被上层拦截时触发。</li>
+</ul>
+<p>对于单指操作，一次触摸事件流程是这样的：</p>
+<p>按下（ACTION_DOWN）–&gt; 滑动（ACTION_MOVE）–&gt; 离开（ACTION_UP)。如果只是简单的点击，则没有 ACTION_MOVE 事件产生。</p>
+
+        <h2 id="事件分发、拦截与消费">
+          <a href="#事件分发、拦截与消费" class="heading-link"><i class="fas fa-link"></i></a>事件分发、拦截与消费</h2>
+      <p>与事件分发相关的三个重要方法：</p>
+<ul>
+<li>dispatchTouchEvent：事件分发机制中的核心，所有的事件调度都归它管。</li>
+<li>onInterceptTouchEvent：事件拦截。</li>
+<li>onTouchEvent：事件消费处理。</li>
+</ul>
+
+        <h2 id="事件分发流程">
+          <a href="#事件分发流程" class="heading-link"><i class="fas fa-link"></i></a>事件分发流程</h2>
+      <p>事件分发流程示意图：</p>
+<p><img src="/2018/10/10/Android-touch-event-dispatch-theory/android_touch.png" alt="android_touch"></p>
+<p>大致解释一下：</p>
+<ul>
+<li><p>图中 ViewGroup 与 View 之间省略了若干层 ViewGroup。</p>
+</li>
+<li><p>触摸事件都是先交由 Activity 的 <code>dispatchTouchEvent</code> 方法（在此之间还有一系列的操作，在此省略了），再一层层往下分发。当中间的 ViewGroup 不进行拦截时，事件会分发给最底层的 View，由 View 的 <code>onTouchEvent</code> 方法进行处理，如果事件一直未被处理，最后会返回到 Activity 的 <code>onTouchEvent</code>。</p>
+</li>
+<li><p>图中 View/ViewGroup 的 <code>onTouchEvent</code> 返回 false，并不是直接调用上层的 <code>onTouchEvent</code> 方法。而是上层的 <code>dispatchTouchEvent</code> 方法接收到下层的 false 返回值时，再将事件分发给自己的 <code>onTouchEvent</code> 处理。</p>
+</li>
+<li><p><code>onInterceptTouchEvent</code> 只存在于 ViewGroup 中。ViewGroup 是根据 <code>onInterceptTouchEvent</code> 的返回值来确定是调用子 View 的 <code>dispatchTouchEvent</code> 还是自身的 <code>onTouchEvent</code>， 并没有将调用交给 <code>onInterceptTouchEvent</code>。</p>
+</li>
+</ul>
+
+        <h2 id="源码分析">
+          <a href="#源码分析" class="heading-link"><i class="fas fa-link"></i></a>源码分析</h2>
+      <p>事件是从 Activity 开始分发，Activity 的 <code>dispatchTouchEvent</code> 是如何接受到触摸事件，还有一系列的前期工作，后面会单独写一篇文章总结。</p>
+
+        <h3 id="Activity-对事件的分发流程">
+          <a href="#Activity-对事件的分发流程" class="heading-link"><i class="fas fa-link"></i></a>Activity 对事件的分发流程</h3>
+      
+        <h4 id="Activity-dispatchTouchEvent">
+          <a href="#Activity-dispatchTouchEvent" class="heading-link"><i class="fas fa-link"></i></a>Activity.dispatchTouchEvent</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchTouchEvent</span><span class="params">(MotionEvent ev)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (ev.getAction() == MotionEvent.ACTION_DOWN) &#123;</span><br><span class="line">        <span class="comment">// 第一次按下时，用户希望与设备进行交互时，可以重写该方法实现</span></span><br><span class="line">        onUserInteraction();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 获取PhoneWindow, 传递事件</span></span><br><span class="line">    <span class="keyword">if</span> (getWindow().superDispatchTouchEvent(ev)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 没有任何View处理事件时，交给Activity的onTouchEvent处理</span></span><br><span class="line">    <span class="keyword">return</span> onTouchEvent(ev);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>其中 <code>getWindow</code> 返回的是 Activity 的 mWindow 成员变量，而 Window 类是一个抽象类，唯一实现类是 PhoneWindow，所以该方法获取到的是 PhoneWindow 对象。</p>
+
+        <h4 id="getWindow-superDispatchTouchEvent">
+          <a href="#getWindow-superDispatchTouchEvent" class="heading-link"><i class="fas fa-link"></i></a>getWindow().superDispatchTouchEvent</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">superDispatchTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> mDecor.superDispatchTouchEvent(event); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>可以看到，PhoneWindow 中直接将事件交给了 DecorView 处理，DecorView 的 <code>superDispatchTouchEvent</code> 方法如下。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">superDispatchTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.dispatchTouchEvent(event);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>DecorView 调用的是父类的 <code>dispatchTouchEvent</code> 方法，而 DecorView 的父类是 ViewGroup，所以接着会调用 <code>ViewGroup.dispatchTouchEvent</code>。</p>
+
+        <h4 id="Activity-onTouchEvent">
+          <a href="#Activity-onTouchEvent" class="heading-link"><i class="fas fa-link"></i></a>Activity.onTouchEvent</h4>
+      <p>如果没有任何 View 处理事件，最后会交给 Activity 的 <code>onTouchEvent</code> 处理。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 当窗口需要关闭时，消费掉当前事件</span></span><br><span class="line">    <span class="keyword">if</span> (mWindow.shouldCloseOnTouch(<span class="keyword">this</span>, event)) &#123;</span><br><span class="line">        finish();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="ViewGroup-对事件的分发流程">
+          <a href="#ViewGroup-对事件的分发流程" class="heading-link"><i class="fas fa-link"></i></a>ViewGroup 对事件的分发流程</h3>
+      
+        <h4 id="ViewGroup-dispatchTouchEvent">
+          <a href="#ViewGroup-dispatchTouchEvent" class="heading-link"><i class="fas fa-link"></i></a>ViewGroup.dispatchTouchEvent</h4>
+      <p>ViewGroup 的 <code>dispatchTouchEvent</code> 方法内容较多，这里拆分为检测拦截、寻找子 View、分发事件。</p>
+<p><strong>1、 检测拦截</strong></p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 检测拦截</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">boolean</span> intercepted;</span><br><span class="line"><span class="keyword">if</span> (actionMasked == MotionEvent.ACTION_DOWN</span><br><span class="line">                    || mFirstTouchTarget != <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="comment">// 可以通过调用 requestDisallowInterceptTouchEvent,不让父 View 拦截事件</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">boolean</span> disallowIntercept = (mGroupFlags &amp; FLAG_DISALLOW_INTERCEPT) != <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (!disallowIntercept) &#123;  <span class="comment">// 允许父 View 拦截</span></span><br><span class="line">        intercepted = onInterceptTouchEvent(ev);  </span><br><span class="line">        ev.setAction(action);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        intercepted = <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 当前不是 ACTION_DOWN 事件，且没有触摸目标</span></span><br><span class="line">    <span class="comment">// 即子视图如果不消费 ACTION_DOWN，那么后续事件也不会分发到，当前父视图拦截处理</span></span><br><span class="line">    intercepted = <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>这一段代码的目的是检测 ViewGroup 是否拦截事件。</p>
+<p>mFirstTouchTarget 用来记录已经消费事件的子 View，目的是为了后续其他事件分发时直接将事件分发给 mFirstTouchTarget  指向的 View。</p>
+<p><code>FLAG_DISALLOW_INTERCEPT</code> 这个标志位可以影响到 ViewGroup 是否拦截事件，可以通过调用 <code>requestDisallowInterceptTouchEvent</code> 方法来设置，一般用于子 View 当中，禁止父 View 拦截事件，处理滑动冲突。但要注意，**<code>requestDisallowInterceptTouchEvent</code> 方法对 ACTION_DOWN 事件是无效的<strong>，为什么呢？因为 **ViewGroup 的 <code>dispatchTouchEvent</code> 方法每次接收到 ACTION_DOWN 事件时，都会初始化状态</strong>。代码如下：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 处理一个初始按下事件 ACTION_DOWN</span></span><br><span class="line"><span class="keyword">if</span> (actionMasked == MotionEvent.ACTION_DOWN) &#123;</span><br><span class="line">    <span class="comment">// 发生 Action_DOWN 事件，取消清除之前所有的触摸目标</span></span><br><span class="line">    cancelAndClearTouchTargets(ev);</span><br><span class="line">    <span class="comment">// 重置触摸状态，清除 FLAG_DISALLOW_INTERCEPT；设置 mFirstTouchTarget = null</span></span><br><span class="line">    resetTouchState();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p><strong>2、寻找子 View</strong></p>
+<p>如果 ViewGroup 没有拦截事件，事件没有被取消，并且是 ACTION_DOWN 事件时，首先会去寻找可以接收事件的子 View。代码如下：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不取消事件，同时不拦截事件, 并且是Down事件才进入该区域</span></span><br><span class="line"><span class="keyword">if</span> (!canceled &amp;&amp; !intercepted) &#123;</span><br><span class="line">    <span class="comment">// 寻找可以获取焦点的视图</span></span><br><span class="line">    View childWithAccessibilityFocus = ev.isTargetAccessibilityFocus()</span><br><span class="line">        ? findChildWithAccessibilityFocus() : <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (actionMasked == MotionEvent.ACTION_DOWN</span><br><span class="line">        || (split &amp;&amp; actionMasked == MotionEvent.ACTION_POINTER_DOWN)</span><br><span class="line">        || actionMasked == MotionEvent.ACTION_HOVER_MOVE) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> actionIndex = ev.getActionIndex(); </span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> idBitsToAssign = split ? <span class="number">1</span> &lt;&lt; ev.getPointerId(actionIndex)</span><br><span class="line">            : TouchTarget.ALL_POINTER_IDS;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 清空早先的触摸对象</span></span><br><span class="line">        removePointersFromTouchTargets(idBitsToAssign);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> childrenCount = mChildrenCount;</span><br><span class="line">        <span class="comment">// 第一次 down 事件，同时子视图不为空时</span></span><br><span class="line">        <span class="keyword">if</span> (newTouchTarget == <span class="keyword">null</span> &amp;&amp; childrenCount != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">float</span> x = ev.getX(actionIndex);</span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">float</span> y = ev.getY(actionIndex);</span><br><span class="line">            <span class="comment">// 从视图最上层到最下层，获取所有能接收该事件的子视图</span></span><br><span class="line">            <span class="keyword">final</span> ArrayList&lt;View&gt; preorderedList = buildTouchDispatchChildList();</span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">boolean</span> customOrder = preorderedList == <span class="keyword">null</span></span><br><span class="line">                &amp;&amp; isChildrenDrawingOrderEnabled();</span><br><span class="line">            <span class="keyword">final</span> View[] children = mChildren;</span><br><span class="line">            <span class="comment">// 从最底层的父视图开始遍历</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = childrenCount - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">                <span class="keyword">final</span> <span class="keyword">int</span> childIndex = getAndVerifyPreorderedIndex(</span><br><span class="line">                    childrenCount, i, customOrder);</span><br><span class="line">                <span class="keyword">final</span> View child = getAndVerifyPreorderedView(</span><br><span class="line">                    preorderedList, children, childIndex);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 如果子view无法获取用户焦点，跳过本次循环</span></span><br><span class="line">                <span class="keyword">if</span> (childWithAccessibilityFocus != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (childWithAccessibilityFocus != child) &#123;</span><br><span class="line">                        <span class="keyword">continue</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    childWithAccessibilityFocus = <span class="keyword">null</span>;</span><br><span class="line">                    i = childrenCount - <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 子view可见，并且没有播放动画；触摸事件的坐标落在子view的范围内</span></span><br><span class="line">                <span class="comment">// 如果这两个条件有一项不满足，则跳过此次循环</span></span><br><span class="line">                <span class="keyword">if</span> (!canViewReceivePointerEvents(child)</span><br><span class="line">                    || !isTransformedTouchPointInView(x, y, child, <span class="keyword">null</span>)) &#123;</span><br><span class="line">                    ev.setTargetAccessibilityFocus(<span class="keyword">false</span>);</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                newTouchTarget = getTouchTarget(child);</span><br><span class="line">                <span class="comment">// 子 view 已经接受触摸事件，将新指针id赋值给它，退出循环</span></span><br><span class="line">                <span class="keyword">if</span> (newTouchTarget != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    newTouchTarget.pointerIdBits |= idBitsToAssign;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                resetCancelNextUpFlag(child);</span><br><span class="line">                <span class="comment">// 如果触摸位置在子view的区域内，把事件分发给子view或者ViewGroup</span></span><br><span class="line">                <span class="comment">// 实际调用的是chlid的dispatchTouchEvent方法</span></span><br><span class="line">                <span class="keyword">if</span> (dispatchTransformedTouchEvent(ev, <span class="keyword">false</span>, child, idBitsToAssign)) &#123;</span><br><span class="line">                    <span class="comment">// 子view消费了事件</span></span><br><span class="line">                    mLastTouchDownTime = ev.getDownTime();</span><br><span class="line">                    <span class="keyword">if</span> (preorderedList != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        <span class="comment">// childIndex points into presorted list, find original index</span></span><br><span class="line">                        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; childrenCount; j++) &#123;</span><br><span class="line">                            <span class="keyword">if</span> (children[childIndex] == mChildren[j]) &#123;</span><br><span class="line">                                mLastTouchDownIndex = j;</span><br><span class="line">                                <span class="keyword">break</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        mLastTouchDownIndex = childIndex;</span><br><span class="line">                    &#125;</span><br><span class="line">                    mLastTouchDownX = ev.getX();</span><br><span class="line">                    mLastTouchDownY = ev.getY();</span><br><span class="line">                    <span class="comment">// 设置接收事件的子view为新的触摸目标，设置为触摸目标链表的头</span></span><br><span class="line">                    newTouchTarget = addTouchTarget(child, idBitsToAssign);</span><br><span class="line">                    alreadyDispatchedToNewTouchTarget = <span class="keyword">true</span>;</span><br><span class="line">                    <span class="comment">// 子view处理了事件，就跳出for循环</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                ev.setTargetAccessibilityFocus(<span class="keyword">false</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (preorderedList != <span class="keyword">null</span>) preorderedList.clear();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (newTouchTarget == <span class="keyword">null</span> &amp;&amp; mFirstTouchTarget != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 将 mFirstTouchTarget 的链表最后的 TouchTarget 赋给 newToughTarget</span></span><br><span class="line">            newTouchTarget = mFirstTouchTarget;</span><br><span class="line">            <span class="keyword">while</span> (newTouchTarget.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">                newTouchTarget = newTouchTarget.next;</span><br><span class="line">            &#125;</span><br><span class="line">            newTouchTarget.pointerIdBits |= idBitsToAssign;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>寻找子 View 进行分发事件的方法就是遍历子 View，有这样两个条件：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1、子view可见，并且没有播放动画；2、触摸事件的坐标落在子view的范围内</span></span><br><span class="line"><span class="keyword">if</span> (!canViewReceivePointerEvents(child)</span><br><span class="line">    || !isTransformedTouchPointInView(x, y, child, <span class="keyword">null</span>)) &#123;</span><br><span class="line">    ev.setTargetAccessibilityFocus(<span class="keyword">false</span>);</span><br><span class="line">    <span class="keyword">continue</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>这两个条件如果同时满足，则将事件分发给子 View。</p>
+<p>接着会调用 <code>dispatchTransformedTouchEvent</code> 方法，可以猜到这个方法中肯定做了事件分发的操作。</p>
+<p>如果这个方法返回 true，表示子 View 消费了事件，则会在 <code>addTouchTarget</code> 方法中设置 mFirstTouchTarget ，后续事件（ACTION_MOVE、ACTION_UP）分发时会直接将事件分发给 mFirstTouchTarget 指向的 View。</p>
+<p>换句话说，如果子 View 没有消费 ACTION_DOWN 事件，mFirstTouchTarget 就会为 null，也就不会接收其他 ACTION_MOVE、ACTION_UP 等事件，如下代码：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (mFirstTouchTarget == <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="comment">// 没有触摸target,则由当前ViewGroup来处理（第三个参数child为null）</span></span><br><span class="line">    handled = dispatchTransformedTouchEvent(ev, canceled, <span class="keyword">null</span>,</span><br><span class="line">                                            TouchTarget.ALL_POINTER_IDS);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 如果View消费ACTION_DOWN事件，那么ACTION_MOVE、ACTION_UP等事件相继开始执行</span></span><br><span class="line">    TouchTarget predecessor = <span class="keyword">null</span>;</span><br><span class="line">    TouchTarget target = mFirstTouchTarget;</span><br><span class="line">    <span class="keyword">while</span> (target != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">final</span> TouchTarget next = target.next;</span><br><span class="line">        <span class="keyword">if</span> (alreadyDispatchedToNewTouchTarget &amp;&amp; target == newTouchTarget) &#123;</span><br><span class="line">            handled = <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">boolean</span> cancelChild = resetCancelNextUpFlag(target.child)</span><br><span class="line">                || intercepted;</span><br><span class="line">            <span class="keyword">if</span> (dispatchTransformedTouchEvent(ev, cancelChild,</span><br><span class="line">                                              target.child, target.pointerIdBits)) &#123;</span><br><span class="line">                handled = <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (cancelChild) &#123;</span><br><span class="line">                <span class="keyword">if</span> (predecessor == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    mFirstTouchTarget = next;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    predecessor.next = next;</span><br><span class="line">                &#125;</span><br><span class="line">                target.recycle();</span><br><span class="line">                target = next;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        predecessor = target;</span><br><span class="line">        target = next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p><strong>3、事件分发</strong></p>
+<p><code>dispatchTransformedTouchEvent</code> 的伪代码如下：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (child == <span class="keyword">null</span>) &#123;</span><br><span class="line">    handled = <span class="keyword">super</span>.dispatchTouchEvent(event);  </span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    handled = child.dispatchTouchEvent(event);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>如果不存在子 View，ViewGroup 会调用父类 View 的 <code>dispatchTouchEvent</code> 方法，再调用 onTouchEvent 方法处理事件。</p>
+<p>如果存在子 View ,将事件分发给子 View 的 <code>dispatchTouchEvent</code>，子 View 如果是 ViewGroup，则会调用 <code>ViewGroup.dispatchTouchEvent</code>，进行拦截检测、寻找子 View、分发事件操作。</p>
+
+        <h3 id="View-对事件的分发流程">
+          <a href="#View-对事件的分发流程" class="heading-link"><i class="fas fa-link"></i></a>View 对事件的分发流程</h3>
+      
+        <h4 id="View-dispatchTouchEvent">
+          <a href="#View-dispatchTouchEvent" class="heading-link"><i class="fas fa-link"></i></a>View.dispatchTouchEvent</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> actionMasked = event.getActionMasked();</span><br><span class="line">    <span class="keyword">if</span> (actionMasked == MotionEvent.ACTION_DOWN) &#123;</span><br><span class="line">        <span class="comment">// 在ACION_DOWN事件之前，如果存在滚动操作则停止。不存在则不进行操作</span></span><br><span class="line">        stopNestedScroll();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (onFilterTouchEventForSecurity(event)) &#123;</span><br><span class="line">        <span class="comment">// 当存在OnTouchListener，且视图状态为ENABLED时，调用onTouch方法</span></span><br><span class="line">        <span class="comment">// mOnTouchListener.onTouch优先于onTouchEvent执行</span></span><br><span class="line">        ListenerInfo li = mListenerInfo;</span><br><span class="line">        <span class="keyword">if</span> (li != <span class="keyword">null</span> &amp;&amp; li.mOnTouchListener != <span class="keyword">null</span></span><br><span class="line">                &amp;&amp; (mViewFlags &amp; ENABLED_MASK) == ENABLED</span><br><span class="line">                &amp;&amp; li.mOnTouchListener.onTouch(<span class="keyword">this</span>, event)) &#123;</span><br><span class="line">            result = <span class="keyword">true</span>; <span class="comment">// 如果已经消费事件，则返回True</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果OnTouch没有消费Touch事件则调用OnTouchEvent</span></span><br><span class="line">        <span class="keyword">if</span> (!result &amp;&amp; onTouchEvent(event)) &#123; </span><br><span class="line">            result = <span class="keyword">true</span>; <span class="comment">//如果已经消费事件，则返回True</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!result &amp;&amp; mInputEventConsistencyVerifier != <span class="keyword">null</span>) &#123;</span><br><span class="line">        mInputEventConsistencyVerifier.onUnhandledEvent(event, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 处理取消或抬起操作</span></span><br><span class="line">    <span class="keyword">if</span> (actionMasked == MotionEvent.ACTION_UP ||</span><br><span class="line">            actionMasked == MotionEvent.ACTION_CANCEL ||</span><br><span class="line">            (actionMasked == MotionEvent.ACTION_DOWN &amp;&amp; !result)) &#123;</span><br><span class="line">        stopNestedScroll();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>如果存在 OnTouchListener，且视图状态为 ENABLED 时，调用<code>onTouch</code> 方法，<code>onTouch</code> 方法会优先处理事件。</p>
+<p>如果 <code>onTouch</code> 方法返回 true，表示已经消费了事件，也就不再执行 <code>onTouchEvent</code> 。否则， <code>onTouchEvent</code> 处理事件，返回 true，消费事件，否则不处理事件。</p>
+
+        <h4 id="View-onTouchEvent">
+          <a href="#View-onTouchEvent" class="heading-link"><i class="fas fa-link"></i></a>View.onTouchEvent</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">float</span> x = event.getX();</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">float</span> y = event.getY();</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> viewFlags = mViewFlags;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当View状态为DISABLED，如果可点击或可长按，则返回True，即消费事件</span></span><br><span class="line">    <span class="keyword">if</span> ((viewFlags &amp; ENABLED_MASK) == DISABLED) &#123;</span><br><span class="line">        <span class="keyword">if</span> (event.getAction() == MotionEvent.ACTION_UP &amp;&amp; (mPrivateFlags &amp; PFLAG_PRESSED) != <span class="number">0</span>) &#123;</span><br><span class="line">            setPressed(<span class="keyword">false</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (((viewFlags &amp; CLICKABLE) == CLICKABLE ||</span><br><span class="line">                (viewFlags &amp; LONG_CLICKABLE) == LONG_CLICKABLE));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (mTouchDelegate != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (mTouchDelegate.onTouchEvent(event)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//当View状态为ENABLED，如果可点击或可长按，则返回True，即消费事件;</span></span><br><span class="line">    <span class="comment">//与前面的的结合，可得出结论:只要view是可点击或可长按，则消费该事件.</span></span><br><span class="line">    <span class="keyword">if</span> (((viewFlags &amp; CLICKABLE) == CLICKABLE ||</span><br><span class="line">            (viewFlags &amp; LONG_CLICKABLE) == LONG_CLICKABLE)) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (event.getAction()) &#123;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_UP:</span><br><span class="line">                <span class="keyword">boolean</span> prepressed = (mPrivateFlags &amp; PFLAG_PREPRESSED) != <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span> ((mPrivateFlags &amp; PFLAG_PRESSED) != <span class="number">0</span> || prepressed) &#123;</span><br><span class="line">                    <span class="keyword">boolean</span> focusTaken = <span class="keyword">false</span>;</span><br><span class="line">                    <span class="keyword">if</span> (isFocusable() &amp;&amp; isFocusableInTouchMode() &amp;&amp; !isFocused()) &#123;</span><br><span class="line">                        focusTaken = requestFocus();</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (prepressed) &#123;</span><br><span class="line">                        setPressed(<span class="keyword">true</span>, x, y);</span><br><span class="line">                   &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (!mHasPerformedLongPress) &#123;</span><br><span class="line">                        <span class="comment">//这是Tap操作，移除长按回调方法</span></span><br><span class="line">                        removeLongPressCallback();</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">if</span> (!focusTaken) &#123;</span><br><span class="line">                            <span class="keyword">if</span> (mPerformClick == <span class="keyword">null</span>) &#123;</span><br><span class="line">                                mPerformClick = <span class="keyword">new</span> PerformClick();</span><br><span class="line">                            &#125;</span><br><span class="line">                            <span class="comment">//调用View.OnClickListener</span></span><br><span class="line">                            <span class="keyword">if</span> (!post(mPerformClick)) &#123;</span><br><span class="line">                                performClick();</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (mUnsetPressedState == <span class="keyword">null</span>) &#123;</span><br><span class="line">                        mUnsetPressedState = <span class="keyword">new</span> UnsetPressedState();</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (prepressed) &#123;</span><br><span class="line">                        postDelayed(mUnsetPressedState,</span><br><span class="line">                                ViewConfiguration.getPressedStateDuration());</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!post(mUnsetPressedState)) &#123;</span><br><span class="line">                        mUnsetPressedState.run();</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    removeTapCallback();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</span><br><span class="line">                mHasPerformedLongPress = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (performButtonActionOnTouchDown(event)) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//获取是否处于可滚动的视图内</span></span><br><span class="line">                <span class="keyword">boolean</span> isInScrollingContainer = isInScrollingContainer();</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (isInScrollingContainer) &#123;</span><br><span class="line">                    mPrivateFlags |= PFLAG_PREPRESSED;</span><br><span class="line">                    <span class="keyword">if</span> (mPendingCheckForTap == <span class="keyword">null</span>) &#123;</span><br><span class="line">                        mPendingCheckForTap = <span class="keyword">new</span> CheckForTap();</span><br><span class="line">                    &#125;</span><br><span class="line">                    mPendingCheckForTap.x = event.getX();</span><br><span class="line">                    mPendingCheckForTap.y = event.getY();</span><br><span class="line">                    <span class="comment">//当处于可滚动视图内，则延迟TAP_TIMEOUT，再反馈按压状态</span></span><br><span class="line">                    <span class="comment">// 用来判断用户是否想要滚动。默认延时为100ms</span></span><br><span class="line">                    postDelayed(mPendingCheckForTap, ViewConfiguration.getTapTimeout());</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">//当不再滚动视图内，则立刻反馈按压状态</span></span><br><span class="line">                    setPressed(<span class="keyword">true</span>, x, y);</span><br><span class="line">                    checkForLongClick(<span class="number">0</span>); <span class="comment">//检测是否是长按</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_CANCEL:</span><br><span class="line">                setPressed(<span class="keyword">false</span>);</span><br><span class="line">                removeTapCallback();</span><br><span class="line">                removeLongPressCallback();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</span><br><span class="line">                drawableHotspotChanged(x, y);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (!pointInView(x, y, mTouchSlop)) &#123;</span><br><span class="line">                    removeTapCallback();</span><br><span class="line">                    <span class="keyword">if</span> ((mPrivateFlags &amp; PFLAG_PRESSED) != <span class="number">0</span>) &#123;</span><br><span class="line">                        removeLongPressCallback();</span><br><span class="line">                        setPressed(<span class="keyword">false</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>只要 view 是可点击或可长按，则消费该事件。</p>
+<p>长按事件是在 ACTION_DOWN 事件中检测，单击事件需要两个事件 ACTION_DOWN、ACTION_UP 才能触发。</p>
+<p>与 View 相关的各个方法调用顺序应该是这样的：</p>
+<p>onTouchListener &gt; onTouchEvent &gt; onLongClickListener &gt; onClickListener</p>
+
+        <h2 id="总结">
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a>总结</h2>
+      <p>结合源码和事件分发示意图，对事件分发机制总结一下：</p>
+<p>1、事件在从 Activity 的 <code>dispatchTouchEvent</code> 往下分发，如果没有 View 消费事件，事件最后会回到 Activity 的 <code>onTouchEvent</code> 方法处理。</p>
+<p>2、ViewGroup 可以对事件进行拦截，拦截后事件不再往子 View 分发，交由发生拦截操作的 ViewGroup 的 <code>onTouchEvent</code> 处理。</p>
+<p>3、子 View 可以调用 <code>requestDisallowInterceptTouchEvent</code> 方法进行设置，从而阻止父 ViewGroup 的 <code>onInterceptTouchEvent</code> 拦截事件。</p>
+<p>4、如果 View 没有消费 ACTION_DOWN 事件，则之后的 ACTION_MOVE 等事件都不会再接收。</p>
+<p>5、只要 View 是可点击或者可长按的，则消费该事件。</p>
+<p>6、如果当前正在处理的事件被上层拦截，会收到一个 ACTION_CANCEL，后续事件不会再传递过来。</p>
+
+        <h2 id="参考">
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a>参考</h2>
+      <ul>
+<li><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://gityuan.com/2015/09/19/android-touch/">Android事件分发机制</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Advance/%5B12%5DDispatch-TouchEvent-Theory.md">事件分发机制原理</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+</ul>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/10/09/Android-Reinforce/">Android 加固技术调研</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-10-09</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.1k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">5分</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h2 id="第一代加固">
+          <a href="#第一代加固" class="heading-link"><i class="fas fa-link"></i></a>第一代加固</h2>
+      <p>第一代加固原理是基于 Dex 加载器的加固技术。</p>
+
+        <h3 id="基本步骤">
+          <a href="#基本步骤" class="heading-link"><i class="fas fa-link"></i></a>基本步骤</h3>
+      <p>1、从 Apk 文件中获取原始的 dex 文件。</p>
+<p>2、对原始的 dex 文件进行加密，并将加密后的 dex 文件存放在 asset 目录。</p>
+<p>3、用脱壳 dex 文件替换原始 apk 文件的 dex 文件。脱壳  dex 文件的作用主要有两个：一是解密加密后的 dex 文件，二是动态加载解密后的 dex 文件。</p>
+<p>4、修改清单文件，将程序入口改为壳程序。</p>
+<p>5、打包签名。</p>
+
+        <h3 id="缺陷">
+          <a href="#缺陷" class="heading-link"><i class="fas fa-link"></i></a>缺陷</h3>
+      <p>依赖 Java 的动态加载机制，解密后的 dex 文件必须解压到文件系统，即使是应用的私有目录，攻击者很容易获取文件。</p>
+
+        <h2 id="第二代加固–不落地加载">
+          <a href="#第二代加固–不落地加载" class="heading-link"><i class="fas fa-link"></i></a>第二代加固–不落地加载</h2>
+      <p>相对于第一代加固，第二代加固在加载原始 dex 文件时采用的是内存加载方案。</p>
+<p>即在解密原始 dex 文件后，不需要将 dex 写入文件系统，系统直接读取 dex 字节进行加载。</p>
+<p>Android 底层支持内存加载 dex，但是 java 层未实现内存夹杂的接口，可以通过 jni 层调用底层的内存加载 dex 的函数。</p>
+<p>市面上绝大多数第三方加固厂商的加密方案都是基于第二代加固技术。</p>
+
+        <h3 id="缺陷-1">
+          <a href="#缺陷-1" class="heading-link"><i class="fas fa-link"></i></a>缺陷</h3>
+      <p>第二代加固方案能够防止第一代加固技术文件必须落地易被复制的缺陷，但是解密后的 dex 文件加载到内存后，在内存中是连续的 ，利用 gdb 等调试工具 dump 内存后可以直接找到原始 dex。</p>
+
+        <h2 id="第三代加固–指令抽离">
+          <a href="#第三代加固–指令抽离" class="heading-link"><i class="fas fa-link"></i></a>第三代加固–指令抽离</h2>
+      <p>由于第二代加固技术仅仅对文件级别进行加密，其带来的问题是内存中的 Payload 是连续的，可以被攻击者轻易获取。第三代加固技术对这部分进行了改进，将保护级别降到了函数级别。</p>
+
+        <h3 id="基本步骤-1">
+          <a href="#基本步骤-1" class="heading-link"><i class="fas fa-link"></i></a>基本步骤</h3>
+      <p>1、打包阶段将 Dex 文件中要保护的核心函数抽离出来生成另外一个文件。</p>
+<p>2、运行阶段将函数内容重新恢复到对应的函数体。恢复的时间点有如下几种方式。</p>
+<ul>
+<li>加载之后恢复函数内容到 dex 壳所在的内存区域</li>
+<li>加载之后将函数内容恢复到虚拟机内部的结构体上：虚拟机读取 dex 文件后内部对每一个函数有一个结构体，这个结构体上有一个指针指向函数内容，可以通过修改这个指针修改对应的函数内容。</li>
+<li>拦截虚拟机与查找执行代码相关的函数，返回函数内容。</li>
+</ul>
+
+        <h3 id="缺陷-2">
+          <a href="#缺陷-2" class="heading-link"><i class="fas fa-link"></i></a>缺陷</h3>
+      <p>攻击者可以通过自定义 Android 虚拟机，在解释器的代码上做记录一个函数的内容。接下来遍历所有函数，从而获取全部的函数内容。最终重组成一个完整的 dex 文件。</p>
+
+        <h2 id="第四代加固–指令转换-VMP">
+          <a href="#第四代加固–指令转换-VMP" class="heading-link"><i class="fas fa-link"></i></a>第四代加固–指令转换/VMP</h2>
+      <p>第三代加固技术是函数级别的保护，使用 Android 虚拟机内的解释器执行代码，带来可能被记录的缺陷。</p>
+<p>第四代加固技术使用自己的解释器来避免第三代的缺陷。</p>
+<p>在编译打包的时候将 dex 的核心函数抽离，抽离后，翻译成一种自己定义的指令，用自己的一种编译指令进行翻译，把这个指令变一个种，变成其他的指令，这个时候运行的时候通过自己的解释器来解释执行，是自己定义的相关指令。在内存中运行的指令，在某些保护的函数里面就一定不是谷歌的标准指令了，这点能够很有效的防止内存直接拷贝等破解方案。</p>
+
+        <h3 id="缺陷-3">
+          <a href="#缺陷-3" class="heading-link"><i class="fas fa-link"></i></a>缺陷</h3>
+      <p>其必须通过虚拟机提供的JNI接口与虚拟机进行交互，攻击者可以直接将指令转换/VMP 加固方案当作黑盒，通过自定义的 JNI 接口对象，对黑盒内部进行探测、记录和分析，进而得到完整 dex程序。</p>
+
+        <h2 id="参考">
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a>参考</h2>
+      <p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://juejin.im/entry/5a16915e51882575d144a692">APP加固技术历程及未来级别方案：虚机源码保护</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/10/06/hit-refresh/">《刷新》书摘</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-10-06</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.7k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">8分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>1、</p>
+<p>在首堂正念训练课上，热尔韦博士问我们是否愿意先尝试一次特别的个人体验，大家全都点头表示同意。然后他要求我们中一人站出来当志愿者。结果没有人站出来，一时间房间里非常安静，气氛也非常尴尬。然后，我们的首席财务官埃米·胡德站了出来，她被要求背诵字母表，而且每个字母后面都要加入一个数字，即A1B2C3……让热尔韦博士感到奇怪的是：为什么不是每个人都站出来呢？这是一个高绩效团队吗？不是刚才每个人都说要尝试一下特别的体验吗？由于没有手机也没有电脑可看，所以我们低头看自己的鞋子，或看着同事紧张地微笑。这些问题的答案着实让人难以说出口，虽然它们就在嘴边。或是出于担心：担心被嘲笑，担心失败，担心被认为不是这个屋子里最聪明的人。或是出于傲慢：我的位置太重要了，不屑于玩这种游戏。“这是多么愚蠢的问题”，我们习惯于倾听。</p>
+<p>2、</p>
+<p>我们花太多的时间在工作上，所以工作应该有更深刻的意义。如果我们能够把个人的相信的价值与公司的长处结合起来，那么我们几乎就可以攻无不克了。</p>
+<p>3、</p>
+<p>只有经历过人生起伏，才能培养起同理心；要想不受苦受难，或者少受苦受难，就必须接纳无常。</p>
+<p>4、</p>
+<p>每一个人、每一个组织乃至每一个社会，在到达某一个点时，都应点击刷新——重新注入活力、重新激发生命力、重新组织并重新思考自己存在的意义。</p>
+<p>5、</p>
+<p>人要依照自己的意愿去做事，并遵循自己的节奏。当你依照自己的意愿做事时，节奏就上来了。只要是你喜欢的事，用心去做，把它做好，而且保持正当的目标，生活就不会辜负你。</p>
+<p>6、</p>
+<p>我再一次在对的时间出现在了对的地方。</p>
+<p>7、</p>
+<p>第一个原则是不遗余力地进行竞争，在面对不确定性和威胁时要充满激情。</p>
+<p>第二个原则是要把团队放在优于个人地位和个人荣誉的位置上。</p>
+<p>第三个原则是领导力的重要性。</p>
+<p>8、</p>
+<p>领导意味着做选择，然后将团队团结在这些选择周围。</p>
+<p>9、</p>
+<p>对领导而言，通过命令达成的共识并不是真正的共识。任何机构建设都源于清晰的、既能自上而下也能自下而上推动进步的愿景与文化。</p>
+<p>10、</p>
+<p>技术无非就是那些开发它的人的共同灵魂。</p>
+<p>11、</p>
+<p>史蒂夫·乔布斯（Steve Jobs）懂得什么是公司的灵魂。他曾经说过：“人类创作最根本的灵魂就是设计，而这个灵魂最终通过产品或服务的外在连续表现出来。”我同意他的观点。只要它内心的声音、动机是设计伟大的消费产品，那么苹果就会一直忠于它的灵魂。</p>
+<p>12、</p>
+<p>我们每天都要问一问自己：今天我在哪些方面保持着固化型思维？在哪些方面保持着成长型思维？</p>
+<p>13、</p>
+<p>抗拒变革的根本原因是对未知的恐惧。</p>
+<p>14、</p>
+<p>如果高层管理者都拿不出时间来发掘员工潜力，那么大多数公司团队成员的成长路径将会是静态的。</p>
+<p>15、</p>
+<p>各公司积极推动转型，确保自身的相关性和竞争力。而我们希望微软能够成为它们的合作伙伴。在这方面，每家公司都必须优先考虑四个方面。第一，利用数据提升客户体验，密切客户沟通。第二，在新的数字工作世界中，通过支持更大规模的、更多的移动生产力和移动协作，予力赋能员工。第三，优化运营，在销售、运营和财务等方面简化业务流程，并推动自动化。第四，转型产品模式、服务模式和业务模式。</p>
+<p>16、</p>
+<p>言论自由、隐私、安全和主权是永恒的、不容置疑的价值观。</p>
+<p>17、</p>
+<p>狂热支持一种或另一种价值观很容易，但这并不代表它就是对的。</p>
+<p>18、</p>
+<p>信任就像手里握着一只小鸟。握得太紧，会伤到小鸟；握得太松，小鸟就飞走了。</p>
+<p>19、</p>
+<p>预测未来的最好方法就是创造未来。</p>
+<p>20、</p>
+<p>多么不平等，经济学家们使用了意大利经济学家科拉多·基尼（CorradoGini）的一项研究成果。他在1912年发表了一个公式，可以用于计算如今被人称作“基尼系数”的指标，用于衡量一个社会的收入分配状况与绝对平等的收入分配状况之间存在多大差距。计算方法很简单。在特定人群中，如果100%的人都能每天赚1美元，那就是绝对平等。如果100%的人年收入达到100万美元，那也是绝对平等。但如果只有1%的人赚到100万美元，而其他人赚不到钱，那就接近绝对不平等。基尼的研究提供了一种方法，让我们可以衡量一个特定社会的收入分配接近或偏离绝对平等的程度。</p>
+<p>21、</p>
+<p>特定人群的基尼系数通常表示为分数。绝对平等表示为0，绝对不平等表示为1。在现实世界中，任何一个国家或地区的基尼系数都以这两个极端值之间的分数来表达。德国等欧洲发达国家的基尼系数几十年来一直徘徊在0.3左右。而美国的基尼系数已经上升了好几年，现在与中国和墨西哥差不多，都超过了0.4。</p>
+<p>22、</p>
+<p>Σ（教育+创新）×科技使用强度=经济增长</p>
+<p>教育加创新，广泛应用于整个经济，尤其是那些具备比较优势的国家或地区，再乘以科技使用强度，久而久之，就会产生经济增长和生产力。</p>
+<p>23、</p>
+<p>“我为什么存在？”</p>
+<p>“我们的机构为什么存在？”“跨国公司在这个世界上的角色是什么？”</p>
+<p>“数字技术领导者的角色是什么，特别是在当今世界把科技作为推动增长的一个关键因素的时候？”</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/09/13/java-reflection/">Java 反射基础</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-09-13</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.2k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">8分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>最近在调研 Android 应用加固方案，涉及大量反射技术，因此趁这个机会总结下 Java 反射的一些知识。</p>
+
+        <h2 id="什么是反射？">
+          <a href="#什么是反射？" class="heading-link"><i class="fas fa-link"></i></a>什么是反射？</h2>
+      <p>反射是 Java 语言提供的一种基本功能。通过反射我们可以在运行时动态地操作类或者对象，比如获取某个对象的类定义，获取类声明的属性和方法，调用方法或者构造函数，甚至可以在运行时修改类定义。</p>
+
+        <h2 id="基本使用方法">
+          <a href="#基本使用方法" class="heading-link"><i class="fas fa-link"></i></a>基本使用方法</h2>
+      <p>反射的主要步骤包括：</p>
+<ul>
+<li>获取目标类型的 Class 对象</li>
+<li>通过 Class 对象分别获取 Constructor 类对象、Method 类对象 和 Field 类对象。</li>
+<li>通过 Constructor 、Method 和 Field 分别获取目标类的构造函数、方法和属性的具体信息，并进行后续操作。</li>
+</ul>
+
+        <h3 id="获取目标类型的-Class-对象">
+          <a href="#获取目标类型的-Class-对象" class="heading-link"><i class="fas fa-link"></i></a>获取目标类型的 Class 对象</h3>
+      <p><strong>1、Object.getClass()</strong></p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder(<span class="string">&quot;123&quot;</span>);</span><br><span class="line">Class&lt;?&gt; classType = stringBuilder.getClass();</span><br><span class="line">System.out.println(classType);   <span class="comment">// class java.lang.StringBuilder</span></span><br></pre></td></tr></table></div></figure>
+
+<p><strong>2、T.class</strong> </p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;?&gt; classType = <span class="keyword">int</span>.class;</span><br><span class="line">System.out.println(classType);   <span class="comment">// int</span></span><br></pre></td></tr></table></div></figure>
+
+<p>T 代表任意 Java 类型。</p>
+<p><strong>3、Class.forName()</strong></p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;?&gt; classType = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    classType = Class.forName(<span class="string">&quot;java.lang.Integer&quot;</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(classType);   <span class="comment">// class java.lang.Integer</span></span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="通过-Class-对象分别获取-Constructor-类对象、Method-类对象-和-Field-类对象">
+          <a href="#通过-Class-对象分别获取-Constructor-类对象、Method-类对象-和-Field-类对象" class="heading-link"><i class="fas fa-link"></i></a>通过 Class 对象分别获取 Constructor 类对象、Method 类对象 和 Field 类对象</h3>
+      <p><strong>1、获取 Constructor 类对象</strong></p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a. 获取指定的构造函数 （公共 / 继承）</span></span><br><span class="line"><span class="function">Constructor&lt;T&gt; <span class="title">getConstructor</span><span class="params">(Class&lt;?&gt;... parameterTypes)</span></span></span><br><span class="line"><span class="function"><span class="comment">// b. 获取所有的构造函数（公共 / 继承） </span></span></span><br><span class="line"><span class="function">Constructor&lt;?&gt;[] <span class="title">getConstructors</span><span class="params">()</span></span>; </span><br><span class="line"><span class="comment">// c. 获取指定的构造函数 （不包括继承）</span></span><br><span class="line"><span class="function">Constructor&lt;T&gt; <span class="title">getDeclaredConstructor</span><span class="params">(Class&lt;?&gt;... parameterTypes)</span> </span></span><br><span class="line"><span class="function"><span class="comment">// d. 获取所有的构造函数（不包括继承）</span></span></span><br><span class="line"><span class="function">Constructor&lt;?&gt;[] <span class="title">getDeclaredConstructors</span><span class="params">()</span></span>; </span><br></pre></td></tr></table></div></figure>
+
+<p><strong>2、获取 Method 类对象</strong></p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a. 获取指定的方法（公共 / 继承）</span></span><br><span class="line"><span class="function">Method <span class="title">getMethod</span><span class="params">(String name, Class&lt;?&gt;... parameterTypes)</span> ；</span></span><br><span class="line"><span class="function"><span class="comment">// b. 获取所有的方法（公共 / 继承）</span></span></span><br><span class="line"><span class="function">Method[] <span class="title">getMethods</span><span class="params">()</span> ；</span></span><br><span class="line"><span class="function"><span class="comment">// c. 获取指定的方法 （ 不包括继承）</span></span></span><br><span class="line"><span class="function">Method <span class="title">getDeclaredMethod</span><span class="params">(String name, Class&lt;?&gt;... parameterTypes)</span> ；</span></span><br><span class="line"><span class="function"><span class="comment">// d. 获取所有的方法（ 不包括继承）</span></span></span><br><span class="line"><span class="function">Method[] <span class="title">getDeclaredMethods</span><span class="params">()</span> ；</span></span><br></pre></td></tr></table></div></figure>
+
+<p><strong>3、获取 Field 类对象</strong></p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a. 获取指定的属性（公共 / 继承）</span></span><br><span class="line"><span class="function">Field <span class="title">getField</span><span class="params">(String name)</span> </span>;</span><br><span class="line"><span class="comment">// b. 获取所有的属性（公共 / 继承）</span></span><br><span class="line">Field[] getFields() ;</span><br><span class="line"><span class="comment">// c. 获取指定的所有属性 （不包括继承）</span></span><br><span class="line"><span class="function">Field <span class="title">getDeclaredField</span><span class="params">(String name)</span> ；</span></span><br><span class="line"><span class="function"><span class="comment">// d. 获取所有的所有属性 （不包括继承）</span></span></span><br><span class="line"><span class="function">Field[] <span class="title">getDeclaredFields</span><span class="params">()</span> ；</span></span><br></pre></td></tr></table></div></figure>
+
+<p>以上方法中，不带 “Declared” 的方法返回某个类的公共方法或属性，继承的方法或属性；带 “Declared” 的方法返回公共、保护、默认（包）访问和私有方法或属性，但不包括继承的方法或属性。</p>
+
+        <h3 id="通过-Constructor-、Method-和-Field-分别获取目标类的构造函数、方法和属性的具体信息，并进行后续操作">
+          <a href="#通过-Constructor-、Method-和-Field-分别获取目标类的构造函数、方法和属性的具体信息，并进行后续操作" class="heading-link"><i class="fas fa-link"></i></a>通过 Constructor 、Method 和 Field 分别获取目标类的构造函数、方法和属性的具体信息，并进行后续操作</h3>
+      <p><strong>1、利用反射调用类的构造函数</strong></p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取 ConstructorClass 类的 Class 对象</span></span><br><span class="line">Class clazz = ConstructorClass.class;</span><br><span class="line">Object obj1 = clazz.getConstructor().newInstance(); <span class="comment">// 输出：无参数构造函数</span></span><br><span class="line">Object obj2 = clazz.getConstructor(String.class).newInstance(&quot;wuzy&quot;); // 输出：有参数构造函数</span><br><span class="line"></span><br><span class="line"><span class="comment">// 目标类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConstructorClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ConstructorClass</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;无参数构造函数&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ConstructorClass</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;有参数构造函数&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+<p>newInstance() 调用默认构造函数，若目标类无构造函数，则抛出异常 NoSuchMethodException。</p>
+<p><strong>2、利用反射调用类对象的方法</strong></p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1、获取 MethodClass 类的 Class 对象</span></span><br><span class="line">Class&lt;?&gt; clazz = MethodClass.class;</span><br><span class="line"><span class="comment">// 2、通过 Class 创建 MethodClass 对象</span></span><br><span class="line">Object object = clazz.newInstance();</span><br><span class="line"><span class="comment">// 3、通过 Class 对象获取 add 方法</span></span><br><span class="line">Method method = clazz.getMethod(<span class="string">&quot;add&quot;</span>, <span class="keyword">int</span>.class, <span class="keyword">int</span>.class);</span><br><span class="line"><span class="comment">// 4、通过 Method 调用 add 方法</span></span><br><span class="line">Object result = method.invoke(object,<span class="number">1</span>,<span class="number">4</span>);</span><br><span class="line">System.out.println(result);   <span class="comment">// 输出 5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 目标类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MethodClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MethodClass</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p><strong>3、利用反射获取类的属性</strong></p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = FieldClass.class;</span><br><span class="line">Object object = clazz.newInstance();</span><br><span class="line">Field field = clazz.getDeclaredField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">field.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">field.set(object, <span class="string">&quot;wuzy&quot;</span>);</span><br><span class="line">System.out.println(field.get(object));   <span class="comment">// 输出： wuzy</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 目标类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FieldClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FieldClass</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>其中， setAccessible 用于屏蔽 Java 语言的访问检查，设为 true 可以访问类的私有属性、方法。</p>
+
+        <h2 id="反射的使用场景">
+          <a href="#反射的使用场景" class="heading-link"><i class="fas fa-link"></i></a>反射的使用场景</h2>
+      <p>1、工厂模式：Factory 类中用反射的话，添加了一个新的类之后，就不需要再修改工厂类 Factory 了</p>
+<p>2、数据库 JDBC 中通过 Class.forName(Driver) 来获得数据库连接驱动</p>
+<p>3、访问一些不能访问的变量或属性：破解别人代码。</p>
+<p>4、实现动态代理。</p>
+<p>以上就是反射的基本知识点，需要注意的是由于反射会额外消耗一定的系统资源，因此如果不需要动态地创建一个对象，那么就不需要用反射。通过反射实现动态代理和工厂模式会在后续文章中专门撰写。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/09/09/String-StringBuffer-StringBuilder/">String、StringBuilder 和 StringBuffer</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-09-09</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">764</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">5分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>在之前的文章 <a href="http://wuzhangyang.com/2018/09/01/why-string-is-immutable/">Java 中 String 类为什么要设计成不可变的？</a> 中对 String 的特性已经作了总结。这篇文章主要介绍另外两个常用的类 StringBuilder 和 StringBuffer 的特性。</p>
+<p>我们知道 String 是不可变的 (Immutable)，字符串的操作会产生新对象，消耗内存。为此，JDK 提供了 StringBuffer 和 StringBuilder 两个类。</p>
+<p>StringBuffer 和 StringBuilder 都实现了 AbstractStringBuilder 抽象类，拥有几乎一致对外提供的接口；它们底层在内存中的存储方式与 String 相同， 都是以一个有序的字符序列进行存储，不同点在于 StringBuffer 和 StringBuilder 对象的值是可以改变的，并且值改变以后，对象的引用不会发生改变。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">StringBuffer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(<span class="number">16</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">StringBuilder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(<span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>两者对象在构造时初始字符串长度为16，当超过默认大小后，会创建一个更大的数组，并将原先的数组内容复制过来，再丢弃旧的数组，比较消耗内存。因此，对于较大对象的扩容会涉及大量的内存复制操作，如果能够预先估计指定大小，可以提升性能。</p>
+<p><strong>两者之间的不同点在于： StringBuffer 是线程安全的，StringBuilder 是线程不安全的 。</strong>其中，StringBuffer 的线程安全是通过在 <strong>synchronize</strong> 关键字实现，为此，StringBuffer 的性能远低于 StringBuilder。</p>
+<p>在无线程安全问题的情况下，字符串拼接操作有以下两种写法，到底哪一种写法更合理呢？</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> StringBuilder strBuilder = <span class="keyword">new</span> StringBuilder().append(<span class="string">&quot;aa&quot;</span>)</span><br><span class="line">                .append(<span class="string">&quot;bb&quot;</span>).append(<span class="string">&quot;cc&quot;</span>).append(<span class="string">&quot;dd&quot;</span>);</span><br><span class="line"></span><br><span class="line">String myStr = <span class="string">&quot;aa&quot;</span> + <span class="string">&quot;bb&quot;</span> + <span class="string">&quot;cc&quot;</span> + <span class="string">&quot;dd&quot;</span>;</span><br></pre></td></tr></table></div></figure>
+
+<p>做个实验，对以下代码进行反编译。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        String myStr = <span class="string">&quot;aa&quot;</span> + <span class="string">&quot;bb&quot;</span> + <span class="string">&quot;cc&quot;</span> + <span class="string">&quot;dd&quot;</span>;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;myStr:&quot;</span> + myStr);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>使用 JDK 8 先编译再反编译：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">javac Main.java</span><br><span class="line">javap -v Main.class</span><br></pre></td></tr></table></div></figure>
+
+<p>输出片段为：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">0: ldc           #2         // String aabbccdd</span><br><span class="line"><span class="number">2</span>: astore_1</span><br><span class="line">3: getstatic     #3         // Field java/lang/System.out:Ljava/io/PrintStream;</span><br><span class="line">6: new           #4         // class java/lang/StringBuilder</span><br><span class="line"><span class="number">9</span>: dup</span><br><span class="line">10: invokespecial #5        // Method java/lang/StringBuilder.&quot;&lt;init&gt;&quot;:()V</span><br><span class="line">13: ldc           #6        // String myStr:</span><br><span class="line">15: invokevirtual #7        // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;</span><br><span class="line"><span class="number">18</span>: aload_1</span><br><span class="line">19: invokevirtual #7        // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;</span><br><span class="line">22: invokevirtual #8        // Method java/lang/StringBuilder.toString:()Ljava/lang/String;</span><br><span class="line">25: invokevirtual #9        // Method java/io/PrintStream.println:(Ljava/lang/String;)V</span><br><span class="line"><span class="number">28</span>: <span class="keyword">return</span></span><br></pre></td></tr></table></div></figure>
+
+<p>可以看出来，字符串拼接操作会自动被 javac 转化为 StringBuilder 操作，这是 Java 内部作出的优化。所以在普通清况下，不用过分纠结字符串拼接一定要使用 StringBuilder 实现，毕竟其写法可读性差，需要敲更多代码。</p>
+<p>最后简单总结下各自的<strong>应用场景</strong>：</p>
+<p>1、在字符串内容不经常发生变化的业务场景优先使用 String 类。</p>
+<p>2、在频繁进行字符串的操作，并且需要考虑线程安全的情况下，建议使用 StringBuffer。</p>
+<p>3、在频繁进行字符串的操作，无需考虑线程安全的情况下，建议使用 StringBuilder。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/09/01/why-string-is-immutable/">Java 中 String 类为什么要设计成不可变的？</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-09-01</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">867</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">5分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>String 是 Java 中不可变的类，所以一旦被实例化就无法修改。不可变类的实例一旦创建，其成员变量的值就不能被修改。本文总结下 String 类设计成不可变的原因及好处，以及 String 类是如何设计成不可变的。</p>
+
+        <h2 id="String-类设计成不可变的原因及好处？">
+          <a href="#String-类设计成不可变的原因及好处？" class="heading-link"><i class="fas fa-link"></i></a>String 类设计成不可变的原因及好处？</h2>
+      <p>其实好处就是原因，String 设计成不可变，主要是从性能和安全两方面考虑。</p>
+
+        <h4 id="1、常量池的需要">
+          <a href="#1、常量池的需要" class="heading-link"><i class="fas fa-link"></i></a>1、常量池的需要</h4>
+      <p>这个方面很好理解，Java 中的字符串常量池的存在就是为了性能优化。</p>
+<p>字符串常量池（String pool）是 Java 堆内存中一个特殊的存储区域，当创建一个 String 对象时，假如此字符串已经存在于常量池中，则不会创建新的对象，而是直接引用已经存在的对象。这样做能够减少 JVM 的内存开销，提高效率。</p>
+<p>比如引用 s1和 s2 都是指向常量池的同一个对象 “abc”，如果 String 是可变类，引用 s1 对 String 对象的修改，会直接导致引用 s2 获取错误的值。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String s1 = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line">String s2 = <span class="string">&quot;abc&quot;</span>;</span><br></pre></td></tr></table></div></figure>
+
+<p><img src="/2018/09/01/why-string-is-immutable/string.png" alt="string"></p>
+<p>所以，如果字符串是可变的，那么常量池就没有存在的意义了。</p>
+
+        <h4 id="2、hashcode-缓存的需要">
+          <a href="#2、hashcode-缓存的需要" class="heading-link"><i class="fas fa-link"></i></a>2、hashcode 缓存的需要</h4>
+      <p>因为字符串不可变，所以在它创建的时候 hashcode 就被缓存了，不需要重新计算。这就使得字符串很适合作为 HashMap 中的 key，效率大大提高。</p>
+
+        <h4 id="3、多线程安全">
+          <a href="#3、多线程安全" class="heading-link"><i class="fas fa-link"></i></a>3、多线程安全</h4>
+      <p>多线程中，可变对象的值很可能被其他线程改变，造成不可预期的结果。而不可变的 String 可以自由在多个线程之间共享，不需要同步处理。</p>
+
+        <h2 id="String-类是如何实现不可变的？">
+          <a href="#String-类是如何实现不可变的？" class="heading-link"><i class="fas fa-link"></i></a>String 类是如何实现不可变的？</h2>
+      
+        <h4 id="1、私有成员变量">
+          <a href="#1、私有成员变量" class="heading-link"><i class="fas fa-link"></i></a>1、私有成员变量</h4>
+      <p>String 的内部很简单，有两个私有成员变量</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** The value is used for character storage. */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span> value[];</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Cache the hash code for the string */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> hash; <span class="comment">// Default to 0</span></span><br></pre></td></tr></table></div></figure>
+
+<p>而并没有对外提供可以修改这两个属性的方法。</p>
+
+        <h4 id="2、Public-的方法都是复制一份数据">
+          <a href="#2、Public-的方法都是复制一份数据" class="heading-link"><i class="fas fa-link"></i></a>2、Public 的方法都是复制一份数据</h4>
+      <p>String 有很多 public 方法，每个方法都将创建新的 String 对象，比如 substring 方法：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">substring</span><span class="params">(<span class="keyword">int</span> beginIndex)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (beginIndex &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(beginIndex);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> subLen = value.length - beginIndex;</span><br><span class="line">    <span class="keyword">if</span> (subLen &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(subLen);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (beginIndex == <span class="number">0</span>) ? <span class="keyword">this</span> : <span class="keyword">new</span> String(value, beginIndex, subLen);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="3、String-是-final-的">
+          <a href="#3、String-是-final-的" class="heading-link"><i class="fas fa-link"></i></a>3、String 是 final 的</h4>
+      <p>String 被 final 修饰，因此我们不可以继承 String，因此就不能通过继承来重写一些方法。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span></span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>, <span class="title">Comparable</span>&lt;<span class="title">String</span>&gt;, <span class="title">CharSequence</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="4、构造函数深拷贝">
+          <a href="#4、构造函数深拷贝" class="heading-link"><i class="fas fa-link"></i></a>4、构造函数深拷贝</h4>
+      <p>当传入可变数组 value[] 时，进行 copy 而不是直接将 value[] 复制给内部变量。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">(<span class="keyword">char</span> value[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.value = Arrays.copyOf(value, value.length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>从 String 类的设计方式，我们可以总结出实现不可变类的方法：</p>
+<ul>
+<li>将 class 自身声明为 final，这样别人就不能通过扩展来绕过限制了。</li>
+<li>将所有成员变量定义为 private 和 final，并且不要实现 setter 方法。</li>
+<li>通过构造对象时，成员变量使用深拷贝来初始化，而不是直接赋值，这是一种防御措施，因为你无法确定输入对象不被其他人修改。</li>
+<li>如果确实需要 getter 方法，或者其他可能返回内部状态的方法，使用 copy-on-write 原则，创建私有的 copy。</li>
+</ul>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/6/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/8/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">万物之中，希望至美</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/zywudev/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/zywu-43/" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="https://weixin.sogou.com/weixin?query=%E8%B4%BE%E5%B0%8F%E6%98%86/" target="_blank" rel="noopener" data-popover="微信" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-weixin"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">100</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">14</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">40</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>贾小昆</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.1.1</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.1.1</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__info">访问人数</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__info">浏览总量</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
     }
-  </script>
+  });
+}
 
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
 
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-  </main>
-
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
-
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
-    </div>
-    
-  <div class="statistics">
-    
-    
-
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
-
-
-    
-
-    
-  </div>
-</footer>
-
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "万物之中 希望至美&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
+      initSearch();
     });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
     });
-  </script>
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
 
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</body>
-</html>
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="/js/utils.js?v=2.1.1"></script><script src="/js/stun-boot.js?v=2.1.1"></script><script src="/js/scroll.js?v=2.1.1"></script><script src="/js/header.js?v=2.1.1"></script><script src="/js/sidebar.js?v=2.1.1"></script><script type="application/json" src="/search.xml"></script></body></html>

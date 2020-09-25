@@ -1,260 +1,108 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.1.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.1.1" type="image/png" sizes="32x32"><meta name="description" content="第一篇博客，记录一下博客搭建过程。                     安装 node.js       node.js                     安装 Git       Git                     安装 Hexo       在文件夹中建立名为 hexo 的文件夹，右键打开 Git Bush，使用 npm 安装 Hexo。 1npm install hex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GitHub Pages + Hexo 搭建博客">
+<meta property="og:url" content="http://wuzhangyang.com/2017/03/04/GitHub-Pages-Hexo-build-blog/index.html">
+<meta property="og:site_name" content="贾小昆">
+<meta property="og:description" content="第一篇博客，记录一下博客搭建过程。                     安装 node.js       node.js                     安装 Git       Git                     安装 Hexo       在文件夹中建立名为 hexo 的文件夹，右键打开 Git Bush，使用 npm 安装 Hexo。 1npm install hex">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://wuzhangyang.com/2017/03/04/GitHub-Pages-Hexo-build-blog/hexo-init-page.png">
+<meta property="og:image" content="http://wuzhangyang.com/2017/03/04/GitHub-Pages-Hexo-build-blog/google-sitemap.png">
+<meta property="article:published_time" content="2017-03-04T09:53:39.000Z">
+<meta property="article:modified_time" content="2020-09-04T05:58:03.212Z">
+<meta property="article:author" content="贾小昆">
+<meta property="article:tag" content="Blog">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="GitHub Pages">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://wuzhangyang.com/2017/03/04/GitHub-Pages-Hexo-build-blog/hexo-init-page.png"><title>GitHub Pages + Hexo 搭建博客 | 贾小昆</title><link ref="canonical" href="http://wuzhangyang.com/2017/03/04/GitHub-Pages-Hexo-build-blog/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.1.1"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><script src="https://www.googletagmanager.com/gtag/js?id=UA-127464210-1" async=""></script><script>if (window.location.hostname !== 'localhost') {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'UA-127464210-1');
+}</script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: undefined,
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
 
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.1.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">GitHub Pages + Hexo 搭建博客</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-03-04</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.3k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">9分</span></span><span class="post-meta-item post-meta-item--visitors"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value" id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><p>第一篇博客，记录一下博客搭建过程。</p>
 
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+        <h2 id="安装-node-js">
+          <a href="#安装-node-js" class="heading-link"><i class="fas fa-link"></i></a>安装 node.js</h2>
+      <p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://nodejs.org/en/">node.js</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 
+        <h2 id="安装-Git">
+          <a href="#安装-Git" class="heading-link"><i class="fas fa-link"></i></a>安装 Git</h2>
+      <p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://git-scm.com/downloads">Git</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.ico">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="贾小昆">
-  <meta name="keywords" content="">
-  <title>GitHub Pages + Hexo 搭建博客 - 贾小昆</title>
-
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
-  
-
-  
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container page-header text-center fade-in-up">
-            <span class="h2" id="subtitle">
-              
-            </span>
-
-            
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2017-03-04 17:53" pubdate>
-      2017年3月4日 下午
-    </time>
-  </div>
-
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      1.3k 字
-    </span>
-  
-
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      17
-       分钟
-    </span>
-  
-
-  
-  
-</div>
-
-            
-          </div>
-
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto" id="post">
-            <!-- SEO header -->
-            <h1 style="display: none">GitHub Pages + Hexo 搭建博客</h1>
-            
-            <div class="markdown-body" id="post-body">
-              <p>第一篇博客，记录一下博客搭建过程。</p>
-<h2 id="安装-node-js"><a href="#安装-node-js" class="headerlink" title="安装 node.js"></a>安装 node.js</h2><p><a target="_blank" rel="noopener" href="https://nodejs.org/en/">node.js</a></p>
-<h2 id="安装-Git"><a href="#安装-Git" class="headerlink" title="安装 Git"></a>安装 Git</h2><p><a target="_blank" rel="noopener" href="https://git-scm.com/downloads">Git</a></p>
-<h2 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h2><p>在文件夹中建立名为 <code>hexo</code> 的文件夹，右键打开 Git Bush，使用 npm 安装 Hexo。</p>
-<pre><code class="hljs java">npm install hexo-cli -g</code></pre>
+        <h2 id="安装-Hexo">
+          <a href="#安装-Hexo" class="heading-link"><i class="fas fa-link"></i></a>安装 Hexo</h2>
+      <p>在文件夹中建立名为 <code>hexo</code> 的文件夹，右键打开 Git Bush，使用 npm 安装 Hexo。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></div></figure>
 
 <p>初始化 blog， Hexo 自动在 blog 文件夹下创建网站所需文件。</p>
-<pre><code class="hljs java">hexo init blog</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init blog</span><br></pre></td></tr></table></div></figure>
 
 <p>进入 blog 文件夹，安装依赖包。</p>
-<pre><code class="hljs java">cd blog
-npm install</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd blog</span><br><span class="line">npm install</span><br></pre></td></tr></table></div></figure>
 
 <p>生成静态页面</p>
-<pre><code class="hljs java">hexo g # 或 hexo generate</code></pre>
+<figure class="highlight"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g # 或 hexo generate </span><br></pre></td></tr></table></div></figure>
 
 <p>启动本地 web 服务</p>
-<pre><code class="hljs java">hexo s # 或 hexo server</code></pre>
+<figure class="highlight"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s # 或 hexo server</span><br></pre></td></tr></table></div></figure>
 
-<p>此时在浏览器地址栏中键入 <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a> ， 可以看到内置的页面。</p>
-<p><img src="/2017/03/04/GitHub-Pages-Hexo-build-blog/hexo-init-page.png" srcset="/img/loading.gif" alt="hexo-init-page"></p>
-<h2 id="GitHub-Pages-设置"><a href="#GitHub-Pages-设置" class="headerlink" title="GitHub Pages 设置"></a>GitHub Pages 设置</h2><p>注册 GitHub 及其使用可以参考 <a target="_blank" rel="noopener" href="http://stormzhang.com/github/2016/06/19/learn-github-from-zero-summary/">从 0 开始学习 GITHUB 系列汇总</a>。</p>
-<p>在 GitHub 上创建仓库，而且仓库的名字格式为： <code>username.github.io</code>，username 与 GitHub 账号名对应，每个帐号只能有一个仓库来存放个人主页。可以通过 <a target="_blank" rel="noopener" href="http://username.github.io/">http://username.github.io</a> 来访问个人主页。</p>
-<h2 id="部署-Hexo-到-GitHub-Pages"><a href="#部署-Hexo-到-GitHub-Pages" class="headerlink" title="部署 Hexo 到 GitHub Pages"></a>部署 Hexo 到 GitHub Pages</h2><p>其实就是将 Hexo 生成的静态页面提交 (git commit) 到 GitHub 上。</p>
+<p>此时在浏览器地址栏中键入 <span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> ， 可以看到内置的页面。</p>
+<p><img src="/2017/03/04/GitHub-Pages-Hexo-build-blog/hexo-init-page.png" alt="hexo-init-page"></p>
+
+        <h2 id="GitHub-Pages-设置">
+          <a href="#GitHub-Pages-设置" class="heading-link"><i class="fas fa-link"></i></a>GitHub Pages 设置</h2>
+      <p>注册 GitHub 及其使用可以参考 <span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://stormzhang.com/github/2016/06/19/learn-github-from-zero-summary/">从 0 开始学习 GITHUB 系列汇总</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
+<p>在 GitHub 上创建仓库，而且仓库的名字格式为： <code>username.github.io</code>，username 与 GitHub 账号名对应，每个帐号只能有一个仓库来存放个人主页。可以通过 <span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://username.github.io/">http://username.github.io</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 来访问个人主页。</p>
+
+        <h2 id="部署-Hexo-到-GitHub-Pages">
+          <a href="#部署-Hexo-到-GitHub-Pages" class="heading-link"><i class="fas fa-link"></i></a>部署 Hexo 到 GitHub Pages</h2>
+      <p>其实就是将 Hexo 生成的静态页面提交 (git commit) 到 GitHub 上。</p>
 <p>在 Hexo 根目录下的配置文件 <code>_config.yml</code> 中进行修改:</p>
-<pre><code class="hljs java">deploy:
-  type: git
-  repo: git<span class="hljs-meta">@github</span>.com:zywudev/zywudev.github.io.git
-  branch: master</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git<span class="meta">@github</span>.com:zywudev/zywudev.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></div></figure>
 
 <p>还得安装一个扩展</p>
-<pre><code class="hljs java">npm install hexo-deployer-git --save</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></div></figure>
 
 <p>然后在命令行部署</p>
-<pre><code class="hljs java">hexo d</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></div></figure>
 
-<h2 id="Hexo-主题基本配置"><a href="#Hexo-主题基本配置" class="headerlink" title="Hexo 主题基本配置"></a>Hexo 主题基本配置</h2><p>选择喜欢的主题。Hexo 官网<a target="_blank" rel="noopener" href="https://hexo.io/themes/">主题</a>。我的博客选用的是 NexT 主题，官方提供了详细的<a target="_blank" rel="noopener" href="http://theme-next.iissnan.com/">使用文档</a>。</p>
-<h3 id="下载-NexT-主题"><a href="#下载-NexT-主题" class="headerlink" title="下载 NexT 主题"></a>下载 NexT 主题</h3><pre><code class="hljs java">git clone https:<span class="hljs-comment">//github.com/iissnan/hexo-theme-next themes/next</span></code></pre>
 
-<h3 id="启用-NexT-主题"><a href="#启用-NexT-主题" class="headerlink" title="启用 NexT 主题"></a>启用 NexT 主题</h3><p>克隆完成后，打开站点配置文件 <code>__config.yml</code>，找到 <code>theme</code> 字段，修改为：</p>
-<pre><code class="hljs java">theme: next</code></pre>
+        <h2 id="Hexo-主题基本配置">
+          <a href="#Hexo-主题基本配置" class="heading-link"><i class="fas fa-link"></i></a>Hexo 主题基本配置</h2>
+      <p>选择喜欢的主题。Hexo 官网<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://hexo.io/themes/">主题</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。我的博客选用的是 NexT 主题，官方提供了详细的<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://theme-next.iissnan.com/">使用文档</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
+
+        <h3 id="下载-NexT-主题">
+          <a href="#下载-NexT-主题" class="heading-link"><i class="fas fa-link"></i></a>下载 NexT 主题</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:<span class="comment">//github.com/iissnan/hexo-theme-next themes/next</span></span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="启用-NexT-主题">
+          <a href="#启用-NexT-主题" class="heading-link"><i class="fas fa-link"></i></a>启用 NexT 主题</h3>
+      <p>克隆完成后，打开站点配置文件 <code>__config.yml</code>，找到 <code>theme</code> 字段，修改为：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: next</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>站点配置文件：博客目录下的 <code>__config.yml</code> 文件。</p>
@@ -262,368 +110,349 @@ npm install</code></pre>
 <blockquote>
 <p>主题配置文件： <code>themes/next</code> 目录下的 <code>__config.yml</code> 文件。</p>
 </blockquote>
-<h3 id="启动本地-web-服务验证"><a href="#启动本地-web-服务验证" class="headerlink" title="启动本地 web 服务验证"></a>启动本地 web 服务验证</h3><pre><code class="hljs java">hexo s --debug</code></pre>
+
+        <h3 id="启动本地-web-服务验证">
+          <a href="#启动本地-web-服务验证" class="heading-link"><i class="fas fa-link"></i></a>启动本地 web 服务验证</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s --debug</span><br></pre></td></tr></table></div></figure>
 
 <p>至此，即完成了基于 GitHub Pages + Hexo 的个人博客框架搭建。</p>
-<h2 id="博客推广"><a href="#博客推广" class="headerlink" title="博客推广"></a>博客推广</h2><p>将个人博客推广到 Google 搜索引擎上。</p>
-<h3 id="验证网站"><a href="#验证网站" class="headerlink" title="验证网站"></a>验证网站</h3><p>推荐文件验证。</p>
+
+        <h2 id="博客推广">
+          <a href="#博客推广" class="heading-link"><i class="fas fa-link"></i></a>博客推广</h2>
+      <p>将个人博客推广到 Google 搜索引擎上。</p>
+
+        <h3 id="验证网站">
+          <a href="#验证网站" class="heading-link"><i class="fas fa-link"></i></a>验证网站</h3>
+      <p>推荐文件验证。</p>
 <p>下载 HTML 验证文件，将该文件放到博客 source 目录下。</p>
 <p>hexo 编译文件时，会给下载的 HTML 文件中添加其他的内容，导致验证失败，所以需要在文件开头添加 layout: false 来取消 hexo 对其进行的转换。</p>
-<pre><code class="hljs java">layout: <span class="hljs-keyword">false</span>   ---
-google-site-verification: googleb6fc53a32f5418d9.html</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">layout: <span class="keyword">false</span>   ---</span><br><span class="line">google-site-verification: googleb6fc53a32f5418d9.html</span><br></pre></td></tr></table></div></figure>
 
-<p>部署到 GitHub，输入<a target="_blank" rel="noopener" href="https://zywudev.github.io/googleb6fc53a32f5418d9.html">https://zywudev.github.io/googleb6fc53a32f5418d9.html</a> ， 能访问即可点击验证按钮进行验证。</p>
-<h3 id="站点地图"><a href="#站点地图" class="headerlink" title="站点地图"></a>站点地图</h3><blockquote>
+<p>部署到 GitHub，输入<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://zywudev.github.io/googleb6fc53a32f5418d9.html">https://zywudev.github.io/googleb6fc53a32f5418d9.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> ， 能访问即可点击验证按钮进行验证。</p>
+
+        <h3 id="站点地图">
+          <a href="#站点地图" class="heading-link"><i class="fas fa-link"></i></a>站点地图</h3>
+      <blockquote>
 <p>站点地图是一种文件，您可以通过该文件列出您网站上的网页，从而将您网站内容的组织架构告知 Google 和其他搜索引擎。Google 等搜索引擎网页抓取工具会读取此文件，以便更加智能地抓取您的网站。</p>
 </blockquote>
 <p>使用 hexo-generator-sitemap 插件来生成 Sitemap，执行</p>
-<pre><code class="hljs java">npm install hexo-generator-sitemap --save</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-sitemap --save</span><br></pre></td></tr></table></div></figure>
 
 <p>执行</p>
-<pre><code class="hljs java">hexo g</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></div></figure>
 
 <p>博客根目录的public下面生成了 <code>sitemap.xml</code> 。如果没有，在博客目录的 <code>_config.yml</code> 中添加如下代码重新编译</p>
-<pre><code class="hljs java">sitemap:
-path: sitemap.xml</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sitemap:</span><br><span class="line">path: sitemap.xml</span><br></pre></td></tr></table></div></figure>
 
 <p>要将博客目录 <code>__config.yml</code> 中的 url 字段设置为自己的域名</p>
-<pre><code class="hljs java">url: http:<span class="hljs-comment">//zywudev.github.io</span></code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url: http:<span class="comment">//zywudev.github.io</span></span><br></pre></td></tr></table></div></figure>
 
-<p>部署到 Github，访问 <a target="_blank" rel="noopener" href="https://zywudev.github.io/sitemap.xml">https://zywudev.github.io/sitemap.xml</a>。</p>
-<p>提交 sitemap 到 <a target="_blank" rel="noopener" href="https://www.google.com/webmasters/tools/home?hl=zh-CN">Google站长工具</a>，找到添加站点地图按钮，添加 <code>sitemap.xml</code> 即可，如下图。</p>
-<p><img src="/2017/03/04/GitHub-Pages-Hexo-build-blog/google-sitemap.png" srcset="/img/loading.gif" alt="google-sitemap"></p>
-<h2 id="博客优化"><a href="#博客优化" class="headerlink" title="博客优化"></a>博客优化</h2><h3 id="添加-about-页面"><a href="#添加-about-页面" class="headerlink" title="添加 about 页面"></a>添加 about 页面</h3><pre><code class="hljs java">hexo <span class="hljs-keyword">new</span> page <span class="hljs-string">&quot;about&quot;</span></code></pre>
+<p>部署到 Github，访问 <span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://zywudev.github.io/sitemap.xml">https://zywudev.github.io/sitemap.xml</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
+<p>提交 sitemap 到 <span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.google.com/webmasters/tools/home?hl=zh-CN">Google站长工具</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，找到添加站点地图按钮，添加 <code>sitemap.xml</code> 即可，如下图。</p>
+<p><img src="/2017/03/04/GitHub-Pages-Hexo-build-blog/google-sitemap.png" alt="google-sitemap"></p>
+
+        <h2 id="博客优化">
+          <a href="#博客优化" class="heading-link"><i class="fas fa-link"></i></a>博客优化</h2>
+      
+        <h3 id="添加-about-页面">
+          <a href="#添加-about-页面" class="heading-link"><i class="fas fa-link"></i></a>添加 about 页面</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> page <span class="string">&quot;about&quot;</span> </span><br></pre></td></tr></table></div></figure>
 
 <p>在 <code>\source\about\</code> 目录下会生成一个 <code>index.md</code> 文件,添加个人信息即可。</p>
-<h3 id="添加分类、标签页面"><a href="#添加分类、标签页面" class="headerlink" title="添加分类、标签页面"></a>添加分类、标签页面</h3><pre><code class="hljs java">hexo <span class="hljs-keyword">new</span> page <span class="hljs-string">&quot;categories&quot;</span>
-hexo <span class="hljs-keyword">new</span> page <span class="hljs-string">&quot;tags&quot;</span></code></pre>
 
-<h3 id="博客标题、作者等"><a href="#博客标题、作者等" class="headerlink" title="博客标题、作者等"></a>博客标题、作者等</h3><p>打开站点配置文件</p>
-<pre><code class="hljs java">title: Wu<span class="hljs-string">&#x27;s blog </span>
-<span class="hljs-string">subtitle:</span>
-<span class="hljs-string">description: O ever youthful,O ever weeping</span>
-<span class="hljs-string">author: Wu </span>
-<span class="hljs-string">language: zh-Hans</span>
-<span class="hljs-string">timezone:</span></code></pre>
-<h3 id="修改文章内文本链接样式"><a href="#修改文章内文本链接样式" class="headerlink" title="修改文章内文本链接样式"></a>修改文章内文本链接样式</h3><p>将文本链接设置为蓝色，修改<br><code>themes\next\source\css\_common\components\post\post.styl</code>,<br>添加</p>
-<pre><code class="hljs java">.post-body p a&#123;
-  color: #0593d3;
-  border-bottom: none;
+        <h3 id="添加分类、标签页面">
+          <a href="#添加分类、标签页面" class="heading-link"><i class="fas fa-link"></i></a>添加分类、标签页面</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> page <span class="string">&quot;categories&quot;</span></span><br><span class="line">hexo <span class="keyword">new</span> page <span class="string">&quot;tags&quot;</span> </span><br></pre></td></tr></table></div></figure>
 
-  &amp;:hover &#123;
-    color: #0477ab;
-    text-decoration: underline;
-  &#125;
-&#125;</code></pre>
 
-<h3 id="修改博客-logo"><a href="#修改博客-logo" class="headerlink" title="修改博客 logo"></a>修改博客 logo</h3><p>通过网站 <a target="_blank" rel="noopener" href="http://tool.lu/favicon/">favicon在线制作</a> 网站制作 favicon 图片。</p>
+        <h3 id="博客标题、作者等">
+          <a href="#博客标题、作者等" class="heading-link"><i class="fas fa-link"></i></a>博客标题、作者等</h3>
+      <p>打开站点配置文件</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">title: Wu<span class="string">&#x27;s blog </span></span><br><span class="line"><span class="string">subtitle:</span></span><br><span class="line"><span class="string">description: O ever youthful,O ever weeping</span></span><br><span class="line"><span class="string">author: Wu </span></span><br><span class="line"><span class="string">language: zh-Hans</span></span><br><span class="line"><span class="string">timezone:</span></span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="修改文章内文本链接样式">
+          <a href="#修改文章内文本链接样式" class="heading-link"><i class="fas fa-link"></i></a>修改文章内文本链接样式</h3>
+      <p>将文本链接设置为蓝色，修改<br><code>themes\next\source\css\_common\components\post\post.styl</code>,<br>添加</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.post-body p a&#123;</span><br><span class="line">  color: #0593d3;</span><br><span class="line">  border-bottom: none;</span><br><span class="line"></span><br><span class="line">  &amp;:hover &#123;</span><br><span class="line">    color: #0477ab;</span><br><span class="line">    text-decoration: underline;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="修改博客-logo">
+          <a href="#修改博客-logo" class="heading-link"><i class="fas fa-link"></i></a>修改博客 logo</h3>
+      <p>通过网站 <span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://tool.lu/favicon/">favicon在线制作</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 网站制作 favicon 图片。</p>
 <p>将图片放在博客 <code>source</code> 目录下即可。</p>
-<h3 id="添加-Fork-me-on-GitHub-挂件"><a href="#添加-Fork-me-on-GitHub-挂件" class="headerlink" title="添加 Fork me on GitHub 挂件"></a>添加 Fork me on GitHub 挂件</h3><p>在<a target="_blank" rel="noopener" href="https://github.com/blog/273-github-ribbons">官网</a>选取样式。</p>
+
+        <h3 id="添加-Fork-me-on-GitHub-挂件">
+          <a href="#添加-Fork-me-on-GitHub-挂件" class="heading-link"><i class="fas fa-link"></i></a>添加 Fork me on GitHub 挂件</h3>
+      <p>在<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/blog/273-github-ribbons">官网</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>选取样式。</p>
 <p>拷贝代码，修改 href 地址为自己的 GitHub 地址</p>
-<pre><code class="hljs java">&lt;a href=<span class="hljs-string">&quot;https://github.com/you&quot;</span>&gt;
-改为：
-&lt;a href=<span class="hljs-string">&quot;https://github.com/zywudev&quot;</span>&gt;</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=<span class="string">&quot;https://github.com/you&quot;</span>&gt;</span><br><span class="line">改为：</span><br><span class="line">&lt;a href=<span class="string">&quot;https://github.com/zywudev&quot;</span>&gt;</span><br></pre></td></tr></table></div></figure>
 
 <p>修改文件: <code>themes/next/layout/_layout.swig</code>，将代码拷贝至对应位置。</p>
-<pre><code class="hljs java">&lt;body&gt;
+<figure class="highlight"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">  &#123;% include <span class="string">&#x27;_scripts/third-party/analytics.swig&#x27;</span> %&#125;</span><br><span class="line"></span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;&#123;&#123; container_class &#125;&#125; &#123;% block page_class %&#125;&#123;% endblock %&#125; &quot;</span>&gt;</span><br><span class="line">    &lt;div class=&quot;headband&quot;&gt;&lt;/div&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!--------------add Fork me on GitHub -------------&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;a href=&quot;https://github.com/zywudev&quot;&gt;&lt;img style=&quot;position: absolute; top: 0; left: 0; border: 0;&quot; src=&quot;https://camo.githubusercontent.com/8b6b8ccc6da3aa5722903da7b58eb5ab1081adee/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6f72616e67655f6666373630302e706e67&quot; alt=&quot;Fork me on GitHub&quot; data-canonical-src=&quot;https://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png&quot;&gt;&lt;/a&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!--------------add Fork me on GitHub -------------&gt;</span><br><span class="line">		</span><br><span class="line">    &lt;header id=<span class="string">&quot;header&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;header&quot;</span> itemscope itemtype=<span class="string">&quot;http://schema.org/WPHeader&quot;</span>&gt;</span><br><span class="line">      &lt;div class=&quot;header-inner&quot;&gt; &#123;%- include &#x27;_partials/header.swig&#x27; %&#125; &lt;/div&gt;</span><br><span class="line">    &lt;/header&gt;</span><br></pre></td></tr></table></div></figure>
 
-  &#123;% include <span class="hljs-string">&#x27;_scripts/third-party/analytics.swig&#x27;</span> %&#125;
+        <h2 id="参考链接">
+          <a href="#参考链接" class="heading-link"><i class="fas fa-link"></i></a>参考链接</h2>
+      <p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://www.jianshu.com/p/05289a4bc8b2">如何搭建一个独立博客——简明Github Pages与Hexo教程</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://linghucong.js.org/2016/04/15/2016-04-15-hexo-github-pages-blog/">手把手教你使用Hexo + Github Pages搭建个人独立博客</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://selfboot.cn/2014/12/21/add_blog_to_google/#%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BE">博客推广——提交搜索引擎</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://wuzhangyang.com">贾小昆</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://wuzhangyang.com/2017/03/04/GitHub-Pages-Hexo-build-blog/">http://wuzhangyang.com/2017/03/04/GitHub-Pages-Hexo-build-blog/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://wuzhangyang.com/tags/Blog/">Blog</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://wuzhangyang.com/tags/Hexo/">Hexo</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://wuzhangyang.com/tags/GitHub-Pages/">GitHub Pages</a></span></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2017/03/15/git-common-command/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Git 命令备忘</span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-node-js"><span class="toc-number">1.</span> <span class="toc-text">
+          安装 node.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Git"><span class="toc-number">2.</span> <span class="toc-text">
+          安装 Git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Hexo"><span class="toc-number">3.</span> <span class="toc-text">
+          安装 Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GitHub-Pages-%E8%AE%BE%E7%BD%AE"><span class="toc-number">4.</span> <span class="toc-text">
+          GitHub Pages 设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2-Hexo-%E5%88%B0-GitHub-Pages"><span class="toc-number">5.</span> <span class="toc-text">
+          部署 Hexo 到 GitHub Pages</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo-%E4%B8%BB%E9%A2%98%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="toc-number">6.</span> <span class="toc-text">
+          Hexo 主题基本配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-NexT-%E4%B8%BB%E9%A2%98"><span class="toc-number">6.1.</span> <span class="toc-text">
+          下载 NexT 主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E7%94%A8-NexT-%E4%B8%BB%E9%A2%98"><span class="toc-number">6.2.</span> <span class="toc-text">
+          启用 NexT 主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0-web-%E6%9C%8D%E5%8A%A1%E9%AA%8C%E8%AF%81"><span class="toc-number">6.3.</span> <span class="toc-text">
+          启动本地 web 服务验证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E6%8E%A8%E5%B9%BF"><span class="toc-number">7.</span> <span class="toc-text">
+          博客推广</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E7%BD%91%E7%AB%99"><span class="toc-number">7.1.</span> <span class="toc-text">
+          验证网站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BE"><span class="toc-number">7.2.</span> <span class="toc-text">
+          站点地图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E4%BC%98%E5%8C%96"><span class="toc-number">8.</span> <span class="toc-text">
+          博客优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0-about-%E9%A1%B5%E9%9D%A2"><span class="toc-number">8.1.</span> <span class="toc-text">
+          添加 about 页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%88%86%E7%B1%BB%E3%80%81%E6%A0%87%E7%AD%BE%E9%A1%B5%E9%9D%A2"><span class="toc-number">8.2.</span> <span class="toc-text">
+          添加分类、标签页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E6%A0%87%E9%A2%98%E3%80%81%E4%BD%9C%E8%80%85%E7%AD%89"><span class="toc-number">8.3.</span> <span class="toc-text">
+          博客标题、作者等</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E7%AB%A0%E5%86%85%E6%96%87%E6%9C%AC%E9%93%BE%E6%8E%A5%E6%A0%B7%E5%BC%8F"><span class="toc-number">8.4.</span> <span class="toc-text">
+          修改文章内文本链接样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%8D%9A%E5%AE%A2-logo"><span class="toc-number">8.5.</span> <span class="toc-text">
+          修改博客 logo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0-Fork-me-on-GitHub-%E6%8C%82%E4%BB%B6"><span class="toc-number">8.6.</span> <span class="toc-text">
+          添加 Fork me on GitHub 挂件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">9.</span> <span class="toc-text">
+          参考链接</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">万物之中，希望至美</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/zywudev/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/zywu-43/" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="https://weixin.sogou.com/weixin?query=%E8%B4%BE%E5%B0%8F%E6%98%86/" target="_blank" rel="noopener" data-popover="微信" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-weixin"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">100</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">14</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">40</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>贾小昆</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.1.1</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.1.1</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__info">访问人数</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__info">浏览总量</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
 
-  &lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;&#123;&#123; container_class &#125;&#125; &#123;% block page_class %&#125;&#123;% endblock %&#125; &quot;</span>&gt;
-    &lt;div class=&quot;headband&quot;&gt;&lt;/div&gt;
-    
-    &lt;!--------------add Fork me on GitHub -------------&gt;
-    
-    &lt;a href=&quot;https://github.com/zywudev&quot;&gt;&lt;img style=&quot;position: absolute; top: 0; left: 0; border: 0;&quot; src=&quot;https://camo.githubusercontent.com/8b6b8ccc6da3aa5722903da7b58eb5ab1081adee/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6f72616e67655f6666373630302e706e67&quot; alt=&quot;Fork me on GitHub&quot; data-canonical-src=&quot;https://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png&quot;&gt;&lt;/a&gt;
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
 
-	&lt;!--------------add Fork me on GitHub -------------&gt;
-		
-    &lt;header id=<span class="hljs-string">&quot;header&quot;</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;header&quot;</span> itemscope itemtype=<span class="hljs-string">&quot;http://schema.org/WPHeader&quot;</span>&gt;
-      &lt;div class=&quot;header-inner&quot;&gt; &#123;%- include &#x27;_partials/header.swig&#x27; %&#125; &lt;/div&gt;
-    &lt;/header&gt;</code></pre>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="http://www.jianshu.com/p/05289a4bc8b2">如何搭建一个独立博客——简明Github Pages与Hexo教程</a></p>
-<p><a target="_blank" rel="noopener" href="https://linghucong.js.org/2016/04/15/2016-04-15-hexo-github-pages-blog/">手把手教你使用Hexo + Github Pages搭建个人独立博客</a></p>
-<p><a target="_blank" rel="noopener" href="http://selfboot.cn/2014/12/21/add_blog_to_google/#%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BE">博客推广——提交搜索引擎</a></p>
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Blog/">Blog</a>
-                    
-                      <a class="hover-with-bg" href="/tags/Hexo/">Hexo</a>
-                    
-                      <a class="hover-with-bg" href="/tags/GitHub-Pages/">GitHub Pages</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext row">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2017/03/15/git-common-command/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Git 命令备忘</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                  </article>
-                </div>
-              
-            </div>
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
 
-            
-          </article>
-        </div>
-      </div>
-    </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
-</div>
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
 
-      </div>
-    
-  </div>
-</div>
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
 
-<!-- Custom -->
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
 
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
 
-    
-  </main>
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-  
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
 
-  
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
 
-  
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
 
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
-    </div>
-    
-  <div class="statistics">
-    
-    
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
-
-
-    
-
-    
-  </div>
-</footer>
-
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '#post-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
       });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
       }
     });
-  </script>
+  };
 
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "GitHub Pages + Hexo 搭建博客&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</body>
-</html>
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="/js/utils.js?v=2.1.1"></script><script src="/js/stun-boot.js?v=2.1.1"></script><script src="/js/scroll.js?v=2.1.1"></script><script src="/js/header.js?v=2.1.1"></script><script src="/js/sidebar.js?v=2.1.1"></script><script type="application/json" src="/search.xml"></script></body></html>

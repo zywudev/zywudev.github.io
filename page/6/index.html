@@ -1,867 +1,550 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.1.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.1.1" type="image/png" sizes="32x32"><meta property="og:type" content="website">
+<meta property="og:title" content="贾小昆">
+<meta property="og:url" content="http://wuzhangyang.com/page/6/index.html">
+<meta property="og:site_name" content="贾小昆">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="贾小昆">
+<meta name="twitter:card" content="summary"><title>贾小昆</title><link ref="canonical" href="http://wuzhangyang.com/page/6/index.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.1.1"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><script src="https://www.googletagmanager.com/gtag/js?id=UA-127464210-1" async=""></script><script>if (window.location.hostname !== 'localhost') {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'UA-127464210-1');
+}</script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: undefined,
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.1.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2019/01/12/how-do-jvm-kown-if-an-object-can-be-recycled/">JVM 中如何判断对象可以被回收?</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2019-01-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">912</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">6分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>JVM 的垃圾回收器主要关注的是堆上创建的实例对象，在每次对这些对象进行回收前，需要确定哪些对象是可以去进行回收的。</p>
+<p>主要有下面两种方法。</p>
+
+        <h2 id="引用计数算法">
+          <a href="#引用计数算法" class="heading-link"><i class="fas fa-link"></i></a>引用计数算法</h2>
+      <p>给对象添加一个引用计数器，当有一个地方引用它，计数器值加 1；当引用失效时，计数器值减 1。任何时刻计数器值为 0 表示这个对象可以被回收了。</p>
+<p><strong>优点</strong>：</p>
+<p>判断效率高，实现简单。</p>
+<p><strong>不足之处</strong>：</p>
+<p>难以解决对象之间相互循环引用的问题。</p>
+<p>比如：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GCDemo</span> </span>&#123;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        GCObject objA = <span class="keyword">new</span> GCObject();  <span class="comment">// step 1</span></span><br><span class="line">        GCObject objB = <span class="keyword">new</span> GCObject();  <span class="comment">// step 2</span></span><br><span class="line">        </span><br><span class="line">        objA.instance = objB;  <span class="comment">// step 3</span></span><br><span class="line">        objB.instance = objA;  <span class="comment">// step 4</span></span><br><span class="line">        </span><br><span class="line">        objA = <span class="keyword">null</span>;  <span class="comment">// step 5</span></span><br><span class="line">        objB = <span class="keyword">null</span>;  <span class="comment">// step 6</span></span><br><span class="line">        </span><br><span class="line">        System.gc();   <span class="comment">// 执行 GC</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GCObject</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> Object instance = <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>堆栈结构如下图：</p>
+<p><img src="/2019/01/12/how-do-jvm-kown-if-an-object-can-be-recycled/jvm_judge_object_recycle_1.png" alt="jvm_judge_object_recycle_1"></p>
+<p><code>main</code> 方法中执行的 6 个步骤对应的引用计数结果：</p>
+<p>step 1、实例A 引用计数加 1，引用计数 = 1；</p>
+<p>step 2、实例B 引用计数加 1，引用计数 = 1；</p>
+<p>step 3、实例B 引用计数加 1，引用计数 = 2；</p>
+<p>step 4、实例A引用计数加 1，引用计数 = 2；</p>
+<p>step 5、objA 引用不再指向实例 A，实例 A 的引用计数减为 1；</p>
+<p>step 6、objB 引用计数不再指向实例 B，实例B的引用计数减为 1。</p>
+<p>到此，GCObject 的实例 A 和 实例 B 的引用计数都不为 0， 此时如果执行垃圾回收，实例 A 和实例 B 是不会被回收的，也就出现内存泄漏了。</p>
+<p>上述代码中，假设在 <code>main</code> 方法的最后执行 GC 操作，GC 日志如下：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[GC (System.gc()) [PSYoungGen: <span class="number">2668</span>K-&gt;<span class="number">776</span>K(<span class="number">38400</span>K)] <span class="number">2668</span>K-&gt;<span class="number">784</span>K(<span class="number">125952</span>K), <span class="number">0.0095289</span> secs] [Times: user=<span class="number">0.00</span> sys=<span class="number">0.00</span>, real=<span class="number">0.02</span> secs] </span><br><span class="line">[<span class="function">Full <span class="title">GC</span> <span class="params">(System.gc()</span>) [PSYoungGen: 776K-&gt;0<span class="title">K</span><span class="params">(<span class="number">38400</span>K)</span>] [ParOldGen: 8K-&gt;624<span class="title">K</span><span class="params">(<span class="number">87552</span>K)</span>] 784K-&gt;624<span class="title">K</span><span class="params">(<span class="number">125952</span>K)</span>, [Metaspace: 3395K-&gt;3395<span class="title">K</span><span class="params">(<span class="number">1056768</span>K)</span>], 0.0057008 secs] [Times: user</span>=<span class="number">0.08</span> sys=<span class="number">0.00</span>, real=<span class="number">0.00</span> secs] </span><br><span class="line">Heap</span><br><span class="line"> PSYoungGen      total <span class="number">38400</span>K, used <span class="number">998</span>K [<span class="number">0x00000000d5f80000</span>, <span class="number">0x00000000d8a00000</span>, <span class="number">0x0000000100000000</span>)</span><br><span class="line">  eden space <span class="number">33280</span>K, <span class="number">3</span>% used [<span class="number">0x00000000d5f80000</span>,<span class="number">0x00000000d6079b20</span>,<span class="number">0x00000000d8000000</span>)</span><br><span class="line">  from space <span class="number">5120</span>K, <span class="number">0</span>% used [<span class="number">0x00000000d8000000</span>,<span class="number">0x00000000d8000000</span>,<span class="number">0x00000000d8500000</span>)</span><br><span class="line">  to   space <span class="number">5120</span>K, <span class="number">0</span>% used [<span class="number">0x00000000d8500000</span>,<span class="number">0x00000000d8500000</span>,<span class="number">0x00000000d8a00000</span>)</span><br><span class="line"> ParOldGen       total <span class="number">87552</span>K, used <span class="number">624</span>K [<span class="number">0x0000000081e00000</span>, <span class="number">0x0000000087380000</span>, <span class="number">0x00000000d5f80000</span>)</span><br><span class="line">  object space <span class="number">87552</span>K, <span class="number">0</span>% used [<span class="number">0x0000000081e00000</span>,<span class="number">0x0000000081e9c068</span>,<span class="number">0x0000000087380000</span>)</span><br><span class="line"> Metaspace       used <span class="number">3415</span>K, capacity <span class="number">4496</span>K, committed <span class="number">4864</span>K, reserved <span class="number">1056768</span>K</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">space</span>    <span class="title">used</span> 371<span class="title">K</span>, <span class="title">capacity</span> 388<span class="title">K</span>, <span class="title">committed</span> 512<span class="title">K</span>, <span class="title">reserved</span> 1048576<span class="title">K</span></span></span><br></pre></td></tr></table></div></figure>
+
+<p>实例 A、实例 B 都被放在新生代， <code>Full GC</code> 表示垃圾收集发生了 <code>Stop-The-World   </code>。所以直接看这一行，<code>[PSYoungGen: 776K-&gt;0K(38400K)]</code> ，JVM 并没有因为实例 A 和 实例 B 相互引用就没有去回收它们。表明了 JVM 并没有采用引用计数算法判定对象是否可以被回收。</p>
+<p>JVM 中采用的是可达性分析算法判断对象是否可以被回收的。</p>
+
+        <h2 id="可达性分析算法">
+          <a href="#可达性分析算法" class="heading-link"><i class="fas fa-link"></i></a>可达性分析算法</h2>
+      <p>基本思路：</p>
+<p>通过一系列称为 “GC Roots” 的对象作为起始点，从这个节点向下搜索，搜索走过的路径就是引用链，当一个对象到 GC Roots 没有任何引用链相连，也就是从 GC Roots 到这个对象不可达，则这个对象不可达，可以被回收。</p>
+<p><strong>可作为 GC Roots 的对象有</strong>：</p>
+<ul>
+<li>虚拟机栈中的引用的对象</li>
+<li>方法区的静态变量和常量引用的对象</li>
+<li>本地方法栈中 JNI 引用的对象</li>
+</ul>
+<p>在上面的例子中，当执行第 5、6 步后，内存堆栈结构如下图。虽然实例 A 和实例 B 相互引用，但是它们到 GC Roots 都是不可达的了，所以它们都会被判定成可回收对象。</p>
+<p><img src="/2019/01/12/how-do-jvm-kown-if-an-object-can-be-recycled/jvm_judge_object_recycle_2.png" alt="jvm_judge_object_recycle_2"></p>
+
+        <h2 id="参考">
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a>参考</h2>
+      <p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://book.douban.com/subject/24722612/">深入理解Java虚拟机:JVM高级特性与最佳实践(第2版)</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2019/01/11/OutOfMemoryError-in-JVM/">JVM 中的内存溢出</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2019-01-11</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">593</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">3分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>内存溢出，通俗一点，就是 JVM 内存不足了，没有空闲内存，并且垃圾收集器也无法提供更多内存。</p>
+<p>这里的意思是说，通常在抛出 OutOfMemoryError 之前，垃圾收集器会被触发，尽其所能去清理空间。</p>
+<p>但也不是在所有情况下垃圾回收器都会被触发，比如分配了一个大对象，超过了堆的最大值，JVM 可能判断出垃圾收集并不能解决这个问题，直接抛出 OutOfMemoryError 。</p>
+<p>在 <a href="http://wuzhangyang.com/2019/01/10/JVM-memory-structure/">JVM内存结构</a> 中，除了程序计数器，其他区域都有可能发生 OutOfMemoryError 。</p>
+
+        <h2 id="堆溢出">
+          <a href="#堆溢出" class="heading-link"><i class="fas fa-link"></i></a>堆溢出</h2>
+      <p>通过<code>-Xms</code> 和<code>Xmx</code>分别设定堆最小值和最大值。</p>
+<p>错误信息：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.OutOfMemoryError: Java heap space</span><br></pre></td></tr></table></div></figure>
+
+<p>可能原因：</p>
+<ul>
+<li>内存泄漏</li>
+<li>堆的大小不合理，比如处理可观的数据量，但是没有显示指定 JVM 堆大小或者指定数值太小</li>
+<li>JVM 处理引用不及时，导致堆积起来，内存无法释放</li>
+</ul>
+
+        <h2 id="栈溢出">
+          <a href="#栈溢出" class="heading-link"><i class="fas fa-link"></i></a>栈溢出</h2>
+      <p>通过 <code>--Xss</code> 设置栈容量大小。</p>
+<p>这里的栈包括虚拟机栈和本地方法栈。</p>
+<p>比如递归操作，没有退出条件，会导致不断的压栈，JVM 就会抛出 StackOverFlowError。</p>
+<p>如果 JVM 试图去扩展栈空间的时候失败，则会抛出 OutOfMemoryError。</p>
+
+        <h2 id="方法区溢出">
+          <a href="#方法区溢出" class="heading-link"><i class="fas fa-link"></i></a>方法区溢出</h2>
+      <p>通过 <code>-XX:PermSize</code> 和 <code>-XX:MaxPermSize</code> 限制方法区的大小。</p>
+<p><code>String.intern()</code> 的作用是：如果字符串常量池中已经包含一个等于此 String对象的字符串，则返回代表池中这个字符串的 String 对象，否则，将此 String 对象包含的字符串添加到常量池中，并且返回此 String 对象的引用。所以，当字符串缓存占用太多空间，也会导致 OOM 问题。</p>
+<p>错误信息：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.OutOfMemoryError: PermGen space</span><br></pre></td></tr></table></div></figure>
+
+<p>JDK 1.7 后，方法区引入元数据区，元数据区默认自增，方法区内存不再那么窘迫。</p>
+<p>元数据区错误信息：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.OutOfMemoryError: Metaspace</span><br></pre></td></tr></table></div></figure>
 
 
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+        <h2 id="直接内存溢出">
+          <a href="#直接内存溢出" class="heading-link"><i class="fas fa-link"></i></a>直接内存溢出</h2>
+      <p>通过 <code>-XX：MaxDirectMemorySize</code> 指定直接直接内存容量大小。</p>
+<p>特征：</p>
+<p>Heap Dump 文件中不会看见明显的异常，如果 Dump 文件很小，程序中有使用 NIO，可以考虑检查是否是直接内存溢出。</p>
 
+        <h2 id="参考资料">
+          <a href="#参考资料" class="heading-link"><i class="fas fa-link"></i></a>参考资料</h2>
+      <p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://book.douban.com/subject/24722612/">深入理解Java虚拟机:JVM高级特性与最佳实践(第2版)</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2019/01/10/JVM-memory-structure/">JVM内存结构</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2019-01-10</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">801</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">4分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>Java 虚拟机在执行 Java 程序的过程中会把它管理的内存划分为若干个不同的数据区域。</p>
+<p><img src="/2019/01/10/JVM-memory-structure/java_memory_structure.png" alt="java_memory_structure"></p>
+<p>这些区域中，一些是线程私有的，一些是线程共享的。</p>
+<p><strong>线程私有的</strong>：程序计数器、虚拟机栈、本地方法栈</p>
+<p><strong>线程共享的</strong>：堆、方法区、直接内存</p>
 
+        <h2 id="程序计数器">
+          <a href="#程序计数器" class="heading-link"><i class="fas fa-link"></i></a>程序计数器</h2>
+      <p>一块较小的内存空间，用于标记当前线程所执行字节码的行号。</p>
+<p>Java 虚拟机的多线程是通过线程轮流切换并分配处理器执行时间的方式实现，所以确定的时刻一个处理器只会执行一个线程中的指令。</p>
+<p>为了线程切换后能恢复到正确的执行位置，每个线程都需要一个独立的程序计数器，用于记录线程所执行字节码指令的地址。</p>
 
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.ico">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="贾小昆">
-  <meta name="keywords" content="">
-  <title>贾小昆</title>
+        <h2 id="虚拟机栈">
+          <a href="#虚拟机栈" class="heading-link"><i class="fas fa-link"></i></a>虚拟机栈</h2>
+      <p>Java 虚拟机栈是由一个个帧栈组成。</p>
+<p>每个方法执行时会创建一个栈帧，用于存储局部变量表、操作数栈、动态链接、方法出口等信息。</p>
+<p>当方法调用时，栈帧入栈，方法结束时，栈帧出栈。</p>
+<p>局部变量表的所需的内存空间在编译期间完成分配，运行时不会改变大小。</p>
+<p>虚拟机栈定义了两种异常状况：StackOverFlowError  和  OutOfMemoryError 。</p>
+<ul>
+<li>StackOverFlowError：线程请求的栈深度大于虚拟机所允许的深度。</li>
+<li>OutOfMemoryError ：大多数虚拟机都允许动态扩展虚拟机栈的大小，所以线程可以一直申请栈，直到内存不足时，抛出 OutOfMemoryError。</li>
+</ul>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+        <h2 id="本地方法栈">
+          <a href="#本地方法栈" class="heading-link"><i class="fas fa-link"></i></a>本地方法栈</h2>
+      <p>本地方法栈为虚拟机使用到的 native 方法服务。</p>
+<p>HotSpot 虚拟机直接把虚拟机栈与本地方法栈合二为一。与虚拟机栈一样，也会抛出 StackOverFlowError 和 OutOfMememoryError 异常。</p>
 
+        <h2 id="堆">
+          <a href="#堆" class="heading-link"><i class="fas fa-link"></i></a>堆</h2>
+      <p>Java 堆是垃圾收集器管理的主要区域，也称为 GC 堆。所有实例和数组都在这里分配内存，也是线程共享的内存区域。</p>
+<p>-Xms 设置最小值；-Xmx 设置最大值。</p>
+<p>堆内存分配会另写一篇文章介绍。</p>
 
+        <h2 id="方法区">
+          <a href="#方法区" class="heading-link"><i class="fas fa-link"></i></a>方法区</h2>
+      <p>与 Java 堆一样，也是线程共享的内存区域，用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译后的代码等数据。</p>
+<p>在 HotSpot 虚拟机中，这块区域对应永久代，不易被回收。</p>
+<p><strong>运行时常量池</strong>：属于方法区一部分。用于存放编译期生成的常量和引用。</p>
+<p>JDK 1.7 之后已经将运行时常量池从移出，在堆上开辟了一块区域存放运行时常量池。</p>
 
-<!-- 主题依赖的图标库，不要自行修改 -->
+        <h2 id="直接内存">
+          <a href="#直接内存" class="heading-link"><i class="fas fa-link"></i></a>直接内存</h2>
+      <p>直接内存并不是虚拟机内存的一部分，也不是 Java 虚拟机规范中定义的内存区域。</p>
+<p>jdk1.4 中新加入的 NIO，引入了通道与缓冲区的 IO 方式，它可以调用 Native 方法直接分配堆外内存，这个堆外内存就是本机内存，不会影响到堆内存的大小。</p>
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"></head>
-
-
-<body>
-  <header style="height: 100vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container page-header text-center fade-in-up">
-            <span class="h2" id="subtitle">
-              
-            </span>
-
-            
-          </div>
-
-          
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    
-      <div class="container nopadding-md">
-        <div class="py-5" id="board"
-          style=margin-top:0>
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2019/01/10/JVM-memory-structure/">JVM内存结构</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/01/10/JVM-memory-structure/">
-          
-          
-            
-          
-          Java 虚拟机在执行 Java 程序的过程中会把它管理的内存划分为若干个不同的数据区域。
-
-这些区域中，一些是线程私有的，一些是线程共享的。
-线程私有的：程序计数器、虚拟机栈、本地方法栈
-线程共享的：堆、方法区、直接内存
-程序计数器一块较小的内存空间，用于标记当前线程所执行字节码的行号。
-Java 虚拟机的多线程是通过线程轮流切换并分配处理器执行时间的方式实现，所以确定的时刻一个处理器只会执行一
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-01-10 14:59" pubdate>
-              2019-01-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Java/">Java</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/JVM/">JVM</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2019/01/06/byte-range/">为什么 byte 的范围是 -128 ~ 127?</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/01/06/byte-range/">
-          
-          
-            
-          
-          这是一个很基础的问题。但是在昨天之前，我都是只知其然，不知其所以然。
-于是我搜索了大量网络资料。说实话，看完大部分文章，我还是没有弄明白为什么。直到我看到了知乎上面的一个回答：
-在8位二进制中，-128 没有原码、反码形式，那么它的补码是怎么计算出来的？还是约定的？ ，醍醐灌顶。
-这里尝试自己阐述一遍，如果你没有看懂，那是我的问题，还是直接看参考链接。
-首先，忘记原码、补码、反码的概念。
-从 「模
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-01-06 21:06" pubdate>
-              2019-01-06
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Java/">Java</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Java-%E5%9F%BA%E7%A1%80/">Java 基础</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2018/12/31/my-2018/">2018 年过去了，我很怀念它</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2018/12/31/my-2018/">
-          
-          
-            
-          
-          
+        <h2 id="参考资料">
+          <a href="#参考资料" class="heading-link"><i class="fas fa-link"></i></a>参考资料</h2>
+      <p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://book.douban.com/subject/24722612/">深入理解Java虚拟机:JVM高级特性与最佳实践(第2版)</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2019/01/06/byte-range/">为什么 byte 的范围是 -128 ~ 127?</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2019-01-06</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">705</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">4分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>这是一个很基础的问题。但是在昨天之前，我都是只知其然，不知其所以然。</p>
+<p>于是我搜索了大量网络资料。说实话，看完大部分文章，我还是没有弄明白为什么。直到我看到了知乎上面的一个回答：</p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.zhihu.com/question/20458542">在8位二进制中，-128 没有原码、反码形式，那么它的补码是怎么计算出来的？还是约定的？</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> ，醍醐灌顶。</p>
+<p>这里尝试自己阐述一遍，如果你没有看懂，那是我的问题，还是直接看参考链接。</p>
+<p>首先，忘记原码、补码、反码的概念。</p>
+<p>从 「<strong>模</strong>」开始。什么是模?</p>
+<p>想象日常见到的时钟，它可以表示 0 - 12 点的时间。假设当前时针指向 8 点，而准确时间是 5 点。那么调整方法有两种：</p>
+<p>一种方法是将逆时针拨 3 小时，8 - 3 = 5。</p>
+<p>另一种方法是顺时针拨 9 小时，8 + 9 = 12 + 5 = 5。</p>
+<p>可以看出，减 3 和加 9 的效果是一样的，这里的 12 就是模，3 和 9 在模 12 中互为补数，也就是相加等于模的大小。</p>
+<p>所以，在模的范围内做减法，可以将 X - Y 的减法等价于 X + Y 的补数。</p>
+<p>但是新的问题又出现了，这种算法的结果永远是正数。</p>
+<p>比如 3 - 8 = 3 + (12 - 8) = 7，实际上 3 - 8 = -5。很明显，7 不等于 -5 的。</p>
+<p>怎么办呢，当初那些先贤想出来很简单的方法，就是把两个数直接划等号，正好解决了负数的表达方式。-5 的绝对值的补数正好是 7。</p>
+<p>但是，又出现了新的问题，7 已经用来表示正数 7 了，现在又来表示 -5，当 7  出现时就很难辨别它到底代表谁了。</p>
+<p>为了保留这套规则，只能牺牲 7 了，确定 7 只代表 -5。所以给这套规则划定一个范围，原来 0 - 11 的正数，拆分为两部分，0 - 5 这个区间代表正数，6 - 11 这个区间就用来代表各自的补数的负值。</p>
+<p>回到二进制的计算机世界。</p>
+<p>我们知道 byte 占用 8 位，一共可以表示 2 的 8 次方，256 个数，即 0 ~ 255。模是 256。</p>
+<p>按照上面的规则， 0 - 127 代表其正数本身，128 - 255 代表其补数的负值，也就是 “-1 ~ - 128”。</p>
+<p>所以，byte 的表示范围就是 -128 ~ 127 了。</p>
+<p>总结下：</p>
+<p>1、计算机中负值的表达方式就是它绝对值的补数。</p>
+<p>2、这样表达的方式是为了实现数值运算而决定的。</p>
+<p>3、几乎所有的课本和老师都只给出结论，没有给出解释原理的做法真是简直了。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/12/31/my-2018/">2018 年过去了，我很怀念它</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-12-31</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">617</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">3分</span></span></div></header><div class="post-body"><div class="post-excerpt"><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="530" height="86" src="//music.163.com/outchain/player?type=2&id=454489&auto=1&height=66"></iframe>
 每到年底，大家都会总结过去的一年里的得与失，收获与不足，也会为新的一年立下新的 Flag。
 
-有时候在想为什么要有新年的感念，也许就是希望吧。每个人都需要一个时间周期去不断给自己寄予新的希望，而这个周期不能太长，以便可以安慰自己的平庸，这个周期不能太短，至少可以笃定的注视前方。
-回望这一年，也是有几件值得纪念的事情。
-1、3 月 8 日，老鲍回国，大学兄弟们聚得最齐的一次。
-2、5 月 20 日
-        </a>
-      </p>
+<p>有时候在想为什么要有新年的感念，也许就是希望吧。每个人都需要一个时间周期去不断给自己寄予新的希望，而这个周期不能太长，以便可以安慰自己的平庸，这个周期不能太短，至少可以笃定的注视前方。</p>
+<p>回望这一年，也是有几件值得纪念的事情。</p>
+<p>1、3 月 8 日，老鲍回国，大学兄弟们聚得最齐的一次。</p>
+<p>2、5 月 20 日和女友去第一次去看了朴树的演唱会。</p>
+<p>3、6 月 19 日和女朋友领了证。</p>
+<p>4、11 月 09 日进新房，双方父母第一次见面。</p>
+<p>5、12 月 15 日，看了许巍的演出，第一次与许巍合影。</p>
+<p>其实每一件事情对于个人来说都算挺有意义的，都值得细说。</p>
+<p>这一年里认知能力提升不少，如 <a href="http://wuzhangyang.com/2018/12/05/d-k-effect/">这篇文章</a>，我目前处在知道自己不知道这一阶段，其实处在这个阶段挺痛苦的，经常性会心情失落，因为短时间很难做出巨大的改变。但幸好我愿意去做出改变。</p>
+<p>这一年的技术能力有提升，但不是很满意，反省下，自己的执行力、坚持能力还是不够，其实可以做到更好些，为后面的改变、选择做更充分的准备。但时间过去了，只能安慰下平庸的自己。</p>
+<p>编程、写作、英语是最重要的三大能力，无论是现在还是未来。所以，新的一年里，在此立下几个 Flag。</p>
+<p>1、看准机会，增加收入。</p>
+<p>2、做一个像样点的开源软件，向郭霖大神学习。</p>
+<p>3、每周不低于一篇技术博客，逼着自己学习技术。</p>
+<p>4、每周不低于一篇公众号文章，技术、思考、认知、感悟都可以。</p>
+<p>5、报一个英语班，坚持下去。</p>
+<p>6、主动一些，多接触一些段位比我高的人。</p>
+<p>7、多出去走走，见见外面的世界，多接触些有趣的人和事。</p>
+<p>8、保持身心健康。</p>
+<p>最后，感谢这一年帮助我的亲人朋友，祝愿你们 2019 年健康平安，万事如意。</p>
+<p>也谢谢你的观看，愿你如意平安。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/12/12/android-media-learn-resource/">Android 音视频学习资源汇总</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-12-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">119</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">1分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>1、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://blog.51cto.com/ticktick/1956269">Android 音视频开发入门指南</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> ：音视频学习思路，一系列学习任务。</p>
+<p>2、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.cnblogs.com/renhui/p/7452572.html">Android 音视频开发学习思路</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>：音视频学习路径，教程。</p>
+<p>3、《雷霄骅的专栏》：<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://blog.csdn.net/leixiaohua1020">http://blog.csdn.net/leixiaohua1020</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>4、《Jhuster的专栏》：<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://blog.51cto.com/ticktick">http://blog.51cto.com/ticktick</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>5、《FFMPEG Tips》：<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://ticktick.blog.51cto.com/823160/d-17">http://ticktick.blog.51cto.com/823160/d-17</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>6、《Learn OpenGL 中文》：<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://learnopengl-cn.github.io/">https://learnopengl-cn.github.io/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>7、《Android Graphic 架构》：<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://source.android.com/devices/graphics/">https://source.android.com/devices/graphics/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>8、《ywl5320的专栏》：<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://blog.csdn.net/ywl5320">https://blog.csdn.net/ywl5320</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>9、《灰色飘零》：<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.cnblogs.com/renhui/">https://www.cnblogs.com/renhui/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/12/05/d-k-effect/">达克效应</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-12-05</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">569</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">2分</span></span></div></header><div class="post-body"><div class="post-excerpt"><blockquote>
+<p><strong>达克效应</strong>（英语：D-K effect），全称为<strong>邓宁-克鲁格效应</strong>（英语：Dunning–Kruger effect），是一种<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%AE%A4%E7%9F%A5%E5%81%8F%E5%B7%AE">认知偏差</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，能力欠缺的人有一种虚幻的自我优越感，错误地认为自己比真实情况更加优秀。简言之即：庸人容易因欠缺自知之明而自我膨胀。</p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://zh.wikipedia.org/w/index.php?title=Kruger&action=edit&redlink=1">Kruger</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>和<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://zh.wikipedia.org/w/index.php?title=Dunning&action=edit&redlink=1">Dunning</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>将其归咎于<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%85%83%E8%AE%A4%E7%9F%A5">元认知</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>上的缺陷，能力欠缺的人无法认识到自身的无能，不能准确评估自身的能力。他们的研究还表明，反之，非常能干的人会低估自己的能力，错误地假定他们自己能够很容易完成的任务，别人也能够很容易地完成。</p>
+</blockquote>
+<p>参考网上，动手绘制了下面这张图，更为清晰。</p>
+<p><img src="/2018/12/05/d-k-effect/d-k-effect.png" alt="d-k-effect"></p>
+<p>从左往右，智慧从低到高，从下往上，是自信程度从低到高。</p>
+<p>不是所有人都能完整的经历这条曲线。</p>
+<p>大多数人都是在攀爬愚昧山峰，到顶之后可能就不动了。不动的原因是什么 ？<strong>认知停滞</strong>。认知停滞，会导致个人对世界的看法难以发生改变。对待新事物，只会用自己的思维框架强行套用，自信心爆棚，根本没有耐心去了解未知的领域。</p>
+<p>当掌握的领域知识越来越多，认知逐渐提高后，一些人会进入「自信崩溃区」，因为这个时候知道了自己未知的领域太多太多，自信心备受打击，不知道如何是好。</p>
+<p>到达「绝望之谷」后不一定马上就能反弹，有时需要经历很多波折，才能对新的领域有正确的认识，而新的开悟之坡非常漫长，有些人终其一生都不能进入「平稳高原」。</p>
+<p>人与人之间的差异，真的是认知的差异。</p>
+<p>身处「愚昧之巅」的人，更有倾向会去攻击辱骂更加智慧的人。主要原因就是认知差距，无知无畏。</p>
+<p>认知层次高的人，对未知领域会更有敬畏心。</p>
+<p>这张图值得时不时拿出来看看，就某件事情，对号入座，反思，避免成为达克效应描述的对象。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/11/28/2018-lunar-10-21/">二零一八年农历十月二十一</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-11-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">645</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">3分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>昨天同事喊我去参加面试，公司的其他部门技术岗。想来很久没面试了，于是就去试下水。</p>
+<p>有几点感受。</p>
+<p>首先，发现原来自己真的还差得远呢。随便一个 Http 的知识点就难倒我了。工作中只知道使用，压根没深入学习原理。这也提醒了我多去钻研技术，不要只停留在表面。</p>
+<p>其次，技术面试官的更关注的是学历、职级、绩效，这是我很诧异的。因为我发现有时候学历、职级、绩效真得不见得和个人能力成正比，如果是 HR 问这些还情有可原，技术面试官问这些就感觉挺 Low 比的。因为他问我今年绩效拿了几个 D，这个时候我就挺毛躁的了。</p>
+<p>上个月的绩效领导给我打了个 D，如果真是如他所说是轮流来，不会这么快就轮到我，我其实知道是什么原因的，我也没有多问多说了。</p>
+<p>说不在乎那是假话，但是能怪谁呢，还不是自己不够强大。</p>
+<p>我很感谢工作上的一些不顺利和不公平，因为它们很好地折射了自己的工作确实做得还不够好，同时也敦促我更加积极努力，更加快速地成长。</p>
+<p>今天是我的生日，说点感动的。</p>
+<p>早上坐车听了个电台节目，讲述者是导演张涛，讲述的是他和他的姥姥和奶奶的故事，听的过程中，眼泪一直在眼眶中打转。想起了我的奶奶，想起她给我过生日的场景，想起她带我们堂兄弟四个孩子在一起生活的过往，真的太不容易了。如今她老人家已经走了好几年了，我时常会怀念她。</p>
+<p>昨晚母亲给我打电话，专门提醒我今天过生日要买些好吃的，心里头真是温暖感动极了。父母对子女的爱，真的是太无私了，真的是可以倾尽所有。我想我能做的，就是尽快成长，成为他们的依靠。</p>
+<p>很感谢老丈人和丈母娘的生日祝福，感谢你们的帮助，我定好好回报。</p>
+<p>女朋友今天专门给我买了蛋糕，我们在温暖的家里过生日，非常感谢她一路陪伴。</p>
+<p>群里的小伙伴送来了真挚的祝福，很是感动。</p>
+<p>爱你们。愿你们健康平安。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/11/27/android-keep-alive/">Android 8.0 应用保活实践</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-11-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">8分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>虽然我也觉得强行保活应用挺不厚道的，但是没办法，为了完成需求。</p>
+<p>一开始尝试的方案是 Android 5.0 后系统提供的 JobScheduler，能够预先设置条件，达到条件时自动启动 JobService，在 Android 8.0 以下都能很愉快的使用。但是在华为的 Android 8.0 上，当应用被杀后，JobService 就不能被系统调用了。</p>
+<p>于是采取了双进程服务绑定方式，实现了应用保活功能。</p>
+<p>直接看原理图：</p>
+<p><img src="/2018/11/27/android-keep-alive/aidl_keep_alive.png" alt="aidl_keep_alive"></p>
+<p>原理就是利用 Binder 的讣告机制，如果 Service Binder 实体的进程被杀，系统会向 Client 发送讣告，这个时机就是保活的空子了。所以可以通过两个进程启动两个 Binder 服务，互为 C/S，一旦一个进程挂掉，另一个进程就会收到 Binder 讣告，这时可以拉起另一个进程。</p>
+<p>那么图中两个进程中的 TransferActivity 是干什么用的 ，这个在后面再说。</p>
+<p>这里我写了两个应用，一个是 AIDLServer，相当于服务端；一个是 AIDLClient，相当于客户端。而两个进程之间的通信采用 AIDL 方式。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// IMyAidlInterface.aidl</span></span><br><span class="line"><span class="keyword">package</span> com.wuzy.aidlserver;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Declare any non-default types here with import statements</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IMyAidlInterface</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">void</span> <span class="title">bindSuccess</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">void</span> <span class="title">unbind</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2018-12-31 13:35" pubdate>
-              2018-12-31
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
+<p>注意两个应用的 AIDL 文件必须一致，包括包名。</p>
+<p>然后，编写两个 binder 实体服务 RemoteService 、LocalService，主要代码如下：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RemoteService</span> <span class="keyword">extends</span> <span class="title">Service</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">&quot;RemoteService&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate();</span><br><span class="line">        Log.e(TAG, <span class="string">&quot;onCreate: 创建 RemoteService&quot;</span>);</span><br><span class="line">        bindLocalService();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IBinder <span class="title">onBind</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> stub;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> IMyAidlInterface.Stub stub = <span class="keyword">new</span> IMyAidlInterface.Stub() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bindSuccess</span><span class="params">()</span> <span class="keyword">throws</span> RemoteException </span>&#123;</span><br><span class="line">            Log.e(TAG, <span class="string">&quot;bindSuccess: LocalService 绑定 RemoteService 成功&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unbind</span><span class="params">()</span> <span class="keyword">throws</span> RemoteException </span>&#123;</span><br><span class="line">            Log.e(TAG, <span class="string">&quot;unbind: 此处解除 RemoteService 与 LocalService 的绑定&quot;</span>);</span><br><span class="line">            getApplicationContext().unbindService(connection);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 绑定 LocalService</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">bindLocalService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">        intent.setComponent(<span class="keyword">new</span> ComponentName(<span class="string">&quot;com.wuzy.aidlclient&quot;</span>, <span class="string">&quot;com.wuzy.aidlclient.LocalService&quot;</span>));</span><br><span class="line">        <span class="keyword">if</span> (!getApplicationContext().bindService(intent, connection, Context.BIND_AUTO_CREATE)) &#123;</span><br><span class="line">            Log.e(TAG, <span class="string">&quot;bindLocalService: 绑定 LocalService 失败&quot;</span>);</span><br><span class="line">            stopSelf();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ServiceConnection connection = <span class="keyword">new</span> ServiceConnection() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceConnected</span><span class="params">(ComponentName name, IBinder service)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceDisconnected</span><span class="params">(ComponentName name)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// bindRemoteService();</span></span><br><span class="line">            createTransferActivity();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">createTransferActivity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, TransferActivity.class);</span><br><span class="line">        intent.setAction(TransferActivity.ACTION_FROM_SELF);</span><br><span class="line">        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);</span><br><span class="line">        startActivity(intent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2018/12/12/android-media-learn-resource/">Android 音视频学习资源汇总</a>
-      </h1>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LocalService</span> <span class="keyword">extends</span> <span class="title">Service</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">&quot;LocalService&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate();</span><br><span class="line">        Log.e(TAG, <span class="string">&quot;onCreate: 创建 LocalService&quot;</span>);</span><br><span class="line">        bindRemoteService();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IBinder <span class="title">onBind</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">        Log.e(TAG, <span class="string">&quot;onBind: 绑定 LocalService&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> stub;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> IMyAidlInterface.Stub stub = <span class="keyword">new</span> IMyAidlInterface.Stub() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bindSuccess</span><span class="params">()</span> <span class="keyword">throws</span> RemoteException </span>&#123;</span><br><span class="line">            Log.e(TAG, <span class="string">&quot;bindSuccess: RemoteService 绑定 LocalService 成功&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unbind</span><span class="params">()</span> <span class="keyword">throws</span> RemoteException </span>&#123;</span><br><span class="line">            getApplicationContext().unbindService(connection);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ServiceConnection connection = <span class="keyword">new</span> ServiceConnection() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceConnected</span><span class="params">(ComponentName name, IBinder service)</span> </span>&#123;</span><br><span class="line">       </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceDisconnected</span><span class="params">(ComponentName name)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// bindRemoteService();</span></span><br><span class="line">            createTransferActivity();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">createTransferActivity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, TransferActivity.class);</span><br><span class="line">        intent.setAction(TransferActivity.ACTION_FROM_SELF);</span><br><span class="line">        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);</span><br><span class="line">        startActivity(intent);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">bindRemoteService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">        intent.setComponent(<span class="keyword">new</span> ComponentName(<span class="string">&quot;com.wuzy.aidlserver&quot;</span>, <span class="string">&quot;com.wuzy.aidlserver.RemoteService&quot;</span>));</span><br><span class="line">        <span class="keyword">if</span> (!getApplicationContext().bindService(intent, connection, Context.BIND_AUTO_CREATE)) &#123;</span><br><span class="line">            Log.e(TAG, <span class="string">&quot;bindRemoteService: 绑定 RemoteService 失败&quot;</span>);</span><br><span class="line">            stopSelf();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
 
-      <p class="index-excerpt">
-        <a href="/2018/12/12/android-media-learn-resource/">
-          
-          
-            
-          
-          1、Android 音视频开发入门指南 ：音视频学习思路，一系列学习任务。
-2、Android 音视频开发学习思路：音视频学习路径，教程。
-3、《雷霄骅的专栏》：http://blog.csdn.net/leixiaohua1020
-4、《Jhuster的专栏》：http://blog.51cto.com/ticktick
-5、《FFMPEG Tips》：http://ticktick.blog.
-        </a>
-      </p>
+<p>在 onCreate 的时候相互绑定，并在 onServiceDisconnected 收到讣告的时候，重新启动服务绑定彼此即可。</p>
+<p>但是我在系统是 8.0 的华为机器上是无效的，也就是当 LocalService 所在进程被杀后，RemoteService 无法启动LocalService，反过来也是如此。</p>
+<p>所以，这里只能采取 “曲线救国” 的方式。通过 TransferActivity 中转下，先启动守护进程的 TransferActivity，再从守护进程的 TransferActivity 中启动保活进程的 TransferActivity，这是没有问题的，再从保活进程的 TransferActivity 中启动 LocalService，重新绑定服务即可，反过来也是一样的。当然，TransferActivity 要用户无感知，不然会很突兀，所以这里的 TransferActivity 都是 1 个像素，做完任务及时销毁即可。</p>
+<p>TransferActivity 的代码就不贴了，具体可以去 <span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/zywudev/AndroidKeepAlive">GitHub</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 了解。</p>
+<p>这种方式用来保活一般是没有问题的，因为 Binder 讣告是系统中 Binder 框架自带的，除非一次性杀了两个进程，那就没辙了。</p>
+<p>最后，一般保活的目的是为了做某项任务，所以，任务完成后应该结束保活功能，不然老是占着内存确实挺不厚道的。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/11/14/Android-media-foundation/">Android 音视频基础知识</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-11-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">342</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">2分</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h2 id="视频编码">
+          <a href="#视频编码" class="heading-link"><i class="fas fa-link"></i></a>视频编码</h2>
+      <p>通过特定的压缩技术，将某个视频格式文件转换成另一种视频格式文件的方式。编解码标准有国际电联的 H.261、H.263、H.264，运动静止图像专家组的 M-JPEG 和国际标准化组织运动图像专家组的 MPEG 系列标准，此外，互联网上还有 Real-Networks 的 RealVideo，微软公司的 WMV 以及 Apple 公司的 QuickTime 等。</p>
+<ul>
+<li>MPEG：主要有 MPEG1(VCD)，MPEG2(DVD)、MPEG4(DivX、XviD)、MPEG4 AVC。</li>
+<li>H.26X ：侧重网络传输，包括 H.261、H.263、H.263、H.263+、H.263++、H.264。</li>
+</ul>
 
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2018-12-12 21:34" pubdate>
-              2018-12-12
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Android/">Android</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/">Android 音视频</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
+        <h2 id="音频编码">
+          <a href="#音频编码" class="heading-link"><i class="fas fa-link"></i></a>音频编码</h2>
+      <ul>
+<li>MP3：将声音以 1:    10 甚至 1:12 的压缩率进行压缩。对高频信号使用大压缩率，低频信号使用小压缩率，保证信号不失真。</li>
+<li>AAC：与 MP3 相比，优点是音质更佳、文件更小。缺点是属于有损压缩，与时下流行的 APE、FLAC 等无损压缩格式相比音质差距较大。</li>
+<li>AC3：Dobly 实验室所发展的有损音频编码方式，广泛应用于激光唱片和 DVD。AC3提供的环绕声系统由五个全频域声道（左前、中央、右前、左后、右后）和一个超低音声道，广泛用于电影院。</li>
+</ul>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2018/12/05/d-k-effect/">达克效应</a>
-      </h1>
+        <h2 id="相关知识点">
+          <a href="#相关知识点" class="heading-link"><i class="fas fa-link"></i></a>相关知识点</h2>
+      
+        <h3 id="1、帧率">
+          <a href="#1、帧率" class="heading-link"><i class="fas fa-link"></i></a>1、帧率</h3>
+      <p>测量显示帧数的量度。fps：每秒显示帧数。</p>
 
-      <p class="index-excerpt">
-        <a href="/2018/12/05/d-k-effect/">
-          
-          
-            
-          
-          
-达克效应（英语：D-K effect），全称为邓宁-克鲁格效应（英语：Dunning–Kruger effect），是一种认知偏差，能力欠缺的人有一种虚幻的自我优越感，错误地认为自己比真实情况更加优秀。简言之即：庸人容易因欠缺自知之明而自我膨胀。
-Kruger和Dunning将其归咎于元认知上的缺陷，能力欠缺的人无法认识到自身的无能，不能准确评估自身的能力。他们的研究还表明，反之，非常能干的人会
-        </a>
-      </p>
+        <h3 id="2、">
+          <a href="#2、" class="heading-link"><i class="fas fa-link"></i></a>2、</h3>
+      </div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/5/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">万物之中，希望至美</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/zywudev/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/zywu-43/" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="https://weixin.sogou.com/weixin?query=%E8%B4%BE%E5%B0%8F%E6%98%86/" target="_blank" rel="noopener" data-popover="微信" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-weixin"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">100</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">14</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">40</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>贾小昆</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.1.1</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.1.1</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__info">访问人数</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__info">浏览总量</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
 
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2018-12-05 20:26" pubdate>
-              2018-12-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2018/11/28/2018-lunar-10-21/">二零一八年农历十月二十一</a>
-      </h1>
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
 
-      <p class="index-excerpt">
-        <a href="/2018/11/28/2018-lunar-10-21/">
-          
-          
-            
-          
-          昨天同事喊我去参加面试，公司的其他部门技术岗。想来很久没面试了，于是就去试下水。
-有几点感受。
-首先，发现原来自己真的还差得远呢。随便一个 Http 的知识点就难倒我了。工作中只知道使用，压根没深入学习原理。这也提醒了我多去钻研技术，不要只停留在表面。
-其次，技术面试官的更关注的是学历、职级、绩效，这是我很诧异的。因为我发现有时候学历、职级、绩效真得不见得和个人能力成正比，如果是 HR 问这些还情
-        </a>
-      </p>
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
 
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2018-11-28 20:41" pubdate>
-              2018-11-28
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2018/11/27/android-keep-alive/">Android 8.0 应用保活实践</a>
-      </h1>
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
 
-      <p class="index-excerpt">
-        <a href="/2018/11/27/android-keep-alive/">
-          
-          
-            
-          
-          虽然我也觉得强行保活应用挺不厚道的，但是没办法，为了完成需求。
-一开始尝试的方案是 Android 5.0 后系统提供的 JobScheduler，能够预先设置条件，达到条件时自动启动 JobService，在 Android 8.0 以下都能很愉快的使用。但是在华为的 Android 8.0 上，当应用被杀后，JobService 就不能被系统调用了。
-于是采取了双进程服务绑定方式，实现了应用保
-        </a>
-      </p>
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
 
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2018-11-27 22:17" pubdate>
-              2018-11-27
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Android/">Android</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Android-%E4%BF%9D%E6%B4%BB/">Android 保活</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2018/11/14/Android-media-foundation/">Android 音视频基础知识</a>
-      </h1>
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
 
-      <p class="index-excerpt">
-        <a href="/2018/11/14/Android-media-foundation/">
-          
-          
-            
-          
-          视频编码通过特定的压缩技术，将某个视频格式文件转换成另一种视频格式文件的方式。编解码标准有国际电联的 H.261、H.263、H.264，运动静止图像专家组的 M-JPEG 和国际标准化组织运动图像专家组的 MPEG 系列标准，此外，互联网上还有 Real-Networks 的 RealVideo，微软公司的 WMV 以及 Apple 公司的 QuickTime 等。
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
 
-MPEG：主要有 MPEG
-        </a>
-      </p>
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
 
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2018-11-14 21:13" pubdate>
-              2018-11-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Android/">Android</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Android-%E9%9F%B3%E8%A7%86%E9%A2%91/">Android 音视频</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2018/10/24/android-junit-test/">Android 单元测试 Junit</a>
-      </h1>
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
 
-      <p class="index-excerpt">
-        <a href="/2018/10/24/android-junit-test/">
-          
-          
-            
-          
-          
-示例代码：https://github.com/zywudev/AndroidUnitTest
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
 
-Anroid Studio 在新建项目中自动将 Junit 框架集成，无需额外导入依赖。
-Junit AssertAssert 就是断言，判断假设与实际是否一致，一致则测试通过。
-常用断言：
-
-assertTrue                                  假设为真
-asse
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2018-10-24 15:15" pubdate>
-              2018-10-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Android/">Android</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Junit/">Junit</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2018/10/16/how-the-economic-machine-works/">经济机器是怎样运行的？</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2018/10/16/how-the-economic-machine-works/">
-          
-          
-            
-          
-          最近看到的一个视频，是大师级人物瑞达利欧自己的宏观经济框架，三十分钟解释了经济机器是怎样运行的，通俗易懂。
-视频地址：https://www.youtube.com/watch?v=rFV7wdEX-Mo
-以下是个人总结的要点，结合视频看，效果更佳。
-经济是由几个简单的零部件和无数次重复的简单交易组成，这些交易首先由人的天性所驱动，因而形成了三股主要的经济动力。
-1、生产率的提高
-2、短期债务周期
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2018-10-16 23:11" pubdate>
-              2018-10-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6/">经济学</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-
-
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/5/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
-  
-  <script>
-    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
-      ele.href += '#board';
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
     }
-  </script>
+  });
+}
 
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
 
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-  </main>
-
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
-
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
-    </div>
-    
-  <div class="statistics">
-    
-    
-
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
-
-
-    
-
-    
-  </div>
-</footer>
-
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "万物之中 希望至美&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
+      initSearch();
     });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
     });
-  </script>
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
 
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</body>
-</html>
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="/js/utils.js?v=2.1.1"></script><script src="/js/stun-boot.js?v=2.1.1"></script><script src="/js/scroll.js?v=2.1.1"></script><script src="/js/header.js?v=2.1.1"></script><script src="/js/sidebar.js?v=2.1.1"></script><script type="application/json" src="/search.xml"></script></body></html>

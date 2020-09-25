@@ -1,886 +1,885 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.ico">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="贾小昆">
-  <meta name="keywords" content="">
-  <title>贾小昆</title>
-
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"></head>
-
-
-<body>
-  <header style="height: 100vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container page-header text-center fade-in-up">
-            <span class="h2" id="subtitle">
-              
-            </span>
-
-            
-          </div>
-
-          
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    
-      <div class="container nopadding-md">
-        <div class="py-5" id="board"
-          style=margin-top:0>
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2020/01/15/retrofit-analysis/">Retrofit 源码分析</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/01/15/retrofit-analysis/">
-          
-          
-            
-          
-          前面的文章我们分析了 OkHttp 的核心源码，而 Retrofit 与 OkHttp 的结合使用，也是目前主流的方式，这篇文章主要分析下目前 Android 最优秀的网络封装框架 Retrofit。
-在分析 Retrofit 源码之前，先看下 Retrofit 的简单使用。
-基本使用一般情况，Retrofit 的使用流程按照以下三步：
-1、将 HTTP API 定义成接口形式
-public in
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-01-15 10:08" pubdate>
-              2020-01-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Android/">Android</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">源码分析</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2020/01/07/my-2019/">我的 2019 年个人总结</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/01/07/my-2019/">
-          
-          
-            
-          
-          虽然 2020 年已经过去一周时间，但还是想记录一下我的 2019 年个人总结，复盘一下自己过去一年的工作、学习和生活状况。
-工作方面。
-年初面了几家心仪的公司，但没有得到想要的结果，认识到自身实力一般，而且外界的环境也不是很好，也就还在现在的公司继续干着。
-2018 年部门效益很差，那年年底还裁掉了一些同事。为了生存下来，2019 年整个团队像是在打一场战役，这一年大家都挺忙的，忙碌的时候加班比
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-01-07 09:37" pubdate>
-              2020-01-07
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2019/12/15/weekly-issue-6/">每周分享第 6 期</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/12/15/weekly-issue-6/">
-          
-          
-            
-          
-          这里记录过去一周，我看到的值得分享的内容。
-本周刊开源（GitHub: zywudev/weekly），欢迎投稿，或者推荐好玩的东西。
-
-(题图：Payson Wick)
-资源1、Python最佳实践指南
-《Python 开发最佳实践指南》，中文版开源电子书，翻译自英语原版。 
-2、微软 REST API 设计指南
-微软官方出品的 REST API 指导规范。
-3、Web 开发者 2020 年学习
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-12-15 14:44" pubdate>
-              2019-12-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2019/12/08/weekly-issue-5/">每周分享第 5 期</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/12/08/weekly-issue-5/">
-          
-          
-            
-          
-          这里记录过去一周，我看到的值得分享的内容。
-
-（题图：Duy Hoang）
-文章1、兽爷丨大象踩了他一脚
-大公司欺负员工真的是轻而易举，就像大象踩蚂蚁一样。
-2、华为做过的恶
-收集华为作过的恶，记录这些不应该被遗忘的历史。
-工具1、Snipaste 
-Snipaste 是一个简单但强大的截图工具，也可以让你将截图贴回到屏幕上！下载并打开 Snipaste，按下 F1 来开始截图，再按 F3，截图就
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-12-08 11:27" pubdate>
-              2019-12-08
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2019/12/02/android-interview-8-abstract-class-and-interface/">Android 面试题（8）：抽象类和接口的区别？</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/12/02/android-interview-8-abstract-class-and-interface/">
-          
-          
-            
-          
-          抽象类和接口的区别1、抽象类可以提供成员方法的实现细节，而接口中只能存在 public 抽象方法；
-接口在 Java 长达 20 多年的时间中，都只能拥有抽象方法，直到 JDK1.8 才能拥有实现的方法（还必须用default关键字修饰）
-2、抽象类中的成员变量可以是各种类型的，而接口中的成员变量只能是 public static final 类型的；
-3、接口中不能含有构造器、静态代码块以及静态
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-12-02 14:51" pubdate>
-              2019-12-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Android%E9%9D%A2%E8%AF%95%E9%A2%98/">Android面试题</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Java-%E5%9F%BA%E7%A1%80/">Java 基础</a>
-            
-              <a href="/tags/Android%E9%9D%A2%E8%AF%95%E9%A2%98/">Android面试题</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2019/11/30/weekly-issue-4/">每周分享第 4 期</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/11/30/weekly-issue-4/">
-          
-          
-            
-          
-           这里记录过去一周，我看到的值得分享的内容。 
-
-（题图： Martin Schmidli ） 
-文章1、和死神赛跑：趁父亲还在世，我想用人工智能留住他
-《连线》杂志的一篇文章《我用 AI 机器人留住去世的父亲》，作者在得知父亲肺癌晚期后，录下了自己与父亲的对话。后来利用这些对话资料，建造了一个人工智能对话机器人。父亲去世以后，跟机器人对话，机器人说出父亲会说的话。
-有网友把这篇文章翻译成了中文，
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-11-30 21:14" pubdate>
-              2019-11-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2019/11/27/sourcetrail/">开源免费的源码阅读神器 Sourcetrail</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/11/27/sourcetrail/">
-          
-          
-            
-          
-          阅读源码的工具很多，今天给大家推荐一款别具一格的源码阅读神器。
-它就是 Sourcetrail，一个免费开源、跨平台的可视化源码探索项目。
-
-直接看效果图：
-
-上面是我阅读 okhttp 源码的一个界面，不同于其他代码编辑器的导航栏，左侧使用图形直观地表示了调用上游和下游，类成员列表等等细节，使得理解源代码的结构变得很容易。
-目前支持 C、C++、Python 和 Java 语言，同时提供了相关 
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-11-27 11:33" pubdate>
-              2019-11-27
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">源码分析</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2019/11/25/android-interview-7-singleton/">Android 面试题（7）：你对单例模式了解多少？</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/11/25/android-interview-7-singleton/">
-          
-          
-            
-          
-          不管是在开发还是面试过程中，单例模式出现的频率都非常的高。但很多人对单例模式一知半解，单例模式的写法非常多，不同写法的区别很大，这篇文章的目的是带你深入学习一下单例模式。
-什么是单例模式单例模式是一种对象创建型模式，用来编写一个类，在整个应用系统中只能有该类的一个实例对象。  
-UML 结构图：
-
-单例模式的三要点：
-1、某个类只能有一个实例
-2、必须自行创建这个实例
-3、必须自行向整个系统提供这
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-11-25 15:26" pubdate>
-              2019-11-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Android%E9%9D%A2%E8%AF%95%E9%A2%98/">Android面试题</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Android%E9%9D%A2%E8%AF%95%E9%A2%98/">Android面试题</a>
-            
-              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2019/11/23/weekly-issue-3/">每周分享第 3 期</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/11/23/weekly-issue-3/">
-          
-          
-            
-          
-           这里记录过去一周，我看到的值得分享的内容。 
-
-（题图：合肥翡翠湖）
-文章1、我以前在阿里巴巴的流量方法论
-流量为王，可能对你有所启发。
-2、吕先生的三个贵人
-中华灵芝宝、双灵固本散、绿谷灵芝宝，你耳熟能详的东西，但可能并不真正了解真相。
-3、为什么我从 Mac 换到了 Linux 
-
-它激发了我重新潜入的乐趣，我享受这段旅途的乐趣。 
-
-资源1、9 大技术领域，1500+道面试题出炉！（资源版
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-11-23 18:39" pubdate>
-              2019-11-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/">每周分享</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2019/11/19/android-interview-6-anr/">Android 面试题（6）：谈谈你对 ANR 的了解？</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/11/19/android-interview-6-anr/">
-          
-          
-            
-          
-          什么是 ANRANR(Application Not responding)，即应用程序无响应，简单来说，就是用户界面突然卡住，无法响应用户的操作（比如触摸事件）。
-Android 系统对于一些事件需要在一定的时间范围内完成，如果超过预定时间能未能得到有效响应或者响应时间过长，都会造成 ANR。一般情况下，ANR 后会弹出一个提示框，告知用户当前应用无响应，用户可选择继续等待或者关闭应用。
-
-出现
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-11-19 15:36" pubdate>
-              2019-11-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Android%E9%9D%A2%E8%AF%95%E9%A2%98/">Android面试题</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Android%E9%9D%A2%E8%AF%95%E9%A2%98/">Android面试题</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-
-
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
-  
-  <script>
-    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
-      ele.href += '#board';
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.1.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.1.1" type="image/png" sizes="32x32"><meta property="og:type" content="website">
+<meta property="og:title" content="贾小昆">
+<meta property="og:url" content="http://wuzhangyang.com/page/2/index.html">
+<meta property="og:site_name" content="贾小昆">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="贾小昆">
+<meta name="twitter:card" content="summary"><title>贾小昆</title><link ref="canonical" href="http://wuzhangyang.com/page/2/index.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.1.1"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><script src="https://www.googletagmanager.com/gtag/js?id=UA-127464210-1" async=""></script><script>if (window.location.hostname !== 'localhost') {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'UA-127464210-1');
+}</script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: undefined,
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.1.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/04/24/Android-Draw-Image/">Android 音视频学习：使用三种不同的方式绘制图片</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-04-24</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">417</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">4分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>本系列是个人 Android 音视频学习总结，这是第一篇，主要学习内容是：</p>
+<p>在 Android 平台上绘制一张图片，使用三种不同的 API，ImageView、SurfaceView、自定义 View。</p>
+
+        <h2 id="ImageView-绘制图片">
+          <a href="#ImageView-绘制图片" class="heading-link"><i class="fas fa-link"></i></a>ImageView 绘制图片</h2>
+      <p>这种方式较为普遍简单。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ImageViewActivity</span> <span class="keyword">extends</span> <span class="title">BaseActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ImageView mImageView;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> View <span class="title">getContentView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mImageView = <span class="keyword">new</span> ImageView(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">return</span> mImageView;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">getTitleResId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> R.string.image_view;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.initView();</span><br><span class="line">        <span class="comment">// 绘制图片</span></span><br><span class="line">        mImageView.setImageBitmap(FileUtil.getDrawImageBitmap(<span class="keyword">this</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="SurfaceView-绘制图片">
+          <a href="#SurfaceView-绘制图片" class="heading-link"><i class="fas fa-link"></i></a>SurfaceView 绘制图片</h2>
+      <p>SurfaceView 是 View 的一个子类，特点在于其实现了双缓冲技术，适用于频繁刷新页面的场景。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SurfaceViewActivity</span> <span class="keyword">extends</span> <span class="title">BaseActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> SurfaceView mSurfaceView;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">getTitleResId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> R.string.surface_view;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> View <span class="title">getContentView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mSurfaceView = <span class="keyword">new</span> SurfaceView(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">return</span> mSurfaceView;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.initView();</span><br><span class="line">        mSurfaceView.getHolder().addCallback(<span class="keyword">new</span> SurfaceHolder.Callback() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceCreated</span><span class="params">(SurfaceHolder holder)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (holder == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                Paint paint = <span class="keyword">new</span> Paint();</span><br><span class="line">                paint.setAntiAlias(<span class="keyword">true</span>);</span><br><span class="line">                paint.setStyle(Paint.Style.STROKE);</span><br><span class="line"></span><br><span class="line">                Canvas canvas = holder.lockCanvas();</span><br><span class="line">                <span class="comment">// 绘制图片</span></span><br><span class="line">                canvas.drawBitmap(FileUtil.getDrawImageBitmap(SurfaceViewActivity.<span class="keyword">this</span>), <span class="number">0</span>, <span class="number">0</span>, paint);</span><br><span class="line">                holder.unlockCanvasAndPost(canvas);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceChanged</span><span class="params">(SurfaceHolder holder, <span class="keyword">int</span> format, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceDestroyed</span><span class="params">(SurfaceHolder holder)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="自定义-View-绘制图片">
+          <a href="#自定义-View-绘制图片" class="heading-link"><i class="fas fa-link"></i></a>自定义 View 绘制图片</h2>
+      <p>还可以通过自定义 View 绘制图片。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomView</span> <span class="keyword">extends</span> <span class="title">View</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Paint mPaint;</span><br><span class="line">    <span class="keyword">private</span> Bitmap mBitmap;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CustomView</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(context, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CustomView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(context, attrs, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CustomView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs, defStyleAttr);</span><br><span class="line">        mPaint = <span class="keyword">new</span> Paint();</span><br><span class="line">        mPaint.setAntiAlias(<span class="keyword">true</span>);</span><br><span class="line">        mPaint.setStyle(Paint.Style.STROKE);</span><br><span class="line">        mBitmap = FileUtil.getDrawImageBitmap(getContext());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDraw(canvas);</span><br><span class="line">        <span class="keyword">if</span> (mBitmap != <span class="keyword">null</span>) &#123;</span><br><span class="line">            canvas.drawBitmap(mBitmap, <span class="number">0</span>, <span class="number">0</span>, mPaint);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>具体源码看这里：<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/zywudev/AndroidMultiMediaLearning">AndroidMultiMediaLearning</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，下一篇总结使用 AudioRecord 和 AudioTrack API 完成音频 PCM 数据的采集和播放，并实现读写音频 wav 文件。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/03/04/let-baidu-index-github-pages/">如何让百度收录 GitHub Pages 个人博客</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-03-04</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.1k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">6分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>很多程序员朋友都有在 GitHub Pages 上搭建自己的个人博客，对于个人博客，没有被搜索引擎收录的话，别人基本是是看不到的，再好的技术文无法被分享也是白搭。</p>
+<p>基于 GitHub Pages 的个人博客， Google 收录非常及时全面。然而，到目前为止，GitHub 还是拒绝百度爬虫的访问，直接返回 403。</p>
+<p>官方给出原因是，百度爬虫爬得太狠，影响了 Github Pages 服务的正常使用。这就导致了，但凡在 Github Pages 搭建的个人博客，都无法被百度收录。</p>
+
+        <h2 id="现有的解决办法">
+          <a href="#现有的解决办法" class="heading-link"><i class="fas fa-link"></i></a>现有的解决办法</h2>
+      <p>1、使用 coding.net 建立镜像网站</p>
+<p>我之前使用过 coding.net，在本地 repo 的配置文件中同时添加 GitHub 和 coding.net 远程 repo 地址，发布时，两边都会部署到，加上域名智能解析，对于国内的请求，转发到 Coding Page 即可。</p>
+<p>但是通过 coding.net 访问个人主页时会先出现跳转页面，导致百度无法正确爬取。</p>
+<p>2、利用 CDN</p>
+<p>这个没试过，理论上来说，百度在第一次爬取时，CDN 上必须要已经有相应页面的缓存，否则，爬取的请求会被转发到 GitHub 源站，GitHub 还是会拒绝。</p>
+<p>3、使用 Nginx 反向代理</p>
+<p>Nginx 做反向代理，直接代理百度爬虫，去 GitHub Pages 请求，然后将结果返回给百度爬虫。</p>
+<p>这种方式可行，只不过，这些方法都需要一定的定制能力，对于个人开发者，还得买一台 VPS 或者云服务器。</p>
+
+        <h2 id="可靠、免费还简单的方法">
+          <a href="#可靠、免费还简单的方法" class="heading-link"><i class="fas fa-link"></i></a>可靠、免费还简单的方法</h2>
+      <p>Guillermo Rauch 大神创业搞了一个静态站 hosting 服务 <span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://zeit.co/">zeit.co</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，可以通过 GitHub Hooks 实现自动部署，zeit 提供 存储 + CDN  + DNS 一套完整的服务。</p>
+<p>我给个人网站配置完成后，去百度站长试了一下，发现抓取成功了，sitemap 也提交成功了，坐等百度收录。</p>
+<p><img src="/2020/03/04/let-baidu-index-github-pages/1.png" alt="1"></p>
+<p>下面我把配置的步骤记录下来，给有需要的朋友一个参考。</p>
+<p>zeit 网站主要就三个步骤：</p>
+<ul>
+<li><p>Github 账户登陆 zeit.io，授予 zeit repo 的 read 权限；</p>
+</li>
+<li><p>导入 GitHub 博客 repo；</p>
+</li>
+</ul>
+<p><img src="/2020/03/04/let-baidu-index-github-pages/2.png"></p>
+<ul>
+<li>稍等片刻，部署成功。</li>
+</ul>
+<p><img src="/2020/03/04/let-baidu-index-github-pages/3.png"></p>
+<p>项目名中的 <code>.</code> 自动替换成 <code>-</code>，生成了一个类似于 <code>xxxx.now.sh</code> 的链接，点击可以访问你的博客主页，这时候静态资源已经部署到 zeit 的边缘 CDN 节点上了，下次你 GitHub 项目的任何更新会触发 zeit 项目更新。</p>
+<p>接下来的就是切换域名，通过智能 DNS 将国内流量切过去。通过 zeit.io 提供的 DNS 解析服务配置自己的域名，然后在百度站长里配置信息。</p>
+<p>在 Domains 下为项目添加你的个人域名。</p>
+<p><img src="/2020/03/04/let-baidu-index-github-pages/4.png"></p>
+<p>我添加后出现以下配置错误，原因我的域名权威 dns 是 dnspod。</p>
+<p>一种解决方式是将直接使用 zeit 提供的 nameserver 智能 DNS，另一种方式，就是保留 dnspod 作为权威 dns 服务器，但是要添加一条 ANAME 记录。</p>
+<p><img src="/2020/03/04/let-baidu-index-github-pages/5.png"></p>
+<p><img src="/2020/03/04/let-baidu-index-github-pages/6.png"></p>
+<p>有两张配置方式，一种是改 nameserver，我用的是这种，权威dns服务器改成左边那些，我看到你还是用的dnspod来解析的。另一种方式，就是保留dnspod作为权威dns服务器，但是要添加一条ANAME记录。</p>
+<p>我使用的是第一种方式，直接在阿里云替换了 DNS 服务器，直接用 zeit 提供的 nameserver 智能 DNS。</p>
+<p><img src="/2020/03/04/let-baidu-index-github-pages/7.png"></p>
+<p>回到 zeit，刷新下，正常是这样，这里是给你签发 https 证书，免费的。</p>
+<p><img src="/2020/03/04/let-baidu-index-github-pages/8-1.png"></p>
+<p>过一会儿应该就好了。</p>
+<p><img src="/2020/03/04/let-baidu-index-github-pages/8-2.png"></p>
+<p>看一下 DNS 解析地址，说明 zeit 域名已经配置成功了。</p>
+<p><img src="/2020/03/04/let-baidu-index-github-pages/9.png"></p>
+<p>最后就是在百度站长里面添加个人域名了。这里注意选择 https 协议，因为 zeit 默认都是 https 了。</p>
+<p><img src="/2020/03/04/let-baidu-index-github-pages/10.png"></p>
+<p>网站验证我采用的是文件验证，下载验证文件放在你博客本地 repo 的 source 目录下，部署到 GitHub，当然也会及时更新到 zeit。然后完成验证就好了，试一下链接诊断，看能不能正常抓取，失败的话，看看抓取的 ip 地址是不是还是之前的缓存，等待一段时间重新抓取下，时间取决于 dns 的 ttl。</p>
+<p><img src="/2020/03/04/let-baidu-index-github-pages/11.png"></p>
+<p>从<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://zeit.co/">zeit.co</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 官网上看，台湾和香港都有 CDN 节点，免费账户可以有 20G/月，个人博客应该是够用了。</p>
+<p><img src="/2020/03/04/let-baidu-index-github-pages/12.png"></p>
+<p>配置还是很简单的，赶紧试试吧，有问题欢迎交流。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/01/15/retrofit-analysis/">Retrofit 源码分析</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-01-15</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">4.7k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">39分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>前面的文章我们分析了 OkHttp 的核心源码，而 Retrofit 与 OkHttp 的结合使用，也是目前主流的方式，这篇文章主要分析下目前 Android 最优秀的网络封装框架 Retrofit。</p>
+<p>在分析 Retrofit 源码之前，先看下 Retrofit 的简单使用。</p>
+
+        <h2 id="基本使用">
+          <a href="#基本使用" class="heading-link"><i class="fas fa-link"></i></a>基本使用</h2>
+      <p>一般情况，Retrofit 的使用流程按照以下三步：</p>
+<p>1、将 HTTP API 定义成接口形式</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">GitHubService</span> </span>&#123;</span><br><span class="line">  <span class="meta">@GET(&quot;users/&#123;user&#125;/repos&quot;)</span></span><br><span class="line">  Call&lt;List&lt;Repo&gt;&gt; listRepos(<span class="meta">@Path(&quot;user&quot;)</span> String user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>2、构建 Retrofit 实例，生成 GitHubService 接口的实现。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Retrofit 构建过程</span></span><br><span class="line">Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()</span><br><span class="line">    .baseUrl(<span class="string">&quot;https://api.github.com/&quot;</span>)</span><br><span class="line">    .build();</span><br><span class="line"></span><br><span class="line">GitHubService service = retrofit.create(GitHubService.class);</span><br></pre></td></tr></table></div></figure>
+
+<p>3、发起网络请求，可以做同步或异步请求。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Call&lt;List&lt;Repo&gt;&gt; repos = service.listRepos(<span class="string">&quot;octocat&quot;</span>);</span><br><span class="line"></span><br><span class="line">call.execute() 或者 call.enqueue()</span><br></pre></td></tr></table></div></figure>
+
+<p>这里，Retrofit 用注解标识不同的网络请求类型，极大的简化了 OkHttp 的使用方式。</p>
+<p>这篇文章主要关注的几个问题：</p>
+<ul>
+<li><p>Retrofit 实例是如何创建的，它初始化了哪些东西？</p>
+</li>
+<li><p>GitHubService 实例是如何创建的，这些注解是如何映射到每种网络请求的 ？</p>
+</li>
+<li><p>网络请求的流程是怎样的？</p>
+</li>
+</ul>
+
+        <h2 id="Retrofit-创建过程">
+          <a href="#Retrofit-创建过程" class="heading-link"><i class="fas fa-link"></i></a>Retrofit 创建过程</h2>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()</span><br><span class="line">    .baseUrl(<span class="string">&quot;https://api.github.com/&quot;</span>)</span><br><span class="line">    .build();</span><br></pre></td></tr></table></div></figure>
+
+<p>这里可以看出，Retrofit 实例是使用建造者模式通过 Builder 类进行创建。</p>
+<blockquote>
+<p>建造者模式简言之：将一个复杂对象的构建与表示分离，使得用户在不知道对象的创建细节情况下可以直接创建复杂的对象。</p>
+</blockquote>
+
+        <h3 id="Retrofit">
+          <a href="#Retrofit" class="heading-link"><i class="fas fa-link"></i></a>Retrofit</h3>
+      <p>Retrofit 包含 7 个成员变量：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Retrofit</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 网络请求配置对象，存储网络请求相关的配置，如网络请求的方法、数据转换器、网络请求适配器、网络请求工厂、基地址等</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;Method, ServiceMethod&lt;?&gt;&gt; serviceMethodCache = <span class="keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 网络请求器的工厂：生产网络请求器</span></span><br><span class="line">  <span class="keyword">final</span> okhttp3.Call.Factory callFactory;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 网络请求的 URL 地址</span></span><br><span class="line">  <span class="keyword">final</span> HttpUrl baseUrl;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 数据转换器工厂的集合</span></span><br><span class="line">  <span class="keyword">final</span> List&lt;Converter.Factory&gt; converterFactories;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 网络请求适配器工厂的集合</span></span><br><span class="line">  <span class="keyword">final</span> List&lt;CallAdapter.Factory&gt; callAdapterFactories;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 回调方法执行器</span></span><br><span class="line">  <span class="keyword">final</span> <span class="meta">@Nullable</span> Executor callbackExecutor;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 是否缓存创建的 ServiceMethod</span></span><br><span class="line">  <span class="keyword">final</span> <span class="keyword">boolean</span> validateEagerly;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>再看 Retrofit 构造函数，除了 serviceMethodCache, 其他成员变量都在这里进行赋值。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Retrofit(okhttp3.Call.Factory callFactory, HttpUrl baseUrl,</span><br><span class="line">         List&lt;Converter.Factory&gt; converterFactories, List&lt;CallAdapter.Factory&gt; callAdapterFactories,</span><br><span class="line">         <span class="meta">@Nullable</span> Executor callbackExecutor, <span class="keyword">boolean</span> validateEagerly) &#123;</span><br><span class="line">    <span class="keyword">this</span>.callFactory = callFactory;</span><br><span class="line">    <span class="keyword">this</span>.baseUrl = baseUrl;</span><br><span class="line">    <span class="keyword">this</span>.converterFactories = converterFactories; <span class="comment">// Copy+unmodifiable at call site.</span></span><br><span class="line">    <span class="keyword">this</span>.callAdapterFactories = callAdapterFactories; <span class="comment">// Copy+unmodifiable at call site.</span></span><br><span class="line">    <span class="keyword">this</span>.callbackExecutor = callbackExecutor;</span><br><span class="line">    <span class="keyword">this</span>.validateEagerly = validateEagerly;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="Retrofit-Builder">
+          <a href="#Retrofit-Builder" class="heading-link"><i class="fas fa-link"></i></a>Retrofit.Builder</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Builder</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> Platform platform;     <span class="comment">// 平台</span></span><br><span class="line">   <span class="keyword">private</span> <span class="meta">@Nullable</span> okhttp3.Call.Factory callFactory;      <span class="comment">// 网络请求工厂，默认使用OkHttpCall（工厂方法模式）</span></span><br><span class="line">   <span class="keyword">private</span> <span class="meta">@Nullable</span> HttpUrl baseUrl;  <span class="comment">// 网络请求URL地址</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> List&lt;Converter.Factory&gt; converterFactories = <span class="keyword">new</span> ArrayList&lt;&gt;();     <span class="comment">// 数据转换器工厂的集合</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> List&lt;CallAdapter.Factory&gt; callAdapterFactories = <span class="keyword">new</span> ArrayList&lt;&gt;(); <span class="comment">// 网络请求适配器工厂的集合</span></span><br><span class="line">   <span class="keyword">private</span> <span class="meta">@Nullable</span> Executor callbackExecutor;    <span class="comment">// 回调方法执行器</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">boolean</span> validateEagerly;</span><br><span class="line"></span><br><span class="line">   Builder(Platform platform) &#123;</span><br><span class="line">     <span class="keyword">this</span>.platform = platform;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">Builder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">this</span>(Platform.get());</span><br><span class="line">   &#125;</span><br><span class="line">    ... </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>这里主要关注 Platform，在 Builder 构造函数中调用了 <code>Platform.get()</code> ，然后赋值给自己的 platform 变量，我们来看看 Platform 类。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Platform</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Platform PLATFORM = findPlatform();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">static</span> Platform <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> PLATFORM;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Platform <span class="title">findPlatform</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// 判断是否是 Android 平台</span></span><br><span class="line">      Class.forName(<span class="string">&quot;android.os.Build&quot;</span>);</span><br><span class="line">      <span class="keyword">if</span> (Build.VERSION.SDK_INT != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Android();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ClassNotFoundException ignored) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// Java 平台</span></span><br><span class="line">      Class.forName(<span class="string">&quot;java.util.Optional&quot;</span>);</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> Java8();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ClassNotFoundException ignored) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Platform();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p><code>Platform.get()</code> 方法会调用 <code>findPlatform()</code> 方法，这里主要是判断是 Android 平台还是 Java 平台，如果是 Android 平台会返回一个 Android 对象。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Android</span> <span class="keyword">extends</span> <span class="title">Platform</span> </span>&#123;</span><br><span class="line">    <span class="meta">@IgnoreJRERequirement</span> <span class="comment">// Guarded by API check.</span></span><br><span class="line">    <span class="meta">@Override</span> <span class="function"><span class="keyword">boolean</span> <span class="title">isDefaultMethod</span><span class="params">(Method method)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &lt; <span class="number">24</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> method.isDefault();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> Executor <span class="title">defaultCallbackExecutor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MainThreadExecutor();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span> List&lt;? extends CallAdapter.Factory&gt; defaultCallAdapterFactories(</span><br><span class="line">        <span class="meta">@Nullable</span> Executor callbackExecutor) &#123;</span><br><span class="line">        <span class="keyword">if</span> (callbackExecutor == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> AssertionError();</span><br><span class="line">        DefaultCallAdapterFactory executorFactory = <span class="keyword">new</span> DefaultCallAdapterFactory(callbackExecutor);</span><br><span class="line">        <span class="keyword">return</span> Build.VERSION.SDK_INT &gt;= <span class="number">24</span></span><br><span class="line">            ? asList(CompletableFutureCallAdapterFactory.INSTANCE, executorFactory)</span><br><span class="line">            : singletonList(executorFactory);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span> <span class="function"><span class="keyword">int</span> <span class="title">defaultCallAdapterFactoriesSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Build.VERSION.SDK_INT &gt;= <span class="number">24</span> ? <span class="number">2</span> : <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span> List&lt;? extends Converter.Factory&gt; defaultConverterFactories() &#123;</span><br><span class="line">        <span class="keyword">return</span> Build.VERSION.SDK_INT &gt;= <span class="number">24</span></span><br><span class="line">            ? singletonList(OptionalConverterFactory.INSTANCE)</span><br><span class="line">            : Collections.&lt;Converter.Factory&gt;emptyList();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span> <span class="function"><span class="keyword">int</span> <span class="title">defaultConverterFactoriesSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Build.VERSION.SDK_INT &gt;= <span class="number">24</span> ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MainThreadExecutor</span> <span class="keyword">implements</span> <span class="title">Executor</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> Handler handler = <span class="keyword">new</span> Handler(Looper.getMainLooper());</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(Runnable r)</span> </span>&#123;</span><br><span class="line">            handler.post(r);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>关注三个重要的方法：</p>
+<ul>
+<li><p><code>defaultCallbackExecutor</code>： 返回默认的 Executor 对象，正是 Retrofit 的成员变量回调执行器，它的内部采用 Handler 负责子线程到主线程的切换工作。</p>
+</li>
+<li><p><code>defaultCallAdapterFactories</code>：返回的是默认的 CallAdpter.Factory 的集合，也就是 Retrofit 的成员变量网络请求适配器工厂集合，如果是 Android 7.0 以上或者 Java 8，使用并发包中的 CompletableFuture 保证了回调的同步。</p>
+</li>
+<li><p><code>defaultConverterFactories</code>：返回的是默认的 Converter.Factory 的集合，也就是 Retrofit 的成员变量数据转换器工厂集合。</p>
+</li>
+</ul>
+
+        <h3 id="build-过程">
+          <a href="#build-过程" class="heading-link"><i class="fas fa-link"></i></a>build 过程</h3>
+      <p>接着看一下 <code>Builder.build()</code> 方法。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Retrofit <span class="title">build</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (baseUrl == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">&quot;Base URL required.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    okhttp3.Call.Factory callFactory = <span class="keyword">this</span>.callFactory;</span><br><span class="line">    <span class="keyword">if</span> (callFactory == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 默认使用 OkHttp</span></span><br><span class="line">        callFactory = <span class="keyword">new</span> OkHttpClient();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Executor callbackExecutor = <span class="keyword">this</span>.callbackExecutor;</span><br><span class="line">    <span class="keyword">if</span> (callbackExecutor == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 默认的 callbackExecutor</span></span><br><span class="line">        callbackExecutor = platform.defaultCallbackExecutor();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加你配置的 CallAdapter.Factory 到 List,然后把 Platform 默认的 defaultCallAdapterFactories 添加到 List</span></span><br><span class="line">    <span class="comment">// Make a defensive copy of the adapters and add the default Call adapter.</span></span><br><span class="line">    List&lt;CallAdapter.Factory&gt; callAdapterFactories = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="keyword">this</span>.callAdapterFactories);</span><br><span class="line">    callAdapterFactories.addAll(platform.defaultCallAdapterFactories(callbackExecutor));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加 BuiltInConverters 和手动配置的 Converter.Factory 到 List,然后把 Platform 默认的 defaultConverterFactories 添加到 List</span></span><br><span class="line">    <span class="comment">// Make a defensive copy of the converters.</span></span><br><span class="line">    List&lt;Converter.Factory&gt; converterFactories = <span class="keyword">new</span> ArrayList&lt;&gt;(</span><br><span class="line">        <span class="number">1</span> + <span class="keyword">this</span>.converterFactories.size() + platform.defaultConverterFactoriesSize());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Add the built-in converter factory first. This prevents overriding its behavior but also</span></span><br><span class="line">    <span class="comment">// ensures correct behavior when using converters that consume all types.</span></span><br><span class="line">    converterFactories.add(<span class="keyword">new</span> BuiltInConverters());</span><br><span class="line">    converterFactories.addAll(<span class="keyword">this</span>.converterFactories);</span><br><span class="line">    converterFactories.addAll(platform.defaultConverterFactories());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回一个 Retrofit 对象</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Retrofit(callFactory, baseUrl, unmodifiableList(converterFactories),</span><br><span class="line">                        unmodifiableList(callAdapterFactories), callbackExecutor, validateEagerly);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+<p>至此，Retrofit 的创建流程就完成了，它的成员变量的值如下：</p>
+<ul>
+<li><p>serviceMethodService：暂时为空的 ConcurrentHashMap</p>
+</li>
+<li><p>callFactory：默认OkHttpClient 对象</p>
+</li>
+<li><p>baseUrl：根据配置的 baseUrl，构建 HttpUrl 对象</p>
+</li>
+<li><p>callAdapterFactories：配置的和默认的网络请求适配器工厂集合</p>
+</li>
+<li><p>converterFactories：配置的和默认的数据转换器工厂集合</p>
+</li>
+<li><p>callbackExecutor：MainThreadExecutor 对象</p>
+</li>
+<li><p>validateEagerly：默认 false</p>
+</li>
+</ul>
+
+        <h2 id="创建网络请求接口实例">
+          <a href="#创建网络请求接口实例" class="heading-link"><i class="fas fa-link"></i></a>创建网络请求接口实例</h2>
+      <p>接着来看 GitHubService 实例是如何创建的。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GitHubService service = retrofit.create(GitHubService.class);</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="Service-创建">
+          <a href="#Service-创建" class="heading-link"><i class="fas fa-link"></i></a>Service 创建</h3>
+      <p><code>retrofit.create()</code> 使用了外观模式和代理模式创建了网络请求接口实例。</p>
+<blockquote>
+<p>外观模式：定义一个统一接口，外部与通过该统一的接口对子系统里的其他接口进行访问。</p>
+<p>代理模式：通过访问代理对象的方式来间接访问目标对象。</p>
+</blockquote>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">create</span><span class="params">(<span class="keyword">final</span> Class&lt;T&gt; service)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对参数 service 进行校验， service 必须是一个接口，而且没有继承别的接口</span></span><br><span class="line">    Utils.validateServiceInterface(service);</span><br><span class="line">    <span class="comment">// 判断是否需要提前验证</span></span><br><span class="line">    <span class="keyword">if</span> (validateEagerly) &#123;</span><br><span class="line">        eagerlyValidateMethods(service);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 利用动态代理技术，自动生成 Service 接口的实现类，将 Service 接口方法中的参数交给 InvocationHandler 处理</span></span><br><span class="line">    <span class="keyword">return</span> (T) Proxy.newProxyInstance(service.getClassLoader(), <span class="keyword">new</span> Class&lt;?&gt;[] &#123; service &#125;,</span><br><span class="line">                                      <span class="keyword">new</span> InvocationHandler() &#123;</span><br><span class="line">                                          <span class="keyword">private</span> <span class="keyword">final</span> Platform platform = Platform.get();</span><br><span class="line">                                          <span class="keyword">private</span> <span class="keyword">final</span> Object[] emptyArgs = <span class="keyword">new</span> Object[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">                                          <span class="meta">@Override</span> <span class="keyword">public</span> <span class="meta">@Nullable</span> <span class="function">Object <span class="title">invoke</span><span class="params">(Object proxy, Method method,</span></span></span><br><span class="line"><span class="function"><span class="params">                                                                                   <span class="meta">@Nullable</span> Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">                                              <span class="comment">// Object 类的方法直接调用</span></span><br><span class="line">                                              <span class="keyword">if</span> (method.getDeclaringClass() == Object.class) &#123;</span><br><span class="line">                                                  <span class="keyword">return</span> method.invoke(<span class="keyword">this</span>, args);</span><br><span class="line">                                              &#125;</span><br><span class="line">                                              <span class="comment">// 如果是对应平台本身类就有的方法，直接调用</span></span><br><span class="line">                                              <span class="keyword">if</span> (platform.isDefaultMethod(method)) &#123;</span><br><span class="line">                                                  <span class="keyword">return</span> platform.invokeDefaultMethod(method, service, proxy, args);</span><br><span class="line">                                              &#125;</span><br><span class="line">                                              <span class="comment">// 否则通过 loadServiceMethod 方法获取到对应 ServiceMethod 并 invoke</span></span><br><span class="line">                                              <span class="keyword">return</span> loadServiceMethod(method).invoke(args != <span class="keyword">null</span> ? args : emptyArgs);</span><br><span class="line">                                          &#125;</span><br><span class="line">                                      &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p><code>retrofit.create()</code> 返回的是代理对象 Proxy，并转换为 T 类型，即 GitHubService。这里利用了动态代理技术，自动生成 Service 接口的实现类，将 Service 接口方法中的参数交给 InvocationHandler 处理。</p>
+<p>对于 Object 类本身独有以及对应平台本身存在的方法，就直接调用，否则通过 <code>loadServiceMethod()</code> 对 Service  接口中对应的 method 进行解析处理，之后对其调用 <code>invoke()</code> 方法。</p>
+<p>可以看出，Retrofit 不是在创建 Service 接口实例时就立即对所有接口中的方法进行注解解析，而是采用了在方法被调用时才进行注解的解析，也就是懒加载。</p>
+
+        <h3 id="validateEagerly-的作用">
+          <a href="#validateEagerly-的作用" class="heading-link"><i class="fas fa-link"></i></a>validateEagerly 的作用</h3>
+      <p>我们看看 validateEagerly 这个变量，看看它控制着什么。validateEagerly 为 true 会进入 <code>eagerlyValidateMethods()</code> 方法。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">eagerlyValidateMethods</span><span class="params">(Class&lt;?&gt; service)</span> </span>&#123;</span><br><span class="line">    Platform platform = Platform.get();</span><br><span class="line">    <span class="keyword">for</span> (Method method : service.getDeclaredMethods()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!platform.isDefaultMethod(method) &amp;&amp; !Modifier.isStatic(method.getModifiers())) &#123;</span><br><span class="line">            loadServiceMethod(method);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>这里循环取出接口中的 Method，调用 <code>loadServiceMethod() </code>，  <code>loadServiceMethod() </code> 先从 serviceMethodCache 获取 Method 对应的 ServiceMethod，如果有直接返回，否则对 Method 进行解析得到一个 ServiceMethod 对象，存入缓存中。</p>
+<p>所以 validateEagerly 变量是用于判断是否需要提前验证解析的，默认为 false，如果在 Retrofit 创建时设置为 true，会对 Service 接口中所有方法进行提前解析处理。</p>
+
+        <h3 id="ServiceMethod-创建过程">
+          <a href="#ServiceMethod-创建过程" class="heading-link"><i class="fas fa-link"></i></a>ServiceMethod 创建过程</h3>
+      <p><code>loadServiceMethod()</code> 方法的具体实现如下，这里采用了 Double Check 的方式尝试从 serviceMethodCache 中获取 ServiceMethod 对象，如果获取不到则通过 <code>ServiceMethod.parseAnnotations()</code> 方法对该 method 的注解进行处理并将得到的 ServiceMethod 对象加入缓存。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ServiceMethod&lt;?&gt; loadServiceMethod(Method method) &#123;</span><br><span class="line">    <span class="comment">// 1. 先从缓存中获取，如果有则直接返回</span></span><br><span class="line">    ServiceMethod&lt;?&gt; result = serviceMethodCache.get(method);</span><br><span class="line">    <span class="keyword">if</span> (result != <span class="keyword">null</span>) <span class="keyword">return</span> result;</span><br><span class="line">    <span class="keyword">synchronized</span> (serviceMethodCache) &#123;</span><br><span class="line">        <span class="comment">// 2. 这里又获取一次，原因是网络请求一般是多线程环境下，ServiceMethod 可能创建完成了</span></span><br><span class="line">        result = serviceMethodCache.get(method);</span><br><span class="line">        <span class="keyword">if</span> (result == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 3. 解析方法注解，创建 ServiceMethod</span></span><br><span class="line">            result = ServiceMethod.parseAnnotations(<span class="keyword">this</span>, method);</span><br><span class="line">            <span class="comment">// 存入缓存</span></span><br><span class="line">            serviceMethodCache.put(method, result);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>我们详细看一下 ServiceMethod 创建过程。 <code>ServiceMethod.parseAnnotations()</code> 方法具体实现：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> &lt;T&gt; <span class="function">ServiceMethod&lt;T&gt; <span class="title">parseAnnotations</span><span class="params">(Retrofit retrofit, Method method)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 通过 RequestFactory 解析注解配置（工厂模式、内部使用了建造者模式）</span></span><br><span class="line">    RequestFactory requestFactory = RequestFactory.parseAnnotations(retrofit, method);</span><br><span class="line"></span><br><span class="line">    Type returnType = method.getGenericReturnType();</span><br><span class="line">    <span class="keyword">if</span> (Utils.hasUnresolvableType(returnType)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> methodError(method,</span><br><span class="line">                          <span class="string">&quot;Method return type must not include a type variable or wildcard: %s&quot;</span>, returnType);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (returnType == <span class="keyword">void</span>.class) &#123;</span><br><span class="line">        <span class="keyword">throw</span> methodError(method, <span class="string">&quot;Service methods cannot return void.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// HttpServiceMethod 解析注解的方法</span></span><br><span class="line">    <span class="keyword">return</span> HttpServiceMethod.parseAnnotations(retrofit, method, requestFactory);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p><strong>1、通过 RequestFactory 解析注解配置</strong></p>
+<p>通过工厂模式和建造者模式创建 RequestFactory，解析封装注解配置。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> RequestFactory <span class="title">parseAnnotations</span><span class="params">(Retrofit retrofit, Method method)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Builder(retrofit, method).build();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Builder(Retrofit retrofit, Method method) &#123;</span><br><span class="line">    <span class="keyword">this</span>.retrofit = retrofit;</span><br><span class="line">    <span class="keyword">this</span>.method = method;</span><br><span class="line">    <span class="comment">// 获取网络请求接口方法里的注解</span></span><br><span class="line">    <span class="keyword">this</span>.methodAnnotations = method.getAnnotations();</span><br><span class="line">    <span class="comment">// 获取网络请求接口方法里的参数类型</span></span><br><span class="line">    <span class="keyword">this</span>.parameterTypes = method.getGenericParameterTypes();</span><br><span class="line">    <span class="comment">// 获取网络请求接口方法里的注解内容</span></span><br><span class="line">    <span class="keyword">this</span>.parameterAnnotationsArray = method.getParameterAnnotations();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p><strong>2、ServiceMethod 的创建</strong></p>
+<p>ServiceMethod 的创建在 HttpServiceMethod 的 <code>parseAnnotations()</code> 方法中。 </p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> &lt;ResponseT, ReturnT&gt; <span class="function">HttpServiceMethod&lt;ResponseT, ReturnT&gt; <span class="title">parseAnnotations</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    Retrofit retrofit, Method method, RequestFactory requestFactory)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> isKotlinSuspendFunction = requestFactory.isKotlinSuspendFunction;</span><br><span class="line">    <span class="keyword">boolean</span> continuationWantsResponse = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">boolean</span> continuationBodyNullable = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    Annotation[] annotations = method.getAnnotations();</span><br><span class="line">    Type adapterType;</span><br><span class="line">    <span class="comment">// 如果方法是 kotlin 中的 suspend 方法</span></span><br><span class="line">    <span class="keyword">if</span> (isKotlinSuspendFunction) &#123;</span><br><span class="line">        <span class="comment">// 获取 Continuation 的范型参数，它就是 suspend 方法的返回值类型</span></span><br><span class="line">        Type[] parameterTypes = method.getGenericParameterTypes();</span><br><span class="line">        Type responseType = Utils.getParameterLowerBound(<span class="number">0</span>,</span><br><span class="line">                                                         (ParameterizedType) parameterTypes[parameterTypes.length - <span class="number">1</span>]);</span><br><span class="line">        <span class="comment">// 如果 Continuation 的范型参数是 Response，则说明它需要的是 Response，那么将 continuationWantsResponse 置为 true;</span></span><br><span class="line">        <span class="keyword">if</span> (getRawType(responseType) == Response.class &amp;&amp; responseType <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">            <span class="comment">// Unwrap the actual body type from Response&lt;T&gt;.</span></span><br><span class="line">            responseType = Utils.getParameterUpperBound(<span class="number">0</span>, (ParameterizedType) responseType);</span><br><span class="line">            continuationWantsResponse = <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// TODO figure out if type is nullable or not</span></span><br><span class="line">            <span class="comment">// Metadata metadata = method.getDeclaringClass().getAnnotation(Metadata.class)</span></span><br><span class="line">            <span class="comment">// Find the entry for method</span></span><br><span class="line">            <span class="comment">// Determine if return type is nullable or not</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        adapterType = <span class="keyword">new</span> Utils.ParameterizedTypeImpl(<span class="keyword">null</span>, Call.class, responseType);</span><br><span class="line">        annotations = SkipCallbackExecutorImpl.ensurePresent(annotations);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 否则获取方法返回值的范型参数，即为请求需要的返回值的类型</span></span><br><span class="line">        adapterType = method.getGenericReturnType();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据网络请求接口方法的返回值和注解类型</span></span><br><span class="line">    <span class="comment">// 从 Retrofit 对象中获取对于的网络请求适配器</span></span><br><span class="line">    CallAdapter&lt;ResponseT, ReturnT&gt; callAdapter =</span><br><span class="line">        createCallAdapter(retrofit, method, adapterType, annotations);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 得到响应类型</span></span><br><span class="line">    Type responseType = callAdapter.responseType();</span><br><span class="line">    <span class="keyword">if</span> (responseType == okhttp3.Response.class) &#123;</span><br><span class="line">        <span class="keyword">throw</span> methodError(method, <span class="string">&quot;&#x27;&quot;</span></span><br><span class="line">                          + getRawType(responseType).getName()</span><br><span class="line">                          + <span class="string">&quot;&#x27; is not a valid response body type. Did you mean ResponseBody?&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (responseType == Response.class) &#123;</span><br><span class="line">        <span class="keyword">throw</span> methodError(method, <span class="string">&quot;Response must include generic type (e.g., Response&lt;String&gt;)&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// TODO support Unit for Kotlin?</span></span><br><span class="line">    <span class="keyword">if</span> (requestFactory.httpMethod.equals(<span class="string">&quot;HEAD&quot;</span>) &amp;&amp; !Void.class.equals(responseType)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> methodError(method, <span class="string">&quot;HEAD method must use Void as response type.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据网络请求接口方法的返回值和注解类型从Retrofit对象中获取对应的数据转换器</span></span><br><span class="line">    Converter&lt;ResponseBody, ResponseT&gt; responseConverter =</span><br><span class="line">        createResponseConverter(retrofit, method, responseType);</span><br><span class="line"></span><br><span class="line">    okhttp3.Call.Factory callFactory = retrofit.callFactory;</span><br><span class="line">    <span class="keyword">if</span> (!isKotlinSuspendFunction) &#123;</span><br><span class="line">        <span class="comment">// 不是 suspend 方法的话则直接创建并返回一个 CallAdapted 对象</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> CallAdapted&lt;&gt;(requestFactory, callFactory, responseConverter, callAdapter);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (continuationWantsResponse) &#123;</span><br><span class="line">        <span class="comment">//noinspection unchecked Kotlin compiler guarantees ReturnT to be Object.</span></span><br><span class="line">        <span class="keyword">return</span> (HttpServiceMethod&lt;ResponseT, ReturnT&gt;) <span class="keyword">new</span> SuspendForResponse&lt;&gt;(requestFactory,</span><br><span class="line">                                                                                callFactory, responseConverter, (CallAdapter&lt;ResponseT, Call&lt;ResponseT&gt;&gt;) callAdapter);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//noinspection unchecked Kotlin compiler guarantees ReturnT to be Object.</span></span><br><span class="line">        <span class="keyword">return</span> (HttpServiceMethod&lt;ResponseT, ReturnT&gt;) <span class="keyword">new</span> SuspendForBody&lt;&gt;(requestFactory,</span><br><span class="line">                                                                            callFactory, responseConverter, (CallAdapter&lt;ResponseT, Call&lt;ResponseT&gt;&gt;) callAdapter,</span><br><span class="line">                                                                            continuationBodyNullable);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p><code>HttpServiceMethod.parseAnnotations()</code> 的主要作用就是获取 CallAdapter 以及 Converter 对象，并构建对应 <code>HttpServiceMethod</code>。</p>
+<ul>
+<li>CallAdapter ：根据网络接口方法的返回值类型来选择具体要用哪种 CallAdapterFactory，然后获取具体的 CallAdapter。</li>
+</ul>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> &lt;ResponseT, ReturnT&gt; <span class="function">CallAdapter&lt;ResponseT, ReturnT&gt; <span class="title">createCallAdapter</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">      Retrofit retrofit, Method method, Type returnType, Annotation[] annotations)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">//noinspection unchecked</span></span><br><span class="line">      <span class="keyword">return</span> (CallAdapter&lt;ResponseT, ReturnT&gt;) retrofit.callAdapter(returnType, annotations);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (RuntimeException e) &#123; <span class="comment">// Wide exception range because factories are user code.</span></span><br><span class="line">      <span class="keyword">throw</span> methodError(method, e, <span class="string">&quot;Unable to create call adapter for %s&quot;</span>, returnType);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> CallAdapter&lt;?, ?&gt; callAdapter(Type returnType, Annotation[] annotations) &#123;</span><br><span class="line">    <span class="keyword">return</span> nextCallAdapter(<span class="keyword">null</span>, returnType, annotations);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> CallAdapter&lt;?, ?&gt; nextCallAdapter(<span class="meta">@Nullable</span> CallAdapter.Factory skipPast, Type returnType,</span><br><span class="line">                                         Annotation[] annotations) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> start = callAdapterFactories.indexOf(skipPast) + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 遍历 CallAdapter.Factory 集合寻找合适的工厂(该工厂集合在第一步构造 Retrofit 对象时进行添加)</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = start, count = callAdapterFactories.size(); i &lt; count; i++) &#123;</span><br><span class="line">        CallAdapter&lt;?, ?&gt; adapter = callAdapterFactories.get(i).get(returnType, annotations, <span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">if</span> (adapter != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> adapter;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<ul>
+<li>获取 Converter：根据网络请求接口方法的返回值和注解类型从 Retrofit 对象中获取对应的数据转换器，和创建 CallAdapter 基本一致，遍历 Converter.Factory 集合并寻找具体的 Converter。</li>
+</ul>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> &lt;ResponseT&gt; <span class="function">Converter&lt;ResponseBody, ResponseT&gt; <span class="title">createResponseConverter</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    Retrofit retrofit, Method method, Type responseType)</span> </span>&#123;</span><br><span class="line">    Annotation[] annotations = method.getAnnotations();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> retrofit.responseBodyConverter(responseType, annotations);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (RuntimeException e) &#123; <span class="comment">// Wide exception range because factories are user code.</span></span><br><span class="line">        <span class="keyword">throw</span> methodError(method, e, <span class="string">&quot;Unable to create converter for %s&quot;</span>, responseType);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function">Converter&lt;ResponseBody, T&gt; <span class="title">responseBodyConverter</span><span class="params">(Type type, Annotation[] annotations)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> nextResponseBodyConverter(<span class="keyword">null</span>, type, annotations);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function">Converter&lt;ResponseBody, T&gt; <span class="title">nextResponseBodyConverter</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">      <span class="meta">@Nullable</span> Converter.Factory skipPast, Type type, Annotation[] annotations)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> start = converterFactories.indexOf(skipPast) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = start, count = converterFactories.size(); i &lt; count; i++) &#123;</span><br><span class="line">      Converter&lt;ResponseBody, ?&gt; converter =</span><br><span class="line">          converterFactories.get(i).responseBodyConverter(type, annotations, <span class="keyword">this</span>);</span><br><span class="line">      <span class="keyword">if</span> (converter != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">//noinspection unchecked</span></span><br><span class="line">        <span class="keyword">return</span> (Converter&lt;ResponseBody, T&gt;) converter;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<ul>
+<li>构建 HttpServiceMethod：根据是否是 kotlin suspend 方法分别返回不同类型的 HttpServiceMethod。如果不是 suspend 方法的话则直接创建并返回一个 CallAdapted 对象，否则根据 suspend 方法需要的是 Response 还是具体的类型，分别返回 SuspendForResponse 和 SuspendForBody 对象。</li>
+</ul>
+
+        <h3 id="ServiceMethod-invoke">
+          <a href="#ServiceMethod-invoke" class="heading-link"><i class="fas fa-link"></i></a>ServiceMethod.invoke()</h3>
+      <p>ServiceMethod 是一个抽象类，<code>invoke()</code> 是一个抽象方法，具体实现在子类中。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ServiceMethod</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">abstract</span> <span class="meta">@Nullable</span> <span class="function">T <span class="title">invoke</span><span class="params">(Object[] args)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>它的子类是 HttpServiceMethod，HttpServiceMethod 的 <code>invoke()</code> 方法中，首先构造一个 OkHttpCall，然后通过 <code>adapt()</code> 方法实现对 Call 的转换。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpServiceMethod</span>&lt;<span class="title">ResponseT</span>, <span class="title">ReturnT</span>&gt; <span class="keyword">extends</span> <span class="title">ServiceMethod</span>&lt;<span class="title">ReturnT</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">final</span> <span class="meta">@Nullable</span> <span class="function">ReturnT <span class="title">invoke</span><span class="params">(Object[] args)</span> </span>&#123;</span><br><span class="line">        Call&lt;ResponseT&gt; call = <span class="keyword">new</span> OkHttpCall&lt;&gt;(requestFactory, args, callFactory, responseConverter);</span><br><span class="line">        <span class="keyword">return</span> adapt(call, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="meta">@Nullable</span> <span class="function">ReturnT <span class="title">adapt</span><span class="params">(Call&lt;ResponseT&gt; call, Object[] args)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p><code>adapt()</code> 是一个 抽象方法，所以具体实现在 HttpServiceMethod 的子类中。</p>
+<p>HttpServiceMethod 有三个子类，非协程的情况是 CallAdapted，另外两个子类则是在使用协程的情况下为了配合协程的 SuspendForResponse 以及 SuspendForBody 类。</p>
+<ul>
+<li><p>CallAdapted：通过传递进来的 CallAdapter 对 Call 进行转换。</p>
+</li>
+<li><p>SuspendForResponse：首先根据传递进来的 Call 构造了一个参数为 Response 的 Continuation 对象然后通过 Kotlin 实现的 <code>awaitResponse()</code> 方法将 call 的 <code>enqueue</code> 异步回调过程封装成 一个 suspend 的函数。</p>
+</li>
+<li><p>SuspendForBody：SuspendForBody 则是根据传递进来的 Call 构造了一个 Continuation 对象然后通过 Kotlin 实现的 <code>await()</code> 或 <code>awaitNullable()</code> 方法将 call 的 <code>enqueue</code> 异步回调过程封装为了一个 suspend 的函数。</p>
+</li>
+</ul>
+
+        <h2 id="发起网络请求">
+          <a href="#发起网络请求" class="heading-link"><i class="fas fa-link"></i></a>发起网络请求</h2>
+      
+        <h3 id="创建-Call">
+          <a href="#创建-Call" class="heading-link"><i class="fas fa-link"></i></a>创建 Call</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Call&lt;List&lt;Repo&gt;&gt; repos = service.listRepos(<span class="string">&quot;octocat&quot;</span>);</span><br></pre></td></tr></table></div></figure>
+
+<p>从前面的分析了解到，Service 对象是动态代理对象，当调用 <code>listRepos()</code> 方法时会调用到 InvocationHandler的 <code>invoke()</code> 方法，得到最终的 Call 对象。</p>
+<p>如果没有传入 CallAdapter 的话，默认情况返回的 Call 是 OkHttpCall 对象，它实现了 Call 接口。</p>
+
+        <h3 id="同步请求">
+          <a href="#同步请求" class="heading-link"><i class="fas fa-link"></i></a>同步请求</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Response&lt;T&gt; <span class="title">execute</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    okhttp3.Call call;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (executed) <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">&quot;Already executed.&quot;</span>);</span><br><span class="line">        executed = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (creationFailure != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (creationFailure <span class="keyword">instanceof</span> IOException) &#123;</span><br><span class="line">                <span class="keyword">throw</span> (IOException) creationFailure;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (creationFailure <span class="keyword">instanceof</span> RuntimeException) &#123;</span><br><span class="line">                <span class="keyword">throw</span> (RuntimeException) creationFailure;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">throw</span> (Error) creationFailure;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        call = rawCall;</span><br><span class="line">        <span class="keyword">if</span> (call == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 1. 创建 OkHttp 的 Call 对象</span></span><br><span class="line">                call = rawCall = createRawCall();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException | RuntimeException | Error e) &#123;</span><br><span class="line">                throwIfFatal(e); <span class="comment">//  Do not assign a fatal error to creationFailure.</span></span><br><span class="line">                creationFailure = e;</span><br><span class="line">                <span class="keyword">throw</span> e;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (canceled) &#123;</span><br><span class="line">        call.cancel();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 执行请求并解析返回结果</span></span><br><span class="line">    <span class="keyword">return</span> parseResponse(call.execute());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>很简单，主要就是创建 OkHttp 的 Call 对象，调用 Call 的 <code>execute</code> 方法，对 Response 进行解析返回。</p>
+
+        <h3 id="异步请求">
+          <a href="#异步请求" class="heading-link"><i class="fas fa-link"></i></a>异步请求</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enqueue</span><span class="params">(<span class="keyword">final</span> Callback&lt;T&gt; callback)</span> </span>&#123;</span><br><span class="line">    checkNotNull(callback, <span class="string">&quot;callback == null&quot;</span>);</span><br><span class="line"></span><br><span class="line">    okhttp3.Call call;</span><br><span class="line">    Throwable failure;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (executed) <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">&quot;Already executed.&quot;</span>);</span><br><span class="line">        executed = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">        call = rawCall;</span><br><span class="line">        failure = creationFailure;</span><br><span class="line">        <span class="keyword">if</span> (call == <span class="keyword">null</span> &amp;&amp; failure == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 1. 创建 OkHttp 的 Call 对象</span></span><br><span class="line">                call = rawCall = createRawCall();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">                throwIfFatal(t);</span><br><span class="line">                failure = creationFailure = t;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (failure != <span class="keyword">null</span>) &#123;</span><br><span class="line">        callback.onFailure(<span class="keyword">this</span>, failure);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (canceled) &#123;</span><br><span class="line">        call.cancel();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 调用 Call 的异步执行方法</span></span><br><span class="line">    call.enqueue(<span class="keyword">new</span> okhttp3.Callback() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(okhttp3.Call call, okhttp3.Response rawResponse)</span> </span>&#123;</span><br><span class="line">            Response&lt;T&gt; response;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 3. 解析返回结果</span></span><br><span class="line">                response = parseResponse(rawResponse);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">                throwIfFatal(e);</span><br><span class="line">                callFailure(e);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 4. 执行回调</span></span><br><span class="line">                callback.onResponse(OkHttpCall.<span class="keyword">this</span>, response);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">                throwIfFatal(t);</span><br><span class="line">                t.printStackTrace(); <span class="comment">// TODO this is not great</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(okhttp3.Call call, IOException e)</span> </span>&#123;</span><br><span class="line">            callFailure(e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">callFailure</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                callback.onFailure(OkHttpCall.<span class="keyword">this</span>, e);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">                throwIfFatal(t);</span><br><span class="line">                t.printStackTrace(); <span class="comment">// TODO this is not great</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>也很简单，主要就是创建 OkHttp 的 Call 对象，调用 Call 的 <code>enqueue</code> 方法，解析返回结果，执行回调。</p>
+
+        <h2 id="总结">
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a>总结</h2>
+      <p>至此，Retrofit 的源码基本上就看完了，虽然还有很多细节没有提及，但 Retrofit 的整体流程很清晰了。</p>
+<p>Retrofit 本质上是一个 RESTful 的 Http 网络请求框架的封装，通过大量的设计模式封装了 OkHttp，使得更加简单易用。它内部主要是用动态代理的方式，动态将网络请求接口的注解解析成 HTTP 请求，最后执行请求的过程。</p>
+<p>建议将 Retrofit 的源码下载下来，使用 IDEA 可以直接打开阅读。我这边已经将源码下载下来，进行了注释说明，有需要的可以直接从 <span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/zywudev/android-open-framework-analysis">Android open framework analysis</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 查看。</p>
+
+        <h2 id="参考">
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a>参考</h2>
+      <p>1、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/sucese/android-open-framework-analysis/blob/master/doc/Android%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E6%BA%90%E7%A0%81%E9%89%B4%E8%B5%8F%EF%BC%9ARetrofit.md">Android开源框架源码鉴赏：Retrofit</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>2、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.jianshu.com/p/0c055ad46b6c">Android：手把手带你 深入读懂 Retrofit 2.0 源码</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>3、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/101508725">带你一步步剖析Retrofit 源码解析：一款基于 OkHttp 实现的网络请求框架</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/01/07/my-2019/">我的 2019 年个人总结</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-01-07</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">914</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">4分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>虽然 2020 年已经过去一周时间，但还是想记录一下我的 2019 年个人总结，复盘一下自己过去一年的工作、学习和生活状况。</p>
+<p><strong>工作方面</strong>。</p>
+<p>年初面了几家心仪的公司，但没有得到想要的结果，认识到自身实力一般，而且外界的环境也不是很好，也就还在现在的公司继续干着。</p>
+<p>2018 年部门效益很差，那年年底还裁掉了一些同事。为了生存下来，2019 年整个团队像是在打一场战役，这一年大家都挺忙的，忙碌的时候加班比较严重，所幸团队成员的积极性还算高。</p>
+<p>虽然如王兴说的 「2019 可能会是过去 10 年最差的一年，但却是未来 10 年最好的一年」，但庆幸的是 2019 年部门的业绩应该是超额完成了，这里面有每一个员工的付出和努力。</p>
+<p>毕竟只有企业活得好，员工才能得到应得的回报。企业的成败，每一个员工都有责任，在一个企业里，应该尽职尽责做好自己的工作。</p>
+<p>2020 年，不管自己在哪个企业，都希望自己保持主动、积极、尽职尽责。</p>
+<p><strong>技术学习方面</strong>。</p>
+<p>主要涉及了 Android 音视频知识， Android 性能优化，Android 源码分析以及 Android 面试系列等等。</p>
+<p>其实对这一年的技术成长不是很满意。很多东西从一开始没有做好计划，导致学习的深度和效率不高，技术提升也并不显著。</p>
+<p>所以最近几天，我会好好思考下，今年的技术学习路线到底是什么，做一份详尽的学习计划。</p>
+<p>这一年在个人博客、公众号以及知乎等平台写了几十篇文章，数量还是太少了。</p>
+<p>在互联网平台，做消费者的同时做一个生产者，比只做消费者的收获要大很多。因此我也通过写文章的方式分享一些自己的技术总结、个人见识、生活经验等等，也有帮助到一些朋友，解决了他们的问题，这是一件很棒的事情。只要能帮助到一个朋友，就说明了我的文章是有价值的。</p>
+<p>2020 年我也会争取多多分享，目前确定的会长期持续更新的有 Android 面试系列文章和每周分享周刊。</p>
+<p>技术之外，这一年主要是在微信阅读上面读书，大概读了三十几本书。相比比从前不看书的我，这个提升还是很大的。2020 年，继续保持。</p>
+<p><strong>生活方面</strong>。</p>
+<p>这一年可能是这一生极为重要的一个年份了。因为今年完成了结婚、生娃两件大事。和妻子结束了 9 年的恋爱马拉松，步入婚姻的殿堂，2019 年 12 月 27 日，喜提佩奇，平安喜乐，辛苦妻子。</p>
+<p>这一年，身份角色的转变，伴随而来的是爱与责任。2020 年，多一点时间陪伴亲人。</p>
+<p>以上，算是 2019 年的一点总结。</p>
+<p>其实一年的时间非常快。如果没有目标，没有预先做好计划，按计划执行，一年的时间很容易被荒废，到年底会发现这一年啥事没做成。</p>
+<p>2020 年，有一些目标和想法，没必要轻易说出来，关键还是看行动吧。</p>
+<p>2019 年，感谢大家的关注，2020 年祝福每一位朋友，万事顺意，平安健康。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2019/12/15/weekly-issue-6/">每周分享第 6 期</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2019-12-15</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">840</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">4分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>这里记录过去一周，我看到的值得分享的内容。</p>
+<p>本周刊开源（GitHub: <span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/zywudev/weekly">zywudev/weekly</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>），欢迎投稿，或者推荐好玩的东西。</p>
+<p><img src="/2019/12/15/weekly-issue-6/titu.jpg" alt="titu"></p>
+<p>(题图：<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://unsplash.com/@paysonwick">Payson Wick</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>)</p>
+
+        <h2 id="资源">
+          <a href="#资源" class="heading-link"><i class="fas fa-link"></i></a>资源</h2>
+      <p>1、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://pythonguidecn.readthedocs.io/zh/latest/">Python最佳实践指南</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>《Python 开发最佳实践指南》，中文版开源电子书，翻译自英语原版。 </p>
+<p>2、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/microsoft/api-guidelines/blob/master/Guidelines.md">微软 REST API 设计指南</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>微软官方出品的 REST API 指导规范。</p>
+<p>3、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/andrews1022/web-development-2020-course-list">Web 开发者 2020 年学习指南</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>GitHub 上有一位开发者根据 Udemy 的热门课程，整理了一份 Web 开发者 2020 年学习指南。其中包含常用的 Web 开发工具、设计软件、主流框架、基础知识、后端 &amp; DevOps 技术堆栈等分类。</p>
+
+        <h2 id="工具">
+          <a href="#工具" class="heading-link"><i class="fas fa-link"></i></a>工具</h2>
+      <p>1、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://cs.android.com/">Code Search</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>Android 官方最近为  AOSP 引入了代码搜索工具。</p>
+<p>体验了下，挺好用的，可以在任意开源分支上切换，还支持交叉引用查找，感觉可以替代掉第三方的网站了。</p>
+<p><img src="/2019/12/15/weekly-issue-6/aosp.png"></p>
+<p>2、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/a312863063/seeprettyface-generator-wanghong">网红脸生成器</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>一个网红脸生成器项目（非真实人脸）这是一个用 StyleGAN 训练出的网红脸生成器。</p>
+<p>作者还开源了其他几个人脸生成器。</p>
+<p><img src="/2019/12/15/weekly-issue-6/64_examples.jpg" alt="64_examples"></p>
+<p>3、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/bytefury/crater">Crater</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>一款免费开源的 Web 与移动端发票应用：Crater。</p>
+<p>可跟踪记录日常费用支出情况，并生成专业发票与消费报告。界面设计清新而简洁，适用于自由职业者或小型企业。</p>
+
+        <h2 id="文摘">
+          <a href="#文摘" class="heading-link"><i class="fas fa-link"></i></a>文摘</h2>
+      <p>1、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://www.readers365.com/baihuajiang/mydoc013.htm">《孩子王》阿城</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>我的父亲是世界中力气最大的人。他在队里扛麻袋，别人都比不过他。我的父亲又是世界中吃饭最多的人。家里的饭，都是母亲让他吃饱。这很对，因为父亲要做工，每月拿钱来养活一家人。但是父亲说：“我没有王福力气大。因为王福在识字。”父亲是一个不能讲话的人，但我懂他的意思。队上有人欺负他，我明白。所以我要好好学文化，替他说话。父亲很辛苦，今天他病了，后来慢慢爬起来，还要去干活，不愿失去一天的钱。我要上学，现在还替不了他。早上出的白太阳，父亲在山上走，走进白太阳里去。我想，父亲有力气啦。</p>
+
+        <h2 id="言论">
+          <a href="#言论" class="heading-link"><i class="fas fa-link"></i></a>言论</h2>
+      <p>1、</p>
+<p>最后十年</p>
+<p>在我 20 来岁的时候，我觉得青春只剩最后十年了 </p>
+<p>在我 30 来岁的时候，我觉得职场只剩最后十年了 </p>
+<p>在我 40 来岁的时候，我觉得人生只剩最后十年了 </p>
+<p>在我 50 来岁的时候，我觉得精力只剩最后十年了 </p>
+<p>在我 60 来岁的时候，我觉得生命只剩最后十年了 </p>
+<p>是的，我们人生只有最后十年…… </p>
+<p>—— hao chen</p>
+<p>2、</p>
+<p>我们的人生是由命运和因果报应两条法则互相交织而成的。这两者互相干涉，比如当命运非常恶劣时，做一点好事，并不会出现好的结果，因为仅有的一点善行为强势的厄运所淹没。同样，当好运非常旺盛时，稍稍做点坏事，也不会马上出现恶因招恶果的情形。 </p>
+<p>– 稻盛和夫</p>
+<p>3、</p>
+<p>任何傻瓜都能写计算机能理解的代码，优秀的程序员编写人类能够理解的代码</p>
+<p>– Martin Fowler</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2019/12/08/weekly-issue-5/">每周分享第 5 期</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2019-12-08</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">996</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">5分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>这里记录过去一周，我看到的值得分享的内容。</p>
+<p><img src="/2019/12/08/weekly-issue-5/titu.jpg" alt="titu"></p>
+<p>（题图：<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://unsplash.com/@zuizuii">Duy Hoang</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>）</p>
+
+        <h2 id="文章">
+          <a href="#文章" class="heading-link"><i class="fas fa-link"></i></a>文章</h2>
+      <p>1、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/UaN3WphW0W6sn47L65f8MQ">兽爷丨大象踩了他一脚</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>大公司欺负员工真的是轻而易举，就像大象踩蚂蚁一样。</p>
+<p>2、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/evil-huawei/evil-huawei">华为做过的恶</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>收集华为作过的恶，记录这些不应该被遗忘的历史。</p>
+
+        <h2 id="工具">
+          <a href="#工具" class="heading-link"><i class="fas fa-link"></i></a>工具</h2>
+      <p>1、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.snipaste.com/">Snipaste</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> </p>
+<p>Snipaste 是一个简单但强大的截图工具，也可以让你将截图贴回到屏幕上！下载并打开 Snipaste，按下 F1 来开始截图，再按 F3，截图就在桌面置顶显示了。就这么简单！</p>
+
+        <h2 id="资源">
+          <a href="#资源" class="heading-link"><i class="fas fa-link"></i></a>资源</h2>
+      <p>1、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/sdmg15/Best-websites-a-programmer-should-visit">Best-websites-a-programmer-should-visit</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>学习计算机软件，一些很有用的网站。</p>
+
+        <h2 id="言论">
+          <a href="#言论" class="heading-link"><i class="fas fa-link"></i></a>言论</h2>
+      <p>1、</p>
+<p>原中央网信办副主任彭波对华为事件的评论</p>
+<ul>
+<li><p>水可以载舟，也可以覆舟。舆论可以把你追捧成“民族英雄”，也可以把你踩在脚下，而且很可能是同一批人。 应该看到“捧”你和“踩”你，都是“爱”你——踩你时，绝大部分网友是希望你更好，希望一个伟大的公司更加伟大，一个心目中偶像级的企业更加完美。 要善待这种爱心。 网上最恐怖的情形，不是沸反盈天、骂声一片，而是鸦雀无声、万马齐喑。</p>
+</li>
+<li><p>此事标志着在新的社会主要矛盾背景下，人们对于公平正义的追求更加强烈。人们用更加严苛的眼光看待企业，看待社会，涉及“公平正义”的问题，往往触动全社会最敏感的神经。</p>
+</li>
+<li><p>不管是谁，永远要敬畏互联网，敬畏网民，敬畏舆论；不管是多大的企业，千万不要傲慢，不要任性。 </p>
+</li>
+<li><p>千万不要把事情随便上纲上线，不要把一般的舆情事件政治化，尽管可能有“境内外阶级敌人”的破坏。 </p>
+</li>
+<li><p>网上舆论的治理如同治水，正确的方法是疏堵结合，以疏为主。有时候处理不当带来的次生舆情，危害大于原始舆情。 </p>
+</li>
+<li><p>同情“弱者”，不符合法治精神，“强者”也有合法的权益，真理不一定掌握在“弱者”手上，但同情“弱者”符合舆情规律。 </p>
+</li>
+<li><p>机构（包括政府机关和企业）处理事情的思维逻辑是“法理情”，先考虑是否合法，再考虑是否有理，最后考虑民众情感上能否接受；而民众处理事情的逻辑是“情理法”，先考虑感情上能否接受。 </p>
+</li>
+<li><p>重大舆情，要由公司公共关系部门统筹处理，实务部门和法务部门在需要时才出现；实务部门和法务部门不能主导舆情处置。 </p>
+</li>
+<li><p>永远留有后手，不要轻易把自己置于悬崖边上。 只有公开透明，才能赢得公平公正。世界上没有不明真相的群众，只有掌握真相又没有说明真相的机构。在一片谴责之声出现时，机构仍不说明真相，这里一定有“难言之隐”，大家要有耐心，让子弹再飞一会儿。拒绝恶意猜测，拒绝恶意炒作。</p>
+</li>
+</ul>
+<p>2、</p>
+<p>拉里佩奇的管理法则</p>
+<ul>
+<li><p>不要推诿：自己去做任何能让产品研发进展更快的事情。</p>
+</li>
+<li><p>如果你不能为产品增值，那么你就不要成为碍事的人。让那些真正做事的人相互讨论，你去做其他事情吧。</p>
+</li>
+<li><p>不要官僚主义。 </p>
+</li>
+<li><p>创意比年龄更重要。提出想法的人很初级不意味着TA不应该获得尊重和合作。</p>
+</li>
+<li><p>最糟糕的事情就是只会说「不，不行。」，而不提出切实可行的改进措施来。</p>
+</li>
+</ul>
+<p>3、</p>
+<p>关于251，看到一个妙评：大象踩了一脚蚂蚁，没踩死，对蚂蚁说，你可以踩我一脚。 </p>
+
+        <h2 id="图片">
+          <a href="#图片" class="heading-link"><i class="fas fa-link"></i></a>图片</h2>
+      <p>互联网现状</p>
+<p>1、</p>
+<p><img src="/2019/12/08/weekly-issue-5/photo1.jpg" alt="photo1"></p>
+<p>2、</p>
+<p><img src="/2019/12/08/weekly-issue-5/photo2.jpg" alt="photo2"></p>
+<p>3、</p>
+<p><img src="/2019/12/08/weekly-issue-5/photo3.png" alt="photo3"></p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2019/12/02/android-interview-8-abstract-class-and-interface/">Android 面试题（8）：抽象类和接口的区别？</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2019-12-02</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">815</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">4分</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h2 id="抽象类和接口的区别">
+          <a href="#抽象类和接口的区别" class="heading-link"><i class="fas fa-link"></i></a>抽象类和接口的区别</h2>
+      <p>1、抽象类可以提供成员方法的实现细节，而接口中只能存在 public 抽象方法；</p>
+<p>接口在 Java 长达 20 多年的时间中，都只能拥有抽象方法，直到 JDK1.8 才能拥有实现的方法（还必须用default关键字修饰）</p>
+<p>2、抽象类中的成员变量可以是各种类型的，而接口中的成员变量只能是 <code>public static final</code> 类型的；</p>
+<p>3、接口中不能含有构造器、静态代码块以及静态方法，而抽象类可以有构造器、静态代码块和静态方法；</p>
+<p>4、一个类只能继承一个抽象类，而一个类却可以实现多个接口；</p>
+<p>5、抽象类访问速度比接口速度要快，因为接口需要时间去寻找在类中具体实现的方法。</p>
+<p>换个角度思考，抽象类和接口的区别在于设计目的不同。</p>
+<p>接口的设计目的，是对类的行为进行约束，强制不同的类具有相同的行为，它只约束行为的有无，不对如何实现进行限制。</p>
+<p>抽象类的设计目的，是代码复用。当不同的类具有相同的行为，且其中一部分行为的实现方式一致时，可以让这些类都派生于一个抽象类。</p>
+
+        <h2 id="为什么接口中不能定义变量？">
+          <a href="#为什么接口中不能定义变量？" class="heading-link"><i class="fas fa-link"></i></a>为什么接口中不能定义变量？</h2>
+      <blockquote>
+<p>如果接口可以定义变量，但是接口中的方法又都是抽象的，在接口中无法通过行为来修改属性。有的人会说了，没有关系，可以通过实现接口的对象的行为来修改接口中的属性。这当然没有问题，但是考虑这样的情况。如果接口 A 中有一个public 访问权限的静态变量 a。按照 Java 的语义，我们可以不通过实现接口的对象来访问变量 a，通过 A.a = xxx; 就可以改变接口中的变量 a 的值了。正如抽象类中是可以这样做的，那么实现接口 A 的所有对象也都会自动拥有这一改变后的 a 的值了，也就是说一个地方改变了 a，所有这些对象中 a 的值也都跟着变了。这和抽象类有什么区别呢，怎么体现接口更高的抽象级别呢，怎么体现接口提供的统一的协议呢，那还要接口这种抽象来做什么呢？所以接口中不能出现变量，如果有变量，就和接口提供的统一的抽象这种思想是抵触的。所以接口中的属性必然是常量，只能读不能改，这样才能为实现接口的对象提供一个统一的属性。</p>
+<p>通俗的讲，你认为是要变化的东西，就放在你自己的实现中，不能放在接口中去，接口只是对一类事物的属性和行为更高层次的抽象。对修改关闭，对扩展（不同的实现 implements）开放，接口是对开闭原则的一种体现。</p>
+<p>参考：<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://blog.csdn.net/ameyume/article/details/6189749">Java中接口里定义的成员变量</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2019/11/30/weekly-issue-4/">每周分享第 4 期</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2019-11-30</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">826</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">4分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p> 这里记录过去一周，我看到的值得分享的内容。 </p>
+<p><img src="/2019/11/30/weekly-issue-4/titu.jpg" alt="titu"></p>
+<p>（题图： <span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://unsplash.com/@martin_schmidli">Martin Schmidli</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> ） </p>
+
+        <h2 id="文章">
+          <a href="#文章" class="heading-link"><i class="fas fa-link"></i></a>文章</h2>
+      <p>1、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/yVcCRpIrCN-O8eekJYNzmw">和死神赛跑：趁父亲还在世，我想用人工智能留住他</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>《连线》杂志的一篇文章《<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.wired.com/story/a-sons-race-to-give-his-dying-father-artificial-immortality/">我用 AI 机器人留住去世的父亲</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>》，作者在得知父亲肺癌晚期后，录下了自己与父亲的对话。后来利用这些对话资料，建造了一个人工智能对话机器人。父亲去世以后，跟机器人对话，机器人说出父亲会说的话。</p>
+<p>有网友把这篇文章翻译成了中文，读完很是感动。</p>
+<p><img src="/2019/11/30/weekly-issue-4/dadbot-opener.jpg" alt="dadbot-opener"></p>
+<p>2、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/t3Ob6AHlYeO-rZf5c6cknw">网易裁员事件引发的思考：5点建议，越早懂，越能保护自己</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>这一周，一篇《<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/FW7uR5t6UMMxgkCcAvk-MA">网易裁员，让保安把身患绝症的我赶出公司。</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>》的文章获得广泛关注。 最后双方也达成了和解。</p>
+<p>作为普通群众，我们应该从这件事中有所获得，我们应该学到的也许不是公关技巧，而是被很多人忽略的《劳动合同法》的基本知识。</p>
+<p>3、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/agsk7RjZxumx05aQEXurpw">深度调查：人贩子“梅姨”身后嗜血的“寻人灰产”</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>寻亲背后一直有一条灰色产业链，只是你不知道。希望这些吃人血馒头的恶人能被绳之以法。</p>
+<p>另外推荐大家了解下公安部失踪儿童消息紧急发布平台，也叫着 「<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/SfsFTFFdhcQCCjVBi3pnLA">团圆系统</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>」。  </p>
+
+        <h2 id="工具">
+          <a href="#工具" class="heading-link"><i class="fas fa-link"></i></a>工具</h2>
+      <p>1、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://carbon.now.sh/">Carbon</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>一个生成代码图片的网站，很多好看的样式。</p>
+<p><img src="/2019/11/30/weekly-issue-4/carbon.png" alt="carbon"></p>
+<p>2、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/unbug/codelf">codelf</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>变量命名神器，写代码不知道变量怎么命名就去这里查，命令多来自与 GitHub 爬虫，具备参考价值。</p>
+<p><img src="/2019/11/30/weekly-issue-4/codelf.png" alt="codelf"></p>
+<p>3、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/crimx/ext-saladict">Saladict</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>聚合词典专业划词翻译，浏览器插件必备。<img src="/2019/11/30/weekly-issue-4/sala.gif" alt="sala"></p>
+<p>4、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.sourcetrail.com/">Sourcetrail</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>一个免费开源、跨平台的可视化源码探索项目。</p>
+<p>特地为它写了一篇文章：<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/BnM4H0aa4mlHc4wwhsUBmw">开源免费的源码阅读神器 Sourcetrail</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><img src="/2019/11/30/weekly-issue-4/sourcetrail.gif" alt="sourcetrail"></p>
+<p>5、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://apps.apple.com/cn/app/%E8%8B%B1%E8%AF%AD%E8%BD%BB%E6%9D%BE%E8%AF%BB/id1471605122">英语轻松读</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> </p>
+<p>英语轻松读是针对已经有一定英语阅读能力的人群推出的阅读辅助工具。在看新闻的同时学习英语。</p>
+<p>目前 ios App 已经上架，Android 正在开发中，稍等几天即可。</p>
+<p><img src="/2019/11/30/weekly-issue-4/learn_english.png" alt="learn_english"></p>
+
+        <h2 id="资源">
+          <a href="#资源" class="heading-link"><i class="fas fa-link"></i></a>资源</h2>
+      <p>1、<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://engfluent.com/blog/">English Learning Blog by EngFluent – EngFluent</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> </p>
+<p> 这个博客分享学习英语的经验和方法，听说读写都有。</p>
+
+        <h2 id="言论和笑话">
+          <a href="#言论和笑话" class="heading-link"><i class="fas fa-link"></i></a>言论和笑话</h2>
+      <p>1、</p>
+<p> 在计算机科学中只有两件难事：缓存失效和命名 。</p>
+<p>–  Phil Karlton</p>
+<p>2、</p>
+<p>未来的世界，我们每人都必须要用一个政府发的手机，收集每个人的数据，且每天都要用手机的人脸识别进行微笑打卡，手机每天推送的文章都会有是否已读标识，如果没读，就会打电话催你，读了就要回复写心得，Al会自动判分，一天要挣够积分，挣不够分就是价值观有问题，要去补习班参加集体学习…… </p>
+<p>– Hao Chen</p>
+<p>3、</p>
+<p>我们这个币圈，不容易啊，真的不容易啊，大家这种有梦想，怀揣着一夜暴富的心理来做币，遇到这种情况真是，真是特别糟糕，我们一定要就是（哽咽），大家一定要（抽泣），同心协力（破声），好吗？ </p>
+<p>– 币圈维权群语音</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2019/11/27/sourcetrail/">开源免费的源码阅读神器 Sourcetrail</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2019-11-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">490</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">2分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>阅读源码的工具很多，今天给大家推荐一款别具一格的源码阅读神器。</p>
+<p>它就是 Sourcetrail，一个免费开源、跨平台的可视化源码探索项目。</p>
+<p><img src="/2019/11/27/sourcetrail/concept.png" alt="concept"></p>
+<p>直接看效果图：</p>
+<p><img src="/2019/11/27/sourcetrail/step10.png" alt="step10"></p>
+<p>上面是我阅读 okhttp 源码的一个界面，不同于其他代码编辑器的导航栏，左侧使用图形直观地表示了调用上游和下游，类成员列表等等细节，使得理解源代码的结构变得很容易。</p>
+<p>目前支持 C、C++、Python 和 Java 语言，同时提供了相关 SDK 用于拓展支持其它语言，相信在未来会提供更多语言的支持。</p>
+<p>官网地址： </p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.sourcetrail.com/">https://www.sourcetrail.com/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> </p>
+<p>目前已经开源：</p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/CoatiSoftware/Sourcetrail">https://github.com/CoatiSoftware/Sourcetrail</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> </p>
+<p>支持 Windows、macOS、Linux 三个平台，下载地址：</p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/CoatiSoftware/Sourcetrail/releases">https://github.com/CoatiSoftware/Sourcetrail/releases</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>下面简单介绍下如何使用 sourcetrail 阅读源码，以 okhttp 源码为例：</p>
+<p>首先打开界面如下，点击左侧的 <code>New Project</code> 创建项目</p>
+<p><img src="/2019/11/27/sourcetrail/step1.png" alt="step1"></p>
+<p>选择预先下载好的 okhttp 源码文件夹</p>
+<p><img src="/2019/11/27/sourcetrail/step2.png" alt="step2"></p>
+<p>点击 <code>Add Source Group</code>，选择 Empty Java Source Group：</p>
+<p><img src="/2019/11/27/sourcetrail/step3.png" alt="step3"></p>
+<p>点击 <code>Next</code> 到下面这个界面， 依次点击步骤 1、2 指定索引文件： </p>
+<p><img src="/2019/11/27/sourcetrail/step4.png" alt="step4"></p>
+<p>点击 <code>Next</code> 后出现下面的界面，点击 <code>Create</code> 按钮：</p>
+<p><img src="/2019/11/27/sourcetrail/step5.png" alt="step5"></p>
+<p>选择 <code>All Files</code>， 点击 <code>Start</code> 按钮开始索引，等待一段时间。</p>
+<p><img src="/2019/11/27/sourcetrail/step6.png" alt="step6"></p>
+<p><img src="/2019/11/27/sourcetrail/step7.png" alt="step7"></p>
+<p><img src="/2019/11/27/sourcetrail/step8.png" alt="step8"></p>
+<p>出现 Error 是正常的，因为源码中有很多文件找不到，不影响阅读源码。</p>
+<p>索引完成后点击 <code>OK</code>，就可以开始源码阅读了。</p>
+<p><img src="/2019/11/27/sourcetrail/step9.png" alt="step9"></p>
+<p><img src="/2019/11/27/sourcetrail/step10.png" alt="step10"></p>
+<p>项目中的符号都可以点击，支持来回跳转，还支持模糊搜索。左侧源码结构非常清晰，对于熟悉陌生代码结构非常有用。</p>
+<p>还可以与其他编辑器链接，比如： Atom, Clion, Eclipse, Emacs, IntelliJ IDEA 等等。</p>
+<p>还有更多功能可以参见官方文档：</p>
+<p> <span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.sourcetrail.com/documentation/">https://www.sourcetrail.com/documentation/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> </p>
+<p>一般不特地推荐，一推荐必是利器。赶紧上手体验下。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2019/11/25/android-interview-7-singleton/">Android 面试题（7）：你对单例模式了解多少？</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2019-11-25</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.4k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">9分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>不管是在开发还是面试过程中，单例模式出现的频率都非常的高。但很多人对单例模式一知半解，单例模式的写法非常多，不同写法的区别很大，这篇文章的目的是带你深入学习一下单例模式。</p>
+
+        <h2 id="什么是单例模式">
+          <a href="#什么是单例模式" class="heading-link"><i class="fas fa-link"></i></a>什么是单例模式</h2>
+      <p>单例模式是一种对象创建型模式，用来编写一个类，在整个应用系统中只能有该类的一个实例对象。  </p>
+<p>UML 结构图：</p>
+<p><img src="/2019/11/25/android-interview-7-singleton/singleton.jpg" alt="singleton"></p>
+<p>单例模式的三要点：</p>
+<p>1、某个类只能有一个实例</p>
+<p>2、必须自行创建这个实例</p>
+<p>3、必须自行向整个系统提供这个实例</p>
+
+        <h2 id="单例模式的特点">
+          <a href="#单例模式的特点" class="heading-link"><i class="fas fa-link"></i></a>单例模式的特点</h2>
+      <p>优点：</p>
+<p>使用单例模式可以减少内存的开销，避免了对象实例的频繁创建和销毁。</p>
+<p>缺点：</p>
+<ul>
+<li><p>由于单例模式中没有抽象层，因此单例类的扩展有很大的困难。 </p>
+</li>
+<li><p>单例类的职责过重，在一定程度上违背了”单一职责原则”。 </p>
+</li>
+</ul>
+
+        <h2 id="单例模式的各种写法">
+          <a href="#单例模式的各种写法" class="heading-link"><i class="fas fa-link"></i></a>单例模式的各种写法</h2>
+      <p><strong>1、饿汉式单例类</strong></p>
+<p>饿汉式比较简单，对象在类加载时就实例化，因此称为饿汉式单例类。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    </span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    </span><br><span class="line">     <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    </span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    	 <span class="keyword">return</span> instance;  </span><br><span class="line">     &#125;  </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></div></figure>
+
+
+
+<p>优点：线程安全，没有加锁，执行效率高。</p>
+<p>缺点：未使用单例类时，造成内存浪费。</p>
+<p><strong>2、懒汉式单例类</strong></p>
+<p>在需要使用单例类时在创建实例对象，所有称为懒汉式单例类。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>优点：节约内存</p>
+<p>缺点：线程不安全，多线程可能会创建多个实例</p>
+<p><strong>3、同步方法的懒汉式单例类</strong></p>
+<p>在 <code>getInstance()</code> 方法前增加关键字 synchronized。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>优点：解决了线程安全问题</p>
+<p>缺点：除了第一次调用 <code>getInstance()</code>需要同步，后面的调用造成不必要的同步开销，不建议用这种模式。 </p>
+<p><strong>4、 双重检查锁定</strong> </p>
+<p>这种写法是在 <code>getInstance()</code> 方法中进行两次判空，缩小同步锁的粒度。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">                 &#125;</span><br><span class="line">             &#125;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>第二个判空是必要的，原因如下：</p>
+<p>假如某一瞬间线程 A 和线程 B 都在调用<code>getInstance()</code> 方法，此时 instance 对象为 null，均能通过 “ instance == null ” 的判断。线程 A 进入 synchronized 锁定的代码中执行实例创建代码，线程 B 处于排队等待状态。当 A 执行完毕创建了实例后，线程 B 进入 synchronized 代码，此时 B 并不知道实例已经创建，将创建新的实例。 </p>
+<p>因此需要在 synchronized 锁定代码中再进行一次判空处理，这种方式称为双重检查锁定。实例变量需要加 volatile 关键字保证易变可见性，JDK1.5 起才可用。 </p>
+<p>优点：一定程度上解决了资源的消耗和多余的加锁同步，线程安全等问题。</p>
+<p>缺点：由于 volatile 关键字会屏蔽 Java 虚拟机所做的一些代码优化，可能会导致系统运行效率降低。</p>
+<p><strong>5、静态内部类单例模式</strong></p>
+<p>同样利用了 JVM 类加载机制来保证初始化实例对象时只有一个线程，静态内部类 SingletonHolder 类只有第一次调用 <code>getInstance()</code> 方法时，才会装载从而实例化对象。 </p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">       <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton INSTANCE = <span class="keyword">new</span> Singleton();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">return</span> SingletonHolder.INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125; </span><br></pre></td></tr></table></div></figure>
+
+<p>优点：解决了线程安全问题，延迟加载、节省内存，性能优于上述几种实现方式。</p>
+<p><strong>6、枚举方式</strong></p>
+<p>定义一个枚举的元素，就代表 Singleton 实例。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Singleton &#123;</span><br><span class="line"> </span><br><span class="line">    INSTANCE;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    **调用方式：Singleton.INSTANCE.doSomethingMethod();</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomethingMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125; </span><br></pre></td></tr></table></div></figure>
+
+<p>优点：线程安全，防止反序列化或者反射攻击时实例重新创建。</p>
+
+        <h2 id="如何避免-Java-反射破坏单例模式">
+          <a href="#如何避免-Java-反射破坏单例模式" class="heading-link"><i class="fas fa-link"></i></a>如何避免 Java 反射破坏单例模式</h2>
+      <p>上面 6 种 Java 单例模式实现方式除枚举方式外，其他几种依然可以通过相关反射方法，改变其权限，创建多个实例，代码如下：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">     </span><br><span class="line">        Singleton singleton = Singleton.getInstance();</span><br><span class="line"> </span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line"> </span><br><span class="line">            Constructor&lt;Singleton&gt; constructor = Singleton.class.getDeclaredConstructor();</span><br><span class="line">            constructor.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">            Singleton singletonnew = constructor.newInstance();</span><br><span class="line">            System.out.println(singleton == singletonnew);   <span class="comment">// 输出结果：false</span></span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line"> </span><br><span class="line">        &#125;     </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>如何避免 Java 反射破坏单例模式呢？可以在构造函数里面进行判断：如果当前已有实例，通过抛出异常来阻止反射创建对象。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> != Singleton.singleton) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="如何避免-Java-反序列化破坏单例模式">
+          <a href="#如何避免-Java-反序列化破坏单例模式" class="heading-link"><i class="fas fa-link"></i></a>如何避免 Java 反序列化破坏单例模式</h2>
+      <p>除了反射，反序列化也可能破坏单例模式，反序列化会通过反射调用无参数的构造方法创建一个新的对象。 </p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">&quot;tempFile&quot;</span>));</span><br><span class="line">             ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(<span class="string">&quot;tempFile&quot;</span>))) &#123;</span><br><span class="line">            oos.writeObject(Singleton.getInstance());</span><br><span class="line">            Singleton newInstance = (Singleton) ois.readObject();</span><br><span class="line">            System.out.println(newInstance == Singleton.getInstance()); <span class="comment">// 输出 false</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>解决方法是只要在 Singleton 类中定义 <code>readResolve()</code> 方法即可。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Object <span class="title">readResolve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">万物之中，希望至美</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/zywudev/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/zywu-43/" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="https://weixin.sogou.com/weixin?query=%E8%B4%BE%E5%B0%8F%E6%98%86/" target="_blank" rel="noopener" data-popover="微信" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-weixin"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">100</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">14</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">40</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>贾小昆</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.1.1</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.1.1</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__info">访问人数</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__info">浏览总量</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
     }
-  </script>
+  });
+}
 
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
 
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-  </main>
-
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
-
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
-    </div>
-    
-  <div class="statistics">
-    
-    
-
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
-
-
-    
-
-    
-  </div>
-</footer>
-
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "万物之中 希望至美&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
+      initSearch();
     });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
     });
-  </script>
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
 
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</body>
-</html>
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="/js/utils.js?v=2.1.1"></script><script src="/js/stun-boot.js?v=2.1.1"></script><script src="/js/scroll.js?v=2.1.1"></script><script src="/js/header.js?v=2.1.1"></script><script src="/js/sidebar.js?v=2.1.1"></script><script type="application/json" src="/search.xml"></script></body></html>

@@ -1,220 +1,44 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.1.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.1.1" type="image/png" sizes="32x32"><meta name="description" content="这一系列文章致力于为 Android 开发者查漏补缺，面试准备。 所有文章首发于公众号「JaqenAndroid」，长期持续更新。 由于笔者水平有限，总结的答案难免会出现错误，欢迎留言指出，大家一起学习、交流、进步。  众所周知，Activity 有 4 种启动模式，分别是：standard、singleTop、singleTask 和 singleInstance，它们控制了 Activity">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 面试题（4）：谈谈 Activity 的启动模式">
+<meta property="og:url" content="http://wuzhangyang.com/2019/11/06/android-interview-4-launcher-mode/index.html">
+<meta property="og:site_name" content="贾小昆">
+<meta property="og:description" content="这一系列文章致力于为 Android 开发者查漏补缺，面试准备。 所有文章首发于公众号「JaqenAndroid」，长期持续更新。 由于笔者水平有限，总结的答案难免会出现错误，欢迎留言指出，大家一起学习、交流、进步。  众所周知，Activity 有 4 种启动模式，分别是：standard、singleTop、singleTask 和 singleInstance，它们控制了 Activity">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-06T06:24:04.000Z">
+<meta property="article:modified_time" content="2020-09-04T05:58:03.220Z">
+<meta property="article:author" content="贾小昆">
+<meta property="article:tag" content="Android 基础">
+<meta property="article:tag" content="Android面试题">
+<meta name="twitter:card" content="summary"><title>Android 面试题（4）：谈谈 Activity 的启动模式 | 贾小昆</title><link ref="canonical" href="http://wuzhangyang.com/2019/11/06/android-interview-4-launcher-mode/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.1.1"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><script src="https://www.googletagmanager.com/gtag/js?id=UA-127464210-1" async=""></script><script>if (window.location.hostname !== 'localhost') {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'UA-127464210-1');
+}</script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: undefined,
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
 
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.ico">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="贾小昆">
-  <meta name="keywords" content="">
-  <title>Android 面试题（4）：谈谈 Activity 的启动模式 - 贾小昆</title>
-
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
-  
-
-  
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container page-header text-center fade-in-up">
-            <span class="h2" id="subtitle">
-              
-            </span>
-
-            
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2019-11-06 14:24" pubdate>
-      2019年11月6日 下午
-    </time>
-  </div>
-
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      4.7k 字
-    </span>
-  
-
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      71
-       分钟
-    </span>
-  
-
-  
-  
-</div>
-
-            
-          </div>
-
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto" id="post">
-            <!-- SEO header -->
-            <h1 style="display: none">Android 面试题（4）：谈谈 Activity 的启动模式</h1>
-            
-            <div class="markdown-body" id="post-body">
-              <blockquote>
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.1.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Android 面试题（4）：谈谈 Activity 的启动模式</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2019-11-06</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">5.1k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">46分</span></span><span class="post-meta-item post-meta-item--visitors"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value" id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><blockquote>
 <p>这一系列文章致力于为 Android 开发者查漏补缺，面试准备。</p>
 <p>所有文章首发于公众号「JaqenAndroid」，长期持续更新。</p>
 <p>由于笔者水平有限，总结的答案难免会出现错误，欢迎留言指出，大家一起学习、交流、进步。</p>
@@ -222,123 +46,46 @@
 <p>众所周知，Activity 有 4 种启动模式，分别是：standard、singleTop、singleTask 和 singleInstance，它们控制了 Activity 的启动行为，不同的启动模式使用于不同的应用场景。</p>
 <p>启动的 Activity 会放在任务栈中，任务栈是一种后进先出的结构，按 Back 键的时候栈顶 Activity 会从任务栈中返回，当任务栈为空时系统就会回收这个任务栈。 </p>
 <p>本文将通过具体 Demo，详细分析这几种模式的差异和使用场景。</p>
-<h2 id="standard-标准模式"><a href="#standard-标准模式" class="headerlink" title="standard 标准模式"></a>standard 标准模式</h2><pre><code class="hljs xml">android:launchMode=&quot;standard&quot;</code></pre>
+
+        <h2 id="standard-标准模式">
+          <a href="#standard-标准模式" class="heading-link"><i class="fas fa-link"></i></a>standard 标准模式</h2>
+      <figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:launchMode=&quot;standard&quot;</span><br></pre></td></tr></table></div></figure>
 
 <p>Activity 默认的启动模式，每次启动都会创建新的实例，不管这个实例是否已经存在于任务栈。</p>
-<pre><code class="hljs dockerfile">// 启动顺序
-MainActivity -&gt; StandardActivity -&gt; StandardActivity
-
-// 栈内容（adb <span class="hljs-keyword">shell</span><span class="bash"> dumpsys activity activities）</span>
-Running activities (most recent first):
-    TaskRecord&#123;b4e290f <span class="hljs-comment">#18017 A=com.wuzy.androidlaunchmodetest U=0 StackId=1 sz=3&#125;</span>
-    <span class="hljs-keyword">Run</span><span class="bash"> <span class="hljs-comment">#2: ActivityRecord&#123;1666db1 u0 com.wuzy.androidlaunchmodetest/.StandardActivity t18017&#125;</span></span>
-    <span class="hljs-keyword">Run</span><span class="bash"> <span class="hljs-comment">#1: ActivityRecord&#123;17fa3e6 u0 com.wuzy.androidlaunchmodetest/.StandardActivity t18017&#125;</span></span>
-    <span class="hljs-keyword">Run</span><span class="bash"> <span class="hljs-comment">#0: ActivityRecord&#123;9e18184 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18017&#125;</span></span></code></pre>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 启动顺序</span><br><span class="line">MainActivity -&gt; StandardActivity -&gt; StandardActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容（adb shell dumpsys activity activities）</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;b4e290f #18017 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;3&#125;</span><br><span class="line">    Run #2: ActivityRecord&#123;1666db1 u0 com.wuzy.androidlaunchmodetest&#x2F;.StandardActivity t18017&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;17fa3e6 u0 com.wuzy.androidlaunchmodetest&#x2F;.StandardActivity t18017&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;9e18184 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18017&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>启动两次 StandardActivity 会创建两个 StandardActivity 的实例对象。</p>
 <p><strong>使用场景</strong>：</p>
 <p>在一系列启动 Activity 的过程中需要保留用户操作的 Activity 的页面。比如： 社交应用中，点击查看用户 A 信息 -&gt; 查看用户 A 粉丝 -&gt; 在粉丝中挑选查看用户 B 信息 -&gt; 查看用户 B 粉丝。</p>
-<h2 id="singleTop-栈顶复用模式"><a href="#singleTop-栈顶复用模式" class="headerlink" title="singleTop 栈顶复用模式"></a>singleTop 栈顶复用模式</h2><pre><code class="hljs xml">android:launchMode=&quot;singleTop&quot;</code></pre>
+
+        <h2 id="singleTop-栈顶复用模式">
+          <a href="#singleTop-栈顶复用模式" class="heading-link"><i class="fas fa-link"></i></a>singleTop 栈顶复用模式</h2>
+      <figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:launchMode=&quot;singleTop&quot;</span><br></pre></td></tr></table></div></figure>
 
 <p>singleTop 与 standard 几乎一样，使用 singleTop 的 Activity 也可以创建多个实例。不同点在于，如果启动的 Activity 已经位于任务栈的栈顶，则不需要创建新的实例，直接复用栈顶的 Activity 实例，intent 通过 Activity 的<code>onNewIntent</code> 方法传递到这个 Activity 。</p>
-<pre><code class="hljs angelscript">例 <span class="hljs-number">1</span>：
-<span class="hljs-comment">// 启动顺序</span>
-MainActivity -&gt; SingleTopActivity -&gt; SingleTopActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;<span class="hljs-number">9</span>de11c2 #<span class="hljs-number">18073</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">2</span>&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;f0acc0c u0 com.wuzy.androidlaunchmodetest/.SingleTopActivity t18073&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;b884d57 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18073&#125;
-    
------------------------------------------------------------------------------------------
-
-例 <span class="hljs-number">2</span>：
-<span class="hljs-comment">// 启动顺序</span>
-MainActivity -&gt; SingleTopActivity -&gt; StandardActivity -&gt; SingleTopActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;<span class="hljs-number">9</span>de11c2 #<span class="hljs-number">18073</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">4</span>&#125;
-    Run #<span class="hljs-number">3</span>: ActivityRecord&#123;c282b33 u0 com.wuzy.androidlaunchmodetest/.SingleTopActivity t18073&#125;
-    Run #<span class="hljs-number">2</span>: ActivityRecord&#123;<span class="hljs-number">76f</span>b23e u0 com.wuzy.androidlaunchmodetest/.StandardActivity t18073&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;b6969a8 u0 com.wuzy.androidlaunchmodetest/.SingleTopActivity t18073&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;b884d57 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18073&#125;</code></pre>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">例 1：</span><br><span class="line">&#x2F;&#x2F; 启动顺序</span><br><span class="line">MainActivity -&gt; SingleTopActivity -&gt; SingleTopActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;9de11c2 #18073 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;2&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;f0acc0c u0 com.wuzy.androidlaunchmodetest&#x2F;.SingleTopActivity t18073&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;b884d57 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18073&#125;</span><br><span class="line">    </span><br><span class="line">-----------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">例 2：</span><br><span class="line">&#x2F;&#x2F; 启动顺序</span><br><span class="line">MainActivity -&gt; SingleTopActivity -&gt; StandardActivity -&gt; SingleTopActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;9de11c2 #18073 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;4&#125;</span><br><span class="line">    Run #3: ActivityRecord&#123;c282b33 u0 com.wuzy.androidlaunchmodetest&#x2F;.SingleTopActivity t18073&#125;</span><br><span class="line">    Run #2: ActivityRecord&#123;76fb23e u0 com.wuzy.androidlaunchmodetest&#x2F;.StandardActivity t18073&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;b6969a8 u0 com.wuzy.androidlaunchmodetest&#x2F;.SingleTopActivity t18073&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;b884d57 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18073&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>例 1 中由于栈顶已经是 SingleTopActivity，再启动 SingleTopActivity 时直接复用了栈顶 Activity，无需创建新的实例。</p>
 <p>例 2 中第二次启动 SingleTopActivity 时，由于栈顶是 StandardActivity，所以启动 SingleTopActivity 时会创建新的实例。</p>
 <p><strong>使用场景</strong>：</p>
 <p>假设你在当前的 Activity 中又要启动同类型的 Activity，此时建议将此类型 Activity 的启动模式指定为 singleTop，能够减少 Activity 的创建，节省内存。</p>
-<h2 id="singleTask-栈内复用模式"><a href="#singleTask-栈内复用模式" class="headerlink" title="singleTask 栈内复用模式"></a>singleTask 栈内复用模式</h2><pre><code class="hljs xml">android:launchMode=&quot;singleTask&quot;</code></pre>
+
+        <h2 id="singleTask-栈内复用模式">
+          <a href="#singleTask-栈内复用模式" class="heading-link"><i class="fas fa-link"></i></a>singleTask 栈内复用模式</h2>
+      <figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:launchMode=&quot;singleTask&quot; </span><br></pre></td></tr></table></div></figure>
 
 <p>singleTask 标记的 Activity 是栈内复用模式，如果当前任务栈内没有这个 Activity，那么创建新的 Activity，如果当前任务栈内有这个 Activity，不管它在任务栈的哪个位置，都会直接复用这个 Activity，这个 Activity 上面的其他的 Activity 都被移出栈， intent 通过 <code>onNewIntent</code> 传递到这个 Activity 。</p>
-<pre><code class="hljs angelscript"><span class="hljs-comment">// 1、启动顺序</span>
-MainActivity -&gt; SingleTaskActivity -&gt; StandardActivity
-
-<span class="hljs-comment">// 栈内容：</span>
-Running activities (most recent first):
-    TaskRecord&#123;ebb2593 #<span class="hljs-number">18095</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">3</span>&#125;
-    Run #<span class="hljs-number">2</span>: ActivityRecord&#123;<span class="hljs-number">49</span>b6bb8 u0 com.wuzy.androidlaunchmodetest/.StandardActivity t18095&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;<span class="hljs-number">48628</span>d2 u0 com.wuzy.androidlaunchmodetest/.SingleTaskActivity t18095&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;<span class="hljs-number">86fe71f</span> u0 com.wuzy.androidlaunchmodetest/.MainActivity t18095&#125;
-
------------------------------------------------------------------------------------------
-
-<span class="hljs-comment">// 2、启动顺序</span>
-MainActivity -&gt; SingleTaskActivity -&gt; StandardActivity -&gt; SingleTaskActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;ebb2593 #<span class="hljs-number">18095</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">2</span>&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;<span class="hljs-number">48628</span>d2 u0 com.wuzy.androidlaunchmodetest/.SingleTaskActivity t18095&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;<span class="hljs-number">86fe71f</span> u0 com.wuzy.androidlaunchmodetest/.MainActivity t18095&#125;</code></pre>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 1、启动顺序</span><br><span class="line">MainActivity -&gt; SingleTaskActivity -&gt; StandardActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容：</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;ebb2593 #18095 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;3&#125;</span><br><span class="line">    Run #2: ActivityRecord&#123;49b6bb8 u0 com.wuzy.androidlaunchmodetest&#x2F;.StandardActivity t18095&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;48628d2 u0 com.wuzy.androidlaunchmodetest&#x2F;.SingleTaskActivity t18095&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;86fe71f u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18095&#125;</span><br><span class="line"></span><br><span class="line">-----------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 2、启动顺序</span><br><span class="line">MainActivity -&gt; SingleTaskActivity -&gt; StandardActivity -&gt; SingleTaskActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;ebb2593 #18095 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;2&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;48628d2 u0 com.wuzy.androidlaunchmodetest&#x2F;.SingleTaskActivity t18095&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;86fe71f u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18095&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>可以看到，在第二次启动 SingleTaskActivity 时，由于栈内已经存在了 SingleTaskActivity  实例，栈顶 StandardActivity 被移出任务栈，复用了栈内 SingleTaskActivity 实例。</p>
 <p>当以 singleTask 启动一个 Activity 的时候，首先去判断是否要为该 Activity 去创建一个任务栈？如果需要的话，那么就会创建一个任务栈，并且将该 Activity 放入栈中；如果不需要的话，直接将该 Activity 放入当前的任务栈中。 </p>
 <p>那么如何判断要不要为 singleTask Activity 创建一个任务栈？</p>
 <p>任务栈的创建跟 taskAffinity 的属性相关，每个 Activity 都有 taskAffinity 属性，这个属性指出了它希望进入的任务栈。如果一个 Activity 没有显式的指明该 Activity 的 taskAffinity，那么它的这个属性就等于 Application 指明的 taskAffinity，如果 Application 也没有指明，那么该 taskAffinity 的值就等于包名。</p>
 <p>这里我指定一下 Activity 的 taskAffinity ：</p>
-<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">activity</span></span>
-<span class="hljs-tag">    <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;.SingleTaskWithAffinityActivity&quot;</span></span>
-<span class="hljs-tag">    <span class="hljs-attr">android:label</span>=<span class="hljs-string">&quot;SingleTaskWithAffinity Activity&quot;</span></span>
-<span class="hljs-tag">    <span class="hljs-attr">android:launchMode</span>=<span class="hljs-string">&quot;singleTask&quot;</span></span>
-<span class="hljs-tag">    <span class="hljs-attr">android:taskAffinity</span>=<span class="hljs-string">&quot;com.jaqen&quot;</span> /&gt;</span></code></pre>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">&quot;.SingleTaskWithAffinityActivity&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:label</span>=<span class="string">&quot;SingleTaskWithAffinity Activity&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:launchMode</span>=<span class="string">&quot;singleTask&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:taskAffinity</span>=<span class="string">&quot;com.jaqen&quot;</span> /&gt;</span></span><br></pre></td></tr></table></div></figure>
 
 <p>看一下测试结果：</p>
-<pre><code class="hljs angelscript"><span class="hljs-comment">// 1、启动顺序</span>
-MainActivity -&gt; SingleTaskWithAffinityActivity
-
-<span class="hljs-comment">// 任务栈</span>
-Running activities (most recent first):
-    TaskRecord&#123;fa7e695 #<span class="hljs-number">18097</span> A=com.jaqen U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;<span class="hljs-number">6267f</span>33 u0 com.wuzy.androidlaunchmodetest/.SingleTaskWithAffinityActivity t18097&#125;
-    TaskRecord&#123;efcc3aa #<span class="hljs-number">18096</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;ccdada8 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18096&#125;
-    
------------------------------------------------------------------------------------------
-
-<span class="hljs-comment">// 2、启动顺序</span>
-MainActivity -&gt; SingleTaskWithAffinityActivity -&gt; StandardActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;<span class="hljs-number">3f</span>4af35 #<span class="hljs-number">18097</span> A=com.jaqen U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">2</span>&#125;
-    Run #<span class="hljs-number">2</span>: ActivityRecord&#123;<span class="hljs-number">23</span>b4c1a u0 com.wuzy.androidlaunchmodetest/.StandardActivity t18097&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;d234ee0 u0 com.wuzy.androidlaunchmodetest/.SingleTaskWithAffinityActivity t18097&#125;
-    TaskRecord&#123;e27d53b #<span class="hljs-number">18096</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;f445d23 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18096&#125;
-
------------------------------------------------------------------------------------------
-
-<span class="hljs-comment">// 3、启动顺序</span>
-MainActivity -&gt; SingleTaskWithAffinityActivity -&gt; StandardActivity -&gt; SingleTaskWithAffinityActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;<span class="hljs-number">3f</span>4af35 #<span class="hljs-number">18097</span> A=com.jaqen U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;d234ee0 u0 com.wuzy.androidlaunchmodetest/.SingleTaskWithAffinityActivity t18097&#125;
-    TaskRecord&#123;e27d53b #<span class="hljs-number">18096</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;f445d23 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18096&#125;</code></pre>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 1、启动顺序</span><br><span class="line">MainActivity -&gt; SingleTaskWithAffinityActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 任务栈</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;fa7e695 #18097 A&#x3D;com.jaqen U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;6267f33 u0 com.wuzy.androidlaunchmodetest&#x2F;.SingleTaskWithAffinityActivity t18097&#125;</span><br><span class="line">    TaskRecord&#123;efcc3aa #18096 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;ccdada8 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18096&#125;</span><br><span class="line">    </span><br><span class="line">-----------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 2、启动顺序</span><br><span class="line">MainActivity -&gt; SingleTaskWithAffinityActivity -&gt; StandardActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;3f4af35 #18097 A&#x3D;com.jaqen U&#x3D;0 StackId&#x3D;1 sz&#x3D;2&#125;</span><br><span class="line">    Run #2: ActivityRecord&#123;23b4c1a u0 com.wuzy.androidlaunchmodetest&#x2F;.StandardActivity t18097&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;d234ee0 u0 com.wuzy.androidlaunchmodetest&#x2F;.SingleTaskWithAffinityActivity t18097&#125;</span><br><span class="line">    TaskRecord&#123;e27d53b #18096 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;f445d23 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18096&#125;</span><br><span class="line"></span><br><span class="line">-----------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 3、启动顺序</span><br><span class="line">MainActivity -&gt; SingleTaskWithAffinityActivity -&gt; StandardActivity -&gt; SingleTaskWithAffinityActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;3f4af35 #18097 A&#x3D;com.jaqen U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;d234ee0 u0 com.wuzy.androidlaunchmodetest&#x2F;.SingleTaskWithAffinityActivity t18097&#125;</span><br><span class="line">    TaskRecord&#123;e27d53b #18096 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;f445d23 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18096&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>首次启动 SingleTaskWithAffinityActivity 会创建新的任务栈（<em>大括号内 <code>#</code> 后的数字标识任务栈 id</em>）。</p>
 <p>在 SingleTaskWithAffinityActivity 启动 StandardActivity ， 这个 StandardActivity 与 SingleTaskWithAffinityActivity 在同一个栈。</p>
@@ -346,52 +93,22 @@ Running activities (most recent first):
 <p>第二次启动 SingleTopActivity 时直接复用了栈内已存 Activity，已存 Activity 上的 Activity 被移出任务栈。</p>
 <p><strong>使用场景</strong>：</p>
 <p>一般应用主页面可以用 singleTask 方式。比如用户在主页跳转到其他页面，运行多次操作后想返回到主页。</p>
-<h2 id="singleInstance-单实例模式"><a href="#singleInstance-单实例模式" class="headerlink" title="singleInstance 单实例模式"></a>singleInstance 单实例模式</h2><pre><code class="hljs xml">android:launchMode=&quot;singleInstance&quot;</code></pre>
+
+        <h2 id="singleInstance-单实例模式">
+          <a href="#singleInstance-单实例模式" class="heading-link"><i class="fas fa-link"></i></a>singleInstance 单实例模式</h2>
+      <figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:launchMode=&quot;singleInstance&quot;</span><br></pre></td></tr></table></div></figure>
 
 <p>singleInstance 与 singleTask 类似，在应用都只存在一个实例，不同点在于存放 singleInstance Activity 实例的任务栈只能存放唯一的 singleInstance Activity。</p>
-<pre><code class="hljs angelscript"><span class="hljs-comment">// 1、启动顺序</span>
-MainActivity -&gt; SingleInstanceActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;cd22626 #<span class="hljs-number">18116</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;<span class="hljs-number">462</span>d9a2 u0 com.wuzy.androidlaunchmodetest/.SingleInstanceActivity t18116&#125;
-    TaskRecord&#123;c2b08bd #<span class="hljs-number">18115</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;<span class="hljs-number">812</span>c79c u0 com.wuzy.androidlaunchmodetest/.MainActivity t18115&#125;
-    
------------------------------------------------------------------------------------------
-
-<span class="hljs-comment">// 2、启动顺序</span>
-MainActivity -&gt; SingleInstanceActivity -&gt; StandardActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;e46fd18 #<span class="hljs-number">18115</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">2</span>&#125;
-    Run #<span class="hljs-number">2</span>: ActivityRecord&#123;<span class="hljs-number">540</span>b885 u0 com.wuzy.androidlaunchmodetest/.StandardActivity t18115&#125;
-    TaskRecord&#123;<span class="hljs-number">5</span>cab9d7 #<span class="hljs-number">18116</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;<span class="hljs-number">18780</span>a3 u0 com.wuzy.androidlaunchmodetest/.SingleInstanceActivity t18116&#125;
-    TaskRecord&#123;e46fd18 #<span class="hljs-number">18115</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">2</span>&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;<span class="hljs-number">6</span>ceacf3 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18115&#125;
-    
------------------------------------------------------------------------------------------
-
-<span class="hljs-comment">// 3、启动顺序</span>
-MainActivity -&gt; SingleInstanceActivity -&gt; StandardActivity -&gt; SingleInstanceActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;e46fd18 #<span class="hljs-number">18115</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">2</span>&#125;
-    Run #<span class="hljs-number">2</span>: ActivityRecord&#123;<span class="hljs-number">540</span>b885 u0 com.wuzy.androidlaunchmodetest/.StandardActivity t18115&#125;
-    TaskRecord&#123;<span class="hljs-number">5</span>cab9d7 #<span class="hljs-number">18116</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;<span class="hljs-number">18780</span>a3 u0 com.wuzy.androidlaunchmodetest/.SingleInstanceActivity t18116&#125;
-    TaskRecord&#123;e46fd18 #<span class="hljs-number">18115</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">2</span>&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;<span class="hljs-number">6</span>ceacf3 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18115&#125;</code></pre>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 1、启动顺序</span><br><span class="line">MainActivity -&gt; SingleInstanceActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;cd22626 #18116 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;462d9a2 u0 com.wuzy.androidlaunchmodetest&#x2F;.SingleInstanceActivity t18116&#125;</span><br><span class="line">    TaskRecord&#123;c2b08bd #18115 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;812c79c u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18115&#125;</span><br><span class="line">    </span><br><span class="line">-----------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 2、启动顺序</span><br><span class="line">MainActivity -&gt; SingleInstanceActivity -&gt; StandardActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;e46fd18 #18115 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;2&#125;</span><br><span class="line">    Run #2: ActivityRecord&#123;540b885 u0 com.wuzy.androidlaunchmodetest&#x2F;.StandardActivity t18115&#125;</span><br><span class="line">    TaskRecord&#123;5cab9d7 #18116 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;18780a3 u0 com.wuzy.androidlaunchmodetest&#x2F;.SingleInstanceActivity t18116&#125;</span><br><span class="line">    TaskRecord&#123;e46fd18 #18115 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;2&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;6ceacf3 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18115&#125;</span><br><span class="line">    </span><br><span class="line">-----------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 3、启动顺序</span><br><span class="line">MainActivity -&gt; SingleInstanceActivity -&gt; StandardActivity -&gt; SingleInstanceActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;e46fd18 #18115 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;2&#125;</span><br><span class="line">    Run #2: ActivityRecord&#123;540b885 u0 com.wuzy.androidlaunchmodetest&#x2F;.StandardActivity t18115&#125;</span><br><span class="line">    TaskRecord&#123;5cab9d7 #18116 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;18780a3 u0 com.wuzy.androidlaunchmodetest&#x2F;.SingleInstanceActivity t18116&#125;</span><br><span class="line">    TaskRecord&#123;e46fd18 #18115 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;2&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;6ceacf3 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18115&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>启动 SingleInstanceActivity 会创建新的任务栈，从 SingleInstanceActivity 中启动 StandardActivity，StandardActivity 会被放到上一个任务栈中。</p>
 <p>再此启动 SingleInstanceActivity，SingleInstanceActivity 会被复用。</p>
 <p><strong>使用场景</strong>：</p>
 <p>singleInstance 模式常应用于独立栈操作的应用，如闹钟的提醒页面，当你在A应用中看视频时，闹钟响了，你点击闹钟提醒通知后进入提醒详情页面，然后点击返回就再次回到A的视频页面，这样就不会过多干扰到用户先前的操作了。 </p>
-<h2 id="Intent-Flags"><a href="#Intent-Flags" class="headerlink" title="Intent Flags"></a>Intent Flags</h2><p> 除了在 manifest 文件中设置 launchMode 之外，还可以在 Intent 中设置 Flag 达到同样的效果。</p>
+
+        <h2 id="Intent-Flags">
+          <a href="#Intent-Flags" class="heading-link"><i class="fas fa-link"></i></a>Intent Flags</h2>
+      <p> 除了在 manifest 文件中设置 launchMode 之外，还可以在 Intent 中设置 Flag 达到同样的效果。</p>
 <p>常见几种 Flag：</p>
 <p>1、<strong>FLAG_ACTIVITY_NEW_TASK</strong></p>
 <p> 在 google 的官方文档中介绍，它与 <code>launchMode=&quot;singleTask&quot;</code> 具有相同的行为。实际上，并不是完全相同！具体看下面的案例分析。 </p>
@@ -414,614 +131,363 @@ Running activities (most recent first):
 <li><p>IntentFlagTestActivity 为 standard 模式，未设置 taskAffinity。</p>
 </li>
 </ul>
-<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">activity</span></span>
-<span class="hljs-tag">   <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;.IntentFlagTestActivity&quot;</span></span>
-<span class="hljs-tag">   <span class="hljs-attr">android:label</span>=<span class="hljs-string">&quot;IntentFlagTestActivity&quot;</span> /&gt;</span></code></pre>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:name</span>=<span class="string">&quot;.IntentFlagTestActivity&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:label</span>=<span class="string">&quot;IntentFlagTestActivity&quot;</span> /&gt;</span></span><br></pre></td></tr></table></div></figure>
 
 <ul>
 <li>IntentFlagTestWithAffinityActivity 为 standard 模式，设置与 MainActivity 不同的 taskAffinity。 </li>
 </ul>
-<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">activity</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;.IntentFlagTestWithAffinityActivity&quot;</span></span>
-<span class="hljs-tag">    <span class="hljs-attr">android:taskAffinity</span>=<span class="hljs-string">&quot;com.jaqen&quot;</span></span>
-<span class="hljs-tag">    <span class="hljs-attr">android:label</span>=<span class="hljs-string">&quot;IntentFlagTestWithAffinityActivity&quot;</span>/&gt;</span></code></pre>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">&quot;.IntentFlagTestWithAffinityActivity&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:taskAffinity</span>=<span class="string">&quot;com.jaqen&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:label</span>=<span class="string">&quot;IntentFlagTestWithAffinityActivity&quot;</span>/&gt;</span> </span><br></pre></td></tr></table></div></figure>
 
-<h3 id="1、单独使用-FLAG-ACTIVITY-NEW-TASK"><a href="#1、单独使用-FLAG-ACTIVITY-NEW-TASK" class="headerlink" title="1、单独使用 FLAG_ACTIVITY_NEW_TASK"></a>1、单独使用 FLAG_ACTIVITY_NEW_TASK</h3><ul>
+
+        <h3 id="1、单独使用-FLAG-ACTIVITY-NEW-TASK">
+          <a href="#1、单独使用-FLAG-ACTIVITY-NEW-TASK" class="heading-link"><i class="fas fa-link"></i></a>1、单独使用 FLAG_ACTIVITY_NEW_TASK</h3>
+      <ul>
 <li>taskAffinity 相同时：</li>
 </ul>
-<pre><code class="hljs java"><span class="hljs-comment">// 启动 IntentFlagTestActivity 的方式</span>
-Intent intent = <span class="hljs-keyword">new</span> Intent(MainActivity.<span class="hljs-keyword">this</span>, IntentFlagTestActivity.class);
-intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-startActivity(intent);</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 启动 IntentFlagTestActivity 的方式</span></span><br><span class="line">Intent intent = <span class="keyword">new</span> Intent(MainActivity.<span class="keyword">this</span>, IntentFlagTestActivity.class);</span><br><span class="line">intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></div></figure>
 
 <p>测试结果：</p>
-<pre><code class="hljs dockerfile">// 启动流程
-MainActivity -&gt; IntentFlagTestActivity -&gt; MainActivity -&gt; IntentFlagTestActivity
-
-// 栈内容
-Running activities (most recent first):
-TaskRecord&#123;<span class="hljs-number">89317</span>d5 <span class="hljs-comment">#18128 A=com.wuzy.androidlaunchmodetest U=0 StackId=1 sz=4&#125;</span>
-<span class="hljs-keyword">Run</span><span class="bash"> <span class="hljs-comment">#3: ActivityRecord&#123;2f1ac92 u0 com.wuzy.androidlaunchmodetest/.IntentFlagTestActivity t18128&#125;</span></span>
-<span class="hljs-keyword">Run</span><span class="bash"> <span class="hljs-comment">#2: ActivityRecord&#123;a0104eb u0 com.wuzy.androidlaunchmodetest/.MainActivity t18128&#125;</span></span>
-<span class="hljs-keyword">Run</span><span class="bash"> <span class="hljs-comment">#1: ActivityRecord&#123;9b84b56 u0 com.wuzy.androidlaunchmodetest/.IntentFlagTestActivity t18128&#125;</span></span>
-<span class="hljs-keyword">Run</span><span class="bash"> <span class="hljs-comment">#0: ActivityRecord&#123;f9a57f4 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18128&#125;</span></span></code></pre>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestActivity -&gt; MainActivity -&gt; IntentFlagTestActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">TaskRecord&#123;89317d5 #18128 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;4&#125;</span><br><span class="line">Run #3: ActivityRecord&#123;2f1ac92 u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestActivity t18128&#125;</span><br><span class="line">Run #2: ActivityRecord&#123;a0104eb u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18128&#125;</span><br><span class="line">Run #1: ActivityRecord&#123;9b84b56 u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestActivity t18128&#125;</span><br><span class="line">Run #0: ActivityRecord&#123;f9a57f4 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18128&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>从任务栈可以看出，在  taskAffinity 相同的情况下，单独使用 FLAG_ACTIVITY_NEW_TASK 不会产生任何效果！</p>
 <ul>
 <li>taskAffinity 不同时：</li>
 </ul>
-<pre><code class="hljs java"><span class="hljs-comment">// 启动 IntentFlagTestWithAffinityActivity 的方式</span>
-Intent intent = <span class="hljs-keyword">new</span> Intent(MainActivity.<span class="hljs-keyword">this</span>, IntentFlagTestWithAffinityActivity.class);
-intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-startActivity(intent);</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 启动 IntentFlagTestWithAffinityActivity 的方式</span></span><br><span class="line">Intent intent = <span class="keyword">new</span> Intent(MainActivity.<span class="keyword">this</span>, IntentFlagTestWithAffinityActivity.class);</span><br><span class="line">intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></div></figure>
 
 <p>测试结果：</p>
-<pre><code class="hljs angelscript"><span class="hljs-comment">// 启动流程</span>
-MainActivity -&gt; IntentFlagTestWithAffinityActivity -&gt; MainActivity -&gt; IntentFlagTestWithAffinityActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;d07e70 #<span class="hljs-number">18135</span> A=com.jaqen U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">2</span>&#125;
-    Run #<span class="hljs-number">2</span>: ActivityRecord&#123;<span class="hljs-number">997119</span>c u0 com.wuzy.androidlaunchmodetest/.MainActivity t18135&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;<span class="hljs-number">8</span>a7f641 u0 com.wuzy.androidlaunchmodetest/.IntentFlagTestWithAffinityActivity t18135&#125;
-    TaskRecord&#123;<span class="hljs-number">84f</span>526e #<span class="hljs-number">18134</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;<span class="hljs-number">5</span>aca49d u0 com.wuzy.androidlaunchmodetest/.MainActivity t18134&#125;</code></pre>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestWithAffinityActivity -&gt; MainActivity -&gt; IntentFlagTestWithAffinityActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;d07e70 #18135 A&#x3D;com.jaqen U&#x3D;0 StackId&#x3D;1 sz&#x3D;2&#125;</span><br><span class="line">    Run #2: ActivityRecord&#123;997119c u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18135&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;8a7f641 u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestWithAffinityActivity t18135&#125;</span><br><span class="line">    TaskRecord&#123;84f526e #18134 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;5aca49d u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18134&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>在 taskAffinity 不同的情况下， 添加 FLAG_ACTIVITY_NEW_TASK 确实产生了一些效果，第一次启动 IntentFlagTestWithAffinityActivity 创建了新的任务栈，但是第二次从 MainActivity 中启动 IntentFlagTestWithAffinityActivity  时，没有任何反应。</p>
 <p><strong>结论：</strong></p>
 <p><strong>单独使用 FLAG_ACTIVITY_NEW_TASK 并不会产生与 singleTask 相同的效果</strong>。</p>
-<h3 id="2、FLAG-ACTIVITY-NEW-TASK-FLAG-ACTIVITY-CLEAR-TOP"><a href="#2、FLAG-ACTIVITY-NEW-TASK-FLAG-ACTIVITY-CLEAR-TOP" class="headerlink" title="2、FLAG_ACTIVITY_NEW_TASK + FLAG_ACTIVITY_CLEAR_TOP"></a>2、FLAG_ACTIVITY_NEW_TASK + FLAG_ACTIVITY_CLEAR_TOP</h3><ul>
+
+        <h3 id="2、FLAG-ACTIVITY-NEW-TASK-FLAG-ACTIVITY-CLEAR-TOP">
+          <a href="#2、FLAG-ACTIVITY-NEW-TASK-FLAG-ACTIVITY-CLEAR-TOP" class="heading-link"><i class="fas fa-link"></i></a>2、FLAG_ACTIVITY_NEW_TASK + FLAG_ACTIVITY_CLEAR_TOP</h3>
+      <ul>
 <li>taskAffinity 相同时：</li>
 </ul>
-<pre><code class="hljs java"><span class="hljs-comment">// 启动 IntentFlagTestActivity 的方式</span>
-Intent intent = <span class="hljs-keyword">new</span> Intent(MainActivity.<span class="hljs-keyword">this</span>, IntentFlagTestActivity.class);
-intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-startActivity(intent);</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 启动 IntentFlagTestActivity 的方式</span></span><br><span class="line">Intent intent = <span class="keyword">new</span> Intent(MainActivity.<span class="keyword">this</span>, IntentFlagTestActivity.class);</span><br><span class="line">intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></div></figure>
 
 <p>测试结果：</p>
-<pre><code class="hljs angelscript"><span class="hljs-comment">// 1、启动流程</span>
-MainActivity -&gt; IntentFlagTestActivity -&gt; MainActivity
-    
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;<span class="hljs-number">7</span>bb1982 #<span class="hljs-number">18139</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">3</span>&#125;
-    Run #<span class="hljs-number">2</span>: ActivityRecord&#123;<span class="hljs-number">535</span>c0d0 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18139&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;c5253ff u0 com.wuzy.androidlaunchmodetest/.IntentFlagTestActivity t18139&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;<span class="hljs-number">1</span>b04db1 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18139&#125;
-
------------------------------------------------------------------------------------------
-
-<span class="hljs-comment">// 2、启动流程</span>
-MainActivity -&gt; IntentFlagTestActivity -&gt; MainActivity -&gt; IntentFlagTestActivity
-    
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;<span class="hljs-number">7</span>bb1982 #<span class="hljs-number">18139</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">2</span>&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;<span class="hljs-number">705</span>bf3 u0 com.wuzy.androidlaunchmodetest/.IntentFlagTestActivity t18139&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;<span class="hljs-number">1</span>b04db1 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18139&#125;</code></pre>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 1、启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestActivity -&gt; MainActivity</span><br><span class="line">    </span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;7bb1982 #18139 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;3&#125;</span><br><span class="line">    Run #2: ActivityRecord&#123;535c0d0 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18139&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;c5253ff u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestActivity t18139&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;1b04db1 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18139&#125;</span><br><span class="line"></span><br><span class="line">-----------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 2、启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestActivity -&gt; MainActivity -&gt; IntentFlagTestActivity</span><br><span class="line">    </span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;7bb1982 #18139 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;2&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;705bf3 u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestActivity t18139&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;1b04db1 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18139&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>在 taskAffinity 相同情况下，FLAG_ACTIVITY_NEW_TASK  + FLAG_ACTIVITY_CLEAR_TOP 不会创建新的任务栈。</p>
 <p>貌似和 singleTask 启动模式效果相同，但是细看会发现区别：前后两次 IntentFlagTestActivity 并不是同一个实例，也就是并没有复用栈内的 IntentFlagTestActivity，而是清除了 IntentFlagTestActivity 本身及其之上的所有 Activity，然后新建 IntentFlagTestActivity 实例添加到当前任务栈。</p>
 <ul>
 <li>taskAffinity 不同时：</li>
 </ul>
-<pre><code class="hljs java"><span class="hljs-comment">// 启动 IntentFlagTestWithAffinityActivity 的方式</span>
-Intent intent = <span class="hljs-keyword">new</span> Intent(MainActivity.<span class="hljs-keyword">this</span>, IntentFlagTestWithAffinityActivity.class);
-intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-startActivity(intent);</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 启动 IntentFlagTestWithAffinityActivity 的方式</span></span><br><span class="line">Intent intent = <span class="keyword">new</span> Intent(MainActivity.<span class="keyword">this</span>, IntentFlagTestWithAffinityActivity.class);</span><br><span class="line">intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></div></figure>
 
 <p>测试结果：</p>
-<pre><code class="hljs angelscript"><span class="hljs-comment">// 1、启动流程</span>
-MainActivity -&gt; IntentFlagTestWithAffinityActivity -&gt; MainActivity
-
-<span class="hljs-comment">// 任务栈</span>
-Running activities (most recent first):
-    TaskRecord&#123;a1b1a38 #<span class="hljs-number">18152</span> A=com.jaqen U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">2</span>&#125;
-    Run #<span class="hljs-number">2</span>: ActivityRecord&#123;ae8c352 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18152&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;<span class="hljs-number">5647f</span>4a u0 com.wuzy.androidlaunchmodetest/.IntentFlagTestWithAffinityActivity t18152&#125;
-    TaskRecord&#123;e2f8776 #<span class="hljs-number">18151</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;<span class="hljs-number">864</span>a2f5 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18151&#125;
-
------------------------------------------------------------------------------------------
-
-<span class="hljs-comment">// 2、启动流程</span>
-MainActivity -&gt; IntentFlagTestWithAffinityActivity -&gt; MainActivity -&gt; IntentFlagTestWithAffinityActivity
-    
-Running activities (most recent first):
-    TaskRecord&#123;a1b1a38 #<span class="hljs-number">18152</span> A=com.jaqen U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;cf5fce6 u0 com.wuzy.androidlaunchmodetest/.IntentFlagTestWithAffinityActivity t18152&#125;
-    TaskRecord&#123;e2f8776 #<span class="hljs-number">18151</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;<span class="hljs-number">864</span>a2f5 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18151&#125;</code></pre>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 1、启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestWithAffinityActivity -&gt; MainActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 任务栈</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;a1b1a38 #18152 A&#x3D;com.jaqen U&#x3D;0 StackId&#x3D;1 sz&#x3D;2&#125;</span><br><span class="line">    Run #2: ActivityRecord&#123;ae8c352 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18152&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;5647f4a u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestWithAffinityActivity t18152&#125;</span><br><span class="line">    TaskRecord&#123;e2f8776 #18151 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;864a2f5 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18151&#125;</span><br><span class="line"></span><br><span class="line">-----------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 2、启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestWithAffinityActivity -&gt; MainActivity -&gt; IntentFlagTestWithAffinityActivity</span><br><span class="line">    </span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;a1b1a38 #18152 A&#x3D;com.jaqen U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;cf5fce6 u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestWithAffinityActivity t18152&#125;</span><br><span class="line">    TaskRecord&#123;e2f8776 #18151 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;864a2f5 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18151&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>可见，与 taskAffinity 相同类似（除了创建新的任务栈），在第二次启动 IntentFlagTestWithAffinityActivity 时也是直接清除了 IntentFlagTestWithAffinityActivity 自身及其之上所有的 Activity，然后创建新的 IntentFlagTestWithAffinityActivity 实例添加到任务栈中。</p>
 <p><strong>结论：</strong></p>
 <p><strong><code>FLAG_ACTIVITY_NEW_TASK + FLAG_ACTIVITY_CLEAR_TOP</code> 标志位组合产生的效果总体上和 singleTask 模式相同，但不会复用 Activity。</strong></p>
-<h3 id="3、FLAG-ACTIVITY-NEW-TASK-FLAG-ACTIVITY-CLEAR-TASK"><a href="#3、FLAG-ACTIVITY-NEW-TASK-FLAG-ACTIVITY-CLEAR-TASK" class="headerlink" title="3、FLAG_ACTIVITY_NEW_TASK + FLAG_ACTIVITY_CLEAR_TASK"></a>3、FLAG_ACTIVITY_NEW_TASK + FLAG_ACTIVITY_CLEAR_TASK</h3><ul>
+
+        <h3 id="3、FLAG-ACTIVITY-NEW-TASK-FLAG-ACTIVITY-CLEAR-TASK">
+          <a href="#3、FLAG-ACTIVITY-NEW-TASK-FLAG-ACTIVITY-CLEAR-TASK" class="heading-link"><i class="fas fa-link"></i></a>3、FLAG_ACTIVITY_NEW_TASK + FLAG_ACTIVITY_CLEAR_TASK</h3>
+      <ul>
 <li>taskAffnity 相同时：</li>
 </ul>
-<pre><code class="hljs java"><span class="hljs-comment">// 启动 IntentFlagTestActivity 的方式</span>
-Intent intent = <span class="hljs-keyword">new</span> Intent(MainActivity.<span class="hljs-keyword">this</span>, IntentFlagTestActivity.class);
-intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-startActivity(intent);</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 启动 IntentFlagTestActivity 的方式</span></span><br><span class="line">Intent intent = <span class="keyword">new</span> Intent(MainActivity.<span class="keyword">this</span>, IntentFlagTestActivity.class);</span><br><span class="line">intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></div></figure>
 
 <p>测试结果:</p>
-<pre><code class="hljs angelscript"><span class="hljs-comment">// 1、启动流程</span>
-MainActivity -&gt; IntentFlagTestActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;<span class="hljs-number">572</span>ae8d #<span class="hljs-number">18253</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;e0aa3a u0 com.wuzy.androidlaunchmodetest/.IntentFlagTestActivity t18253&#125;
-
------------------------------------------------------------------------------------------
-
-<span class="hljs-comment">// 2、启动流程</span>
-MainActivity -&gt; IntentFlagTestActivity  -&gt; MainActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;<span class="hljs-number">572</span>ae8d #<span class="hljs-number">18253</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">2</span>&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;<span class="hljs-number">65f</span>b5c2 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18253&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;e0aa3a u0 com.wuzy.androidlaunchmodetest/.IntentFlagTestActivity t18253&#125;
-
------------------------------------------------------------------------------------------
-
-<span class="hljs-comment">// 3、启动流程</span>
-MainActivity -&gt; IntentFlagTestActivity  -&gt; MainActivity -&gt; IntentFlagTestActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;<span class="hljs-number">572</span>ae8d #<span class="hljs-number">18253</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;<span class="hljs-number">9</span>eccfa3 u0 com.wuzy.androidlaunchmodetest/.IntentFlagTestActivity t18253&#125;</code></pre>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 1、启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;572ae8d #18253 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;e0aa3a u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestActivity t18253&#125;</span><br><span class="line"></span><br><span class="line">-----------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 2、启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestActivity  -&gt; MainActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;572ae8d #18253 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;2&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;65fb5c2 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18253&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;e0aa3a u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestActivity t18253&#125;</span><br><span class="line"></span><br><span class="line">-----------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 3、启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestActivity  -&gt; MainActivity -&gt; IntentFlagTestActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;572ae8d #18253 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;9eccfa3 u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestActivity t18253&#125;</span><br><span class="line">	</span><br></pre></td></tr></table></div></figure>
 
 <p>可见， 当通过<code>FLAG_ACTIVITY_NEW_TASK + FLAG_ACTIVITY_CLEAR_TASK </code> 标志位组合启动 IntentFlagTestActivity 时，首先会清空 IntentFlagTestActivity 所在的任务栈，然后再创建新的 IntentFlagTestActivity 实例并入栈。 </p>
 <ul>
 <li>taskAffnity 不同时：</li>
 </ul>
-<pre><code class="hljs java"><span class="hljs-comment">// 启动 IntentFlagTestWithAffinityActivity 的方式</span>
-Intent intent = <span class="hljs-keyword">new</span> Intent(MainActivity.<span class="hljs-keyword">this</span>, IntentFlagTestWithAffinityActivity.class);
-intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-startActivity(intent);</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 启动 IntentFlagTestWithAffinityActivity 的方式</span></span><br><span class="line">Intent intent = <span class="keyword">new</span> Intent(MainActivity.<span class="keyword">this</span>, IntentFlagTestWithAffinityActivity.class);</span><br><span class="line">intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></div></figure>
 
 <p>测试结果:</p>
-<pre><code class="hljs angelscript"><span class="hljs-comment">// 1、启动流程</span>
-MainActivity -&gt; IntentFlagTestWithAffinityActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;c081b17 #<span class="hljs-number">18257</span> A=com.jaqen U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;<span class="hljs-number">8f</span>8a3c5 u0 com.wuzy.androidlaunchmodetest/.IntentFlagTestWithAffinityActivity t18257&#125;
-    TaskRecord&#123;<span class="hljs-number">60908</span>ed #<span class="hljs-number">18256</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;<span class="hljs-number">5924</span>b86 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18256&#125;
-    
------------------------------------------------------------------------------------------
-
-<span class="hljs-comment">// 2、启动流程</span>
-MainActivity -&gt; IntentFlagTestWithAffinityActivity -&gt; MainActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;c081b17 #<span class="hljs-number">18257</span> A=com.jaqen U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">2</span>&#125;
-    Run #<span class="hljs-number">2</span>: ActivityRecord&#123;<span class="hljs-number">7e1</span>a8a0 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18257&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;<span class="hljs-number">8f</span>8a3c5 u0 com.wuzy.androidlaunchmodetest/.IntentFlagTestWithAffinityActivity t18257&#125;
-    TaskRecord&#123;<span class="hljs-number">60908</span>ed #<span class="hljs-number">18256</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;<span class="hljs-number">5924</span>b86 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18256&#125;
-
------------------------------------------------------------------------------------------
-
-<span class="hljs-comment">// 3、启动流程</span>
-MainActivity -&gt; IntentFlagTestWithAffinityActivity -&gt; MainActivity -&gt; IntentFlagTestWithAffinityActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;c081b17 #<span class="hljs-number">18257</span> A=com.jaqen U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;e52a3c0 u0 com.wuzy.androidlaunchmodetest/.IntentFlagTestWithAffinityActivity t18257&#125;
-    TaskRecord&#123;<span class="hljs-number">60908</span>ed #<span class="hljs-number">18256</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">1</span>&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;<span class="hljs-number">5924</span>b86 u0 com.wuzy.androidlaunchmodetest/.MainActivity t18256&#125;</code></pre>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 1、启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestWithAffinityActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;c081b17 #18257 A&#x3D;com.jaqen U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;8f8a3c5 u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestWithAffinityActivity t18257&#125;</span><br><span class="line">    TaskRecord&#123;60908ed #18256 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;5924b86 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18256&#125;</span><br><span class="line">    </span><br><span class="line">-----------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 2、启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestWithAffinityActivity -&gt; MainActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;c081b17 #18257 A&#x3D;com.jaqen U&#x3D;0 StackId&#x3D;1 sz&#x3D;2&#125;</span><br><span class="line">    Run #2: ActivityRecord&#123;7e1a8a0 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18257&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;8f8a3c5 u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestWithAffinityActivity t18257&#125;</span><br><span class="line">    TaskRecord&#123;60908ed #18256 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;5924b86 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18256&#125;</span><br><span class="line"></span><br><span class="line">-----------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 3、启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestWithAffinityActivity -&gt; MainActivity -&gt; IntentFlagTestWithAffinityActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;c081b17 #18257 A&#x3D;com.jaqen U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;e52a3c0 u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestWithAffinityActivity t18257&#125;</span><br><span class="line">    TaskRecord&#123;60908ed #18256 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;5924b86 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18256&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>结果与 taskAffnity 相同情况下类似， 首先会清空 IntentFlagTestWithAffinityActivity 所在的任务栈，然后再创建新的 IntentFlagTestWithAffinityActivity 实例并入栈，这和 taskAffinity 属性相同是一致的效果，只不过这里第一次为 IntentFlagTestWithAffinityActivity 创建了新的任务栈。 </p>
 <p><strong>结论：</strong></p>
 <p><strong><code>FLAG_ACTIVITY_NEW_TASK + FLAG_ACTIVITY_CLEAR_TASK </code> 标志位组会先清空任务栈，再创建新的 Activity 实例入栈。</strong></p>
-<h3 id="4、单独使用-FLAG-ACTIVITY-CLEAR-TOP"><a href="#4、单独使用-FLAG-ACTIVITY-CLEAR-TOP" class="headerlink" title="4、单独使用 FLAG_ACTIVITY_CLEAR_TOP"></a>4、单独使用 FLAG_ACTIVITY_CLEAR_TOP</h3><ul>
+
+        <h3 id="4、单独使用-FLAG-ACTIVITY-CLEAR-TOP">
+          <a href="#4、单独使用-FLAG-ACTIVITY-CLEAR-TOP" class="heading-link"><i class="fas fa-link"></i></a>4、单独使用 FLAG_ACTIVITY_CLEAR_TOP</h3>
+      <ul>
 <li>IntentFlagTestActivity 启动模式：standard</li>
 </ul>
-<pre><code class="hljs stylus"><span class="hljs-comment">// 1、启动流程</span>
-MainActivity -&gt; IntentFlagTestActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;b6045f3 <span class="hljs-number">#182</span>82 A=com<span class="hljs-selector-class">.wuzy</span><span class="hljs-selector-class">.androidlaunchmodetest</span> U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">2</span>&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;<span class="hljs-number">44</span>dcf5f u0 com<span class="hljs-selector-class">.wuzy</span>.androidlaunchmodetest/<span class="hljs-selector-class">.IntentFlagTestActivity</span> t18282&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;c713f21 u0 com<span class="hljs-selector-class">.wuzy</span>.androidlaunchmodetest/<span class="hljs-selector-class">.MainActivity</span> t18282&#125;
-
------------------------------------------------------------------------------------------
-
-<span class="hljs-comment">// 2、启动流程</span>
-MainActivity -&gt; IntentFlagTestActivity  -&gt; MainActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;b6045f3 <span class="hljs-number">#182</span>82 A=com<span class="hljs-selector-class">.wuzy</span><span class="hljs-selector-class">.androidlaunchmodetest</span> U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">3</span>&#125;
-    Run #<span class="hljs-number">2</span>: ActivityRecord&#123;<span class="hljs-number">13</span>c806b u0 com<span class="hljs-selector-class">.wuzy</span>.androidlaunchmodetest/<span class="hljs-selector-class">.MainActivity</span> t18282&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;<span class="hljs-number">44</span>dcf5f u0 com<span class="hljs-selector-class">.wuzy</span>.androidlaunchmodetest/<span class="hljs-selector-class">.IntentFlagTestActivity</span> t18282&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;c713f21 u0 com<span class="hljs-selector-class">.wuzy</span>.androidlaunchmodetest/<span class="hljs-selector-class">.MainActivity</span> t18282&#125;
-
------------------------------------------------------------------------------------------
-
-<span class="hljs-comment">// 3、启动流程</span>
-MainActivity -&gt; IntentFlagTestActivity  -&gt; MainActivity -&gt; IntentFlagTestActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;b6045f3 <span class="hljs-number">#182</span>82 A=com<span class="hljs-selector-class">.wuzy</span><span class="hljs-selector-class">.androidlaunchmodetest</span> U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">2</span>&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;fa6320c u0 com<span class="hljs-selector-class">.wuzy</span>.androidlaunchmodetest/<span class="hljs-selector-class">.IntentFlagTestActivity</span> t18282&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;c713f21 u0 com<span class="hljs-selector-class">.wuzy</span>.androidlaunchmodetest/<span class="hljs-selector-class">.MainActivity</span> t18282&#125;</code></pre>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 1、启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;b6045f3 #18282 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;2&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;44dcf5f u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestActivity t18282&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;c713f21 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18282&#125;</span><br><span class="line"></span><br><span class="line">-----------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 2、启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestActivity  -&gt; MainActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;b6045f3 #18282 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;3&#125;</span><br><span class="line">    Run #2: ActivityRecord&#123;13c806b u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18282&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;44dcf5f u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestActivity t18282&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;c713f21 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18282&#125;</span><br><span class="line"></span><br><span class="line">-----------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 3、启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestActivity  -&gt; MainActivity -&gt; IntentFlagTestActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;b6045f3 #18282 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;2&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;fa6320c u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestActivity t18282&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;c713f21 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18282&#125;</span><br></pre></td></tr></table></div></figure>
 
 <ul>
 <li>IntentFlagTestActivity 启动模式：singleTask</li>
 </ul>
-<pre><code class="hljs angelscript"><span class="hljs-comment">// 1、启动流程</span>
-MainActivity -&gt; IntentFlagTestActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;<span class="hljs-number">7</span>c9d493 #<span class="hljs-number">18280</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">2</span>&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;daafb1e u0 com.wuzy.androidlaunchmodetest/.IntentFlagTestActivity t18280&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;b547fca u0 com.wuzy.androidlaunchmodetest/.MainActivity t18280&#125;
-
------------------------------------------------------------------------------------------
-
-<span class="hljs-comment">// 2、启动流程</span>
-MainActivity -&gt; IntentFlagTestActivity  -&gt; MainActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;<span class="hljs-number">7</span>c9d493 #<span class="hljs-number">18280</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">3</span>&#125;
-    Run #<span class="hljs-number">2</span>: ActivityRecord&#123;<span class="hljs-number">511762</span>c u0 com.wuzy.androidlaunchmodetest/.MainActivity t18280&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;daafb1e u0 com.wuzy.androidlaunchmodetest/.IntentFlagTestActivity t18280&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;b547fca u0 com.wuzy.androidlaunchmodetest/.MainActivity t18280&#125;
-
------------------------------------------------------------------------------------------
-
-<span class="hljs-comment">// 3、启动流程</span>
-MainActivity -&gt; IntentFlagTestActivity  -&gt; MainActivity -&gt; IntentFlagTestActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;<span class="hljs-number">7</span>c9d493 #<span class="hljs-number">18280</span> A=com.wuzy.androidlaunchmodetest U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">2</span>&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;daafb1e u0 com.wuzy.androidlaunchmodetest/.IntentFlagTestActivity t18280&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;b547fca u0 com.wuzy.androidlaunchmodetest/.MainActivity t18280&#125;</code></pre>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 1、启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;7c9d493 #18280 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;2&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;daafb1e u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestActivity t18280&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;b547fca u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18280&#125;</span><br><span class="line"></span><br><span class="line">-----------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 2、启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestActivity  -&gt; MainActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;7c9d493 #18280 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;3&#125;</span><br><span class="line">    Run #2: ActivityRecord&#123;511762c u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18280&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;daafb1e u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestActivity t18280&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;b547fca u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18280&#125;</span><br><span class="line"></span><br><span class="line">-----------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 3、启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestActivity  -&gt; MainActivity -&gt; IntentFlagTestActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;7c9d493 #18280 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;2&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;daafb1e u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestActivity t18280&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;b547fca u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18280&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>从上面两个例子看出，单独使用 FLAG_ACTIVITY_CLEAR_TOP 时，</p>
 <p>standard 启动模式下，目标 Activity 自身及其上的 Activity 都会被销毁，目标 Activity 自身会重新创建放入栈中；singleTask 启动模式下，先销毁目标 Activity 之上的所有 Activity，然后复用已有的 Activity。</p>
 <p>此外，singleTop、singleInstance 与 singleTask 一样，都会复用已有 Activity。这里不在赘述。</p>
 <p><strong>结论：</strong></p>
 <p><strong>单独使用 FLAG_ACTIVITY_CLEAR_TOP，那么只有非 standard 启动模式的目标 Activity 才会被复用，否则都先被删除，然后被重新创建并入栈。</strong></p>
-<h3 id="5、FLAG-ACTIVITY-CLEAR-TOP-FLAG-ACTIVITY-SINGLE-TOP"><a href="#5、FLAG-ACTIVITY-CLEAR-TOP-FLAG-ACTIVITY-SINGLE-TOP" class="headerlink" title="5、FLAG_ACTIVITY_CLEAR_TOP  + FLAG_ACTIVITY_SINGLE_TOP"></a>5、FLAG_ACTIVITY_CLEAR_TOP  + FLAG_ACTIVITY_SINGLE_TOP</h3><ul>
+
+        <h3 id="5、FLAG-ACTIVITY-CLEAR-TOP-FLAG-ACTIVITY-SINGLE-TOP">
+          <a href="#5、FLAG-ACTIVITY-CLEAR-TOP-FLAG-ACTIVITY-SINGLE-TOP" class="heading-link"><i class="fas fa-link"></i></a>5、FLAG_ACTIVITY_CLEAR_TOP  + FLAG_ACTIVITY_SINGLE_TOP</h3>
+      <ul>
 <li>IntentFlagTestActivity 启动模式 standard</li>
 </ul>
-<pre><code class="hljs stylus"><span class="hljs-comment">// 1、启动流程</span>
-MainActivity -&gt; IntentFlagTestActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;bf65b55 <span class="hljs-number">#183</span>26 A=com<span class="hljs-selector-class">.wuzy</span><span class="hljs-selector-class">.androidlaunchmodetest</span> U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">2</span>&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;c62eb86 u0 com<span class="hljs-selector-class">.wuzy</span>.androidlaunchmodetest/<span class="hljs-selector-class">.IntentFlagTestActivity</span> t18326&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;eb38b03 u0 com<span class="hljs-selector-class">.wuzy</span>.androidlaunchmodetest/<span class="hljs-selector-class">.MainActivity</span> t18326&#125;
-
-
------------------------------------------------------------------------------------------
-
-<span class="hljs-comment">// 2、启动流程</span>
-MainActivity -&gt; IntentFlagTestActivity  -&gt; MainActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;bf65b55 <span class="hljs-number">#183</span>26 A=com<span class="hljs-selector-class">.wuzy</span><span class="hljs-selector-class">.androidlaunchmodetest</span> U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">3</span>&#125;
-    Run #<span class="hljs-number">2</span>: ActivityRecord&#123;be92d5b u0 com<span class="hljs-selector-class">.wuzy</span>.androidlaunchmodetest/<span class="hljs-selector-class">.MainActivity</span> t18326&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;c62eb86 u0 com<span class="hljs-selector-class">.wuzy</span>.androidlaunchmodetest/<span class="hljs-selector-class">.IntentFlagTestActivity</span> t18326&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;eb38b03 u0 com<span class="hljs-selector-class">.wuzy</span>.androidlaunchmodetest/<span class="hljs-selector-class">.MainActivity</span> t18326&#125;
-
------------------------------------------------------------------------------------------
-
-<span class="hljs-comment">// 3、启动流程</span>
-MainActivity -&gt; IntentFlagTestActivity  -&gt; MainActivity -&gt; IntentFlagTestActivity
-
-<span class="hljs-comment">// 栈内容</span>
-Running activities (most recent first):
-    TaskRecord&#123;bf65b55 <span class="hljs-number">#183</span>26 A=com<span class="hljs-selector-class">.wuzy</span><span class="hljs-selector-class">.androidlaunchmodetest</span> U=<span class="hljs-number">0</span> StackId=<span class="hljs-number">1</span> sz=<span class="hljs-number">2</span>&#125;
-    Run #<span class="hljs-number">1</span>: ActivityRecord&#123;c62eb86 u0 com<span class="hljs-selector-class">.wuzy</span>.androidlaunchmodetest/<span class="hljs-selector-class">.IntentFlagTestActivity</span> t18326&#125;
-    Run #<span class="hljs-number">0</span>: ActivityRecord&#123;eb38b03 u0 com<span class="hljs-selector-class">.wuzy</span>.androidlaunchmodetest/<span class="hljs-selector-class">.MainActivity</span> t18326&#125;</code></pre>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 1、启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;bf65b55 #18326 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;2&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;c62eb86 u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestActivity t18326&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;eb38b03 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18326&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">-----------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 2、启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestActivity  -&gt; MainActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;bf65b55 #18326 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;3&#125;</span><br><span class="line">    Run #2: ActivityRecord&#123;be92d5b u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18326&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;c62eb86 u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestActivity t18326&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;eb38b03 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18326&#125;</span><br><span class="line"></span><br><span class="line">-----------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 3、启动流程</span><br><span class="line">MainActivity -&gt; IntentFlagTestActivity  -&gt; MainActivity -&gt; IntentFlagTestActivity</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 栈内容</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">    TaskRecord&#123;bf65b55 #18326 A&#x3D;com.wuzy.androidlaunchmodetest U&#x3D;0 StackId&#x3D;1 sz&#x3D;2&#125;</span><br><span class="line">    Run #1: ActivityRecord&#123;c62eb86 u0 com.wuzy.androidlaunchmodetest&#x2F;.IntentFlagTestActivity t18326&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;eb38b03 u0 com.wuzy.androidlaunchmodetest&#x2F;.MainActivity t18326&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p><code>FLAG_ACTIVITY_CLEAR_TOP  + FLAG_ACTIVITY_SINGLE_TOP</code> 标志位组合情况， standard 模式下的 IntentFlagTestActivity 被复用了， 那么其他启动模式的 Activity 也必然会被复用。（单独使用 FLAG_ACTIVITY_CLEAR_TOP 都会被复用，何况又添加了 FLAG_ACTIVITY_SINGLE_TOP 标志位，通过 Demo 验证也确实如此，就不再给出具体案例了）。 </p>
 <p><strong>结论：</strong></p>
 <p><strong>使用 FLAG_ACTIVITY_SINGLE_TOP 和 FLAG_ACTIVITY_CLEAR_TOP 标志位组合，那么不管目标 Activity 是什么启动模式，都会被复用。</strong> </p>
 <p>OK，Activity 启动模式相关的内容就介绍这些，希望感兴趣的朋友有帮助。</p>
 <p>Demo 我已经放在了 GitHub 上，有兴趣可以下载下来，运行看看结果。</p>
-<p> <a target="_blank" rel="noopener" href="https://github.com/zywudev/AndroidLaunchModeTest">https://github.com/zywudev/AndroidLaunchModeTest</a></p>
+<p> <span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/zywudev/AndroidLaunchModeTest">https://github.com/zywudev/AndroidLaunchModeTest</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://wuzhangyang.com">贾小昆</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://wuzhangyang.com/2019/11/06/android-interview-4-launcher-mode/">http://wuzhangyang.com/2019/11/06/android-interview-4-launcher-mode/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://wuzhangyang.com/tags/Android-%E5%9F%BA%E7%A1%80/">Android 基础</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://wuzhangyang.com/tags/Android%E9%9D%A2%E8%AF%95%E9%A2%98/">Android面试题</a></span></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2019/11/09/weekly-issue-1/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">每周分享第 1 期</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2019/10/30/android-interview-3-java-reference/"><span class="paginator-prev__text">Android 面试题（3）：回答一下什么是强、软、弱、虚引用以及它们之间的区别？</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#standard-%E6%A0%87%E5%87%86%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">
+          standard 标准模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#singleTop-%E6%A0%88%E9%A1%B6%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">
+          singleTop 栈顶复用模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#singleTask-%E6%A0%88%E5%86%85%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">
+          singleTask 栈内复用模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#singleInstance-%E5%8D%95%E5%AE%9E%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">
+          singleInstance 单实例模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Intent-Flags"><span class="toc-number">5.</span> <span class="toc-text">
+          Intent Flags</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%8D%95%E7%8B%AC%E4%BD%BF%E7%94%A8-FLAG-ACTIVITY-NEW-TASK"><span class="toc-number">5.1.</span> <span class="toc-text">
+          1、单独使用 FLAG_ACTIVITY_NEW_TASK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81FLAG-ACTIVITY-NEW-TASK-FLAG-ACTIVITY-CLEAR-TOP"><span class="toc-number">5.2.</span> <span class="toc-text">
+          2、FLAG_ACTIVITY_NEW_TASK + FLAG_ACTIVITY_CLEAR_TOP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81FLAG-ACTIVITY-NEW-TASK-FLAG-ACTIVITY-CLEAR-TASK"><span class="toc-number">5.3.</span> <span class="toc-text">
+          3、FLAG_ACTIVITY_NEW_TASK + FLAG_ACTIVITY_CLEAR_TASK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E5%8D%95%E7%8B%AC%E4%BD%BF%E7%94%A8-FLAG-ACTIVITY-CLEAR-TOP"><span class="toc-number">5.4.</span> <span class="toc-text">
+          4、单独使用 FLAG_ACTIVITY_CLEAR_TOP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81FLAG-ACTIVITY-CLEAR-TOP-FLAG-ACTIVITY-SINGLE-TOP"><span class="toc-number">5.5.</span> <span class="toc-text">
+          5、FLAG_ACTIVITY_CLEAR_TOP  + FLAG_ACTIVITY_SINGLE_TOP</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">万物之中，希望至美</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/zywudev/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/zywu-43/" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="https://weixin.sogou.com/weixin?query=%E8%B4%BE%E5%B0%8F%E6%98%86/" target="_blank" rel="noopener" data-popover="微信" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-weixin"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">100</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">14</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">40</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>贾小昆</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.1.1</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.1.1</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__info">访问人数</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__info">浏览总量</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Android%E9%9D%A2%E8%AF%95%E9%A2%98/">Android面试题</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Android-%E5%9F%BA%E7%A1%80/">Android 基础</a>
-                    
-                      <a class="hover-with-bg" href="/tags/Android%E9%9D%A2%E8%AF%95%E9%A2%98/">Android面试题</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext row">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2019/11/09/weekly-issue-1/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">每周分享第 1 期</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2019/10/30/android-interview-3-java-reference/">
-                        <span class="hidden-mobile">Android 面试题（3）：回答一下什么是强、软、弱、虚引用以及它们之间的区别？</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
 
-            
-          </article>
-        </div>
-      </div>
-    </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
-</div>
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
 
-      </div>
-    
-  </div>
-</div>
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
 
-<!-- Custom -->
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
 
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
 
-    
-  </main>
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-  
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
 
-  
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
 
-  
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
 
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
-    </div>
-    
-  <div class="statistics">
-    
-    
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
 
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
 
-    
-
-    
-  </div>
-</footer>
-
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '#post-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
       });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
       }
     });
-  </script>
+  };
 
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "Android 面试题（4）：谈谈 Activity 的启动模式&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</body>
-</html>
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="/js/utils.js?v=2.1.1"></script><script src="/js/stun-boot.js?v=2.1.1"></script><script src="/js/scroll.js?v=2.1.1"></script><script src="/js/header.js?v=2.1.1"></script><script src="/js/sidebar.js?v=2.1.1"></script><script type="application/json" src="/search.xml"></script></body></html>

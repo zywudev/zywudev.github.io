@@ -1,242 +1,58 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.1.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.1.1" type="image/png" sizes="32x32"><meta name="description" content="前面两篇文章分别介绍了 OkHttp 的请求流程和缓存机制，最后这篇文章介绍 OkHttp 的连接机制，作为 OkHttp 源码分析的收尾。 建议将 OkHttp 的源码下载下来，使用 IDEA 编辑器可以直接打开阅读。我这边也将最新版的源码下载下来，进行了注释说明，有需要的可以直接从 Android open framework analysis 查看。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OkHttp 源码分析（三）：连接机制">
+<meta property="og:url" content="http://wuzhangyang.com/2019/03/27/ok-analysis-3/index.html">
+<meta property="og:site_name" content="贾小昆">
+<meta property="og:description" content="前面两篇文章分别介绍了 OkHttp 的请求流程和缓存机制，最后这篇文章介绍 OkHttp 的连接机制，作为 OkHttp 源码分析的收尾。 建议将 OkHttp 的源码下载下来，使用 IDEA 编辑器可以直接打开阅读。我这边也将最新版的源码下载下来，进行了注释说明，有需要的可以直接从 Android open framework analysis 查看。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-03-27T11:50:20.000Z">
+<meta property="article:modified_time" content="2020-09-04T05:58:03.297Z">
+<meta property="article:author" content="贾小昆">
+<meta property="article:tag" content="源码分析">
+<meta name="twitter:card" content="summary"><title>OkHttp 源码分析（三）：连接机制 | 贾小昆</title><link ref="canonical" href="http://wuzhangyang.com/2019/03/27/ok-analysis-3/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.1.1"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><script src="https://www.googletagmanager.com/gtag/js?id=UA-127464210-1" async=""></script><script>if (window.location.hostname !== 'localhost') {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'UA-127464210-1');
+}</script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: undefined,
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
 
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.1.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">OkHttp 源码分析（三）：连接机制</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2019-03-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-09-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">2.2k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">18分</span></span><span class="post-meta-item post-meta-item--visitors"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value" id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><p>前面两篇文章分别介绍了 OkHttp 的请求流程和缓存机制，最后这篇文章介绍 OkHttp 的连接机制，作为 OkHttp 源码分析的收尾。</p>
+<p>建议将 OkHttp 的源码下载下来，使用 IDEA 编辑器可以直接打开阅读。我这边也将最新版的源码下载下来，进行了注释说明，有需要的可以直接从 <span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/zywudev/android-open-framework-analysis">Android open framework analysis</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 查看。</p>
 
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.ico">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="贾小昆">
-  <meta name="keywords" content="">
-  <title>OkHttp 源码分析（三）：连接机制 - 贾小昆</title>
-
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
-  
-
-  
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>贾小昆</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container page-header text-center fade-in-up">
-            <span class="h2" id="subtitle">
-              
-            </span>
-
-            
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2019-03-27 19:50" pubdate>
-      2019年3月27日 晚上
-    </time>
-  </div>
-
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      2.1k 字
-    </span>
-  
-
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      31
-       分钟
-    </span>
-  
-
-  
-  
-</div>
-
-            
-          </div>
-
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto" id="post">
-            <!-- SEO header -->
-            <h1 style="display: none">OkHttp 源码分析（三）：连接机制</h1>
-            
-            <div class="markdown-body" id="post-body">
-              <p>前面两篇文章分别介绍了 OkHttp 的请求流程和缓存机制，最后这篇文章介绍 OkHttp 的连接机制，作为 OkHttp 源码分析的收尾。</p>
-<p>建议将 OkHttp 的源码下载下来，使用 IDEA 编辑器可以直接打开阅读。我这边也将最新版的源码下载下来，进行了注释说明，有需要的可以直接从 <a target="_blank" rel="noopener" href="https://github.com/zywudev/android-open-framework-analysis">Android open framework analysis</a> 查看。</p>
-<h2 id="创建连接"><a href="#创建连接" class="headerlink" title="创建连接"></a>创建连接</h2><p>OkHttp 连接的创建是通过 StreamAllocation 对象统筹完成。</p>
+        <h2 id="创建连接">
+          <a href="#创建连接" class="heading-link"><i class="fas fa-link"></i></a>创建连接</h2>
+      <p>OkHttp 连接的创建是通过 StreamAllocation 对象统筹完成。</p>
 <p>它主要用来管理两个角色：</p>
 <ul>
 <li>RealConnection：真正建立连接的对象，利用 Socket 建立连接。</li>
 <li>ConnectionPool：连接池，用来管理和复用连接。</li>
 </ul>
 <p>StreamAllocation 是在 RetryAndFollowUpInterceptor 中被创建，此时并未发起连接。</p>
-<pre><code class="hljs java"><span class="hljs-comment">// RetryAndFollowUpInterceptor .intercept()</span>
-
-StreamAllocation streamAllocation = <span class="hljs-keyword">new</span> StreamAllocation(client.connectionPool(),
-        createAddress(request.url()), call, eventListener, callStackTrace);</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// RetryAndFollowUpInterceptor .intercept()</span></span><br><span class="line"></span><br><span class="line">StreamAllocation streamAllocation = <span class="keyword">new</span> StreamAllocation(client.connectionPool(),</span><br><span class="line">        createAddress(request.url()), call, eventListener, callStackTrace);</span><br></pre></td></tr></table></div></figure>
 
 <p>真正的连接是在处理完 Header 和缓存之后，调用 ConnectInterceptor 进行的。</p>
-<pre><code class="hljs java"><span class="hljs-comment">// ConnectInterceptor.intercept()</span>
-    
-StreamAllocation streamAllocation = realChain.streamAllocation();
-
-<span class="hljs-comment">// We need the network to satisfy this request. Possibly for validating a conditional GET.</span>
-<span class="hljs-keyword">boolean</span> doExtensiveHealthChecks = !request.method().equals(<span class="hljs-string">&quot;GET&quot;</span>);
-HttpCodec httpCodec = streamAllocation.newStream(client, chain, doExtensiveHealthChecks);
-RealConnection connection = streamAllocation.connection();</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ConnectInterceptor.intercept()</span></span><br><span class="line">    </span><br><span class="line">StreamAllocation streamAllocation = realChain.streamAllocation();</span><br><span class="line"></span><br><span class="line"><span class="comment">// We need the network to satisfy this request. Possibly for validating a conditional GET.</span></span><br><span class="line"><span class="keyword">boolean</span> doExtensiveHealthChecks = !request.method().equals(<span class="string">&quot;GET&quot;</span>);</span><br><span class="line">HttpCodec httpCodec = streamAllocation.newStream(client, chain, doExtensiveHealthChecks);</span><br><span class="line">RealConnection connection = streamAllocation.connection();</span><br></pre></td></tr></table></div></figure>
 
 <p>这里创建了两个对象：</p>
 <ul>
@@ -244,130 +60,7 @@ RealConnection connection = streamAllocation.connection();</code></pre>
 <li>RealConnection：上文介绍了。</li>
 </ul>
 <p>调用 streamAllocation 的 <code>newStream</code> 方法经过一系列判断最终会走到 <code>findConnection</code> 方法</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> RealConnection <span class="hljs-title">findConnection</span><span class="hljs-params">(<span class="hljs-keyword">int</span> connectTimeout, <span class="hljs-keyword">int</span> readTimeout, <span class="hljs-keyword">int</span> writeTimeout, <span class="hljs-keyword">int</span> pingIntervalMillis, <span class="hljs-keyword">boolean</span> connectionRetryEnabled)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
-    <span class="hljs-keyword">boolean</span> foundPooledConnection = <span class="hljs-keyword">false</span>;
-    RealConnection result = <span class="hljs-keyword">null</span>;
-    Route selectedRoute = <span class="hljs-keyword">null</span>;
-    Connection releasedConnection;
-    Socket toClose;
-    <span class="hljs-keyword">synchronized</span> (connectionPool) &#123;
-      <span class="hljs-keyword">if</span> (released) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">&quot;released&quot;</span>);
-      <span class="hljs-keyword">if</span> (codec != <span class="hljs-keyword">null</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">&quot;codec != null&quot;</span>);
-      <span class="hljs-keyword">if</span> (canceled) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IOException(<span class="hljs-string">&quot;Canceled&quot;</span>);
-
-
-      <span class="hljs-comment">// 1、尝试使用已分配的连接</span>
-      releasedConnection = <span class="hljs-keyword">this</span>.connection;
-      toClose = releaseIfNoNewStreams();
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.connection != <span class="hljs-keyword">null</span>) &#123;
-        <span class="hljs-comment">// 当前连接可用.</span>
-        result = <span class="hljs-keyword">this</span>.connection;
-        releasedConnection = <span class="hljs-keyword">null</span>;
-      &#125;
-      <span class="hljs-keyword">if</span> (!reportedAcquired) &#123;
-        <span class="hljs-comment">// If the connection was never reported acquired, don&#x27;t report it as released!</span>
-        releasedConnection = <span class="hljs-keyword">null</span>;
-      &#125;
-
-      <span class="hljs-comment">// 2、尝试从连接池中获取一个连接</span>
-      <span class="hljs-keyword">if</span> (result == <span class="hljs-keyword">null</span>) &#123;
-        <span class="hljs-comment">// Attempt to get a connection from the pool.</span>
-        Internal.instance.acquire(connectionPool, address, <span class="hljs-keyword">this</span>, <span class="hljs-keyword">null</span>);
-        <span class="hljs-keyword">if</span> (connection != <span class="hljs-keyword">null</span>) &#123;
-          foundPooledConnection = <span class="hljs-keyword">true</span>;
-          result = connection;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-          selectedRoute = route;
-        &#125;
-      &#125;
-    &#125;
-    closeQuietly(toClose);
-
-    <span class="hljs-keyword">if</span> (releasedConnection != <span class="hljs-keyword">null</span>) &#123;
-      eventListener.connectionReleased(call, releasedConnection);
-    &#125;
-    <span class="hljs-keyword">if</span> (foundPooledConnection) &#123;
-      eventListener.connectionAcquired(call, result);
-    &#125;
-    <span class="hljs-keyword">if</span> (result != <span class="hljs-keyword">null</span>) &#123;
-      <span class="hljs-comment">// 如果从连接池中获取到了一个连接，就将其返回.</span>
-      <span class="hljs-keyword">return</span> result;
-    &#125;
-
-    <span class="hljs-comment">// If we need a route selection, make one. This is a blocking operation.</span>
-    <span class="hljs-keyword">boolean</span> newRouteSelection = <span class="hljs-keyword">false</span>;
-    <span class="hljs-keyword">if</span> (selectedRoute == <span class="hljs-keyword">null</span> &amp;&amp; (routeSelection == <span class="hljs-keyword">null</span> || !routeSelection.hasNext())) &#123;
-      newRouteSelection = <span class="hljs-keyword">true</span>;
-      routeSelection = routeSelector.next();
-    &#125;
-
-
-    <span class="hljs-keyword">synchronized</span> (connectionPool) &#123;
-      <span class="hljs-keyword">if</span> (canceled) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IOException(<span class="hljs-string">&quot;Canceled&quot;</span>);
-
-      <span class="hljs-keyword">if</span> (newRouteSelection) &#123;
-        <span class="hljs-comment">// Now that we have a set of IP addresses, make another attempt at getting a connection from</span>
-        <span class="hljs-comment">// the pool. This could match due to connection coalescing.</span>
-        <span class="hljs-comment">// 根据一系列的 IP地址从连接池中获取一个链接</span>
-        List&lt;Route&gt; routes = routeSelection.getAll();
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, size = routes.size(); i &lt; size; i++) &#123;
-          Route route = routes.get(i);
-          <span class="hljs-comment">// 从连接池中获取一个连接</span>
-          Internal.instance.acquire(connectionPool, address, <span class="hljs-keyword">this</span>, route);
-          <span class="hljs-keyword">if</span> (connection != <span class="hljs-keyword">null</span>) &#123;
-            foundPooledConnection = <span class="hljs-keyword">true</span>;
-            result = connection;
-            <span class="hljs-keyword">this</span>.route = route;
-            <span class="hljs-keyword">break</span>;
-          &#125;
-        &#125;
-      &#125;
-
-      <span class="hljs-comment">// 3、如果连接池中没有可用连接，则创建一个</span>
-      <span class="hljs-keyword">if</span> (!foundPooledConnection) &#123;
-        <span class="hljs-keyword">if</span> (selectedRoute == <span class="hljs-keyword">null</span>) &#123;
-          selectedRoute = routeSelection.next();
-        &#125;
-
-        <span class="hljs-comment">// Create a connection and assign it to this allocation immediately. This makes it possible</span>
-        <span class="hljs-comment">// for an asynchronous cancel() to interrupt the handshake we&#x27;re about to do.</span>
-        route = selectedRoute;
-        refusedStreamCount = <span class="hljs-number">0</span>;
-        result = <span class="hljs-keyword">new</span> RealConnection(connectionPool, selectedRoute);
-        acquire(result, <span class="hljs-keyword">false</span>);
-      &#125;
-    &#125;
-
-    <span class="hljs-comment">// If we found a pooled connection on the 2nd time around, we&#x27;re done.</span>
-    <span class="hljs-keyword">if</span> (foundPooledConnection) &#123;
-      eventListener.connectionAcquired(call, result);
-      <span class="hljs-keyword">return</span> result;
-    &#125;
-
-    <span class="hljs-comment">//4、 开始TCP以及TLS握手操作</span>
-    result.connect(connectTimeout, readTimeout, writeTimeout, pingIntervalMillis,
-        connectionRetryEnabled, call, eventListener);
-    routeDatabase().connected(result.route());
-
-    Socket socket = <span class="hljs-keyword">null</span>;
-    <span class="hljs-keyword">synchronized</span> (connectionPool) &#123;
-      reportedAcquired = <span class="hljs-keyword">true</span>;
-
-      <span class="hljs-comment">// 5、将新创建的连接，放在连接池中.</span>
-      Internal.instance.put(connectionPool, result);
-
-      <span class="hljs-comment">// If another multiplexed connection to the same address was created concurrently, then</span>
-      <span class="hljs-comment">// release this connection and acquire that one.</span>
-      <span class="hljs-keyword">if</span> (result.isMultiplexed()) &#123;
-        socket = Internal.instance.deduplicate(connectionPool, address, <span class="hljs-keyword">this</span>);
-        result = connection;
-      &#125;
-    &#125;
-    closeQuietly(socket);
-
-    eventListener.connectionAcquired(call, result);
-    <span class="hljs-keyword">return</span> result;
-  &#125;</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> RealConnection <span class="title">findConnection</span><span class="params">(<span class="keyword">int</span> connectTimeout, <span class="keyword">int</span> readTimeout, <span class="keyword">int</span> writeTimeout, <span class="keyword">int</span> pingIntervalMillis, <span class="keyword">boolean</span> connectionRetryEnabled)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> foundPooledConnection = <span class="keyword">false</span>;</span><br><span class="line">    RealConnection result = <span class="keyword">null</span>;</span><br><span class="line">    Route selectedRoute = <span class="keyword">null</span>;</span><br><span class="line">    Connection releasedConnection;</span><br><span class="line">    Socket toClose;</span><br><span class="line">    <span class="keyword">synchronized</span> (connectionPool) &#123;</span><br><span class="line">      <span class="keyword">if</span> (released) <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">&quot;released&quot;</span>);</span><br><span class="line">      <span class="keyword">if</span> (codec != <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">&quot;codec != null&quot;</span>);</span><br><span class="line">      <span class="keyword">if</span> (canceled) <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">&quot;Canceled&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="comment">// 1、尝试使用已分配的连接</span></span><br><span class="line">      releasedConnection = <span class="keyword">this</span>.connection;</span><br><span class="line">      toClose = releaseIfNoNewStreams();</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.connection != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 当前连接可用.</span></span><br><span class="line">        result = <span class="keyword">this</span>.connection;</span><br><span class="line">        releasedConnection = <span class="keyword">null</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (!reportedAcquired) &#123;</span><br><span class="line">        <span class="comment">// If the connection was never reported acquired, don&#x27;t report it as released!</span></span><br><span class="line">        releasedConnection = <span class="keyword">null</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 2、尝试从连接池中获取一个连接</span></span><br><span class="line">      <span class="keyword">if</span> (result == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// Attempt to get a connection from the pool.</span></span><br><span class="line">        Internal.instance.acquire(connectionPool, address, <span class="keyword">this</span>, <span class="keyword">null</span>);</span><br><span class="line">        <span class="keyword">if</span> (connection != <span class="keyword">null</span>) &#123;</span><br><span class="line">          foundPooledConnection = <span class="keyword">true</span>;</span><br><span class="line">          result = connection;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          selectedRoute = route;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    closeQuietly(toClose);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (releasedConnection != <span class="keyword">null</span>) &#123;</span><br><span class="line">      eventListener.connectionReleased(call, releasedConnection);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (foundPooledConnection) &#123;</span><br><span class="line">      eventListener.connectionAcquired(call, result);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (result != <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="comment">// 如果从连接池中获取到了一个连接，就将其返回.</span></span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// If we need a route selection, make one. This is a blocking operation.</span></span><br><span class="line">    <span class="keyword">boolean</span> newRouteSelection = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (selectedRoute == <span class="keyword">null</span> &amp;&amp; (routeSelection == <span class="keyword">null</span> || !routeSelection.hasNext())) &#123;</span><br><span class="line">      newRouteSelection = <span class="keyword">true</span>;</span><br><span class="line">      routeSelection = routeSelector.next();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">synchronized</span> (connectionPool) &#123;</span><br><span class="line">      <span class="keyword">if</span> (canceled) <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">&quot;Canceled&quot;</span>);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (newRouteSelection) &#123;</span><br><span class="line">        <span class="comment">// Now that we have a set of IP addresses, make another attempt at getting a connection from</span></span><br><span class="line">        <span class="comment">// the pool. This could match due to connection coalescing.</span></span><br><span class="line">        <span class="comment">// 根据一系列的 IP地址从连接池中获取一个链接</span></span><br><span class="line">        List&lt;Route&gt; routes = routeSelection.getAll();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, size = routes.size(); i &lt; size; i++) &#123;</span><br><span class="line">          Route route = routes.get(i);</span><br><span class="line">          <span class="comment">// 从连接池中获取一个连接</span></span><br><span class="line">          Internal.instance.acquire(connectionPool, address, <span class="keyword">this</span>, route);</span><br><span class="line">          <span class="keyword">if</span> (connection != <span class="keyword">null</span>) &#123;</span><br><span class="line">            foundPooledConnection = <span class="keyword">true</span>;</span><br><span class="line">            result = connection;</span><br><span class="line">            <span class="keyword">this</span>.route = route;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 3、如果连接池中没有可用连接，则创建一个</span></span><br><span class="line">      <span class="keyword">if</span> (!foundPooledConnection) &#123;</span><br><span class="line">        <span class="keyword">if</span> (selectedRoute == <span class="keyword">null</span>) &#123;</span><br><span class="line">          selectedRoute = routeSelection.next();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Create a connection and assign it to this allocation immediately. This makes it possible</span></span><br><span class="line">        <span class="comment">// for an asynchronous cancel() to interrupt the handshake we&#x27;re about to do.</span></span><br><span class="line">        route = selectedRoute;</span><br><span class="line">        refusedStreamCount = <span class="number">0</span>;</span><br><span class="line">        result = <span class="keyword">new</span> RealConnection(connectionPool, selectedRoute);</span><br><span class="line">        acquire(result, <span class="keyword">false</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// If we found a pooled connection on the 2nd time around, we&#x27;re done.</span></span><br><span class="line">    <span class="keyword">if</span> (foundPooledConnection) &#123;</span><br><span class="line">      eventListener.connectionAcquired(call, result);</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//4、 开始TCP以及TLS握手操作</span></span><br><span class="line">    result.connect(connectTimeout, readTimeout, writeTimeout, pingIntervalMillis,</span><br><span class="line">        connectionRetryEnabled, call, eventListener);</span><br><span class="line">    routeDatabase().connected(result.route());</span><br><span class="line"></span><br><span class="line">    Socket socket = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">synchronized</span> (connectionPool) &#123;</span><br><span class="line">      reportedAcquired = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 5、将新创建的连接，放在连接池中.</span></span><br><span class="line">      Internal.instance.put(connectionPool, result);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// If another multiplexed connection to the same address was created concurrently, then</span></span><br><span class="line">      <span class="comment">// release this connection and acquire that one.</span></span><br><span class="line">      <span class="keyword">if</span> (result.isMultiplexed()) &#123;</span><br><span class="line">        socket = Internal.instance.deduplicate(connectionPool, address, <span class="keyword">this</span>);</span><br><span class="line">        result = connection;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    closeQuietly(socket);</span><br><span class="line"></span><br><span class="line">    eventListener.connectionAcquired(call, result);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>整个流程是：</p>
 <ul>
@@ -377,101 +70,17 @@ RealConnection connection = streamAllocation.connection();</code></pre>
 <li>4、开始 TCP 连接以及 TLS 握手操作</li>
 <li>5、将新创建的连接加入到连接池中</li>
 </ul>
-<h2 id="连接池"><a href="#连接池" class="headerlink" title="连接池"></a>连接池</h2><p>网络请求时频繁地进行 Socket 连接和断开 Socket 非常消耗网络资源和浪费时间，连接复用可以提升网络访问的效率。这里就引入了连接池的概念。</p>
+
+        <h2 id="连接池">
+          <a href="#连接池" class="heading-link"><i class="fas fa-link"></i></a>连接池</h2>
+      <p>网络请求时频繁地进行 Socket 连接和断开 Socket 非常消耗网络资源和浪费时间，连接复用可以提升网络访问的效率。这里就引入了连接池的概念。</p>
 <p>OKHttp 的连接池由 ConnectionPool 实现。</p>
 <p>ConnetionPool 内部维护了一个线程池，负责清理无效的连接。</p>
-<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConnectionPool</span> </span>&#123;
-   <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Executor executor = <span class="hljs-keyword">new</span> ThreadPoolExecutor(<span class="hljs-number">0</span> <span class="hljs-comment">/* corePoolSize */</span>,
-      Integer.MAX_VALUE <span class="hljs-comment">/* maximumPoolSize */</span>, <span class="hljs-number">60L</span> <span class="hljs-comment">/* keepAliveTime */</span>, TimeUnit.SECONDS, <span class="hljs-keyword">new</span> SynchronousQueue&lt;&gt;(), Util.threadFactory(<span class="hljs-string">&quot;OkHttp ConnectionPool&quot;</span>, <span class="hljs-keyword">true</span>));
-    
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">put</span><span class="hljs-params">(RealConnection connection)</span> </span>&#123;
-    <span class="hljs-keyword">assert</span> (Thread.holdsLock(<span class="hljs-keyword">this</span>));
-
-    <span class="hljs-keyword">if</span> (!cleanupRunning) &#123;
-      cleanupRunning = <span class="hljs-keyword">true</span>;
-      <span class="hljs-comment">// 使用线程池执行清理任务</span>
-      executor.execute(cleanupRunnable);
-    &#125;
-    <span class="hljs-comment">// 将新建的连接插入到双端队列中</span>
-    connections.add(connection);
-   &#125;
-    
-   <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Runnable cleanupRunnable = () -&gt; &#123;
-    <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>) &#123;
-      <span class="hljs-comment">// 清理操作，返回下次需要清理的时间</span>
-      <span class="hljs-keyword">long</span> waitNanos = cleanup(System.nanoTime());
-      <span class="hljs-keyword">if</span> (waitNanos == -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span>;
-      <span class="hljs-keyword">if</span> (waitNanos &gt; <span class="hljs-number">0</span>) &#123;
-        <span class="hljs-keyword">long</span> waitMillis = waitNanos / <span class="hljs-number">1000000L</span>;
-        waitNanos -= (waitMillis * <span class="hljs-number">1000000L</span>);
-        <span class="hljs-keyword">synchronized</span> (ConnectionPool.<span class="hljs-keyword">this</span>) &#123;
-          <span class="hljs-keyword">try</span> &#123;
-            ConnectionPool.<span class="hljs-keyword">this</span>.wait(waitMillis, (<span class="hljs-keyword">int</span>) waitNanos);
-          &#125; <span class="hljs-keyword">catch</span> (InterruptedException ignored) &#123;
-          &#125;
-        &#125;
-      &#125;
-    &#125;
-  &#125;;
-&#125;</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ConnectionPool</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Executor executor = <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span> <span class="comment">/* corePoolSize */</span>,</span><br><span class="line">      Integer.MAX_VALUE <span class="comment">/* maximumPoolSize */</span>, <span class="number">60L</span> <span class="comment">/* keepAliveTime */</span>, TimeUnit.SECONDS, <span class="keyword">new</span> SynchronousQueue&lt;&gt;(), Util.threadFactory(<span class="string">&quot;OkHttp ConnectionPool&quot;</span>, <span class="keyword">true</span>));</span><br><span class="line">    </span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">put</span><span class="params">(RealConnection connection)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">assert</span> (Thread.holdsLock(<span class="keyword">this</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!cleanupRunning) &#123;</span><br><span class="line">      cleanupRunning = <span class="keyword">true</span>;</span><br><span class="line">      <span class="comment">// 使用线程池执行清理任务</span></span><br><span class="line">      executor.execute(cleanupRunnable);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 将新建的连接插入到双端队列中</span></span><br><span class="line">    connections.add(connection);</span><br><span class="line">   &#125;</span><br><span class="line">    </span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> Runnable cleanupRunnable = () -&gt; &#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">      <span class="comment">// 清理操作，返回下次需要清理的时间</span></span><br><span class="line">      <span class="keyword">long</span> waitNanos = cleanup(System.nanoTime());</span><br><span class="line">      <span class="keyword">if</span> (waitNanos == -<span class="number">1</span>) <span class="keyword">return</span>;</span><br><span class="line">      <span class="keyword">if</span> (waitNanos &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">long</span> waitMillis = waitNanos / <span class="number">1000000L</span>;</span><br><span class="line">        waitNanos -= (waitMillis * <span class="number">1000000L</span>);</span><br><span class="line">        <span class="keyword">synchronized</span> (ConnectionPool.<span class="keyword">this</span>) &#123;</span><br><span class="line">          <span class="keyword">try</span> &#123;</span><br><span class="line">            ConnectionPool.<span class="keyword">this</span>.wait(waitMillis, (<span class="keyword">int</span>) waitNanos);</span><br><span class="line">          &#125; <span class="keyword">catch</span> (InterruptedException ignored) &#123;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>ConnectionPool 维护一个线程池用于清理无效的连接，清理任务由 <code>cleanup</code>方法完成，首先执行清理，返回下次需要清理的间隔时间，然后调用 <code>wait</code> 方法释放锁。等到了时间，再次进行清理操作，返回下一次清理的时间，循环往复下去。</p>
 <p>具体看一下 <code>cleanup</code> 方法：</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-title">cleanup</span><span class="hljs-params">(<span class="hljs-keyword">long</span> now)</span> </span>&#123;
-    <span class="hljs-keyword">int</span> inUseConnectionCount = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">int</span> idleConnectionCount = <span class="hljs-number">0</span>;
-    RealConnection longestIdleConnection = <span class="hljs-keyword">null</span>;
-    <span class="hljs-keyword">long</span> longestIdleDurationNs = Long.MIN_VALUE;
-
-    <span class="hljs-comment">// Find either a connection to evict, or the time that the next eviction is due.</span>
-    <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>) &#123;
-        <span class="hljs-comment">// 遍历所有的连接</span>
-        <span class="hljs-keyword">for</span> (Iterator&lt;RealConnection&gt; i = connections.iterator(); i.hasNext(); ) &#123;
-            RealConnection connection = i.next();
-
-            <span class="hljs-comment">// 1、连接正在使用，即StreanAllocation的引用数量大于0</span>
-            <span class="hljs-keyword">if</span> (pruneAndGetAllocationCount(connection, now) &gt; <span class="hljs-number">0</span>) &#123;
-                inUseConnectionCount++;
-                <span class="hljs-keyword">continue</span>;
-            &#125;
-
-            idleConnectionCount++;
-
-            <span class="hljs-comment">// If the connection is ready to be evicted, we&#x27;re done.</span>
-            <span class="hljs-comment">// 2、如果找到了一个可以被清理的连接，会尝试去寻找闲置时间最久的连接来释放</span>
-            <span class="hljs-keyword">long</span> idleDurationNs = now - connection.idleAtNanos;
-            <span class="hljs-keyword">if</span> (idleDurationNs &gt; longestIdleDurationNs) &#123;
-                longestIdleDurationNs = idleDurationNs;
-                longestIdleConnection = connection;
-            &#125;
-        &#125;
-
-        <span class="hljs-comment">// maxIdleConnections 表示最大允许的闲置的连接的数量,keepAliveDurationNs表示连接允许存活的最长的时间。</span>
-        <span class="hljs-comment">// 默认空闲连接最大数目为5个，keepalive 时间最长为5分钟</span>
-        <span class="hljs-comment">// 3、如果空闲连接超过5个或者keepalive时间大于5分钟，则将该连接清理</span>
-        <span class="hljs-keyword">if</span> (longestIdleDurationNs &gt;= <span class="hljs-keyword">this</span>.keepAliveDurationNs
-            || idleConnectionCount &gt; <span class="hljs-keyword">this</span>.maxIdleConnections) &#123;
-            connections.remove(longestIdleConnection);
-        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (idleConnectionCount &gt; <span class="hljs-number">0</span>) &#123;
-            <span class="hljs-comment">// 4、闲置的连接的数量大于0，停顿指定的时间（等会儿会将其清理掉，现在还不是时候）</span>
-            <span class="hljs-keyword">return</span> keepAliveDurationNs - longestIdleDurationNs;
-        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (inUseConnectionCount &gt; <span class="hljs-number">0</span>) &#123;
-            <span class="hljs-comment">// All connections are in use. It&#x27;ll be at least the keep alive duration &#x27;til we run again.</span>
-            <span class="hljs-comment">///5、所有的连接都在使用中，5分钟后再清理</span>
-            <span class="hljs-keyword">return</span> keepAliveDurationNs;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            <span class="hljs-comment">// No connections, idle or in use.</span>
-            <span class="hljs-comment">//6、没有连接</span>
-            cleanupRunning = <span class="hljs-keyword">false</span>;
-            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
-        &#125;
-    &#125;
-
-    closeQuietly(longestIdleConnection.socket());
-
-    <span class="hljs-comment">// Cleanup again immediately.</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">cleanup</span><span class="params">(<span class="keyword">long</span> now)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> inUseConnectionCount = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> idleConnectionCount = <span class="number">0</span>;</span><br><span class="line">    RealConnection longestIdleConnection = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">long</span> longestIdleDurationNs = Long.MIN_VALUE;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Find either a connection to evict, or the time that the next eviction is due.</span></span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">        <span class="comment">// 遍历所有的连接</span></span><br><span class="line">        <span class="keyword">for</span> (Iterator&lt;RealConnection&gt; i = connections.iterator(); i.hasNext(); ) &#123;</span><br><span class="line">            RealConnection connection = i.next();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 1、连接正在使用，即StreanAllocation的引用数量大于0</span></span><br><span class="line">            <span class="keyword">if</span> (pruneAndGetAllocationCount(connection, now) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                inUseConnectionCount++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            idleConnectionCount++;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// If the connection is ready to be evicted, we&#x27;re done.</span></span><br><span class="line">            <span class="comment">// 2、如果找到了一个可以被清理的连接，会尝试去寻找闲置时间最久的连接来释放</span></span><br><span class="line">            <span class="keyword">long</span> idleDurationNs = now - connection.idleAtNanos;</span><br><span class="line">            <span class="keyword">if</span> (idleDurationNs &gt; longestIdleDurationNs) &#123;</span><br><span class="line">                longestIdleDurationNs = idleDurationNs;</span><br><span class="line">                longestIdleConnection = connection;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// maxIdleConnections 表示最大允许的闲置的连接的数量,keepAliveDurationNs表示连接允许存活的最长的时间。</span></span><br><span class="line">        <span class="comment">// 默认空闲连接最大数目为5个，keepalive 时间最长为5分钟</span></span><br><span class="line">        <span class="comment">// 3、如果空闲连接超过5个或者keepalive时间大于5分钟，则将该连接清理</span></span><br><span class="line">        <span class="keyword">if</span> (longestIdleDurationNs &gt;= <span class="keyword">this</span>.keepAliveDurationNs</span><br><span class="line">            || idleConnectionCount &gt; <span class="keyword">this</span>.maxIdleConnections) &#123;</span><br><span class="line">            connections.remove(longestIdleConnection);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (idleConnectionCount &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 4、闲置的连接的数量大于0，停顿指定的时间（等会儿会将其清理掉，现在还不是时候）</span></span><br><span class="line">            <span class="keyword">return</span> keepAliveDurationNs - longestIdleDurationNs;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (inUseConnectionCount &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// All connections are in use. It&#x27;ll be at least the keep alive duration &#x27;til we run again.</span></span><br><span class="line">            <span class="comment">///5、所有的连接都在使用中，5分钟后再清理</span></span><br><span class="line">            <span class="keyword">return</span> keepAliveDurationNs;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// No connections, idle or in use.</span></span><br><span class="line">            <span class="comment">//6、没有连接</span></span><br><span class="line">            cleanupRunning = <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    closeQuietly(longestIdleConnection.socket());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Cleanup again immediately.</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>整体流程如下：</p>
 <ul>
@@ -484,327 +93,258 @@ RealConnection connection = streamAllocation.connection();</code></pre>
 </ul>
 <p>RealConnection 内有一个 SteamAllocation 虚引用列表，每次创建的 StreamAllocation，都会被添加到这个列表中，如果流关闭后就将 SteamAllocation 对象从该列表中移出去，也正是利用这种计数方式判定一个连接是否为空闲连接。</p>
 <p>查询引用计数是在 <code>pruneAndGetAllocationCount</code> 方法中实现。</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">pruneAndGetAllocationCount</span><span class="hljs-params">(RealConnection connection, <span class="hljs-keyword">long</span> now)</span> </span>&#123;
-    <span class="hljs-comment">// 虚引用列表</span>
-    List&lt;Reference&lt;StreamAllocation&gt;&gt; references = connection.allocations;
-    <span class="hljs-comment">// 遍历虚引用列表</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; references.size(); ) &#123;
-        Reference&lt;StreamAllocation&gt; reference = references.get(i);
-        <span class="hljs-comment">//如果虚引用StreamAllocation正在被使用，则跳过进行下一次循环</span>
-        <span class="hljs-keyword">if</span> (reference.get() != <span class="hljs-keyword">null</span>) &#123;
-            i++;
-            <span class="hljs-keyword">continue</span>;
-        &#125;
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">pruneAndGetAllocationCount</span><span class="params">(RealConnection connection, <span class="keyword">long</span> now)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 虚引用列表</span></span><br><span class="line">    List&lt;Reference&lt;StreamAllocation&gt;&gt; references = connection.allocations;</span><br><span class="line">    <span class="comment">// 遍历虚引用列表</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; references.size(); ) &#123;</span><br><span class="line">        Reference&lt;StreamAllocation&gt; reference = references.get(i);</span><br><span class="line">        <span class="comment">//如果虚引用StreamAllocation正在被使用，则跳过进行下一次循环</span></span><br><span class="line">        <span class="keyword">if</span> (reference.get() != <span class="keyword">null</span>) &#123;</span><br><span class="line">            i++;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// We&#x27;ve discovered a leaked allocation. This is an application bug.</span></span><br><span class="line">        StreamAllocation.StreamAllocationReference streamAllocRef =</span><br><span class="line">            (StreamAllocation.StreamAllocationReference) reference;</span><br><span class="line">        String message = <span class="string">&quot;A connection to &quot;</span> + connection.route().address().url()</span><br><span class="line">            + <span class="string">&quot; was leaked. Did you forget to close a response body?&quot;</span>;</span><br><span class="line">        Platform.get().logCloseableLeak(message, streamAllocRef.callStackTrace);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 移除引用</span></span><br><span class="line">        references.remove(i);</span><br><span class="line">        connection.noNewStreams = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// If this was the last allocation, the connection is eligible for immediate eviction.</span></span><br><span class="line">        <span class="keyword">if</span> (references.isEmpty()) &#123;</span><br><span class="line">            connection.idleAtNanos = now - keepAliveDurationNs;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> references.size();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-        <span class="hljs-comment">// We&#x27;ve discovered a leaked allocation. This is an application bug.</span>
-        StreamAllocation.StreamAllocationReference streamAllocRef =
-            (StreamAllocation.StreamAllocationReference) reference;
-        String message = <span class="hljs-string">&quot;A connection to &quot;</span> + connection.route().address().url()
-            + <span class="hljs-string">&quot; was leaked. Did you forget to close a response body?&quot;</span>;
-        Platform.get().logCloseableLeak(message, streamAllocRef.callStackTrace);
 
-        <span class="hljs-comment">// 移除引用</span>
-        references.remove(i);
-        connection.noNewStreams = <span class="hljs-keyword">true</span>;
-
-        <span class="hljs-comment">// If this was the last allocation, the connection is eligible for immediate eviction.</span>
-        <span class="hljs-keyword">if</span> (references.isEmpty()) &#123;
-            connection.idleAtNanos = now - keepAliveDurationNs;
-            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-        &#125;
-    &#125;
-
-    <span class="hljs-keyword">return</span> references.size();
-&#125;</code></pre>
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><p><a target="_blank" rel="noopener" href="https://juejin.im/post/5a704ed05188255a8817f4c9">https://juejin.im/post/5a704ed05188255a8817f4c9</a></p>
+        <h2 id="参考">
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a>参考</h2>
+      <ul>
+<li><p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://juejin.im/post/5a704ed05188255a8817f4c9">https://juejin.im/post/5a704ed05188255a8817f4c9</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 </li>
-<li><p><a target="_blank" rel="noopener" href="https://jsonchao.github.io/2018/12/01/Android%E4%B8%BB%E6%B5%81%E4%B8%89%E6%96%B9%E5%BA%93%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%80%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3OKHttp%E6%BA%90%E7%A0%81%EF%BC%89/">https://jsonchao.github.io/2018/12/01/Android%E4%B8%BB%E6%B5%81%E4%B8%89%E6%96%B9%E5%BA%93%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%80%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3OKHttp%E6%BA%90%E7%A0%81%EF%BC%89/</a></p>
+<li><p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://jsonchao.github.io/2018/12/01/Android%E4%B8%BB%E6%B5%81%E4%B8%89%E6%96%B9%E5%BA%93%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%80%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3OKHttp%E6%BA%90%E7%A0%81%EF%BC%89/">https://jsonchao.github.io/2018/12/01/Android%E4%B8%BB%E6%B5%81%E4%B8%89%E6%96%B9%E5%BA%93%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%80%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3OKHttp%E6%BA%90%E7%A0%81%EF%BC%89/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 </li>
 </ul>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://wuzhangyang.com">贾小昆</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://wuzhangyang.com/2019/03/27/ok-analysis-3/">http://wuzhangyang.com/2019/03/27/ok-analysis-3/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://wuzhangyang.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">源码分析</a></span></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2019/05/07/Android-PhotoViewEx/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Android 图片预览库封装</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2019/03/11/ok-analysis-2/"><span class="paginator-prev__text">OkHttp 源码分析（二）：缓存机制</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.</span> <span class="toc-text">
+          创建连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%B1%A0"><span class="toc-number">2.</span> <span class="toc-text">
+          连接池</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">3.</span> <span class="toc-text">
+          参考</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">万物之中，希望至美</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/zywudev/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/zywu-43/" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="https://weixin.sogou.com/weixin?query=%E8%B4%BE%E5%B0%8F%E6%98%86/" target="_blank" rel="noopener" data-popover="微信" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-weixin"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">100</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">14</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">40</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>贾小昆</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.1.1</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.1.1</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__info">访问人数</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__info">浏览总量</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Android/">Android</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">源码分析</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext row">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2019/05/07/Android-PhotoViewEx/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Android 图片预览库封装</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2019/03/11/ok-analysis-2/">
-                        <span class="hidden-mobile">OkHttp 源码分析（二）：缓存机制</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
 
-            
-          </article>
-        </div>
-      </div>
-    </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
-</div>
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
 
-      </div>
-    
-  </div>
-</div>
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
 
-<!-- Custom -->
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
 
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
 
-    
-  </main>
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-  
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
 
-  
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
 
-  
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
 
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
-    </div>
-    
-  <div class="statistics">
-    
-    
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
 
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
 
-    
-
-    
-  </div>
-</footer>
-
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '#post-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
       });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
       }
     });
-  </script>
+  };
 
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "OkHttp 源码分析（三）：连接机制&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</body>
-</html>
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="/js/utils.js?v=2.1.1"></script><script src="/js/stun-boot.js?v=2.1.1"></script><script src="/js/scroll.js?v=2.1.1"></script><script src="/js/header.js?v=2.1.1"></script><script src="/js/sidebar.js?v=2.1.1"></script><script type="application/json" src="/search.xml"></script></body></html>
