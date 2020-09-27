@@ -2559,12 +2559,12 @@ kbd {
   content: '|';
   margin: 0 10px;
 }
-@media (min-width: 1170px) {
+@media (min-width: 1270px) {
   .header-nav-inner {
-    width: 1170px;
+    width: 1270px;
   }
   .main-inner {
-    width: 1170px;
+    width: 1270px;
   }
 }
 @media (min-width: 991.98px) {
