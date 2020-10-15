@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>gitbook 简易教程</title>
+      <link href="2020/10/14/gitbook-tutorial/"/>
+      <url>2020/10/14/gitbook-tutorial/</url>
+      
+        <content type="html"><![CDATA[<p>最近开始整理自己这几年的 Android 学习笔记，用到了 gitbook 这个工具，记录一下使用方式。</p>        <h2 id="安装">          <a href="#安装" class="heading-link"><i class="fas fa-link"></i></a>安装</h2>      <p>gitbook 是一个基于 Node.js 的命令行工具，所以要先安装 Node.js。</p><p>下载地址：<span class="exturl"><a class="exturl__link" href="https://nodejs.org/en/download/%EF%BC%8C%E5%AE%89%E8%A3%85%E4%B9%9F%E5%BE%88%E7%AE%80%E5%8D%95%E3%80%82">https://nodejs.org/en/download/，安装也很简单。</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p><p>然后使用 npm 命令安装 gitbook：</p><figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install gitbook-cli -g</span><br></pre></td></tr></table></div></figure><p>查看下版本号：</p><figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitbook -V</span><br></pre></td></tr></table></div></figure><p>安装成功会出现版本号：</p><figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CLI version: 2.3.2</span><br><span class="line">GitBook version: 3.2.3</span><br></pre></td></tr></table></div></figure>        <h2 id="使用">          <a href="#使用" class="heading-link"><i class="fas fa-link"></i></a>使用</h2>      <p>在文件夹下，使用命令</p><figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitbook init</span><br></pre></td></tr></table></div></figure><p>生成 <code>README.md</code>  和 <code>SUMMARY.md</code> 两个文件。</p><p><code>README</code> 是对书籍的简单介绍； <code>SUMMARY</code> 是书籍的目录结构。</p><p><img src="/2020/10/14/gitbook-tutorial/image-20201015144811568.png" alt="image-20201015144811568"></p><p>使用命令</p><figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitbook serve</span><br></pre></td></tr></table></div></figure><p>编译，在浏览器打开 <span class="exturl"><a class="exturl__link" href="http://localhost:4000/">http://localhost:4000</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 显示效果。</p>        <h2 id="发布">          <a href="#发布" class="heading-link"><i class="fas fa-link"></i></a>发布</h2>      <p>我所有的笔记文件会放在 <span class="exturl"><a class="exturl__link" href="https://github.com/zywudev/AndroidGuide">GitHub</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 上，这里说一下如何同步 GitHub 仓库到 gitbook，这样每次更新只需要推送到 GitHub 就行了。</p><p>在 <span class="exturl"><a class="exturl__link" href="https://www.gitbook.com/">gitbook 官网</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>  使用 Github 账号注册登陆，创建一个新的 space：</p><p><img src="/2020/10/14/gitbook-tutorial/image-20201014172149874.png" alt="image-20201014172149874"></p><p>点击左边的 <code>Intergrations</code> 按钮，选择 GitHub 同步：</p><p><img src="/2020/10/14/gitbook-tutorial/image-20201015110009890.png" alt="image-20201015110009890"></p><p>然后会展示出你的所有 GitHub 仓库，选择需要同步的仓库。</p><p><img src="/2020/10/14/gitbook-tutorial/image-20201015110617954.png" alt="image-20201015110617954"></p><p>这里选择从 GitHub 同步到 GitBook。</p><p><img src="/2020/10/14/gitbook-tutorial/image-20201015110748123.png" alt="image-20201015110748123"></p><p>稍等片刻，就可以了。</p><p><img src="/2020/10/14/gitbook-tutorial/image-20201015111100449.png" alt="image-20201015111100449"></p><p>预览地址：<span class="exturl"><a class="exturl__link" href="https://jaqen.gitbook.io/androidguide/%E3%80%82">https://jaqen.gitbook.io/androidguide/。</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> gitbook </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Mac 版 IDEA 2020.2 最新破解教程</title>
       <link href="2020/09/17/mac-idea-activate/"/>
       <url>2020/09/17/mac-idea-activate/</url>
@@ -827,7 +852,7 @@
       
       <categories>
           
-          <category> Android记录 </category>
+          <category> Android </category>
           
       </categories>
       
