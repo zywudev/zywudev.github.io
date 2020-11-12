@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>SparseArray 源码分析</title>
+      <link href="2020/10/16/SparseArray/"/>
+      <url>2020/10/16/SparseArray/</url>
+      
+        <content type="html"><![CDATA[<p>SparseArray（稀疏数组），是 Android 内部特有的 api，主要用来替代 HashMap&lt;Integer,E&gt; 这种形式，使用 SparseArray更加节省内存空间的使用，SparseArray 也是以key和value对数据进行保存的.使用的时候只需要指定value的类型即可.并且key不需要封装成对象类型.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Android </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Android 基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>gitbook 简易教程</title>
       <link href="2020/10/14/gitbook-tutorial/"/>
       <url>2020/10/14/gitbook-tutorial/</url>
